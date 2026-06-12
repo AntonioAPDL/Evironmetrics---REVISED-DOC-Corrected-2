@@ -11,7 +11,7 @@ The planned next rerun under the shared `exAL-M-T1` relaunch spec is tracked sep
 
 ## Purpose
 
-This manuscript-side checklist records the **current publication-aligned** `exAL-M-T1` relaunch target for `Evironmetrics---REVISED-DOC-Corrected`.
+This manuscript-side checklist records the **current publication-aligned** `exAL-M-T1` relaunch target for `Evironmetrics---REVISED-DOC-Corrected-2`.
 
 It replaces the older pre-publication source-run audit that had become misleading after the corrected HE2 publication freeze.
 

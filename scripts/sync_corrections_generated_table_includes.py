@@ -110,7 +110,7 @@ def write_readme(table_dir: Path) -> None:
         "absolute paths to runtime outputs.\n\n"
         "Publication-facing numeric cells are rendered with fixed 5 decimal places.\n\n"
         "Refresh source:\n\n"
-        "- `Evironmetrics---REVISED-DOC-Corrected/scripts/sync_corrections_generated_table_includes.py`\n\n"
+        "- `Evironmetrics---REVISED-DOC-Corrected-2/scripts/sync_corrections_generated_table_includes.py`\n\n"
         "Refresh targets:\n\n"
         f"{bullets}\n\n"
         "The workflow-side cross-repo validator checks these fragments against the same\n"

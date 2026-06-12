@@ -5,7 +5,7 @@
 This document records the current provenance status of manuscript figures and interpretation-dependent tables for the revised Environmetrics article.
 
 Primary manuscript repo:
-- `/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected`
+- `/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected-2`
 
 Primary workflow repo currently linked to figure/table generation:
 - `/data/muscat_data/jaguir26/project1_ucsc_phd`
@@ -106,7 +106,7 @@ Verified status:
 - posterior table exports are present
 
 The revised manuscript repo now contains a local copy of the representative selected-model artifacts under:
-- `/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected/artifacts/representative_selected_model_2022_12_25`
+- `/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected-2/artifacts/representative_selected_model_2022_12_25`
 
 Those copied artifacts include:
 - `posterior_samples_valid.png`
@@ -227,7 +227,7 @@ The documented post-stage outputs are:
 
 ### High-confidence, workflow-linked figures already matching the recorded gold outputs
 
-The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected/figures/manuscript/` were hashed locally and match the workflow repo's `repro/gold_DISC_figures.sha256` exactly.
+The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected-2/figures/manuscript/` were hashed locally and match the workflow repo's `repro/gold_DISC_figures.sha256` exactly.
 
 | Manuscript label | Current asset | Current manuscript role | Workflow evidence | Hash match | Repro status | Selected-run status | Recommended action |
 |---|---|---|---|---|---|---|---|

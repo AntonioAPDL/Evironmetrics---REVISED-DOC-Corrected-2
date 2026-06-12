@@ -38,7 +38,7 @@ This is the active manuscript-side rerender target for the revised article.
   - `sigma_summary`
 - The article-side five-run freeze is preserved under:
   - `artifacts/five_cutoff_crps_validation_sources/`
-- Do not refresh `Evironmetrics---REVISED-DOC-Corrected` figures or tables from any older side-work roots when the five-run verified lineage is the intended source.
+- Do not refresh `Evironmetrics---REVISED-DOC-Corrected-2` figures or tables from any older side-work roots when the five-run verified lineage is the intended source.
 
 ### 0.1 Setup/support figure correction checkpoint
 
