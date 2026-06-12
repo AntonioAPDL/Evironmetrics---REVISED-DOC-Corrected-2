@@ -7,9 +7,10 @@ Included contracts:
 
 - `raw_state_component` for each retained state component available in the support CSV.
 - `component_6_plus_trend_component_1_samplewise`, the audited samplewise construction used by Figure A1.
+- `component_6_minus_trend_component_1_samplewise`, the samplewise 80-month component minus trend diagnostic.
 
 Excluded by default:
 
 - `component_6_shifted_by_posterior_mean_trend_component_1`, the older shifted diagnostic contract.
 
-Rendered figures: 8
+Rendered figures: 9

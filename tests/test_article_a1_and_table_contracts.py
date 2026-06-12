@@ -17,6 +17,10 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             'FIGURE_A1_COMPONENT_CONTRACT <- "component_6_plus_trend_component_1_samplewise"',
             text,
         )
+        self.assertIn(
+            'COMPONENT_6_MINUS_TREND_CONTRACT <- "component_6_minus_trend_component_1_samplewise"',
+            text,
+        )
         self.assertIn("hydrologic_regime_periods <- function()", text)
         self.assertIn('"2012-01-01"', text)
         self.assertIn('"2016-12-31"', text)
@@ -53,9 +57,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         )
         component_analysis = meta.get("component_analysis")
         self.assertIsInstance(component_analysis, dict)
-        self.assertEqual(component_analysis.get("figure_count"), 8)
+        self.assertEqual(component_analysis.get("figure_count"), 9)
         self.assertIn(
             "component_06_component_6_plus_trend_component_1_samplewise.png",
+            component_analysis.get("files", []),
+        )
+        self.assertIn(
+            "component_06_component_6_minus_trend_component_1_samplewise.png",
             component_analysis.get("files", []),
         )
 
@@ -72,6 +80,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("component_01_raw_state_component.png", text)
         self.assertIn("component_07_raw_state_component.png", text)
         self.assertIn("component_06_component_6_plus_trend_component_1_samplewise.png", text)
+        self.assertIn("component_06_component_6_minus_trend_component_1_samplewise.png", text)
         self.assertNotIn("component_6_shifted_by_posterior_mean_trend_component_1", text)
         self.assertNotIn("TRUE", text)
 

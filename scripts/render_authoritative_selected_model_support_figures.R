@@ -49,6 +49,7 @@ suppressPackageStartupMessages({
 })
 
 FIGURE_A1_COMPONENT_CONTRACT <- "component_6_plus_trend_component_1_samplewise"
+COMPONENT_6_MINUS_TREND_CONTRACT <- "component_6_minus_trend_component_1_samplewise"
 COMPONENT_ANALYSIS_LEGACY_EXCLUDED_CONTRACTS <- c(
   "component_6_shifted_by_posterior_mean_trend_component_1"
 )
@@ -64,6 +65,9 @@ component_analysis_label <- function(component, contract) {
   contract <- as.character(contract)
   if (identical(contract, FIGURE_A1_COMPONENT_CONTRACT)) {
     return("Component 6 plus trend component 1 (samplewise)")
+  }
+  if (identical(contract, COMPONENT_6_MINUS_TREND_CONTRACT)) {
+    return("Component 6 minus trend component 1 (samplewise)")
   }
   if (identical(contract, "raw_state_component")) {
     return(sprintf("Raw state component %d", component))
@@ -102,6 +106,22 @@ component_analysis_specs <- function(component_df) {
       component_contract = FIGURE_A1_COMPONENT_CONTRACT,
       display_label = component_analysis_label(6L, FIGURE_A1_COMPONENT_CONTRACT),
       filename = component_analysis_slug(6L, FIGURE_A1_COMPONENT_CONTRACT),
+      include_in_manuscript = FALSE,
+      stringsAsFactors = FALSE
+    )
+  }
+
+  has_minus_contract <- any(
+    component_df$component == 6L &
+      component_df$component_contract == COMPONENT_6_MINUS_TREND_CONTRACT,
+    na.rm = TRUE
+  )
+  if (isTRUE(has_minus_contract)) {
+    rows[[length(rows) + 1L]] <- data.frame(
+      component = 6L,
+      component_contract = COMPONENT_6_MINUS_TREND_CONTRACT,
+      display_label = component_analysis_label(6L, COMPONENT_6_MINUS_TREND_CONTRACT),
+      filename = component_analysis_slug(6L, COMPONENT_6_MINUS_TREND_CONTRACT),
       include_in_manuscript = FALSE,
       stringsAsFactors = FALSE
     )
@@ -369,6 +389,7 @@ write_component_analysis_readme <- function(analysis_dir, manifest) {
       "",
       "- `raw_state_component` for each retained state component available in the support CSV.",
       sprintf("- `%s`, the audited samplewise construction used by Figure A1.", FIGURE_A1_COMPONENT_CONTRACT),
+      sprintf("- `%s`, the samplewise 80-month component minus trend diagnostic.", COMPONENT_6_MINUS_TREND_CONTRACT),
       "",
       "Excluded by default:",
       "",
