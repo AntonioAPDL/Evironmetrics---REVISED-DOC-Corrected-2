@@ -1,0 +1,162 @@
+{
+  "figures": [
+    {
+      "label": "fig:sanlorenzo",
+      "manuscript_path": "figures/manuscript/site_context_usgs.png",
+      "category": "Setup / Inputs",
+      "role": "Study-setting figure",
+      "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/usgs.png",
+      "source_class": "setup_support_v2_representative",
+      "current_model_output_wired": true,
+      "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
+    },
+    {
+      "label": "fig:covariates",
+      "manuscript_path": "figures/manuscript/covariate_context_precip_soil_gdpc.png",
+      "category": "Setup / Inputs",
+      "role": "Covariate setup figure",
+      "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/precip_soilmoisture_climatePC1_faceted_labeled.png",
+      "source_class": "setup_support_v2_representative",
+      "current_model_output_wired": true,
+      "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
+    },
+    {
+      "label": "fig:retrospectives",
+      "manuscript_path": "figures/manuscript/retrospective_products_context.png",
+      "category": "Setup / Inputs",
+      "role": "Retrospective-product setup figure",
+      "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/retrospective_log_discharge_plot_faceted.png",
+      "source_class": "setup_support_v2_representative",
+      "current_model_output_wired": true,
+      "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
+    },
+    {
+      "label": "fig:ensembles",
+      "manuscript_path": "figures/manuscript/forecast_products_context.png",
+      "category": "Setup / Inputs",
+      "role": "Forecast-product setup figure",
+      "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/forecats.png",
+      "source_class": "setup_support_v2_representative",
+      "current_model_output_wired": true,
+      "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
+    },
+    {
+      "label": "fig:dry_quantile",
+      "manuscript_path": "figures/manuscript/historical_summary_dry_period.png",
+      "category": "Selected Model",
+      "role": "Selected-model quantile dynamics, 2012-2016 window",
+      "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
+    },
+    {
+      "label": "fig:rainy_quantile",
+      "manuscript_path": "figures/manuscript/historical_summary_wet_period.png",
+      "category": "Selected Model",
+      "role": "Selected-model quantile dynamics, 2017-2019 window",
+      "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
+    },
+    {
+      "label": "fig:synth1",
+      "manuscript_path": "figures/manuscript/representative_synthesis_multivariate.png",
+      "category": "Selected Model",
+      "role": "Representative selected-model synthesis",
+      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png",
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output"
+    },
+    {
+      "label": "fig:80_components",
+      "manuscript_path": "figures/manuscript/historical_component_80month.png",
+      "category": "Selected Model",
+      "role": "Selected-model 80-month component summary with dry/wet period overlays",
+      "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure using the audited samplewise component-6-plus-trend contract."
+    },
+    {
+      "label": "fig:synth2",
+      "manuscript_path": "figures/manuscript/reference_synthesis_univariate.png",
+      "category": "Appendix Support",
+      "role": "Historical-only reference synthesis",
+      "source_path": "artifacts/historical_support_from_current_models/figures/reference_synthesis_univariate.png",
+      "source_class": "current_model_output_support",
+      "current_model_output_wired": true,
+      "note": "Copied from the current 2022-12-25 exdqlm_univar publication-style output bundle"
+    }
+  ],
+  "tables": {
+    "tab:benchmark_crps_models": {
+      "label": "tab:benchmark_crps_models",
+      "role": "Five-cutoff benchmark table",
+      "table_tex_path": "tables/generated_tex/benchmark_crps_main_table.tex",
+      "source_class": "publication_manifest_plus_representative_raw_baselines",
+      "sources": {
+        "bayesian_manifest_csv": "artifacts/he2_publication_freeze/he2_bayesian_publication_manifest.csv",
+        "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources"
+      },
+      "note": "Generated from the frozen HE2 publication manifest plus the raw-baseline rows in the five authoritative exAL-M-T1 CRPS summaries. All nine Bayesian benchmark families are promoted onto the canonical 20260510 input-bundle contract; this is the final CRPS table source for the current publication snapshot."
+    },
+    "tab:he4_quantile_check_loss": {
+      "label": "tab:he4_quantile_check_loss",
+      "role": "Forecast-window quantile check-loss table for the four principal synthesis competitors",
+      "table_tex_path": "tables/generated_tex/he4_quantile_check_loss_main_table.tex",
+      "source_class": "he4_current_he2_publication_manifest",
+      "sources": {
+        "he4_quantile_check_loss_wide_csv": "artifacts/he4_quantile_check_loss_current_publication/he4_quantile_check_loss_wide.csv",
+        "he4_selection_audit_csv": "artifacts/he4_quantile_check_loss_current_publication/he4_selection_audit.csv",
+        "he2_publication_manifest_csv": "artifacts/he2_publication_freeze/he2_bayesian_publication_manifest.csv"
+      },
+      "note": "Generated from the current HE2 publication manifest rows for exAL-M-T1, AL-M-T1, exAL-U-T1, and AL-U-T1. Quantile artifacts are resolved from the manifest run_root/run_id pairs, and CRPS is cross-checked against the frozen HE2 manifest before check losses are summarized."
+    },
+    "tab:components_23_31": {
+      "label": "tab:components_23_31",
+      "role": "Representative covariate-effects table",
+      "table_tex_path": "tables/generated_tex/representative_covariate_effects_table.tex",
+      "source_class": "current_selected_model_representative",
+      "sources": {
+        "covariate_effects_csv": "artifacts/representative_selected_model_2022_12_25/covariate_effects_summary.csv"
+      },
+      "note": "Generated from the representative 2022-12-25 exAL-M-T1 covariate-effects export"
+    },
+    "tab:gamma_sigma_intervals1": {
+      "label": "tab:gamma_sigma_intervals1",
+      "role": "Appendix gamma summary",
+      "table_tex_path": "tables/generated_tex/appendix_gamma_summary_table.tex",
+      "source_class": "current_selected_model_representative",
+      "sources": {
+        "gamma_summary_csv": "artifacts/representative_selected_model_2022_12_25/gamma_summary.csv"
+      },
+      "note": "Generated from the representative 2022-12-25 exAL-M-T1 gamma export"
+    },
+    "tab:gamma_sigma_intervals2": {
+      "label": "tab:gamma_sigma_intervals2",
+      "role": "Appendix sigma summary",
+      "table_tex_path": "tables/generated_tex/appendix_sigma_summary_table.tex",
+      "source_class": "current_selected_model_representative",
+      "sources": {
+        "sigma_summary_csv": "artifacts/representative_selected_model_2022_12_25/sigma_summary.csv"
+      },
+      "note": "Generated from the representative 2022-12-25 exAL-M-T1 sigma export"
+    },
+    "tab:he3_ablation_crps": {
+      "label": "tab:he3_ablation_crps",
+      "role": "Selected-model ablation CRPS table",
+      "table_tex_path": "tables/generated_tex/he3_ablation_crps_main_table.tex",
+      "source_class": "he3_authoritative_ablation",
+      "sources": {
+        "he3_ablation_long_csv": "artifacts/he3_exdqlm_ablation_authoritative/he3_ablation_long.csv",
+        "he3_ablation_audit_csv": "artifacts/he3_exdqlm_ablation_authoritative/audit__he3_ablation_audit.csv",
+        "he3_runtime_input_detail_csv": "artifacts/he3_exdqlm_ablation_authoritative/audit__he3_ablation_runtime_input_detail.csv",
+        "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources"
+      },
+      "note": "Generated from the authoritative HE3 exDQLM multivariate ablation matrix anchored to the 20260601 exAL-M-T1 winner manifest; raw forecast references are copied from the article-side five-cutoff CRPS validation source freeze."
+    }
+  }
+}

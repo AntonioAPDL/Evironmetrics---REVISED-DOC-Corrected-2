@@ -1,0 +1,31 @@
+\begin{table*}[htbp]
+\centering
+\renewcommand{\arraystretch}{1.08}
+\begin{threeparttable}
+\caption{Mean forecast-window CRPS by model family and cutoff across the five rolling-origin evaluation folds. Lower values are better; bold indicates the lowest CRPS within each cutoff column.}
+\label{tab:benchmark_crps_models}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} >{\ttfamily}l r r r r r}
+\toprule
+Model label & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\
+\midrule
+\multicolumn{6}{l}{\textit{Raw forecast products}} \\
+RAW-GLOFAS & 0.40366 & 0.16957 & 0.68246 & 0.27227 & 1.56006 \\
+RAW-NWS & 0.83037 & 1.37192 & 0.28118 & 0.28366 & \textbf{0.55680} \\
+\midrule
+\multicolumn{6}{l}{\textit{Bayesian benchmark variants}} \\
+N-U-T1 & 0.33592 & 0.17059 & 1.19345 & 0.15077 & 2.49972 \\
+N-M-T0 & 1.84560 & 0.38023 & 0.65964 & 0.67014 & 0.64404 \\
+N-M-T1 & 3.21490 & 0.89096 & 3.04564 & 0.86820 & 3.88863 \\
+AL-U-T1 & 1.63855 & 1.43787 & 2.62678 & 1.33540 & 3.66529 \\
+AL-M-T0 & 0.46798 & 0.19990 & 0.58668 & 0.21553 & 1.40260 \\
+AL-M-T1 & 0.14592 & 0.05551 & 0.27775 & 0.05716 & 0.62764 \\
+exAL-U-T1 & 1.59376 & 1.37206 & 2.56295 & 1.26677 & 3.59528 \\
+exAL-M-T0 & 1.22150 & 1.79868 & 1.08503 & 2.13102 & 1.21132 \\
+exAL-M-T1 & \textbf{0.13971} & \textbf{0.04724} & \textbf{0.26537} & \textbf{0.03233} & 0.66546 \\
+\bottomrule
+\end{tabular*}
+\begin{tablenotes}
+\item \textit{Note:} The model label \(L\)-\(S\)-\(T\) is defined as follows: \(L\in\{\mathrm{N},\mathrm{AL},\mathrm{exAL}\}\) denotes a Gaussian, asymmetric Laplace, or extended asymmetric Laplace observation likelihood; \(S\in\{\mathrm{U},\mathrm{M}\}\) indicates whether the synthesis uses only the USGS channel or all source channels jointly; and \(T\in\{\mathrm{T0},\mathrm{T1}\}\) indicates whether the transfer component is suppressed or retained during the forecast window. \texttt{RAW-GLOFAS} and \texttt{RAW-NWS} denote the uncorrected operational forecast products from GloFAS and NWS, respectively.
+\end{tablenotes}
+\end{threeparttable}
+\end{table*}

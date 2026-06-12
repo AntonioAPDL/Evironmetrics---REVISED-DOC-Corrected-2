@@ -1,0 +1,10 @@
+{
+  "slug": "20211221_exal_m_t1",
+  "cutoff": "2021-12-21",
+  "cutoff_code": "20211221",
+  "multivar_run_id": "multimodel_20211221_v8_he2grid_c03_eps030_exdqlm_multivar_keep",
+  "grid_spec_id": "c03_eps030",
+  "univar_run_id": "multimodel_20211221_v8_he2pubgdpc1r1_exdqlm_univar",
+  "source_lineage": "exdqlm_multivar_keep_canonical_grid_20260524:authoritative_winner",
+  "authoritative_manifest": "/data/muscat_data/jaguir26/project1_ucsc_phd/docs/exdqlm_multivar_keep_authoritative_specs_20260601.yaml"
+}

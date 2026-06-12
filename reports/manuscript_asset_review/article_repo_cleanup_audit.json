@@ -1,0 +1,35 @@
+{
+  "article_root": "/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected",
+  "canonical_manuscript_figures": [
+    "figures/manuscript/covariate_context_precip_soil_gdpc.png",
+    "figures/manuscript/forecast_products_context.png",
+    "figures/manuscript/historical_component_80month.png",
+    "figures/manuscript/historical_summary_dry_period.png",
+    "figures/manuscript/historical_summary_wet_period.png",
+    "figures/manuscript/reference_synthesis_univariate.png",
+    "figures/manuscript/representative_synthesis_multivariate.png",
+    "figures/manuscript/retrospective_products_context.png",
+    "figures/manuscript/site_context_usgs.png"
+  ],
+  "removed_legacy_paths": [
+    "scripts/__pycache__"
+  ],
+  "retained_artifact_families": [
+    "five_cutoff_crps_validation_sources",
+    "five_cutoff_main_model_synthesis",
+    "five_cutoff_reference_synthesis",
+    "five_cutoff_setup_support",
+    "he2_historical_support_audit",
+    "he2_publication_freeze",
+    "historical_support_from_current_models",
+    "representative_selected_model_2022_12_25"
+  ],
+  "retained_report_families": [
+    "article_figure_lineage_audit_20260516",
+    "five_cutoff_setup_support_review",
+    "five_cutoff_synthesis_review",
+    "manuscript_asset_review",
+    "manuscript_figure_selection",
+    "representative_setup_selection"
+  ]
+}

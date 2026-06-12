@@ -1,0 +1,25 @@
+__pycache__/
+scripts/__pycache__/
+*.aux
+*.log
+*.pag
+*.out
+*.toc
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+wileyNJD-APA.pdf
+output.pdf
+empty-eps-converted-to.pdf
+
+# Large workflow-side posterior support data should stay out of the
+# Overleaf-facing article repository. Regenerate figures from the workflow
+# runtime source via scripts/refresh_authoritative_selected_model_support_figures.py.
+artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_*_summary.csv
+artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_*_summary.rds
+artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_selected_support_manifest.json
+artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_selected_support_lineage.csv
+*.RData
+*.rdata

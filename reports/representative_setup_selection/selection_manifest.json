@@ -1,0 +1,13 @@
+{
+  "selected_slug": "20221225_exal_m_t1",
+  "selected_cutoff_date": "2022-12-25",
+  "selected_run_root": "/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_20260512/runs/multimodel_20221225_v8_he2pubgdpc1r1_exdqlm_multivar_keep",
+  "selected_figure_bundle_root": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1",
+  "bundle_class": "histfix_long_history_bundle",
+  "representative_figures": [
+    "usgs.png",
+    "precip_soilmoisture_climatePC1_faceted_labeled.png",
+    "retrospective_log_discharge_plot_faceted.png",
+    "forecats.png"
+  ]
+}
