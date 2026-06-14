@@ -367,6 +367,8 @@ To complement the CRPS comparison, Table~\ref{tab:he4_quantile_check_loss} repor
 To isolate which structural components contribute most to the selected multivariate specification, we rerun the cutoff-specific \texttt{exAL-M-T1} winners after removing one component at a time while preserving the same rolling-origin cutoffs, input bundles, preprocessing, likelihood, and winner hyperparameters.
 
 \input{tables/generated_tex/he3_ablation_crps_main_table.tex}
+
+In this targeted comparison, the full model remains best across all five ablation comparisons, indicating that the selected specification's forecast skill reflects the combined contribution of transfer information, trend, and multi-frequency seasonal structure.
 \section{INTERPRETATION OF THE SELECTED SPECIFICATION}
 \label{sec:interpretation}
 
