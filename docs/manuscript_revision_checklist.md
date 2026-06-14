@@ -94,9 +94,12 @@ This family contains appendix-ready composite panels for the cutoff-specific set
 Advisor-facing cutoff-wide copies of the Figure 4 forecast-context view are also refreshed automatically under:
 - `figures/forecast_context_by_cutoff/`
 
-### 0.3 Forward repair checkpoint
+### 0.3 Current authority and future calibration checkpoint
 
-The current publication state and the future corrected full-history rerun state must stay separate until we intentionally update them.
+The current publication state is the authoritative baseline for this revision
+snapshot. Future corrected or better-calibrated reruns must remain separate
+until they are intentionally promoted through a new workflow manifest/overlay,
+article refresh, corrections sync, validation gates, and document compilation.
 
 Forward repair planning documents:
 - `/data/muscat_data/jaguir26/project1_ucsc_phd/repro/run/HE2_FULL_HISTORY_REPAIR_FORWARD_PLAN.md`

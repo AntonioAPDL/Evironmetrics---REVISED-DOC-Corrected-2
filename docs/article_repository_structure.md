@@ -60,14 +60,22 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
 ### Generated tables used directly by the manuscript
 
 - `tables/generated_tex/benchmark_crps_main_table.tex`
+- `tables/generated_tex/benchmark_crps_nws_horizon_table.tex`
 - `tables/generated_tex/representative_covariate_effects_table.tex`
 - `tables/generated_tex/appendix_gamma_summary_table.tex`
 - `tables/generated_tex/appendix_sigma_summary_table.tex`
+- `tables/generated_tex/he3_ablation_crps_main_table.tex`
+- `tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex`
+- `tables/generated_tex/he4_quantile_check_loss_main_table.tex`
 
 ## Artifact bundles
 
 - `artifacts/five_cutoff_setup_support/`
   - canonical five-cutoff setup/support family mirrored from the validated runtime bundle
+- `artifacts/five_cutoff_main_model_synthesis/`
+  - cutoff-wide synthesis figure family for the selected multivariate model
+- `artifacts/five_cutoff_reference_synthesis/`
+  - cutoff-wide reference synthesis figure family for the univariate reference model
 - `artifacts/historical_support_from_current_models/`
   - current-model historical-support figures used by manuscript Figures 5, 6, A1, and A2
 - `artifacts/representative_selected_model_2022_12_25/`
@@ -78,6 +86,10 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
   - local snapshot of the workflow-side HE2 publication manifest
 - `artifacts/he2_historical_support_audit/`
   - local snapshot of the workflow-side HE2 historical-support audit
+- `artifacts/he3_exdqlm_ablation_authoritative/`
+  - local snapshot of the authoritative HE3 ablation matrix and audit files
+- `artifacts/he4_quantile_check_loss_current_publication/`
+  - local snapshot of the current HE4 quantile check-loss artifact
 
 ## Review bundles
 
