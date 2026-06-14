@@ -43,6 +43,15 @@ TABLE_SPECS: tuple[ResponseTableSpec, ...] = (
         description="current revised-article HE3 authoritative ablation artifact",
     ),
     ResponseTableSpec(
+        article_body="he3_ablation_crps_nws_horizon_body.tex",
+        corrections_table="he3_ablation_crps_nws_horizon_response_table.tex",
+        font_size=r"\scriptsize",
+        tabcolsep="4pt",
+        tabular_spec=r">{\ttfamily}l c c c c c",
+        header=r"Ablation model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
+        description="current revised-article HE3 ablation artifact restricted to the common eight-day NWS horizon",
+    ),
+    ResponseTableSpec(
         article_body="he4_quantile_check_loss_rows.tex",
         corrections_table="he4_quantile_check_loss_response_table.tex",
         font_size=r"\tiny",

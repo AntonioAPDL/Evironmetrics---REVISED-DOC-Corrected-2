@@ -152,6 +152,30 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn("tab:benchmark_crps_models,RAW-NWS", source_text)
         self.assertIn("tab:benchmark_crps_models_nws_horizon,RAW-NWS,20210123,8", source_text)
 
+    def test_he3_ablation_tables_separate_28_day_and_nws_common_horizons(self) -> None:
+        table_dir = ROOT / "tables" / "generated_tex"
+        long_table = table_dir / "he3_ablation_crps_main_table.tex"
+        short_table = table_dir / "he3_ablation_crps_nws_horizon_table.tex"
+        source_csv = table_dir / "he3_ablation_crps_horizon_summary.csv"
+        self.assertTrue(long_table.exists(), f"missing HE3 28-day table: {long_table}")
+        self.assertTrue(short_table.exists(), f"missing HE3 NWS-horizon table: {short_table}")
+        self.assertTrue(source_csv.exists(), f"missing HE3 horizon audit CSV: {source_csv}")
+
+        long_text = long_table.read_text(encoding="utf-8")
+        short_text = short_table.read_text(encoding="utf-8")
+        self.assertIn("Targeted 28-day ablation", long_text)
+        self.assertIn("RAW-GLOFAS", long_text)
+        self.assertNotIn("RAW-NWS &", long_text)
+        self.assertIn("Targeted ablation CRPS over the common eight-day NWS forecast horizon", short_text)
+        self.assertIn("RAW-GLOFAS", short_text)
+        self.assertIn("RAW-NWS", short_text)
+        self.assertIn("forecast leads 1--8", short_text)
+
+        source_text = source_csv.read_text(encoding="utf-8")
+        self.assertIn("tab:he3_ablation_crps,RAW-GLOFAS,20210123,28", source_text)
+        self.assertNotIn("tab:he3_ablation_crps,RAW-NWS", source_text)
+        self.assertIn("tab:he3_ablation_crps_nws_horizon,RAW-NWS,20210123,8", source_text)
+
     def test_generated_table_decimal_cells_have_five_places(self) -> None:
         table_dir = ROOT / "tables" / "generated_tex"
         self.assertTrue(table_dir.exists(), f"missing generated table dir: {table_dir}")
