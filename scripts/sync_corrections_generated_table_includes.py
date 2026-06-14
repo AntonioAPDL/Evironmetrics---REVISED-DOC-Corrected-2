@@ -34,6 +34,15 @@ TABLE_SPECS: tuple[ResponseTableSpec, ...] = (
         description="current revised-article HE2 publication freeze plus raw-baseline rows",
     ),
     ResponseTableSpec(
+        article_body="benchmark_crps_nws_horizon_body.tex",
+        corrections_table="he2_benchmark_crps_nws_horizon_response_table.tex",
+        font_size=r"\scriptsize",
+        tabcolsep="4pt",
+        tabular_spec=r">{\ttfamily}l rrrrr",
+        header=r"Model label & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
+        description="current revised-article HE2 comparison restricted to the common eight-day NWS horizon",
+    ),
+    ResponseTableSpec(
         article_body="he3_ablation_crps_body.tex",
         corrections_table="he3_ablation_crps_response_table.tex",
         font_size=r"\scriptsize",
