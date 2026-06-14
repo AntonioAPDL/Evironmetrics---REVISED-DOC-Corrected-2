@@ -365,16 +365,8 @@ To complement the CRPS comparison, Table~\ref{tab:he4_quantile_check_loss} repor
 \input{tables/generated_tex/he4_quantile_check_loss_main_table.tex}
 
 
-\subsection{Ablation of the Selected Specification}
-\label{subsec:he3ablation}
+Appendix~\ref{app:he3ablation} reports a targeted component ablation of the selected extended-likelihood multivariate specification under the same rolling-origin and horizon contracts.
 
-To isolate which structural components contribute most to the selected multivariate specification, we rerun the cutoff-specific \texttt{exAL-M-T1} winners after removing one component at a time while preserving the same rolling-origin cutoffs, input bundles, preprocessing, likelihood, and winner hyperparameters. As in the main CRPS comparison, the ablation summary separates the 28-day comparison from the common eight-day NWS-horizon comparison.
-
-\input{tables/generated_tex/he3_ablation_crps_main_table.tex}
-
-\input{tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex}
-
-In both targeted comparisons, the full model remains best across all five ablation comparisons, indicating that the selected specification's forecast skill reflects the combined contribution of transfer information, trend, and multi-frequency seasonal structure.
 \section{INTERPRETATION OF THE SELECTED SPECIFICATION}
 \label{sec:interpretation}
 
@@ -471,6 +463,17 @@ Applying that workflow to a new basin still requires constructing a basin-specif
 
 \section{Supplementary Parameter Summaries and Illustrations}
 \label{app:extras}
+
+\subsection{Targeted Component Ablation}
+\label{app:he3ablation}
+
+To assess the contribution of the main structural blocks in the selected extended-likelihood multivariate specification, we rerun the cutoff-specific \texttt{exAL-M-T1} reference fits after removing one component at a time. Each ablation preserves the same rolling-origin cutoffs, input bundles, preprocessing, likelihood, and selected hyperparameters, so the comparison changes only the named structural component. The labels \texttt{noH1}, \texttt{noH2}, and \texttt{noH3} remove the first, second, and third retained seasonal harmonic pairs, respectively; \texttt{noH3} refers to the retained noninteger frequency \(1/6.8068493\), not to a literal harmonic frequency of 3.
+
+\input{tables/generated_tex/he3_ablation_crps_main_table.tex}
+
+\input{tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex}
+
+Within this fixed ablation matrix, the full reference row has the lowest CRPS among the ablation rows at all five cutoffs under both horizon contracts. This component-sensitivity check supports retaining the transfer, trend, and multi-frequency seasonal blocks in the selected specification.
 
 \subsection{Supplementary Source-Specific Shape and Scale Parameters}
 \label{app:sourceparams}

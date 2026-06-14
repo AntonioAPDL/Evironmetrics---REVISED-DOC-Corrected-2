@@ -166,10 +166,29 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("Targeted 28-day ablation", long_text)
         self.assertIn("RAW-GLOFAS", long_text)
         self.assertNotIn("RAW-NWS &", long_text)
+        self.assertIn("noH3", long_text)
+        self.assertIn("1/6.8068493", long_text)
         self.assertIn("Targeted ablation CRPS over the common eight-day NWS forecast horizon", short_text)
         self.assertIn("RAW-GLOFAS", short_text)
         self.assertIn("RAW-NWS", short_text)
         self.assertIn("forecast leads 1--8", short_text)
+
+        article_text = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn(r"Appendix~\ref{app:he3ablation}", article_text)
+        self.assertIn(r"\label{app:he3ablation}", article_text)
+        self.assertIn("1/6.8068493", article_text)
+        self.assertLess(
+            article_text.index(r"\appendix"),
+            article_text.index(r"\input{tables/generated_tex/he3_ablation_crps_main_table.tex}"),
+        )
+        self.assertEqual(
+            article_text.count(r"\input{tables/generated_tex/he3_ablation_crps_main_table.tex}"),
+            1,
+        )
+        self.assertEqual(
+            article_text.count(r"\input{tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex}"),
+            1,
+        )
 
         source_text = source_csv.read_text(encoding="utf-8")
         self.assertIn("tab:he3_ablation_crps,RAW-GLOFAS,20210123,28", source_text)
