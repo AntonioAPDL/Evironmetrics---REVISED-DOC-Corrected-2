@@ -48,6 +48,18 @@ def run_git(args: list[str], *, check: bool = True) -> str:
     return proc.stdout.strip()
 
 
+def git_success(args: list[str]) -> bool:
+    proc = subprocess.run(
+        ["git", *args],
+        cwd=REPO_ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    return proc.returncode == 0
+
+
 def parse_name_status(text: str) -> list[Change]:
     changes: list[Change] = []
     for line in text.splitlines():
@@ -162,7 +174,7 @@ def main() -> int:
         return 2
 
     branch = args.branch
-    if run_git(["merge-base", "--is-ancestor", branch, "HEAD"], check=False) == "":
+    if git_success(["merge-base", "--is-ancestor", branch, "HEAD"]):
         print(f"{branch} is already merged into HEAD.")
         return 0
 
