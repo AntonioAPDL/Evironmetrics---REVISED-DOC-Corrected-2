@@ -123,6 +123,34 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn(", 3)", text)
         self.assertIn("fmt_display", text)
         self.assertIn("table-format=-1.5", text)
+        self.assertIn("BENCHMARK_LONG_HORIZON_DAYS = 28", text)
+        self.assertIn("BENCHMARK_NWS_COMMON_HORIZON_DAYS = 8", text)
+        self.assertIn("BENCHMARK_LONG_RAW_ROW_ORDER = ['RAW-GLOFAS']", text)
+
+    def test_benchmark_tables_separate_28_day_and_nws_common_horizons(self) -> None:
+        table_dir = ROOT / "tables" / "generated_tex"
+        long_table = table_dir / "benchmark_crps_main_table.tex"
+        short_table = table_dir / "benchmark_crps_nws_horizon_table.tex"
+        source_csv = table_dir / "benchmark_crps_horizon_summary.csv"
+        self.assertTrue(long_table.exists(), f"missing 28-day table: {long_table}")
+        self.assertTrue(short_table.exists(), f"missing NWS-horizon table: {short_table}")
+        self.assertTrue(source_csv.exists(), f"missing horizon audit CSV: {source_csv}")
+
+        long_text = long_table.read_text(encoding="utf-8")
+        short_text = short_table.read_text(encoding="utf-8")
+        self.assertIn("Mean 28-day forecast-window CRPS", long_text)
+        self.assertIn("RAW-GLOFAS", long_text)
+        self.assertNotIn("RAW-NWS &", long_text)
+        self.assertIn("normal dynamic linear model baselines", long_text)
+        self.assertIn("Mean CRPS over the common eight-day NWS forecast horizon", short_text)
+        self.assertIn("RAW-GLOFAS", short_text)
+        self.assertIn("RAW-NWS", short_text)
+        self.assertIn("forecast leads 1--8", short_text)
+
+        source_text = source_csv.read_text(encoding="utf-8")
+        self.assertIn("tab:benchmark_crps_models,RAW-GLOFAS,20210123,28", source_text)
+        self.assertNotIn("tab:benchmark_crps_models,RAW-NWS", source_text)
+        self.assertIn("tab:benchmark_crps_models_nws_horizon,RAW-NWS,20210123,8", source_text)
 
     def test_generated_table_decimal_cells_have_five_places(self) -> None:
         table_dir = ROOT / "tables" / "generated_tex"

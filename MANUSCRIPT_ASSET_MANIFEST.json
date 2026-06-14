@@ -94,14 +94,25 @@
   "tables": {
     "tab:benchmark_crps_models": {
       "label": "tab:benchmark_crps_models",
-      "role": "Five-cutoff benchmark table",
+      "role": "Five-cutoff 28-day benchmark table",
       "table_tex_path": "tables/generated_tex/benchmark_crps_main_table.tex",
       "source_class": "publication_manifest_plus_representative_raw_baselines",
       "sources": {
         "bayesian_manifest_csv": "artifacts/he2_publication_freeze/he2_bayesian_publication_manifest.csv",
         "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources"
       },
-      "note": "Generated from the frozen HE2 publication manifest plus the raw-baseline rows in the five authoritative exAL-M-T1 CRPS summaries. All nine Bayesian benchmark families are promoted onto the canonical 20260510 input-bundle contract; this is the final CRPS table source for the current publication snapshot."
+      "note": "Generated from the frozen HE2 publication manifest plus the 28-day raw GloFAS row in the five authoritative exAL-M-T1 per-time CRPS summaries. NWS is intentionally excluded from this table because the archived NWS forecasts provide only eight valid daily leads for these origins."
+    },
+    "tab:benchmark_crps_models_nws_horizon": {
+      "label": "tab:benchmark_crps_models_nws_horizon",
+      "role": "Five-cutoff common eight-day NWS-horizon benchmark table",
+      "table_tex_path": "tables/generated_tex/benchmark_crps_nws_horizon_table.tex",
+      "source_class": "publication_manifest_plus_representative_raw_baselines",
+      "sources": {
+        "bayesian_manifest_csv": "artifacts/he2_publication_freeze/he2_bayesian_publication_manifest.csv",
+        "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources"
+      },
+      "note": "Generated from the same frozen HE2 publication manifest and authoritative exAL-M-T1 per-time CRPS sources as Table 1, but every row is restricted to leads 1--8 so RAW-NWS, RAW-GLOFAS, and the Bayesian predictive distributions are compared on a common horizon."
     },
     "tab:he4_quantile_check_loss": {
       "label": "tab:he4_quantile_check_loss",

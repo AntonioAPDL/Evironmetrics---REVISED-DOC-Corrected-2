@@ -72,12 +72,19 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
         src_summary = run_root / 'report' / 'summary.json'
         src_compare = run_root / 'validate' / 'compare_report.json'
         src_crps = output_root / 'tables' / 'crps_forecast_summary.csv'
+        src_crps_per_time = output_root / 'tables' / 'crps_forecast_per_time.csv'
 
         out_summary = target_dir / 'summary.json'
         out_compare = target_dir / 'compare_report.json'
         out_crps = target_dir / 'crps_forecast_summary.csv'
+        out_crps_per_time = target_dir / 'crps_forecast_per_time.csv'
 
-        for src, dst in ((src_summary, out_summary), (src_compare, out_compare), (src_crps, out_crps)):
+        for src, dst in (
+            (src_summary, out_summary),
+            (src_compare, out_compare),
+            (src_crps, out_crps),
+            (src_crps_per_time, out_crps_per_time),
+        ):
             digest = copy_file(src, dst)
             sums.append(f'{digest}  {spec["slug"]}/{dst.name}')
 
@@ -91,9 +98,11 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
             str(src_summary),
             str(src_compare),
             str(src_crps),
+            str(src_crps_per_time),
             str(out_summary.relative_to(layout.root)),
             str(out_compare.relative_to(layout.root)),
             str(out_crps.relative_to(layout.root)),
+            str(out_crps_per_time.relative_to(layout.root)),
         ])
 
     (bundle_root / 'README.md').write_text(
@@ -105,6 +114,7 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
         '- `summary.json`\n'
         '- `compare_report.json`\n'
         '- `crps_forecast_summary.csv`\n\n'
+        '- `crps_forecast_per_time.csv`\n\n'
         'These files are copied from the CRPS-selected canonical-grid `exdqlm_multivar_keep` winner root.\n'
     )
 
@@ -112,8 +122,8 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
         writer = csv.writer(f, lineterminator='\n')
         writer.writerow([
             'slug', 'cutoff', 'run_id', 'published_crps', 'replay_mean_crps', 'runtime_run_root',
-            'source_summary_json', 'source_compare_report', 'source_crps_summary',
-            'local_summary_json', 'local_compare_report', 'local_crps_summary'
+            'source_summary_json', 'source_compare_report', 'source_crps_summary', 'source_crps_per_time',
+            'local_summary_json', 'local_compare_report', 'local_crps_summary', 'local_crps_per_time'
         ])
         writer.writerows(manifest_rows)
     (bundle_root / 'SHA256SUMS.txt').write_text('\n'.join(sorted(sums)) + '\n')

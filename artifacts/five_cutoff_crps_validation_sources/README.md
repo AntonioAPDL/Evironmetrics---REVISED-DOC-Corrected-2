@@ -10,4 +10,6 @@ For each cutoff, the local freeze contains:
 - `compare_report.json`
 - `crps_forecast_summary.csv`
 
+- `crps_forecast_per_time.csv`
+
 These files are copied from the CRPS-selected canonical-grid `exdqlm_multivar_keep` winner root.
