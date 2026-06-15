@@ -13,7 +13,13 @@
       "usgs_through_cutoff",
       "retrospective_products_through_cutoff"
     ],
-    "selection_basis": "archive_feasible_version_consistent_cutoff_bundles"
+    "selection_basis": "archive_feasible_version_consistent_cutoff_bundles",
+    "fair_assessment": {
+      "cross_validation_analogue": "time_ordered_rolling_origin_folds",
+      "fold_unit": "forecast_origin_cutoff",
+      "dense_overlapping_origins_claimed": false,
+      "dense_origin_policy": "not_used_because_archive_version_constraints_and_overlapping_windows_can_overrepresent_the_same_hydrological_episode"
+    }
   },
   "forecast_origin_inputs": {
     "forecast_products": {
@@ -45,7 +51,8 @@
   "claims_policy": {
     "post_cutoff_usgs_used_for_fit_or_update": false,
     "gdpc_pca_described_as_forecast_product": false,
-    "forecast_validation_target": "held_out_usgs_observations"
+    "forecast_validation_target": "held_out_usgs_observations",
+    "continuous_daily_post_2022_hindcast_claimed": false
   },
   "evidence": {
     "workflow_contract": "docs/he6_out_of_sample_forecast_design_contract_20260615.md",

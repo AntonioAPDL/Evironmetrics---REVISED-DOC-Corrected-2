@@ -76,6 +76,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             manifest.get("rolling_origin_design", {}).get("held_out_target"),
             "post_cutoff_usgs_only",
         )
+        fair_assessment = manifest.get("rolling_origin_design", {}).get("fair_assessment", {})
+        self.assertEqual(
+            fair_assessment.get("cross_validation_analogue"),
+            "time_ordered_rolling_origin_folds",
+        )
+        self.assertEqual(fair_assessment.get("fold_unit"), "forecast_origin_cutoff")
+        self.assertFalse(fair_assessment.get("dense_overlapping_origins_claimed"))
         self.assertEqual(
             manifest.get("forecast_origin_inputs", {}).get("forecast_products", {}).get("timing"),
             "latest_issued_at_or_before_cutoff",
@@ -90,6 +97,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertFalse(gdpc.get("operational_forecast_product"))
         self.assertFalse(gdpc.get("verification_target"))
         self.assertFalse(manifest.get("claims_policy", {}).get("post_cutoff_usgs_used_for_fit_or_update"))
+        self.assertFalse(manifest.get("claims_policy", {}).get("continuous_daily_post_2022_hindcast_claimed"))
 
         self.assertTrue((ROOT / "docs" / "forecast_design_contract.md").exists())
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
@@ -144,6 +152,16 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("Its role is illustrative", article)
         self.assertIn("comparative forecast evaluation remains the main empirical evidence", article)
         self.assertNotIn("only one short forecast has been evaluated", article)
+
+    def test_reviewer1_fair_forecast_assessment_is_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("time-ordered analogue of cross-validation", article)
+        self.assertIn("each fold fixes a forecast origin", article)
+        self.assertIn("uses only information available at that origin", article)
+        self.assertIn("scores the resulting predictive distribution against future USGS observations", article)
+        self.assertIn("feasible folds are constrained by version-consistent forecast archives", article)
+        self.assertIn("heavily overlapping forecast windows would overrepresent the same hydrological episode", article)
+        self.assertNotIn("random K-fold cross-validation", article)
 
     def test_reviewer1_uncertainty_sources_are_distinguished(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
