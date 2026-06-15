@@ -1,0 +1,57 @@
+{
+  "schema_version": "he6_forecast_design_v1",
+  "rolling_origin_design": {
+    "cutoffs": [
+      "20210123",
+      "20211112",
+      "20211221",
+      "20220511",
+      "20221225"
+    ],
+    "held_out_target": "post_cutoff_usgs_only",
+    "fit_inputs": [
+      "usgs_through_cutoff",
+      "retrospective_products_through_cutoff"
+    ],
+    "selection_basis": "archive_feasible_version_consistent_cutoff_bundles"
+  },
+  "forecast_origin_inputs": {
+    "forecast_products": {
+      "sources": [
+        "GloFAS",
+        "NWS"
+      ],
+      "timing": "latest_issued_at_or_before_cutoff",
+      "role": "forecast_window_source_channels"
+    },
+    "local_covariates": {
+      "names": [
+        "precipitation",
+        "soil_moisture"
+      ],
+      "role": "forecast_window_transfer_covariates",
+      "source_policy": "staged_version_consistent_cutoff_specific_support_bundle"
+    },
+    "gdpc_pca": {
+      "workflow_slot": "PCA",
+      "canonical_name": "GDPC1",
+      "role": "deterministic_climate_index_covariate",
+      "operational_forecast_product": false,
+      "verification_target": false,
+      "source_policy": "canonical_master_factor_sliced_to_cutoff_specific_bundle"
+    }
+  },
+  "claims_policy": {
+    "post_cutoff_usgs_used_for_fit_or_update": false,
+    "gdpc_pca_described_as_forecast_product": false,
+    "forecast_validation_target": "held_out_usgs_observations"
+  },
+  "evidence": {
+    "workflow_contract": "docs/he6_out_of_sample_forecast_design_contract_20260615.md",
+    "article_contract": "docs/forecast_design_contract.md",
+    "article_text": "wileyNJD-APA.tex",
+    "corrections_text": "/data/muscat_data/jaguir26/Corrections---Project-1/main.tex",
+    "covariate_builder": "R/disc_w/03_covariates_standardize.R",
+    "setup_support_renderer": "scripts/render_exal_m_t1_setup_support_by_cutoff_v2.py"
+  }
+}

@@ -8,6 +8,7 @@ These folders are the article-side frozen artifact bundles that feed the manuscr
 | `five_cutoff_main_model_synthesis` | Corrected cutoff-wide Figure 7 family copied from the five-cutoff he2pubgdpc1r1 exAL main-model reruns. | 56 | 10 | yes | `README.md` |
 | `five_cutoff_reference_synthesis` | Cutoff-wide Figure A2-style reference synthesis family copied from the current exdqlm_univar output bundles. | 56 | 10 | yes | `README.md` |
 | `five_cutoff_setup_support` | Canonical five-cutoff setup/support figure family mirrored from the validated workflow runtime bundle. | 79 | 20 | yes | `review/gallery.html | README.md` |
+| `forecast_design` | Compact HE-6 rolling-origin forecast-design manifest. | 2 | 0 | yes | `README.md` |
 | `he2_historical_support_audit` | Workflow-side audit snapshot showing which publication rows use full historical support versus short-window support. | 5 | 0 | yes | `README.md` |
 | `he2_publication_freeze` | Frozen local snapshot of the current HE2 Bayesian publication manifest and alignment tables. | 10 | 0 | yes | `README.md` |
 | `he3_exdqlm_ablation_authoritative` | Artifact bundle. | 11 | 0 | yes | `README.md` |

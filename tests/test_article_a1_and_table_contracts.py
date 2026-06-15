@@ -67,6 +67,38 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn("100 minutes for fitting", article)
         self.assertNotIn("20 minutes for post-processing", article)
 
+    def test_forecast_design_manifest_and_text_are_wired(self) -> None:
+        manifest_path = ROOT / "artifacts" / "forecast_design" / "forecast_design_manifest.json"
+        self.assertTrue(manifest_path.exists(), f"missing forecast-design manifest: {manifest_path}")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest.get("schema_version"), "he6_forecast_design_v1")
+        self.assertEqual(
+            manifest.get("rolling_origin_design", {}).get("held_out_target"),
+            "post_cutoff_usgs_only",
+        )
+        self.assertEqual(
+            manifest.get("forecast_origin_inputs", {}).get("forecast_products", {}).get("timing"),
+            "latest_issued_at_or_before_cutoff",
+        )
+        self.assertEqual(
+            manifest.get("forecast_origin_inputs", {}).get("local_covariates", {}).get("names"),
+            ["precipitation", "soil_moisture"],
+        )
+        gdpc = manifest.get("forecast_origin_inputs", {}).get("gdpc_pca", {})
+        self.assertEqual(gdpc.get("workflow_slot"), "PCA")
+        self.assertEqual(gdpc.get("canonical_name"), "GDPC1")
+        self.assertFalse(gdpc.get("operational_forecast_product"))
+        self.assertFalse(gdpc.get("verification_target"))
+        self.assertFalse(manifest.get("claims_policy", {}).get("post_cutoff_usgs_used_for_fit_or_update"))
+
+        self.assertTrue((ROOT / "docs" / "forecast_design_contract.md").exists())
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("forecast-window precipitation and soil-moisture covariates", article)
+        self.assertIn("canonical GDPC/PCA climate-index factor", article)
+        self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
+        self.assertIn("not treated as an operational forecast product or verification target", article)
+        self.assertNotIn("GDPC forecast product", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
