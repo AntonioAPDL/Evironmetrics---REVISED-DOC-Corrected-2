@@ -133,6 +133,18 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
 
+    def test_reviewer1_expanded_forecast_evidence_is_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("five rolling-origin cutoff dates that span contrasting hydrological conditions", article)
+        self.assertIn("relatively low-flow windows as well as winter high-flow episodes", article)
+        self.assertIn("not a continuous daily hindcast over the full post-2022 period", article)
+        self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
+        self.assertIn("Forecast skill is evaluated from the resulting posterior predictive distributions by the mean continuous ranked probability score", article)
+        self.assertIn("targeted quantile diagnostics", article)
+        self.assertIn("Its role is illustrative", article)
+        self.assertIn("comparative forecast evaluation remains the main empirical evidence", article)
+        self.assertNotIn("only one short forecast has been evaluated", article)
+
     def test_reviewer1_uncertainty_sources_are_distinguished(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("These two uncertainty sources are related but distinct", article)
