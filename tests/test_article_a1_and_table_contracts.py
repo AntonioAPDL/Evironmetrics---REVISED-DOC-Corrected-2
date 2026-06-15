@@ -125,6 +125,14 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("compatibility aliases only", article)
         self.assertNotIn("weighted combination of prior forecasts", article)
 
+    def test_reviewer1_overview_forecasting_emphasis_is_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("The empirical focus is forecasting performance and uncertainty quantification", article)
+        self.assertIn(r"Section~\ref{sec:forecastvalidation} reports the out-of-sample forecast validation results", article)
+        self.assertIn(r"\section{FORECAST VALIDATION RESULTS}", article)
+        self.assertIn("five-cutoff rolling-origin forecast comparison", article)
+        self.assertIn("supporting interpretation for the selected specification", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
