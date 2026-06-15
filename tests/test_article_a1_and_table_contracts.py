@@ -40,6 +40,33 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("permanent archival release of the workflow repository will be created", article)
         self.assertNotIn("workflow repository has been archived", article)
 
+    def test_runtime_benchmark_manifest_and_text_are_wired(self) -> None:
+        manifest_path = ROOT / "artifacts" / "runtime_benchmark" / "runtime_manifest.json"
+        self.assertTrue(manifest_path.exists(), f"missing runtime benchmark manifest: {manifest_path}")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest.get("schema_version"), "he1_runtime_benchmark_v1")
+        self.assertEqual(manifest.get("interface_table", {}).get("row_count"), 1620)
+        self.assertEqual(manifest.get("interface_table", {}).get("column_count"), 127)
+        self.assertEqual(
+            manifest.get("interface_table", {}).get("practical_total_runtime_columns"),
+            ["runtime_sec_total", "runtime_sec"],
+        )
+        self.assertEqual(
+            manifest.get("interface_table", {}).get("mostly_missing_decomposition_columns"),
+            ["runtime_sec_fit", "runtime_sec_forecast"],
+        )
+        planned = manifest.get("planned_run_manifest", {})
+        self.assertEqual((planned.get("planned_run_units"), planned.get("done"), planned.get("pending")), (72, 54, 18))
+        self.assertFalse(manifest.get("claims_policy", {}).get("report_fit_forecast_decomposition"))
+
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("about two hours end-to-end", article)
+        self.assertIn(r"\texttt{runtime\_sec\_total}", article)
+        self.assertIn(r"\texttt{runtime\_sec}", article)
+        self.assertIn("hardware- and implementation-dependent", article)
+        self.assertNotIn("100 minutes for fitting", article)
+        self.assertNotIn("20 minutes for post-processing", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")

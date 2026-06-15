@@ -220,6 +220,8 @@ To illustrate our VB-LD strategy, consider a generic joint distribution \( p(D,\
 
 We present the pseudocode for the VB algorithm associated with our model in Algorithm~\ref{alg:Alg3} and Algorithm~\ref{alg:Alg4}.
 
+In the production forecasting workflow, each quantile level is fit as a separate state-space model, so the seven quantile-specific fits can be dispatched in parallel. For the latest shared single-site validation run used to audit computational feasibility, the reliable timing fields were the end-to-end wall-clock columns \texttt{runtime\_sec\_total} and \texttt{runtime\_sec}, rather than a separated fitting/forecasting breakdown. On the production Linux server used for that run (64 cores and approximately 503 GiB RAM), the representative issuance cycle required about two hours end-to-end for the completed measured validation outputs. These timings are hardware- and implementation-dependent, but they indicate that daily refitting is operationally feasible at this scale once observations, retrospective products, forecast products, and forecast covariates have been staged.
+
 \subsection{Model Selection by CRPS}
 \label{subsec:modelselection}
 

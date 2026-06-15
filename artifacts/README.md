@@ -14,6 +14,7 @@ These folders are the article-side frozen artifact bundles that feed the manuscr
 | `he4_quantile_check_loss_current_publication` | Artifact bundle. | 7 | 0 | no | `` |
 | `historical_support_from_current_models` | Legacy/archive current-model support bundle. It must not feed the representative selected-model posterior-output figures. | 12 | 5 | yes | `README.md` |
 | `representative_selected_model_2022_12_25` | Representative selected-model bundle for the verified 2022-12-25 exAL-M-T1 run, including synthesis, posterior tables, and authoritative q05/q50/q95 support figures. | 45 | 16 | yes | `README.md | authoritative_support/README.md | authoritative_support/analysis_figures/component_evolution/README.md` |
+| `runtime_benchmark` | Compact HE-1 runtime benchmark manifest for the revised article. | 2 | 0 | yes | `README.md` |
 | `software_availability` | Compact HE-5 software availability and archive-status manifest for the revised article. | 2 | 0 | yes | `README.md` |
 
 Preferred refresh entrypoint:

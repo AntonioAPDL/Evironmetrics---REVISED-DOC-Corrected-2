@@ -184,5 +184,15 @@
       },
       "note": "Generated from the same authoritative HE3 ablation sources as the 28-day table, but every row is restricted to leads 1--8 so RAW-NWS, RAW-GLOFAS, the full model, and the ablation variants are compared on a common horizon."
     }
+  },
+  "runtime_benchmarks": {
+    "he1_runtime_benchmark": {
+      "label": "he1_runtime_benchmark",
+      "role": "Representative end-to-end runtime benchmark for the HE-1 computational-cost response",
+      "manifest_path": "artifacts/runtime_benchmark/runtime_manifest.json",
+      "doc_path": "docs/runtime_benchmark_contract.md",
+      "source_class": "compact_runtime_manifest",
+      "note": "Records the latest shared exDQLM/DQLM validation runtime metadata used for manuscript wording. The article reports total end-to-end runtime from runtime_sec_total/runtime_sec and intentionally does not claim a fit/forecast/post-processing decomposition."
+    }
   }
 }

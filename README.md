@@ -14,7 +14,9 @@ This repository is the advisor-facing freeze of the revised manuscript, its manu
 - `reports/manuscript_asset_review/ARTICLE_ASSET_REVIEW.md`: review report for the current article assets
 - `reports/manuscript_asset_review/FIGURE_POLISH_STATUS_AUDIT.md`: point-by-point status audit for the earlier figure-polish request
 - `artifacts/software_availability/software_availability_manifest.json`: compact HE-5 software availability and archive-status manifest
+- `artifacts/runtime_benchmark/runtime_manifest.json`: compact HE-1 runtime benchmark manifest
 - `docs/software_availability_contract.md`: manuscript-side software reproducibility contract
+- `docs/runtime_benchmark_contract.md`: manuscript-side runtime benchmark contract
 - `scripts/validate_manuscript_figure_paths.py`: validates that every `\includegraphics{}` call in the manuscript resolves through the canonical figure search paths
 
 ## Directory roles
