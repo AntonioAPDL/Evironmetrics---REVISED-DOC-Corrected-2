@@ -24,6 +24,12 @@ bundle. The workflow-facing `PCA` covariate is the canonical GDPC1 compatibility
 alias; it is a deterministic climate-index covariate and is not treated as an
 operational forecast product or verification target.
 
+Precipitation is handled only as an external transfer covariate. The workflow
+does not fit a separate censoring, zero-inflation, or occurrence/intensity model
+for precipitation. Dry days remain in the supplied covariate path, and
+precipitation intermittency enters through the transfer component and the
+deterministic engineered terms recorded in the cutoff-specific support bundle.
+
 Machine-readable companion:
 
 - `artifacts/forecast_design/forecast_design_manifest.json`

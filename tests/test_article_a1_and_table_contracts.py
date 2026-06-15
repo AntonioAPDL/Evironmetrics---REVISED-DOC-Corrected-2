@@ -91,6 +91,22 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             manifest.get("forecast_origin_inputs", {}).get("local_covariates", {}).get("names"),
             ["precipitation", "soil_moisture"],
         )
+        precipitation_handling = (
+            manifest.get("forecast_origin_inputs", {})
+            .get("local_covariates", {})
+            .get("precipitation_handling", {})
+        )
+        self.assertFalse(precipitation_handling.get("censoring_model"))
+        self.assertFalse(precipitation_handling.get("zero_inflation_model"))
+        self.assertFalse(precipitation_handling.get("occurrence_intensity_model"))
+        self.assertEqual(
+            precipitation_handling.get("zero_precipitation_policy"),
+            "retained_as_zero_in_supplied_covariate_path",
+        )
+        self.assertEqual(
+            precipitation_handling.get("model_role"),
+            "external_transfer_covariate_and_deterministic_engineered_terms",
+        )
         gdpc = manifest.get("forecast_origin_inputs", {}).get("gdpc_pca", {})
         self.assertEqual(gdpc.get("workflow_slot"), "PCA")
         self.assertEqual(gdpc.get("canonical_name"), "GDPC1")
@@ -102,6 +118,10 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertTrue((ROOT / "docs" / "forecast_design_contract.md").exists())
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("forecast-window precipitation and soil-moisture covariates", article)
+        self.assertIn("Precipitation is not modeled through a separate censoring", article)
+        self.assertIn("zero-inflation, or occurrence/intensity layer", article)
+        self.assertIn("dry days are retained in the supplied covariate path", article)
+        self.assertIn("deterministic engineered terms", article)
         self.assertIn("canonical GDPC/PCA climate-index factor", article)
         self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
         self.assertIn("not treated as an operational forecast product or verification target", article)

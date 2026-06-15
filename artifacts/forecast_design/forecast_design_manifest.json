@@ -37,7 +37,14 @@
         "soil_moisture"
       ],
       "role": "forecast_window_transfer_covariates",
-      "source_policy": "staged_version_consistent_cutoff_specific_support_bundle"
+      "source_policy": "staged_version_consistent_cutoff_specific_support_bundle",
+      "precipitation_handling": {
+        "censoring_model": false,
+        "zero_inflation_model": false,
+        "occurrence_intensity_model": false,
+        "zero_precipitation_policy": "retained_as_zero_in_supplied_covariate_path",
+        "model_role": "external_transfer_covariate_and_deterministic_engineered_terms"
+      }
     },
     "gdpc_pca": {
       "workflow_slot": "PCA",
