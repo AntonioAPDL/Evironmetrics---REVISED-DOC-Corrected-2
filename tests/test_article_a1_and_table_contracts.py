@@ -131,10 +131,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("zero-inflation, or occurrence/intensity layer", article)
         self.assertIn("dry days are retained in the supplied covariate path", article)
         self.assertIn("deterministic engineered terms", article)
+        self.assertIn("the model is fit using USGS observations and retrospective products available through", article)
+        self.assertIn("Forecasts are then generated over the subsequent forecast window using the latest forecast products", article)
         self.assertIn("canonical GDPC/PCA climate-index factor", article)
         self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
         self.assertIn("not treated as an operational forecast product or verification target", article)
         self.assertNotIn("GDPC forecast product", article)
+        self.assertNotIn("the model is fit using forecast products issued at or before", article)
 
     def test_latest_forecast_issue_manifest_and_text_are_wired(self) -> None:
         manifest_path = ROOT / "artifacts" / "latest_forecast_issue" / "latest_forecast_issue_manifest.json"
