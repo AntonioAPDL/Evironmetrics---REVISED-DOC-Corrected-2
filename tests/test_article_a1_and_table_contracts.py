@@ -147,6 +147,23 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("local hydrometeorological covariates", article)
         self.assertNotIn("local hydrological covariates", article)
 
+    def test_reviewer1_model_formulation_links_to_results(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("single state-space model", article)
+        self.assertIn(
+            r"The benchmark variants reported in Section~\ref{sec:forecastvalidation} are tied to this formulation",
+            article,
+        )
+        self.assertIn(r"the observation likelihood gives the \(N\), AL, and exAL rows", article)
+        self.assertIn(r"the active source set gives the \(U\) and \(M\) rows", article)
+        self.assertIn(r"the forecast-window treatment of the transfer block gives the \(T0\) and \(T1\) rows", article)
+        self.assertIn("nine Bayesian variants of the common state-space framework", article)
+        self.assertIn("Because exAL-M-T1 is the selected extended-likelihood multivariate specification", article)
+        self.assertNotIn("Model A", article)
+        self.assertNotIn("Model B", article)
+        self.assertNotIn("Model C", article)
+        self.assertNotIn("General Results", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
