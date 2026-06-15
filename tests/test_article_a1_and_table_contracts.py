@@ -189,6 +189,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("local hydrometeorological covariates", article)
         self.assertNotIn("local hydrological covariates", article)
 
+    def test_reviewer1_era5_reanalysis_uncertainty_is_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("reanalysis-based model inputs", article)
+        self.assertIn("rather than direct observations or uncertainty-free measurements", article)
+        self.assertIn("ERA5/ERA5-Land variables may include short forecast components", article)
+        self.assertIn("not verification observations", article)
+
     def test_reviewer1_model_formulation_links_to_results(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("single state-space model", article)
