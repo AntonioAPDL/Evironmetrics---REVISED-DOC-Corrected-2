@@ -104,16 +104,16 @@ That bundle now includes:
 | `tab:gamma_sigma_intervals1` | supplementary appendix `gamma` summary | `2022-12-25 exAL-M-T1 keep` | `artifacts/representative_selected_model_2022_12_25/gamma_summary.csv` | values in `wileyNJD-APA.tex` | refreshed |
 | `tab:gamma_sigma_intervals2` | supplementary appendix `sigma` summary | `2022-12-25 exAL-M-T1 keep` | `artifacts/representative_selected_model_2022_12_25/sigma_summary.csv` | values in `wileyNJD-APA.tex` | refreshed |
 
-### Current-model support outside the locked five-run keep source set
+### Interpretation and appendix support outside the forecast-validation table
 
-These objects are now wired to current model outputs, but they are still outside the narrow locked `exAL-M-T1` keep-run source set used for the main five-cutoff validation evidence above.
+These objects are not additional forecast-validation table entries. The selected-model diagnostics are locked to the same representative `2022-12-25 exAL-M-T1` selected-output authority as `fig:synth1`; the historical-only reference synthesis remains a separate appendix counterfactual.
 
 | Manuscript object | Current role | Current source status | Action |
 |---|---|---|---|
 | `fig:synth2` | appendix historical-only reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance |
-| `fig:dry_quantile` | historical regime illustration | rendered from the current `2022-05-11 exAL-M-T1` full-history multivariate run and frozen locally in `artifacts/historical_support_from_current_models/` | keep as current-model historical-support object |
-| `fig:rainy_quantile` | historical regime illustration | rendered from the current `2022-05-11 exAL-M-T1` full-history multivariate run and frozen locally in `artifacts/historical_support_from_current_models/` | keep as current-model historical-support object |
-| `fig:80_components` | appendix long-cycle historical summary | rendered from the current `2022-05-11 exAL-M-T1` full-history multivariate run and frozen locally in `artifacts/historical_support_from_current_models/` | keep as current-model historical-support object |
+| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as selected-model diagnostic, not forecast-validation evidence |
 
 ### Setup figures outside the selected-model refresh scope
 
@@ -129,19 +129,20 @@ These objects are now wired to current model outputs, but they are still outside
 1. The five verified `exAL-M-T1` keep runs are now the locked reproducible source set for the main selected-model manuscript evidence.
 2. Any further refresh of the central selected-model objects `fig:synth1` and `tab:components_23_31` should use only the files recorded above.
 3. The appendix support tables `tab:gamma_sigma_intervals1` and `tab:gamma_sigma_intervals2` should remain supplementary and should continue to use the representative `2022-12-25` source files recorded above.
-4. `fig:synth2` and the historical-support figures are now regenerated from separately locked current-output source paths.
-   - They should remain distinguished from the narrow five-run keep lineage used for the main benchmark table.
-   - Their article-side provenance anchor is now `artifacts/historical_support_from_current_models/`.
+4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are selected-model diagnostics from the same representative selected-output authority as `fig:synth1`.
+   - They should remain distinguished from the forecast-validation evidence used for the main benchmark table.
+   - Their article-side provenance anchor is now `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`.
+5. `fig:synth2` remains a separate historical-only appendix reference sourced from `artifacts/historical_support_from_current_models/`.
 
 ## 6. Locked choice for the current manuscript pass
 
 For the current revised article pass, the chosen approach is:
 
 1. keep `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components`
-2. treat them explicitly as current-model historical-support figures
+2. treat them explicitly as selected-model fitted quantile-location/component diagnostics
 3. do not treat them as additional five-cutoff forecast-validation evidence
-4. do not force them into the representative `2022-12-25` selected-run bundle
-5. preserve their article-side provenance bundle in `artifacts/historical_support_from_current_models/`
+4. preserve their article-side provenance bundle in `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`
+5. keep the analysis-only component gallery out of the manuscript asset manifest
 6. preserve `fig:synth2` in `artifacts/historical_support_from_current_models/`
 7. preserve the corrected cutoff-dependent setup/support figures through:
    - `artifacts/five_cutoff_setup_support/`

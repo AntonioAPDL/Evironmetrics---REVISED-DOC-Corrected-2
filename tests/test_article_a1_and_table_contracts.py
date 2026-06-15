@@ -328,6 +328,38 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         bundle_manifest = (support_dir / "manifest.csv").read_text(encoding="utf-8")
         self.assertIn("analysis_component", bundle_manifest)
 
+    def test_reviewer1_figure_variance_explanation_and_lineage_are_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("uncertainty around fitted quantile-location curves", article)
+        self.assertIn("rather than the full forecast distribution at a single origin", article)
+        self.assertIn("full synthesized posterior predictive distribution", article)
+        self.assertIn("posterior predictive envelope can vary across the forecast window", article)
+
+        manifest = json.loads((ROOT / "MANUSCRIPT_ASSET_MANIFEST.json").read_text(encoding="utf-8"))
+        by_label = {row["label"]: row for row in manifest["figures"]}
+        expected_selected = {
+            "fig:dry_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
+            "fig:rainy_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
+            "fig:80_components": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
+            "fig:synth1": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png",
+        }
+        for label, source_path in expected_selected.items():
+            self.assertEqual(by_label[label]["source_path"], source_path)
+            self.assertEqual(by_label[label]["source_class"], "current_selected_model_representative")
+            self.assertTrue(by_label[label]["current_model_output_wired"])
+
+        self.assertEqual(
+            by_label["fig:synth2"]["source_path"],
+            "artifacts/historical_support_from_current_models/figures/reference_synthesis_univariate.png",
+        )
+        self.assertEqual(by_label["fig:synth2"]["source_class"], "current_model_output_support")
+
+        provenance = (ROOT / "docs" / "figure_table_provenance.md").read_text(encoding="utf-8")
+        self.assertIn("selected_model_quantile_dry_period.png", provenance)
+        self.assertIn("selected_model_quantile_wet_period.png", provenance)
+        self.assertIn("selected_model_component_80month.png", provenance)
+        self.assertIn("not full posterior predictive distributions", provenance)
+
     def test_overleaf_bundle_excludes_large_compact_support_data(self) -> None:
         support_dir = (
             ROOT

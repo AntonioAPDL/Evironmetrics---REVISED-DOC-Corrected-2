@@ -411,7 +411,7 @@ The contrast between these periods is most visible in the spread between the 5th
 \subsection{Predictive Synthesis Illustration}
 \label{subsec:synthillustration}
 
-Figure~\ref{fig:synth1} shows the synthesized predictive distribution for the December 25, 2022 cutoff. Its role is illustrative: it shows how the fitted quantile-specific forecasts combine into one predictive distribution for a single forecast origin, whereas the comparative forecast evaluation remains the main empirical evidence of the paper.
+The posterior bands in Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantile} summarize uncertainty around fitted quantile-location curves rather than the full forecast distribution at a single origin. Figure~\ref{fig:synth1} instead shows the full synthesized posterior predictive distribution for the December 25, 2022 cutoff, after combining the quantile-specific forecasts, source corrections, and forecast-window inputs. Its role is illustrative: it shows how the fitted quantile-specific forecasts combine into one predictive distribution for a single forecast origin, whereas the comparative forecast evaluation remains the main empirical evidence of the paper.
 
 \begin{figure}[htbp]
 \centering
@@ -421,7 +421,7 @@ Representative synthesized posterior predictive distribution for river flow on t
 }
 \label{fig:synth1}
 \end{figure}
-The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and remain above the major flood threshold for several days, reflecting the high-risk character of this forecast window. The figure is useful mainly as a visual summary of the selected specification at one origin; an idealized historical-only reference is reported in Appendix~\ref{app:historicalsynth} to separate the operational synthesis from the simpler no-forecast counterfactual.
+The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and remain above the major flood threshold for several days, reflecting the high-risk character of this forecast window. Unlike the fitted historical quantile-location summaries, the posterior predictive envelope can vary across the forecast window as the source-specific corrections and forecast-window covariates change. The figure is useful mainly as a visual summary of the selected specification at one origin; an idealized historical-only reference is reported in Appendix~\ref{app:historicalsynth} to separate the operational synthesis from the simpler no-forecast counterfactual.
 
 \section{Conclusions}
 \label{sec5}
