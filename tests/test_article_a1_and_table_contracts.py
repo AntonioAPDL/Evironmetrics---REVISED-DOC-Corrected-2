@@ -148,6 +148,11 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("easier to specify, calibrate, and deploy operationally", article)
         self.assertNotIn("Hydrological predictions are often produced using physical models", article)
 
+    def test_reviewer1_flexile_typo_is_absent_from_article(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn(r"\subsection{Extended Asymmetric Laplace Likelihood}", article)
+        self.assertNotIn("flexile", article.lower())
+
     def test_reviewer1_expanded_forecast_evidence_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("five rolling-origin cutoff dates that span contrasting hydrological conditions", article)
