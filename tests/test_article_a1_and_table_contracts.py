@@ -99,6 +99,32 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("not treated as an operational forecast product or verification target", article)
         self.assertNotIn("GDPC forecast product", article)
 
+    def test_latest_forecast_issue_manifest_and_text_are_wired(self) -> None:
+        manifest_path = ROOT / "artifacts" / "latest_forecast_issue" / "latest_forecast_issue_manifest.json"
+        self.assertTrue(manifest_path.exists(), f"missing latest-forecast manifest: {manifest_path}")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest.get("schema_version"), "he7_latest_forecast_issue_v1")
+        protocol = manifest.get("protocol", {})
+        self.assertEqual(protocol.get("name"), "latest_forecast_only")
+        self.assertEqual(protocol.get("publication_weighting_scheme"), "latest")
+        self.assertFalse(protocol.get("cross_issue_weighting_used"))
+        self.assertTrue(protocol.get("legacy_weighted_daily_filenames_are_aliases"))
+        self.assertEqual(
+            manifest.get("sources", {}).get("glofas", {}).get("selection_rule"),
+            "issue_date_equals_cutoff",
+        )
+        self.assertEqual(
+            manifest.get("sources", {}).get("nws", {}).get("selection_rule"),
+            "latest_issue_datetime_per_target_hour_member_then_daily_mean",
+        )
+
+        self.assertTrue((ROOT / "docs" / "latest_forecast_issue_contract.md").exists())
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("using the latest forecast products issued at or before", article)
+        self.assertIn("older forecast issuances are not averaged into the publication forecast matrices", article)
+        self.assertIn("compatibility aliases only", article)
+        self.assertNotIn("weighted combination of prior forecasts", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")

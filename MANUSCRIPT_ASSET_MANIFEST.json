@@ -194,5 +194,15 @@
       "source_class": "compact_runtime_manifest",
       "note": "Records the latest shared exDQLM/DQLM validation runtime metadata used for manuscript wording. The article reports total end-to-end runtime from runtime_sec_total/runtime_sec and intentionally does not claim a fit/forecast/post-processing decomposition."
     }
+  },
+  "forecast_protocols": {
+    "he7_latest_forecast_issue": {
+      "label": "he7_latest_forecast_issue",
+      "role": "Latest-forecast-only issue-selection contract for the rolling-origin forecast evaluation",
+      "manifest_path": "artifacts/latest_forecast_issue/latest_forecast_issue_manifest.json",
+      "doc_path": "docs/latest_forecast_issue_contract.md",
+      "source_class": "compact_forecast_issue_manifest",
+      "note": "Records that publication forecast matrices use the latest forecast issue available at each cutoff and that legacy weighted_daily file names are compatibility aliases rather than active cross-issue weighting."
+    }
   }
 }

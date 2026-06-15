@@ -22,7 +22,8 @@
         "NWS"
       ],
       "timing": "latest_issued_at_or_before_cutoff",
-      "role": "forecast_window_source_channels"
+      "role": "forecast_window_source_channels",
+      "issue_selection_manifest": "artifacts/latest_forecast_issue/latest_forecast_issue_manifest.json"
     },
     "local_covariates": {
       "names": [

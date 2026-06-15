@@ -19,3 +19,7 @@ operational forecast product or verification target.
 Machine-readable companion:
 
 - `artifacts/forecast_design/forecast_design_manifest.json`
+
+The source-specific latest-issue selection rule for the forecast products is
+documented separately in `docs/latest_forecast_issue_contract.md` and
+`artifacts/latest_forecast_issue/latest_forecast_issue_manifest.json`.
