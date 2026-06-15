@@ -349,6 +349,38 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn("tab:he3_ablation_crps,RAW-NWS", source_text)
         self.assertIn("tab:he3_ablation_crps_nws_horizon,RAW-NWS,20210123,8", source_text)
 
+    def test_reviewer1_math_detail_is_streamlined(self) -> None:
+        article_text = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+
+        self.assertIn(
+            "probability integral transform (PIT) diagnostics",
+            article_text,
+        )
+        self.assertIn(
+            "For reproducibility, implementation pseudocode for the VB algorithm is provided",
+            article_text,
+        )
+        self.assertIn("Its role is illustrative", article_text)
+        self.assertIn("risk of quantile crossing", article_text)
+        self.assertEqual(article_text.count("probability integral transform"), 1)
+        self.assertEqual(article_text.count("PIT"), 1)
+        self.assertEqual(article_text.count("quantile crossing"), 1)
+        self.assertLess(
+            article_text.index(r"\appendix"),
+            article_text.index(r"\section{Markov Chain Monte Carlo Algorithms}"),
+        )
+        self.assertLess(
+            article_text.index(r"\appendix"),
+            article_text.index(r"\section{Variational Bayes Algorithms}"),
+        )
+        for forbidden in [
+            "PITs are described in detail",
+            "two-step method",
+            "resolve quantile crossing",
+            "Posterior Predictive Synthesis part",
+        ]:
+            self.assertNotIn(forbidden, article_text)
+
     def test_generated_table_decimal_cells_have_five_places(self) -> None:
         table_dir = ROOT / "tables" / "generated_tex"
         self.assertTrue(table_dir.exists(), f"missing generated table dir: {table_dir}")

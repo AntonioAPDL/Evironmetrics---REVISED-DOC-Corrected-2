@@ -980,7 +980,8 @@ Use this as the working order when actually editing the manuscript.
 ### Fifth pass: harder review-dependent items
 - [ ] five-cutoff justification after Raquel input
 - [ ] final figure decision for Figures 8 and 9
-- [ ] recheck `R1-M1`, `R1-M2`, `R1-M3` after full structural rewrite
+- [x] recheck `R1-M1`, `R1-M2`, `R1-M3` after full structural rewrite
+  - Closed by response/tracker updates and article/workflow prose gates for the uncertainty-source distinction, model-to-results bridge, and math-streamlining/PIT/synthesis response.
 - [ ] recheck `R1-m4`, `R1-m7`, `R1-m9` after final section/figure decisions
 
 ### Locked regeneration baseline
