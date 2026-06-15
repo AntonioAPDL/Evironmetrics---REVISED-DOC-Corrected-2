@@ -15,3 +15,9 @@ workflow manifests are compatibility aliases for latest-issue member matrices.
 Machine-readable companion:
 
 - `artifacts/latest_forecast_issue/latest_forecast_issue_manifest.json`
+
+The workflow repository contains the executable validator and runtime alias
+audit helper for this contract. The latest local alias audit checked the five
+publication cutoffs for both NWS and GloFAS and found that the legacy
+`*_weighted_daily.csv` aliases are byte-identical to the corresponding
+member-level forecast matrices.
