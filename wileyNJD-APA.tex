@@ -229,13 +229,13 @@ For model selection, we use the Continuous Ranked Probability Score (CRPS) rathe
 \]
 where \(p_t^{\lambda}\) denotes the predictive distribution at time \(t\) under transfer rate \(\lambda\).
 
-We use CRPS because it scores the full predictive distribution and accounts jointly for calibration and sharpness. For a predictive distribution \(\mathbf{G}\) and an observation \(y\), the CRPS is
+We use CRPS because it is a proper score for predictive distributions and accounts jointly for calibration and sharpness \citep{gneiting2007strictly}. For a predictive distribution \(\mathbf{G}\) and an observation \(y\), the CRPS is
 \[
 \text{CRPS}(y, \mathbf{G}) = 2 \int_0^1 \rho_\tau\!\left(y - \mathbf{G}^{-1}(\tau)\right)\, d\tau,
 \qquad
 \rho_\tau(u) = u\big(\tau - \mathbf{1}\{u<0\}\big),
 \]
-where \(\rho_\tau\) is the quantile score and \(\mathbf{G}^{-1}\) is the predictive quantile function. This representation is natural here because the framework is fit separately across target quantile levels. For a deterministic forecast \(x\), the predictive distribution collapses to a point mass at \(x\), and the CRPS reduces to \(|y-x|\), that is, the mean absolute error (MAE).
+where \(\rho_\tau\) is the quantile score, or check loss, and \(\mathbf{G}^{-1}\) is the predictive quantile function. This representation is natural here because the framework is fit separately across target quantile levels. For a deterministic forecast \(x\), the predictive distribution collapses to a point mass at \(x\), and the CRPS reduces to \(|y-x|\), that is, the mean absolute error (MAE).
 
 \section{APPLICATION DATA AND FORECASTING DESIGN}
 \label{sec:data}
@@ -360,7 +360,7 @@ Table~\ref{tab:benchmark_crps_models} yields a stable pattern across the five cu
 
 The short-horizon comparison in Table~\ref{tab:benchmark_crps_models_nws_horizon} is the appropriate direct comparison to the raw NWS product. It preserves the same held-out USGS verification target and transformed scale as the 28-day table, but restricts all rows to the NWS-available forecast horizon.
 
-To complement the CRPS comparison, Table~\ref{tab:he4_quantile_check_loss} reports mean forecast-window quantile check loss for the four principal synthesis competitors: exAL-M-T1, AL-M-T1, exAL-U-T1, and AL-U-T1. These diagnostics use the same held-out USGS forecast-window observations and the same transformed discharge scale as Table~\ref{tab:benchmark_crps_models}, but evaluate the targeted fitted quantile levels directly. The multivariate synthesis models dominate the univariate references across most cutoff and quantile cells. The exAL-M-T1 row is strongest through most of the first three cutoffs, whereas AL-M-T1 is competitive in selected lower-tail or final-cutoff cells, consistent with the final-origin nuance in the CRPS table.
+To complement the CRPS comparison, Table~\ref{tab:he4_quantile_check_loss} reports mean forecast-window quantile check loss for the four principal synthesis competitors: exAL-M-T1, AL-M-T1, exAL-U-T1, and AL-U-T1. These diagnostics use the same held-out USGS forecast-window observations and the same transformed discharge scale as Table~\ref{tab:benchmark_crps_models}, but evaluate the targeted fitted quantile levels directly. The multivariate synthesis models have lower check loss than the univariate references in most cutoff--quantile cells. The exAL-M-T1 row is strongest through most of the first three cutoffs, whereas AL-M-T1 is competitive in selected lower-tail or final-cutoff cells, consistent with the final-origin nuance in the CRPS table.
 
 \input{tables/generated_tex/he4_quantile_check_loss_main_table.tex}
 
