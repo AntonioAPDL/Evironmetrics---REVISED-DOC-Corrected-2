@@ -141,6 +141,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
 
+    def test_reviewer1_conceptual_model_practicality_is_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("conceptual or physically based models", article)
+        self.assertIn("Conceptual formulations remain especially practical for prediction", article)
+        self.assertIn("easier to specify, calibrate, and deploy operationally", article)
+        self.assertNotIn("Hydrological predictions are often produced using physical models", article)
+
     def test_reviewer1_expanded_forecast_evidence_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("five rolling-origin cutoff dates that span contrasting hydrological conditions", article)
