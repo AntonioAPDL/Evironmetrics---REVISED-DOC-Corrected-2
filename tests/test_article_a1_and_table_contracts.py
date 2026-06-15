@@ -233,8 +233,14 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "meteorological uncertainty enters through imperfect precipitation and related atmospheric forcing fields",
             article,
         )
+        self.assertIn("A useful statistical forecasting framework should keep these roles clear", article)
         self.assertIn("local hydrometeorological covariates", article)
+        self.assertIn("precipitation from the PRISM Climate Group", article)
+        self.assertIn("soil moisture from ECMWF ERA5-Land", article)
+        self.assertTrue((ROOT / "docs" / "reviewer1_uncertainty_framing_contract.md").exists())
         self.assertNotIn("local hydrological covariates", article)
+        self.assertNotIn("does not currently distinguish meteorological and hydrological uncertainty", article)
+        self.assertNotIn("meteorological and hydrological concepts are mixed", article)
 
     def test_reviewer1_era5_reanalysis_uncertainty_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
