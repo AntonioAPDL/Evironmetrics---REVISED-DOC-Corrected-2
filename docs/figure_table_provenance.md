@@ -80,6 +80,10 @@ The clean current generator contract is:
 - `scripts/run_environmetrics_figures.R`
 - `R/environmetrics/40_figures.R`
 
+The software availability and archival-release contract is indexed under:
+- `docs/software_availability_contract.md`
+- `artifacts/software_availability/software_availability_manifest.json`
+
 The article-side generated asset freeze point is now indexed under:
 - `artifacts/README.md`
 - `artifacts/artifact_inventory.csv`

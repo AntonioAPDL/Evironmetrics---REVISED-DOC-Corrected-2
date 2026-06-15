@@ -16,6 +16,7 @@ ARTIFACT_DESCRIPTIONS = {
     'five_cutoff_reference_synthesis': 'Cutoff-wide Figure A2-style reference synthesis family copied from the current exdqlm_univar output bundles.',
     'he2_publication_freeze': 'Frozen local snapshot of the current HE2 Bayesian publication manifest and alignment tables.',
     'he2_historical_support_audit': 'Workflow-side audit snapshot showing which publication rows use full historical support versus short-window support.',
+    'software_availability': 'Compact HE-5 software availability and archive-status manifest for the revised article.',
 }
 
 REPORT_DESCRIPTIONS = {
@@ -139,6 +140,8 @@ def main() -> None:
         '- `docs/figure_table_provenance.md`: figure/table provenance summary\n'
         '- `reports/manuscript_asset_review/ARTICLE_ASSET_REVIEW.md`: review report for the current article assets\n'
         '- `reports/manuscript_asset_review/FIGURE_POLISH_STATUS_AUDIT.md`: point-by-point status audit for the earlier figure-polish request\n'
+        '- `artifacts/software_availability/software_availability_manifest.json`: compact HE-5 software availability and archive-status manifest\n'
+        '- `docs/software_availability_contract.md`: manuscript-side software reproducibility contract\n'
         '- `scripts/validate_manuscript_figure_paths.py`: validates that every `\\includegraphics{}` call in the manuscript resolves through the canonical figure search paths\n\n'
         '## Directory roles\n\n'
         '- `figures/`: manuscript-facing figures, appendix cutoff panels, and advisor-facing cutoff-wide forecast/synthesis figure families\n'
@@ -153,6 +156,25 @@ def main() -> None:
         'the lowercase `figures/` tree as canonical, while `wileyNJD-APA.tex` also\n'
         'accepts the legacy uppercase `Figures/` tree as a compile-time fallback for\n'
         'Overleaf Git-sync compatibility.\n\n'
+        '## Overleaf sync recovery\n\n'
+        'Overleaf can create `overleaf-*` branches that delete generated publication\n'
+        'assets under `figures/`, `Figures/`, `artifacts/`, or `tables/generated_tex/`.\n'
+        'Those deletion-only branches are not manuscript edits and should not be accepted\n'
+        'into `main`.\n\n'
+        'When Overleaf reports that GitHub and Overleaf could not automatically merge,\n'
+        'first audit the branch from this repo:\n\n'
+        '```bash\n'
+        'python3 scripts/merge_overleaf_branch_preserving_generated_assets.py --fetch origin/overleaf-YYYY-MM-DD-HHMM\n'
+        '```\n\n'
+        'If the audit reports no TeX/Bib source edits and only protected generated-asset\n'
+        'changes, merge it with:\n\n'
+        '```bash\n'
+        'python3 scripts/merge_overleaf_branch_preserving_generated_assets.py origin/overleaf-YYYY-MM-DD-HHMM --merge-generated-deletions-only\n'
+        'git push origin main\n'
+        '```\n\n'
+        'If real TeX/Bib source edits are present, merge them normally, but keep\n'
+        'generated article assets from `main` unless the workflow-side refresh scripts are\n'
+        'deliberately regenerating them.\n\n'
         '## Standard compile command\n\n'
         '```bash\npdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.tex\nbibtex output\npdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.tex\npdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.tex\n```\n'
     )

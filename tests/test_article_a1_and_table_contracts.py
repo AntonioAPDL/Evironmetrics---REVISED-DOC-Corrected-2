@@ -10,6 +10,36 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class ArticleA1AndTableContractTests(unittest.TestCase):
+    def test_software_availability_manifest_and_text_are_wired(self) -> None:
+        manifest_path = ROOT / "artifacts" / "software_availability" / "software_availability_manifest.json"
+        self.assertTrue(manifest_path.exists(), f"missing software availability manifest: {manifest_path}")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest.get("schema_version"), "revision_software_availability_v1")
+        self.assertEqual(
+            manifest.get("public_estimation_package", {}).get("cran_package_url"),
+            "https://CRAN.R-project.org/package=exdqlm",
+        )
+        self.assertEqual(
+            manifest.get("public_estimation_package", {}).get("package_doi"),
+            "https://doi.org/10.32614/CRAN.package.exdqlm",
+        )
+        self.assertEqual(
+            manifest.get("study_workflow_repository", {}).get("public_url"),
+            "https://github.com/AntonioAPDL/Project1",
+        )
+        self.assertEqual(
+            manifest.get("archive_status", {}).get("workflow_archive_status"),
+            "pending_final_release",
+        )
+        self.assertEqual(manifest.get("archive_status", {}).get("workflow_archive_doi"), "pending")
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn(r"CRAN R package \texttt{exdqlm}", article)
+        self.assertIn("https://CRAN.R-project.org/package=exdqlm", article)
+        self.assertIn("https://doi.org/10.32614/CRAN.package.exdqlm", article)
+        self.assertIn("https://github.com/AntonioAPDL/Project1", article)
+        self.assertIn("permanent archival release of the workflow repository will be created", article)
+        self.assertNotIn("workflow repository has been archived", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
