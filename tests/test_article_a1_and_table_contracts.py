@@ -242,6 +242,9 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn("does not currently distinguish meteorological and hydrological uncertainty", article)
         self.assertNotIn("meteorological and hydrological concepts are mixed", article)
 
+    def test_reviewer1_remaining_contract_note_exists(self) -> None:
+        self.assertTrue((ROOT / "docs" / "reviewer1_remaining_contracts.md").exists())
+
     def test_reviewer1_era5_reanalysis_uncertainty_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("reanalysis-based model inputs", article)
