@@ -172,14 +172,21 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
     def test_reviewer1_overview_forecasting_emphasis_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("The empirical focus is forecasting performance and uncertainty quantification", article)
+        self.assertIn("rather than only historical fit or methodological development in isolation", article)
         self.assertIn(r"Section~\ref{sec:forecastvalidation} reports the out-of-sample forecast validation results", article)
         self.assertIn(r"\section{FORECAST VALIDATION RESULTS}", article)
         self.assertIn(r"\section{INTERPRETATION OF THE SELECTED SPECIFICATION}", article)
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
+        self.assertIn("comparative forecast evaluation remains the main empirical evidence", article)
         self.assertIn("not as a second forecast-validation exercise", article)
         self.assertIn("not as additional rolling-origin evidence", article)
+        self.assertTrue((ROOT / "docs" / "reviewer1_overview_forecasting_emphasis_contract.md").exists())
         self.assertNotIn("General Results", article)
+        self.assertNotIn("Model A", article)
+        self.assertNotIn("Model B", article)
+        self.assertNotIn("Model C", article)
+        self.assertNotIn("forecasting component is limited", article)
 
     def test_reviewer1_conceptual_model_practicality_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
