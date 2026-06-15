@@ -196,6 +196,17 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("ERA5/ERA5-Land variables may include short forecast components", article)
         self.assertIn("not verification observations", article)
 
+    def test_reviewer1_usgs_target_and_data_roles_are_wired(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn(r"\section{APPLICATION DATA AND FORECASTING DESIGN}", article)
+        self.assertIn(r"\subsection{Study Setting and Observations}", article)
+        self.assertIn("Our target series is", article)
+        self.assertIn("USGS target series", article)
+        self.assertIn("three additional information sources", article)
+        self.assertIn("Each source plays a different role", article)
+        self.assertIn("retrospective products are used to learn source-specific discrepancies", article)
+        self.assertIn("relative to the USGS target series", article)
+
     def test_reviewer1_model_formulation_links_to_results(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("single state-space model", article)
