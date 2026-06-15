@@ -133,6 +133,20 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
 
+    def test_reviewer1_uncertainty_sources_are_distinguished(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("These two uncertainty sources are related but distinct", article)
+        self.assertIn(
+            "Hydrological uncertainty arises from model structure, parameters, states, and observations",
+            article,
+        )
+        self.assertIn(
+            "meteorological uncertainty enters through imperfect precipitation and related atmospheric forcing fields",
+            article,
+        )
+        self.assertIn("local hydrometeorological covariates", article)
+        self.assertNotIn("local hydrological covariates", article)
+
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
