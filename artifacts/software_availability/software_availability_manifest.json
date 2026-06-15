@@ -17,7 +17,13 @@
     "local_path_at_validation": "/data/muscat_data/jaguir26/project1_ucsc_phd",
     "canonical_runbook": "repro/run/CANONICAL_REVISED_ARTICLE_WORKFLOW.md",
     "software_reproducibility_contract": "repro/run/REVISION_SOFTWARE_REPRODUCIBILITY_CONTRACT_20260615.md",
-    "environment_strategy": "repro/ENV_LOCK_STRATEGY.md"
+    "environment_strategy": "repro/ENV_LOCK_STRATEGY.md",
+    "release_readiness_files": {
+      "readme": "README.md",
+      "citation": "CITATION.cff",
+      "pending_release_notes": "RELEASE_NOTES_PENDING_FINAL_ARCHIVE.md",
+      "archive_readiness_checklist": "docs/workflow_archive_readiness_20260615.md"
+    }
   },
   "revised_article_repository": {
     "name": "Evironmetrics---REVISED-DOC-Corrected-2",

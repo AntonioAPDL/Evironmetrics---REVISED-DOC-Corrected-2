@@ -28,6 +28,15 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "https://github.com/AntonioAPDL/Project1",
         )
         self.assertEqual(
+            manifest.get("study_workflow_repository", {}).get("release_readiness_files"),
+            {
+                "readme": "README.md",
+                "citation": "CITATION.cff",
+                "pending_release_notes": "RELEASE_NOTES_PENDING_FINAL_ARCHIVE.md",
+                "archive_readiness_checklist": "docs/workflow_archive_readiness_20260615.md",
+            },
+        )
+        self.assertEqual(
             manifest.get("archive_status", {}).get("workflow_archive_status"),
             "pending_final_release",
         )

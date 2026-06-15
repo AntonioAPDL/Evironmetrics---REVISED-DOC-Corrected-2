@@ -30,6 +30,17 @@ products, forecast products, and covariates.
 - Workflow repository: `https://github.com/AntonioAPDL/Project1`
 - Workflow archive DOI: pending final revision freeze
 
+The workflow repository also carries the public-facing release-readiness files
+that will support the final archived release:
+
+- `README.md`
+- `CITATION.cff`
+- `RELEASE_NOTES_PENDING_FINAL_ARCHIVE.md`
+- `docs/workflow_archive_readiness_20260615.md`
+
+These files document the current public repository state and the remaining final
+archive steps. They do not replace the final archive DOI, which remains pending.
+
 ## Validation
 
 The workflow repository validates this contract through:
