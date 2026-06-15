@@ -158,8 +158,12 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("The empirical focus is forecasting performance and uncertainty quantification", article)
         self.assertIn(r"Section~\ref{sec:forecastvalidation} reports the out-of-sample forecast validation results", article)
         self.assertIn(r"\section{FORECAST VALIDATION RESULTS}", article)
+        self.assertIn(r"\section{INTERPRETATION OF THE SELECTED SPECIFICATION}", article)
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
+        self.assertIn("not as a second forecast-validation exercise", article)
+        self.assertIn("not as additional rolling-origin evidence", article)
+        self.assertNotIn("General Results", article)
 
     def test_reviewer1_conceptual_model_practicality_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
