@@ -481,6 +481,31 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
                         bad.append(f"{path.relative_to(ROOT)}:{lineno}:{match.group(0)}")
         self.assertEqual(bad, [])
 
+    def test_posterior_table_center_policy_matches_export_contract(self) -> None:
+        support_root = ROOT / "artifacts" / "representative_selected_model_2022_12_25"
+        export_readme = (support_root / "posterior_table_exports_README.md").read_text(encoding="utf-8")
+        self.assertIn("gamma_summary.csv: gamma by source x quantile with center=posterior median", export_readme)
+        self.assertIn("sigma_summary.csv: sigma by source x quantile with center=posterior median", export_readme)
+        self.assertIn("covariate_effects_summary.csv: transfer-function covariate effects with center=posterior mean", export_readme)
+
+        table_dir = ROOT / "tables" / "generated_tex"
+        covariates = (table_dir / "representative_covariate_effects_table.tex").read_text(encoding="utf-8")
+        gamma = (table_dir / "appendix_gamma_summary_table.tex").read_text(encoding="utf-8")
+        sigma = (table_dir / "appendix_sigma_summary_table.tex").read_text(encoding="utf-8")
+
+        self.assertIn("Selected Posterior Means and 95\\% Credible Intervals for Transfer-Function Covariates", covariates)
+        self.assertIn(r"\textbf{Mean}", covariates)
+        self.assertIn("Posterior means and 95\\% credible intervals", covariates)
+
+        self.assertIn("Posterior Medians and 95\\% Credible Intervals for the Source-Specific Weight Coefficients", gamma)
+        self.assertIn("Posterior Medians and 95\\% Credible Intervals for the Source-Specific Scale Parameters", sigma)
+        self.assertNotIn("Posterior Means and 95\\% Credible Intervals for the Source-Specific", gamma)
+        self.assertNotIn("Posterior Means and 95\\% Credible Intervals for the Source-Specific", sigma)
+        self.assertIn(r"\textbf{Median}", gamma)
+        self.assertIn(r"\textbf{Median}", sigma)
+        self.assertIn("Posterior medians and 95\\% credible intervals", gamma)
+        self.assertIn("Posterior medians and 95\\% credible intervals", sigma)
+
 
 if __name__ == "__main__":
     unittest.main()
