@@ -96,33 +96,40 @@ The use of the Asymmetric Laplace (AL) distribution for quantile inference withi
 For a fixed target quantile \(p_0\), we write the forecasting framework as a single state-space model. The same latent process is used throughout the estimation period and the forecast window; what changes after the cutoff is the set of observation channels that remains available and the forecast-window covariance used to propagate the state forward. The latent river-flow quantile is represented by a trend-and-seasonal state \(\boldsymbol{\theta}_t \in \mathbb{R}^p\), observed through the loading vector \(\mathbf{F}_t\). Each external product family \(j\) has its own discrepancy state \(\boldsymbol{\delta}_t^j \in \mathbb{R}^p\), which allows that product family to depart systematically from the observed river-flow series. A scalar transfer adjustment \(\zeta_t\) adds information from the external covariates \(\mathbf{x}_t \in \mathbb{R}^m\); the associated covariate effects are collected in \(\boldsymbol{\psi}_t \in \mathbb{R}^m\). Let \(\mathcal{J}=\{1,\ldots,J\}\) index the external product families. For each \(j\in\mathcal{J}\), let \(\mathcal{I}_j=\{1,\ldots,I_j\}\) index the forecast members and \(\mathcal{K}_j=\{1,\ldots,K_{(j)}\}\) index the forecast leads available from that source. We write \(K_{\max}=\max_{j\in\mathcal{J}} K_{(j)}\) for the longest forecast horizon across sources.
 
 We first write the full specification in expanded form. All exAL statements below are conditional on the displayed states and on the corresponding channel-specific scale and skewness parameters. In this formulation, the transfer component remains active after the cutoff:
-\begin{alignat}{2}
+\begin{alignat}{3}
+\text{Observed measurements:}\quad&
 y_t^o
-&\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
+&\sim{}& \text{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
 &\qquad& 1 \le t \le T, \label{eq:unified_usgs}
 \\
+\text{Retrospective products:}\quad&
 z_t^j
-&\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
+&\sim{}& \text{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
 &\qquad& j \in \mathcal{J},\ 1 \le t \le T, \label{eq:unified_retro}
 \\
+\text{Forecast products:}\quad&
 y_T^{j,i}(k)
-&\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
+&\sim{}& \text{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
 &\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j, \notag
 \\
+\text{Trend and seasonal states:}\quad&
 \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
-&\sim \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
+&\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
 &\qquad& 1 \le t \le T+K_{\max}, \label{eq:unified_theta}
 \\
+\text{Discrepancy states:}\quad&
 \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
-&\sim \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
+&\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
 &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max}, \label{eq:unified_delta}
 \\
+\text{Transfer adjustment:}\quad&
 \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
-&\sim \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
+&\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
 &\qquad& 1 \le t \le T+K_{\max}, \label{eq:unified_transfer}
 \\
+\text{Covariate-effect states:}\quad&
 \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
-&\sim \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
+&\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
 &\qquad& 1 \le t \le T+K_{\max}. \notag
 \end{alignat}
 
