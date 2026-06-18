@@ -93,37 +93,24 @@ The use of the Asymmetric Laplace (AL) distribution for quantile inference withi
 \subsection{State-Space Model Specification}
 \label{subsec:fullmodel}
 
-For a fixed target quantile \(p_0\), we write the forecasting framework as a single state-space model. The same latent state is used throughout the estimation period and the forecast window; what changes after the cutoff is the set of observation channels that remains available and the forecast-window covariance used to propagate that state forward. Let
-\[
-\boldsymbol{\omega}_t' = [\zeta_t,\ \boldsymbol{\psi}_t'], \qquad
-\boldsymbol{\eta}_t' = [\boldsymbol{\theta}_t',\ (\boldsymbol{\delta}_t^1)',\ \ldots,\ (\boldsymbol{\delta}_t^J)',\ \boldsymbol{\omega}_t'],
-\]
-where \(\boldsymbol{\omega}_t \in \mathbb{R}^{m+1}\) contains the transfer state and the time-varying covariate effects, \(\boldsymbol{\eta}_t \in \mathbb{R}^{q}\) with \(q = (J+1)p + m + 1\), \(\boldsymbol{\theta}_t \in \mathbb{R}^p\) contains the trend and seasonal states, and \(\boldsymbol{\delta}_t^j \in \mathbb{R}^p\) is the discrepancy state for source \(j\). Thus, the full state consists of one latent trend-and-seasonal block, \(J\) discrepancy blocks, and one transfer block. Let \(\mathcal{J}=\{1,\ldots,J\}\) index the external product families. For each \(j\in\mathcal{J}\), let \(\mathcal{I}_j=\{1,\ldots,I_j\}\) index the forecast members and \(\mathcal{K}_j=\{1,\ldots,K_{(j)}\}\) index the forecast leads available from that source. We write \(K_{\max}=\max_{j\in\mathcal{J}} K_{(j)}\) for the longest forecast horizon across sources. The transfer block evolves through
-\[
-\mathbf{G}^{\text{trans}}_t =
-\begin{bmatrix}
-\lambda & \mathbf{x}_t' \\
-\mathbf{0}_m & \mathbf{I}_m
-\end{bmatrix},
-\]
-where \(\mathbf{G}^{\text{trans}}_t \in \mathbb{R}^{(m+1)\times(m+1)}\), \(\lambda \in \mathbb{R}\) governs persistence in the transfer state, and \(\mathbf{x}_t \in \mathbb{R}^{m}\) denotes the external covariates.
+For a fixed target quantile \(p_0\), we write the forecasting framework as a single state-space model. The same latent process is used throughout the estimation period and the forecast window; what changes after the cutoff is the set of observation channels that remains available and the forecast-window covariance used to propagate the state forward. The latent river-flow quantile is represented by a trend-and-seasonal state \(\boldsymbol{\theta}_t \in \mathbb{R}^p\), observed through the loading vector \(\mathbf{F}_t\). Each external product family \(j\) has its own discrepancy state \(\boldsymbol{\delta}_t^j \in \mathbb{R}^p\), which allows that product family to depart systematically from the observed river-flow series. A scalar transfer adjustment \(\zeta_t\) adds information from the external covariates \(\mathbf{x}_t \in \mathbb{R}^m\); the associated covariate effects are collected in \(\boldsymbol{\psi}_t \in \mathbb{R}^m\). Let \(\mathcal{J}=\{1,\ldots,J\}\) index the external product families. For each \(j\in\mathcal{J}\), let \(\mathcal{I}_j=\{1,\ldots,I_j\}\) index the forecast members and \(\mathcal{K}_j=\{1,\ldots,K_{(j)}\}\) index the forecast leads available from that source. We write \(K_{\max}=\max_{j\in\mathcal{J}} K_{(j)}\) for the longest forecast horizon across sources.
 
 We first write the full specification in expanded form. In this formulation, the transfer component remains active after the cutoff:
 \begin{align}
 \text{Observed measurements:}&&
-y_t^o \mid \boldsymbol{\eta}_t, \sigma^o, \gamma^o
+y_t^o \mid \boldsymbol{\theta}_t, \zeta_t, \sigma^o, \gamma^o
 &\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
 \quad 1 \le t \le T, \label{eq:unified_usgs}
 \\
 \text{Retrospective products:}&&
-z_t^j \mid \boldsymbol{\eta}_t, \sigma^j, \gamma^j
+z_t^j \mid \boldsymbol{\theta}_t, \boldsymbol{\delta}_t^j, \zeta_t, \sigma^j, \gamma^j
 &\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
 \quad j \in \mathcal{J},\ 1 \le t \le T, \label{eq:unified_retro}
 \\
 \text{Forecast products:}&&
-y_T^{j,i}(k) \mid \boldsymbol{\eta}_{T+k}, \sigma^j, \gamma^j
+y_T^{j,i}(k) \mid \boldsymbol{\theta}_{T+k}, \boldsymbol{\delta}_{T+k}^j, \zeta_{T+k}, \sigma^j, \gamma^j
 &\sim \text{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right), \nonumber
-\, j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j, \label{eq:unified_forecast}
+\, j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j,
 \\
 \text{Trend and seasonal states:}&&
 \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
@@ -136,21 +123,35 @@ y_T^{j,i}(k) \mid \boldsymbol{\eta}_{T+k}, \sigma^j, \gamma^j
 \quad j \in \mathcal{J},\ 1 \le t \le T+K_{\max}, \label{eq:unified_delta}
 \\
 \text{Transfer-function states:}&&
-\boldsymbol{\omega}_t \mid \boldsymbol{\omega}_{t-1}
-&\sim \mathcal{N}\!\left(
-\mathbf{G}^{\text{trans}}_t \boldsymbol{\omega}_{t-1},
-\text{BlockDiag}\!\left(w_t^\zeta, \mathbf{W}_t^\psi\right)
-\right),
+\begin{aligned}
+\zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
+&\sim \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),\\
+\boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
+&\sim \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
+\end{aligned}
 \quad 1 \le t \le T+K_{\max}. \label{eq:unified_transfer}
 \end{align}
 
-Here \(\mathbf{F}_t \in \mathbb{R}^{p}\), \(\mathbf{G}_t \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^\theta \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^{\delta^j} \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^\psi \in \mathbb{R}^{m\times m}\), and \(w_t^\zeta \in \mathbb{R}_+\) is the scalar evolution variance for the transfer state \(\zeta_t\). The source-specific parameters are \((\sigma^o,\gamma^o) \in \mathbb{R}_+ \times \mathbb{R}\) for the observed river-flow series and \((\sigma^j,\gamma^j) \in \mathbb{R}_+ \times \mathbb{R}\) for all channels associated with source \(j\), whether retrospective or forecast-based. The symbol \(T\) denotes the cutoff or forecast origin, so \(y_T^{j,i}(k)\) is the \(k\)-step-ahead member issued at that origin by member \(i\) of source \(j\).
+Here \(\mathbf{F}_t \in \mathbb{R}^{p}\), \(\mathbf{G}_t \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^\theta \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^{\delta^j} \in \mathbb{R}^{p\times p}\), \(\mathbf{W}_t^\psi \in \mathbb{R}^{m\times m}\), and \(w_t^\zeta \in \mathbb{R}_+\) is the scalar evolution variance for the transfer state \(\zeta_t\). The parameter \(\lambda \in \mathbb{R}\) governs persistence in the transfer adjustment, while \(\mathbf{x}_t'\boldsymbol{\psi}_{t-1}\) injects the covariate signal available at time \(t\). During the forecast window, \(\mathbf{x}_{T+k}\) is the forecast covariate vector staged at the cutoff. The source-specific parameters are \((\sigma^o,\gamma^o) \in \mathbb{R}_+ \times \mathbb{R}\) for the observed river-flow series and \((\sigma^j,\gamma^j) \in \mathbb{R}_+ \times \mathbb{R}\) for all channels associated with source \(j\), whether retrospective or forecast-based. The symbol \(T\) denotes the cutoff or forecast origin, so \(y_T^{j,i}(k)\) is the \(k\)-step-ahead member issued at that origin by member \(i\) of source \(j\).
 
 The first two lines correspond to the estimation period, where the available channels are the observed river-flow series and the retrospective products. The third line corresponds to the forecast window, where those channels are replaced by the forecast products issued at or before the cutoff.
 
-The last three lines define the block structure of the state evolution. The latent block \(\boldsymbol{\theta}_t\) carries the underlying river-flow level and seasonal structure, the source-specific blocks \(\boldsymbol{\delta}_t^j\) absorb systematic departures between each external product family and the observed river-flow series, and the transfer block \((\zeta_t,\boldsymbol{\psi}_t)\) maps the external covariates into the quantile process. In the compact form below, these blocks are assembled into \(\boldsymbol{D}_t\) and \(\boldsymbol{\Lambda}_t\) before the cutoff and into \(\boldsymbol{M}_t\) and \(\mathbf{W}_t\) after the cutoff. In the formulation used throughout this section, the transfer block remains active after the cutoff, with \(\mathbf{x}_t\) given by the forecast covariates available at that origin.
+The state-evolution lines define the roles of the three dynamic components. The latent block \(\boldsymbol{\theta}_t\) carries the underlying river-flow level and seasonal structure, the source-specific blocks \(\boldsymbol{\delta}_t^j\) absorb systematic departures between each external product family and the observed river-flow series, and the transfer component maps external covariates into the quantile process through \(\zeta_t\) and \(\boldsymbol{\psi}_t\). In the formulation used throughout this section, the transfer component remains active after the cutoff, with \(\mathbf{x}_t\) given by the forecast covariates available at that origin.
 
-For its computational implementation, the model can be written in the following compact matrix form:
+For its computational implementation, these same pieces are collected into stacked vectors. Define
+\[
+\boldsymbol{\omega}_t' = [\zeta_t,\ \boldsymbol{\psi}_t'], \qquad
+\boldsymbol{\eta}_t' = [\boldsymbol{\theta}_t',\ (\boldsymbol{\delta}_t^1)',\ \ldots,\ (\boldsymbol{\delta}_t^J)',\ \boldsymbol{\omega}_t'],
+\]
+where \(\boldsymbol{\omega}_t \in \mathbb{R}^{m+1}\) and \(\boldsymbol{\eta}_t \in \mathbb{R}^{q}\) with \(q = (J+1)p + m + 1\). The transfer update above is equivalently represented by
+\[
+\mathbf{G}^{\text{trans}}_t =
+\begin{bmatrix}
+\lambda & \mathbf{x}_t' \\
+\mathbf{0}_m & \mathbf{I}_m
+\end{bmatrix}.
+\]
+The resulting compact matrix form is
 \begin{align}
 y_{t,s} \mid \boldsymbol{\eta}_t, \sigma_s, \gamma_s
 &\sim \text{exAL}_{p_0}\!\left(\mathbf{h}_{t,s}' \boldsymbol{\eta}_t, \sigma_s, \gamma_s\right),
