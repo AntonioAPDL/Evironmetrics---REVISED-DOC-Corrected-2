@@ -153,28 +153,27 @@ where \(\boldsymbol{\omega}_t \in \mathbb{R}^{m+1}\) and \(\boldsymbol{\eta}_t \
 \end{bmatrix}.
 \]
 The resulting compact matrix form is
-\begin{align}
-\text{Estimation observations:}\quad
+\begin{alignat}{3}
+\text{Estimation observations:}\quad&
 y_{t,s} \mid \boldsymbol{\eta}_t, \sigma_s, \gamma_s
-&\sim \text{exAL}_{p_0}\!\left(\mathbf{h}_{t,s}' \boldsymbol{\eta}_t, \sigma_s, \gamma_s\right), \label{eq:compact_est_obs}\\[-1pt]
-&\quad 1 \le t \le T,\quad s \in \{0\}\cup\mathcal{J}.
-\notag\\[3pt]
-\text{Estimation state evolution:}\quad
+&\sim{}& \text{exAL}_{p_0}\!\left(\mathbf{h}_{t,s}' \boldsymbol{\eta}_t, \sigma_s, \gamma_s\right),
+&\qquad& 1 \le t \le T,\ s \in \{0\}\cup\mathcal{J}, \label{eq:compact_est_obs}
+\\
+\text{Estimation state evolution:}\quad&
 \boldsymbol{\eta}_t \mid \boldsymbol{\eta}_{t-1}
-&\sim \mathcal{N}\!\left(\boldsymbol{D}_t \boldsymbol{\eta}_{t-1}, \boldsymbol{\Lambda}_t\right), \label{eq:compact_est_state}\\[-1pt]
-&\quad 1 \le t \le T.
-\notag\\[3pt]
-\text{Forecast observations:}\quad
+&\sim{}& \mathcal{N}\!\left(\boldsymbol{D}_t \boldsymbol{\eta}_{t-1}, \boldsymbol{\Lambda}_t\right),
+&\qquad& 1 \le t \le T, \label{eq:compact_est_state}
+\\
+\text{Forecast observations:}\quad&
 y_T^{j,i}(k) \mid \boldsymbol{\eta}_{T+k}, \sigma^j, \gamma^j
-&\sim \text{exAL}_{p_0}\!\left(\mathbf{e}_{T+k,j}' \boldsymbol{\eta}_{T+k}, \sigma^j, \gamma^j\right), \label{eq:compact_fc_obs}\\[-1pt]
-&\quad j \in \mathcal{J},\quad i \in \mathcal{I}_j,\quad k \in \mathcal{K}_j.
-\notag\\[3pt]
-\text{Forecast state evolution:}\quad
+&\sim{}& \text{exAL}_{p_0}\!\left(\mathbf{e}_{T+k,j}' \boldsymbol{\eta}_{T+k}, \sigma^j, \gamma^j\right),
+&\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j, \label{eq:compact_fc_obs}
+\\
+\text{Forecast state evolution:}\quad&
 \boldsymbol{\eta}_{T+k} \mid \boldsymbol{\eta}_{T+k-1}
-&\sim \mathcal{N}\!\left(\boldsymbol{M}_{T+k} \boldsymbol{\eta}_{T+k-1}, \mathbf{W}_{T+k}\right), \label{eq:compact_fc_state}\\[-1pt]
-&\quad 1 \le k \le K_{\max}.
-\notag
-\end{align}
+&\sim{}& \mathcal{N}\!\left(\boldsymbol{M}_{T+k} \boldsymbol{\eta}_{T+k-1}, \mathbf{W}_{T+k}\right),
+&\qquad& 1 \le k \le K_{\max}. \label{eq:compact_fc_state}
+\end{alignat}
 The first two lines describe the estimation period, whereas the last two describe the forecast window.
 Here
 \[
