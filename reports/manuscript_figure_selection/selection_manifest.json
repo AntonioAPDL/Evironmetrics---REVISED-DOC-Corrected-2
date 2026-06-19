@@ -43,7 +43,7 @@
       "source_class": "setup_support_v2_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/forecats.png",
-      "sha256": "a4f8545c539534f3bee2821250e8bd68cf92071ce6fd8b3e113d25265779fca0",
+      "sha256": "561383865a0d85b0f29cc8ffc6e2172eb14ba58cbea4be0ba589d1610a6b87b3",
       "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
     },
     {
@@ -54,7 +54,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
-      "sha256": "a38448c0b41286e491bfbba74a780bbc19f894b1bbb1e88f0232d45c8f99e310",
+      "sha256": "466f4f7595e3a37b058066c52ced8096c8ab0403f7d0349eb49c3324d0d8e37e",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
@@ -65,19 +65,19 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
-      "sha256": "538713f20d6424db7c24fde095d950b2628cbaeafdc4e235b1affd4f6e5a4a46",
+      "sha256": "04cb72c4c9fbe1d1cab671272dbd1933b8d15b86faae3152f7bdbbe2d53a7026",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
       "label": "fig:synth1",
       "manuscript_path": "figures/manuscript/representative_synthesis_multivariate.png",
       "category": "Selected Model",
-      "role": "Representative selected-model synthesis",
+      "role": "Representative selected-model synthesis with reference-product overlays",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png",
-      "sha256": "3c66c10cfa293badc9bea83517d6ea40b19c6754ec5cfa2c995101e54b36ca17",
-      "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output"
+      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
+      "sha256": "89a9ed4d36e9f65d73885e9ca3d1d79cd3523de380284b5110f7bbed3b0a234d",
+      "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output with adapter-scale retrospective and forecast-product references"
     },
     {
       "label": "fig:80_components",

@@ -1,6 +1,6 @@
 # HE2 Publication Parity Gate
 
-- generated_at_utc: `2026-06-14T19:33:22Z`
+- generated_at_utc: `2026-06-14T19:56:27Z`
 - promoted rows: `45`
 - pending rows: `0`
 - blocked rows: `0`

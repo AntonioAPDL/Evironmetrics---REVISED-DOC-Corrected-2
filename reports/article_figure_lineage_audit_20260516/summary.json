@@ -10,7 +10,8 @@
   "lowercase_figure_file_count": 47,
   "uppercase_figure_file_count": 47,
   "status_counts": {
+    "blocked_retained_support_artifacts_missing": 1,
     "unchanged_intentionally": 8,
-    "updated_now": 39
+    "updated_now": 38
   }
 }

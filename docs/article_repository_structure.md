@@ -13,7 +13,7 @@ The repository is organized so that a reader can separate three roles immediatel
 ## Top-level layout
 
 - `wileyNJD-APA.tex`: manuscript source used by Overleaf
-- `figures/`: manuscript-facing figures, appendix cutoff panels, and advisor-facing forecast-context copies
+- `figures/`: manuscript-facing figures, supplementary cutoff synthesis panels, and advisor-facing forecast-context copies
 - `tables/`: generated TeX tables consumed by `\input{}` in the manuscript
 - `artifacts/`: article-local frozen bundles copied from validated workflow outputs
 - `reports/`: galleries, audits, selection manifests, and review reports
@@ -39,13 +39,14 @@ transitions do not break figure rendering.
 - `figures/manuscript/historical_component_80month.png`
 - `figures/manuscript/reference_synthesis_univariate.png`
 
-### Appendix cutoff-panel figures
+### Supplementary cutoff synthesis figures
 
-- `figures/appendix_cutoff_panels/cutoff_2021_01_23_setup_support.png`
-- `figures/appendix_cutoff_panels/cutoff_2021_11_12_setup_support.png`
-- `figures/appendix_cutoff_panels/cutoff_2021_12_21_setup_support.png`
-- `figures/appendix_cutoff_panels/cutoff_2022_05_11_setup_support.png`
-- `figures/appendix_cutoff_panels/cutoff_2022_12_25_setup_support.png`
+- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png`
+- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png`
+- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png`
+- `figures/multivariate_synthesis_by_cutoff/cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png`
+
+The former setup/support composites remain available as generated support artifacts under `figures/appendix_cutoff_panels/` and `artifacts/five_cutoff_setup_support/`, but they are no longer included as manuscript appendix figures.
 
 ### Advisor-facing cutoff forecast-context figures
 
@@ -99,6 +100,8 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
   - exact promotion manifest from artifact bundles to manuscript-facing figure files
 - `reports/five_cutoff_setup_support_review/`
   - review gallery and audits for the five-cutoff setup/support family
+- `reports/five_cutoff_synthesis_review/`
+  - review summary for cutoff-wide multivariate and reference synthesis families
 - `reports/representative_setup_selection/`
   - records which cutoff bundle feeds Figures 1-4
 
@@ -126,7 +129,7 @@ This refresh path now does all of the following:
 1. rebuild article-side artifact bundles
 2. rebuild review reports and audits
 3. promote manuscript-facing figure files from the manifest contract
-4. promote the advisor-facing cutoff forecast-context figure family
+4. promote the advisor-facing cutoff forecast-context and cutoff synthesis figure families
 5. regenerate manuscript table blocks
 6. remove the retired `DISC/` and `generated/` naming layers
 7. rebuild the advisor-facing README and inventory guides

@@ -149,8 +149,10 @@ def write_figure_dir_readme(path: Path, *, title: str, family_description: str) 
     path.write_text(
         f'# {title}\n\n'
         f'{family_description}\n\n'
-        'These are advisor-facing figure copies, not the manuscript-facing figure selection.\n'
-        'The manuscript still promotes only the representative selected figure through `MANUSCRIPT_ASSET_MANIFEST.json`.\n',
+        'These cutoff-wide copies are refreshed from the authoritative synthesis output roots. '
+        'The representative 2022-12-25 manuscript figure is still promoted through '
+        '`MANUSCRIPT_ASSET_MANIFEST.json`; the non-representative multivariate overlay copies '
+        'are also available for the supplementary cutoff-specific synthesis panels.\n',
         encoding='utf-8',
     )
 
@@ -164,7 +166,7 @@ def build_review(layout) -> None:
 
     md: list[str] = []
     md.append('# Five-Cutoff Synthesis Review\n\n')
-    md.append('This review bundle records the cutoff-wide synthesis families promoted into the revised article repo for Stage 1 contract qualification.\n\n')
+    md.append('This review bundle records the cutoff-wide synthesis families promoted into the revised article repo for Stage 1 contract qualification and supplementary cutoff-specific synthesis review.\n\n')
     md.append('## Family coverage\n\n')
     md.append('| Family | Cutoffs | Overlay variants | Review figure directory |\n')
     md.append('|---|---:|---:|---|\n')
@@ -317,7 +319,7 @@ def main() -> None:
     write_figure_dir_readme(
         layout.cutoff_multivariate_synthesis_dir / 'README.md',
         title='Multivariate Synthesis By Cutoff',
-        family_description='Advisor-facing copies of the corrected Figure 7 family for all five cutoffs, including overlay companions with raw/reference ensembles.',
+        family_description='Cutoff-wide copies of the corrected selected-model synthesis family for all five cutoffs, including overlay companions with retrospective and forecast-product references.',
     )
     write_figure_dir_readme(
         layout.cutoff_reference_synthesis_dir / 'README.md',

@@ -64,11 +64,11 @@
       "label": "fig:synth1",
       "manuscript_path": "figures/manuscript/representative_synthesis_multivariate.png",
       "category": "Selected Model",
-      "role": "Representative selected-model synthesis",
-      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png",
+      "role": "Representative selected-model synthesis with reference-product overlays",
+      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output"
+      "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output with adapter-scale retrospective and forecast-product references"
     },
     {
       "label": "fig:80_components",

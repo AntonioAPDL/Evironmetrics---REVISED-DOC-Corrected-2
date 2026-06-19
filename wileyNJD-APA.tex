@@ -13,6 +13,8 @@
   {Figures/manuscript/}
   {figures/appendix_cutoff_panels/}
   {Figures/appendix_cutoff_panels/}
+  {figures/multivariate_synthesis_by_cutoff/}
+  {Figures/multivariate_synthesis_by_cutoff/}
 }
 
 \articletype{Research Article} % Specify article type
@@ -423,6 +425,7 @@ The posterior bands in Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantil
 \includegraphics[width=450pt]{representative_synthesis_multivariate.png}
 \caption{
 Representative synthesized posterior predictive distribution for river flow on the $\log(1+x)$ scale, with $x$ measured in m$^3$/s, at the December 25, 2022 forecast origin under the selected exAL-M-T1 specification. Observed USGS measurements before the origin are shown in green, held-out USGS verification after the origin is shown in red, and the synthesized posterior predictive distribution is shown by the pink band and dark center line. Thin overlaid lines correspond to displayed forecast quantiles at levels 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95.
+The raw retrospective and forecast-product references used by the post-stage input bundle are shown for context.
 }
 \label{fig:synth1}
 \end{figure}
@@ -519,45 +522,45 @@ Historical-only reference predictive distribution for river flow on the $\log(1+
 
 Figure~\ref{fig:synth2} provides a historical-only reference for the December 25, 2022 cutoff. It is included to contrast the operational synthesis in Figure~\ref{fig:synth1} with a simpler counterfactual that excludes retrospective and forecast products.
 
-\subsection{Additional Cutoff-Specific Setup and Support Panels}
-\label{app:cutoffsupportpanels}
+\subsection{Additional Cutoff-Specific Predictive Synthesis Panels}
+\label{app:cutoffsynthpanels}
 
-The main text shows the representative December 25, 2022 setup and support figures individually. For completeness, this appendix collects the corresponding setup/support panels for the other rolling-origin cutoffs used in the Bayesian forecast validation. Each panel contains four views for the same cutoff: observed USGS history to the cutoff, the historical PPT/SOIL/GDPC covariate histories, the retrospective support actually used by the fitted models, and the short forecast-context review window. These supplementary panels are included for documentation and reader inspection rather than as separate forecast-validation evidence.
+The main text shows the December 25, 2022 synthesis as a representative selected-model illustration. For completeness, this appendix reports the corresponding multivariate synthesis panels for the other rolling-origin cutoffs. Each panel uses the same selected exAL-M-T1 synthesis contract as Figure~\ref{fig:synth1} and includes the retrospective and forecast-product references used by the cutoff-specific post-stage input bundle. These figures are supplementary visual diagnostics rather than additional forecast-validation summaries.
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=450pt]{cutoff_2021_01_23_setup_support.png}
+\includegraphics[width=450pt]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}
 \caption{
-Supplementary setup/support panel for the January 23, 2021 cutoff. The panel documents the historical observations, covariate histories, retrospective support used by fit, and forecast-product context associated with the published Bayesian validation rows at this cutoff.
+Supplementary multivariate synthesis panel for the January 23, 2021 cutoff. The display follows the same selected-model synthesis and reference-product overlay contract as Figure~\ref{fig:synth1}.
 }
-\label{fig:setupsupport_20210123}
+\label{fig:synthsupport_20210123}
 \end{figure}
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=450pt]{cutoff_2021_11_12_setup_support.png}
+\includegraphics[width=450pt]{cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png}
 \caption{
-Supplementary setup/support panel for the November 12, 2021 cutoff. As in Figure~\ref{fig:setupsupport_20210123}, the panel documents the cutoff-specific observation, covariate, retrospective, and forecast-product inputs linked to the published Bayesian validation rows.
+Supplementary multivariate synthesis panel for the November 12, 2021 cutoff. The display follows the same selected-model synthesis and reference-product overlay contract as Figure~\ref{fig:synth1}.
 }
-\label{fig:setupsupport_20211112}
+\label{fig:synthsupport_20211112}
 \end{figure}
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=450pt]{cutoff_2021_12_21_setup_support.png}
+\includegraphics[width=450pt]{cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png}
 \caption{
-Supplementary setup/support panel for the December 21, 2021 cutoff. This cutoff belongs to the full-history histfix class, so the retrospective component extends back to the common historical start used by the fitted models.
+Supplementary multivariate synthesis panel for the December 21, 2021 cutoff. The display follows the same selected-model synthesis and reference-product overlay contract as Figure~\ref{fig:synth1}.
 }
-\label{fig:setupsupport_20211221}
+\label{fig:synthsupport_20211221}
 \end{figure}
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=450pt]{cutoff_2022_05_11_setup_support.png}
+\includegraphics[width=450pt]{cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png}
 \caption{
-Supplementary setup/support panel for the May 11, 2022 cutoff. This is the second full-history histfix cutoff retained in the Bayesian rolling-origin validation.
+Supplementary multivariate synthesis panel for the May 11, 2022 cutoff. The display follows the same selected-model synthesis and reference-product overlay contract as Figure~\ref{fig:synth1}.
 }
-\label{fig:setupsupport_20220511}
+\label{fig:synthsupport_20220511}
 \end{figure}
 
 \section{Markov Chain Monte Carlo Algorithms}

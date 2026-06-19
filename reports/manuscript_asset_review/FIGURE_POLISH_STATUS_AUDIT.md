@@ -86,19 +86,18 @@ Figure A1 should plot the 80-month component after adding the posterior mean tre
   - `wileyNJD-APA.tex:460-466`
 
 ### Item 9 [complete]
-Keep the composite A3–A6 style panels only if useful; definitely preserve the forecast-context panel D for all cutoffs, and do the same cutoff-wide treatment for Figure 7 and A2 when full-history conditions allow it.
+Keep the forecast-context panel D for all cutoffs, and replace manuscript A3–A6 setup/support composites with cutoff-specific multivariate synthesis overlays.
 
-- Note: Forecast-context figures, multivariate synthesis figures, and reference synthesis figures are now preserved cutoff-wide in advisor-facing folders. The remaining decision is whether the composite appendix panels should stay in the manuscript appendix or move to repo-only review support.
+- Note: Forecast-context figures remain preserved cutoff-wide for review. The manuscript appendix now uses the cutoff-specific multivariate synthesis overlay figures; setup/support composites are retained only as generated support artifacts and are no longer included in the manuscript.
 - Evidence:
   - `figures/forecast_context_by_cutoff/manifest.csv`
   - `figures/multivariate_synthesis_by_cutoff/manifest.csv`
   - `figures/reference_synthesis_by_cutoff/manifest.csv`
-  - `figures/appendix_cutoff_panels/`
   - `artifacts/five_cutoff_setup_support/review/figure_manifest.csv`
   - `wileyNJD-APA.tex:483-520`
 
 ## Remaining work before the next modeling phase
 
-1. Decide whether the appendix composite setup/support panels should remain in the manuscript appendix or move to repo-only documentation.
+1. Keep setup/support composites as repo-only support artifacts unless a future manuscript revision explicitly requests them.
 2. Keep the early short-window cutoffs (`2021-01-23`, `2021-11-12`) separate from any future full-history-only interpretation claims until the full-table corrected bundle relaunch is complete.
 

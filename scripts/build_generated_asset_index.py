@@ -134,7 +134,7 @@ def main() -> None:
         '- `wileyNJD-APA.tex`: manuscript source used by Overleaf\n'
         '- `figures/manuscript/`: the exact figure files used by the manuscript\n'
         '- `figures/forecast_context_by_cutoff/`: advisor-facing copies of the Figure 4 forecast-context view for all five cutoffs\n'
-        '- `figures/multivariate_synthesis_by_cutoff/`: advisor-facing Figure 7 family for all five cutoffs\n'
+        '- `figures/multivariate_synthesis_by_cutoff/`: cutoff-wide selected-model synthesis family, including the supplementary overlay panels\n'
         '- `figures/reference_synthesis_by_cutoff/`: advisor-facing Figure A2-style family for all five cutoffs\n'
         '- `tables/generated_tex/`: the exact generated table blocks included by the manuscript\n'
         '- `docs/figure_table_provenance.md`: figure/table provenance summary\n'

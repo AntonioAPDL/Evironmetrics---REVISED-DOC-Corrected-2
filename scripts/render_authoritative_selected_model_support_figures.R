@@ -43,6 +43,31 @@ if (!exists("theme_manuscript_standard", mode = "function")) {
 if (!exists("figure_flow_axis_label", mode = "function")) {
   figure_flow_axis_label <- function(scale) scale
 }
+if (!exists("figure_flood_label_df", mode = "function")) {
+  figure_flood_label_df <- function(plot_scale = "log1p_cms", values = numeric()) {
+    if (!identical(plot_scale, "log1p_cms")) {
+      return(data.frame())
+    }
+    data.frame(
+      label = c("Major Flooding", "Minor Flooding"),
+      y = c(6.06378521, 5.20948615),
+      label_y = c(6.15, 5.13),
+      stringsAsFactors = FALSE
+    )
+  }
+}
+if (!exists("figure_flood_stage_style", mode = "function")) {
+  figure_flood_stage_style <- function() {
+    list(
+      line_color = "#6B7280",
+      line_width = 0.65,
+      line_type = "dashed",
+      label_color = "#4A5568",
+      label_size = 3.3,
+      label_face = "italic"
+    )
+  }
+}
 
 suppressPackageStartupMessages({
   library(ggplot2)
@@ -174,6 +199,11 @@ render_quantile_window <- function(start_date, end_date, title_text, out_file, y
   obs <- obs[is.finite(obs$observed_usgs), , drop = FALSE]
   col <- c(q05 = "#b2182b", q50 = "#238b45", q95 = "#2171b5")
   fill <- c(q05 = "#fdbba1", q50 = "#b2df8a", q95 = "#a6bddb")
+  flood_df <- figure_flood_label_df(
+    plot_scale = display_flow_scale,
+    values = c(dd$lower_025, dd$upper_975, dd$median_500, obs$observed_usgs)
+  )
+  flood_style <- figure_flood_stage_style()
   p <- ggplot() +
     geom_ribbon(
       data = dd,
@@ -212,6 +242,28 @@ render_quantile_window <- function(start_date, end_date, title_text, out_file, y
       major_grid_y = TRUE,
       plot_margin = margin(12, 12, 12, 12)
     )
+  if (!is.null(flood_df) && nrow(flood_df) > 0L) {
+    p <- p +
+      geom_hline(
+        data = flood_df,
+        aes(yintercept = y),
+        linetype = flood_style$line_type,
+        color = flood_style$line_color,
+        linewidth = flood_style$line_width,
+        alpha = 0.9
+      ) +
+      annotate(
+        "text",
+        x = as.Date(end_date),
+        y = flood_df$label_y,
+        label = flood_df$label,
+        hjust = 1.02,
+        vjust = 0.5,
+        color = flood_style$label_color,
+        fontface = flood_style$label_face,
+        size = flood_style$label_size
+      )
+  }
   ggsave(out_file, plot = p, width = 12, height = 6, units = "in", dpi = 900)
 }
 

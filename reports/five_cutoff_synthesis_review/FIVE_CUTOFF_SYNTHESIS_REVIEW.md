@@ -1,6 +1,6 @@
 # Five-Cutoff Synthesis Review
 
-This review bundle records the cutoff-wide synthesis families promoted into the revised article repo for Stage 1 contract qualification.
+This review bundle records the cutoff-wide synthesis families promoted into the revised article repo for Stage 1 contract qualification and supplementary cutoff-specific synthesis review.
 
 ## Family coverage
 

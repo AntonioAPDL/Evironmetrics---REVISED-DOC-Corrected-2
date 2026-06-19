@@ -12,9 +12,9 @@
 
 | Family | Current status | Source lineage | Notes |
 |---|---|---|---|
-| Setup/support manuscript figures + appendix panels + forecast-context family | `updated_now` | `exal_m_t1_setup_support_by_cutoff_v2_20260516` | Full USGS/PPT/SOIL/GDPC history from `1987-05-29 -> cutoff`; retrospective support now sourced from repaired canonical shared bundles for all cutoffs. |
-| Representative keep synthesis + cutoff-wide multivariate synthesis | `updated_now` | completed keep output root `20260516` | Refreshed from the completed shared-spec keep rerun. |
-| Historical support from current models | `updated_now` | `completed_keep_outputs_20260516_via_rendered_from_retained_state_summary` | Refreshed from the corrected retained support contract using the dedicated historical-support replay root. |
+| Setup/support manuscript figures + cutoff-wide forecast-context family | `updated_now` | `exal_m_t1_setup_support_by_cutoff_v2_20260516` | Full USGS/PPT/SOIL/GDPC history from `1987-05-29 -> cutoff`; retrospective support now sourced from repaired canonical shared bundles for all cutoffs. Setup/support composites are retained as support artifacts but are no longer manuscript appendix figures. |
+| Representative keep synthesis + cutoff-wide multivariate synthesis overlays | `updated_now` | completed keep output root `20260516` | Refreshed from the completed shared-spec keep rerun; Figure 7 and the supplementary cutoff-specific synthesis panels use reference-product overlay variants. |
+| Historical support from current models | `blocked_retained_support_artifacts_missing` | `historical_support_retained_artifacts_missing_20260516` | Current-model support renderer still expects retained multivariate fit artifacts that are not exported by the completed workflow roots. |
 | Reference synthesis family | `updated_now` | completed univariate output root `20260516` | Refreshed from the completed shared-spec univariate rerun. |
 
 ## Per-figure status
@@ -37,10 +37,10 @@
 | `figures/forecast_context_by_cutoff/manifest.csv` | figure unaffected by corrected lineage | `unchanged_intentionally` | `n/a` | `n/a` | - |
 | `figures/manuscript/covariate_context_precip_soil_gdpc.png` | input-side / support / context figure | `updated_now` | `corrected_setup_support_v2_20260516` | `scripts/refresh_setup_support_by_cutoff_v2.py -> scripts/promote_setup_support_v2_to_disc.py -> scripts/promote_generated_figures_to_disc.py` | - |
 | `figures/manuscript/forecast_products_context.png` | input-side / support / context figure | `updated_now` | `corrected_setup_support_v2_20260516` | `scripts/refresh_setup_support_by_cutoff_v2.py -> scripts/promote_setup_support_v2_to_disc.py -> scripts/promote_generated_figures_to_disc.py` | - |
-| `figures/manuscript/historical_component_80month.png` | model-output-driven figure | `updated_now` | `completed_keep_outputs_20260516_via_rendered_from_retained_state_summary` | `scripts/refresh_current_model_output_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
-| `figures/manuscript/historical_summary_dry_period.png` | model-output-driven figure | `updated_now` | `completed_keep_outputs_20260516_via_rendered_from_retained_state_summary` | `scripts/refresh_current_model_output_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
-| `figures/manuscript/historical_summary_wet_period.png` | model-output-driven figure | `updated_now` | `completed_keep_outputs_20260516_via_rendered_from_retained_state_summary` | `scripts/refresh_current_model_output_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
-| `figures/manuscript/reference_synthesis_univariate.png` | model-output-driven figure | `updated_now` | `completed_keep_outputs_20260516_via_rendered_from_retained_state_summary` | `scripts/refresh_current_model_output_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
+| `figures/manuscript/historical_component_80month.png` | model-output-driven figure | `updated_now` | `current_selected_model_representative` | `scripts/refresh_authoritative_selected_model_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
+| `figures/manuscript/historical_summary_dry_period.png` | model-output-driven figure | `updated_now` | `current_selected_model_representative` | `scripts/refresh_authoritative_selected_model_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
+| `figures/manuscript/historical_summary_wet_period.png` | model-output-driven figure | `updated_now` | `current_selected_model_representative` | `scripts/refresh_authoritative_selected_model_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | - |
+| `figures/manuscript/reference_synthesis_univariate.png` | model-output-driven figure | `blocked_retained_support_artifacts_missing` | `historical_support_retained_artifacts_missing_20260516` | `scripts/refresh_current_model_output_support_figures.py -> scripts/promote_generated_figures_to_disc.py` | Current-model support renderer still expects retained multivariate fit artifacts or a retained corrected state-summary contract that has not been refreshed successfully yet. |
 | `figures/manuscript/representative_synthesis_multivariate.png` | model-output-driven figure | `updated_now` | `completed_keep_outputs_20260516` | `scripts/refresh_exal_m_t1_generated_assets.py -> scripts/promote_generated_figures_to_disc.py` | - |
 | `figures/manuscript/retrospective_products_context.png` | input-side / support / context figure | `updated_now` | `corrected_setup_support_v2_20260516` | `scripts/refresh_setup_support_by_cutoff_v2.py -> scripts/promote_setup_support_v2_to_disc.py -> scripts/promote_generated_figures_to_disc.py` | - |
 | `figures/manuscript/site_context_usgs.png` | input-side / support / context figure | `updated_now` | `corrected_setup_support_v2_20260516` | `scripts/refresh_setup_support_by_cutoff_v2.py -> scripts/promote_setup_support_v2_to_disc.py -> scripts/promote_generated_figures_to_disc.py` | - |
@@ -76,4 +76,4 @@
 - Setup/support keep figure families now use corrected retrospective/forecast bundle lineage from the canonical `20260510` shared-input bundles.
 - Keep model-output families are now refreshed to the completed `20260516` shared-spec keep rerun.
 - Reference synthesis families are now refreshed to the completed `20260516` shared-spec univariate rerun.
-- Historical-support figures are now refreshed from the dedicated retained-support replay contract and promoted into the revised manuscript figure tree.
+- Historical-support figures remain explicitly blocked because the renderer still requires retained multivariate fit artifacts that the completed workflow roots do not currently export.

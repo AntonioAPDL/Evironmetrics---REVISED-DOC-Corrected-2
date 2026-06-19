@@ -112,7 +112,7 @@ def build_panel(cutoff_dir: Path, out_path: Path) -> dict[str, str]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description='Build appendix-ready composite panels for the five-cutoff setup/support figures.')
+    parser = argparse.ArgumentParser(description='Build support-only composite panels for the five-cutoff setup/support figures.')
     parser.add_argument('--article-root', type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
 
@@ -138,7 +138,7 @@ def main() -> None:
 
     readme = [
         '# Appendix Cutoff Panels\n\n',
-        'This figure family contains appendix-ready composite setup/support panels for the five rolling-origin cutoffs used in the revised article.\n\n',
+        'This figure family contains support-only composite setup/support panels for the five rolling-origin cutoffs used in the revised article workflow. They are retained for review and provenance, but the manuscript appendix now uses the cutoff-specific multivariate synthesis overlay figures.\n\n',
         'Each panel contains four subplots for one cutoff:\n',
         '- USGS observations to cutoff\n',
         '- PPT/SOIL/GDPC histories to cutoff\n',

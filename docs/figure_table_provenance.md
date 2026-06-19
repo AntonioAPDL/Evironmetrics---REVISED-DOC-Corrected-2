@@ -53,6 +53,7 @@ Article-side review outputs:
 - `artifacts/README.md`
 - `artifacts/artifact_inventory.csv`
 - `artifacts/he2_historical_support_audit/historical_support_audit.md`
+- `figures/multivariate_synthesis_by_cutoff/README.md`
 - `figures/appendix_cutoff_panels/README.md`
 - `figures/forecast_context_by_cutoff/README.md`
 
@@ -88,7 +89,10 @@ The article-side generated asset freeze point is now indexed under:
 - `artifacts/README.md`
 - `artifacts/artifact_inventory.csv`
 
-The appendix-ready composite cutoff panels now live under:
+The supplementary cutoff-specific selected-model synthesis overlays now live under:
+- `figures/multivariate_synthesis_by_cutoff/`
+
+The former composite cutoff setup/support panels remain generated support artifacts under:
 - `figures/appendix_cutoff_panels/`
 
 The weaker historical entrypoint is:
@@ -120,7 +124,7 @@ Those copied artifacts include:
 - `posterior_table_exports_manifest.csv`
 
 Current manuscript refreshes already tied to that verified run:
-- `figures/manuscript/representative_synthesis_multivariate.png`
+- `figures/manuscript/representative_synthesis_multivariate.png`, promoted from the reference-overlay source image
 - `tab:components_23_31`
 - `tab:gamma_sigma_intervals1`
 - `tab:gamma_sigma_intervals2`

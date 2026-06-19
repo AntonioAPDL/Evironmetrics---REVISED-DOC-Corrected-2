@@ -56,7 +56,16 @@ def infer_row(
                 'blocker': '',
                 'source_path': source_path,
             }
-        if label in {'fig:dry_quantile', 'fig:rainy_quantile', 'fig:80_components', 'fig:synth2'}:
+        if label in {'fig:dry_quantile', 'fig:rainy_quantile', 'fig:80_components'}:
+            return {
+                'classification': 'model-output-driven figure',
+                'source_script': 'scripts/refresh_authoritative_selected_model_support_figures.py -> scripts/promote_generated_figures_to_disc.py',
+                'source_lineage': 'current_selected_model_representative',
+                'status': 'updated_now',
+                'blocker': '',
+                'source_path': source_path,
+            }
+        if label in {'fig:synth2'}:
             historical_support_bundle = article_root / 'artifacts' / 'historical_support_from_current_models' / 'bundle_metadata.json'
             historical_support_refresh = article_root / 'artifacts' / 'historical_support_from_current_models' / 'refresh_status.json'
             bundle_payload = json.loads(historical_support_bundle.read_text(encoding='utf-8')) if historical_support_bundle.exists() else {}
@@ -250,8 +259,8 @@ def main() -> None:
     md.append('## Figure family conclusions\n\n')
     md.append('| Family | Current status | Source lineage | Notes |\n')
     md.append('|---|---|---|---|\n')
-    md.append(f"| Setup/support manuscript figures + appendix panels + forecast-context family | `updated_now` | `exal_m_t1_setup_support_by_cutoff_v2_20260516` | Full USGS/PPT/SOIL/GDPC history from `1987-05-29 -> cutoff`; retrospective support now sourced from repaired canonical shared bundles for all cutoffs. |\n")
-    md.append(f"| Representative keep synthesis + cutoff-wide multivariate synthesis | `updated_now` | completed keep output root `20260516` | Refreshed from the completed shared-spec keep rerun. |\n")
+    md.append(f"| Setup/support manuscript figures + cutoff-wide forecast-context family | `updated_now` | `exal_m_t1_setup_support_by_cutoff_v2_20260516` | Full USGS/PPT/SOIL/GDPC history from `1987-05-29 -> cutoff`; retrospective support now sourced from repaired canonical shared bundles for all cutoffs. Setup/support composites are retained as support artifacts but are no longer manuscript appendix figures. |\n")
+    md.append(f"| Representative keep synthesis + cutoff-wide multivariate synthesis overlays | `updated_now` | completed keep output root `20260516` | Refreshed from the completed shared-spec keep rerun; Figure 7 and the supplementary cutoff-specific synthesis panels use reference-product overlay variants. |\n")
     md.append(f"| Historical support from current models | `{historical_support_status}` | `{historical_support_lineage}` | {historical_support_notes} |\n")
     md.append(f"| Reference synthesis family | `updated_now` | completed univariate output root `20260516` | Refreshed from the completed shared-spec univariate rerun. |\n\n")
     md.append('## Per-figure status\n\n')

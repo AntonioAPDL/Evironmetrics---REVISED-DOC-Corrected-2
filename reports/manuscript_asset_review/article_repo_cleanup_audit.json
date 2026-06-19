@@ -19,10 +19,16 @@
     "five_cutoff_main_model_synthesis",
     "five_cutoff_reference_synthesis",
     "five_cutoff_setup_support",
+    "forecast_design",
     "he2_historical_support_audit",
     "he2_publication_freeze",
+    "he3_exdqlm_ablation_authoritative",
+    "he4_quantile_check_loss_current_publication",
     "historical_support_from_current_models",
-    "representative_selected_model_2022_12_25"
+    "latest_forecast_issue",
+    "representative_selected_model_2022_12_25",
+    "runtime_benchmark",
+    "software_availability"
   ],
   "retained_report_families": [
     "article_figure_lineage_audit_20260516",

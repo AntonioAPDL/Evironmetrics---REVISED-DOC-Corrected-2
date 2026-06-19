@@ -132,7 +132,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("dry days are retained in the supplied covariate path", article)
         self.assertIn("deterministic engineered terms", article)
         self.assertIn("the model is fit using USGS observations and retrospective products available through", article)
-        self.assertIn("Forecasts are then generated over the subsequent forecast window using the latest forecast products", article)
+        self.assertIn("The forecast-window predictive distributions are then synthesized using the latest forecast products", article)
         self.assertIn("canonical GDPC/PCA climate-index factor", article)
         self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
         self.assertIn("not treated as an operational forecast product or verification target", article)
@@ -373,7 +373,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "fig:dry_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
             "fig:rainy_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
             "fig:80_components": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
-            "fig:synth1": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png",
+            "fig:synth1": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
         }
         for label, source_path in expected_selected.items():
             self.assertEqual(by_label[label]["source_path"], source_path)
@@ -391,6 +391,31 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("selected_model_quantile_wet_period.png", provenance)
         self.assertIn("selected_model_component_80month.png", provenance)
         self.assertIn("not full posterior predictive distributions", provenance)
+
+    def test_cutoff_appendix_uses_multivariate_synthesis_overlays(self) -> None:
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn("{figures/multivariate_synthesis_by_cutoff/}", article)
+        self.assertIn("Additional Cutoff-Specific Predictive Synthesis Panels", article)
+        for name in [
+            "cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png",
+            "cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png",
+            "cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png",
+            "cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png",
+        ]:
+            self.assertIn(name, article)
+        for retired in [
+            "cutoff_2021_01_23_setup_support.png",
+            "cutoff_2021_11_12_setup_support.png",
+            "cutoff_2021_12_21_setup_support.png",
+            "cutoff_2022_05_11_setup_support.png",
+        ]:
+            self.assertNotIn(retired, article)
+
+    def test_selected_model_quantile_figures_include_flood_thresholds(self) -> None:
+        renderer = (ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R").read_text(encoding="utf-8")
+        self.assertIn("figure_flood_label_df", renderer)
+        self.assertIn("figure_flood_stage_style", renderer)
+        self.assertIn("geom_hline", renderer)
 
     def test_overleaf_bundle_excludes_large_compact_support_data(self) -> None:
         support_dir = (

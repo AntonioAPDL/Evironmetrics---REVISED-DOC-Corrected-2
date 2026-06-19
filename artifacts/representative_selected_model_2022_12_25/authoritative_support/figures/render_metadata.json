@@ -1,6 +1,6 @@
 {
   "support_dir": "/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_selected_output_support_20260612_minus_trend/runs/multimodel_20221225_v8_he2grid_c05_eps030_exdqlm_multivar_keep_authoritative_support_samplewise_a1_minus_trend_20260612/post/outputs/multimodel_20221225_v8_he2grid_c05_eps030_exdqlm_multivar_keep_authoritative_support_samplewise_a1_minus_trend_20260612",
-  "render_staging_support_dir": "/tmp/selected_support_render_ldz7uuim/authoritative_support",
+  "render_staging_support_dir": "/tmp/selected_support_render_ihpuwv63/authoritative_support",
   "output_dir": "/data/muscat_data/jaguir26/project1_ucsc_phd/Evironmetrics---REVISED-DOC-Corrected-2/artifacts/representative_selected_model_2022_12_25/authoritative_support/figures",
   "display_flow_scale": "log1p_cms",
   "figure_a1_component_contract": "component_6_plus_trend_component_1_samplewise",
@@ -26,5 +26,5 @@
     "figure_count": 9,
     "files": ["component_01_raw_state_component.png", "component_02_raw_state_component.png", "component_03_raw_state_component.png", "component_04_raw_state_component.png", "component_05_raw_state_component.png", "component_06_raw_state_component.png", "component_07_raw_state_component.png", "component_06_component_6_plus_trend_component_1_samplewise.png", "component_06_component_6_minus_trend_component_1_samplewise.png"]
   },
-  "generated_at_utc": "2026-06-12T02:18:10Z"
+  "generated_at_utc": "2026-06-19T04:49:03Z"
 }

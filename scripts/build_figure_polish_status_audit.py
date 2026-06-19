@@ -25,13 +25,14 @@ def build_items(root: Path) -> list[dict[str, object]]:
     no_cutoff_centered = 'cutoff-centered' not in tex.lower()
     has_all_cutoff_forecast_context = len(list((root / 'figures' / 'forecast_context_by_cutoff').glob('cutoff_*_forecast_context.png'))) == 5
     has_all_cutoff_multivar_synthesis = len(list((root / 'figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis.png'))) == 5
+    has_all_cutoff_multivar_synthesis_overlay = len(list((root / 'figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis_with_reference_ensembles.png'))) == 5
     has_all_cutoff_reference_synthesis = len(list((root / 'figures' / 'reference_synthesis_by_cutoff').glob('cutoff_*_reference_synthesis.png'))) == 5
     has_rep_multivar_overlay = file_exists(root, 'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png')
     has_rep_multivar = file_exists(root, 'figures/manuscript/representative_synthesis_multivariate.png')
     has_rep_univar = file_exists(root, 'figures/manuscript/reference_synthesis_univariate.png')
     has_wet_fullrange = file_exists(root, 'artifacts/historical_support_from_current_models/figures/historical_summary_wet_period_fullrange.png')
     long_cycle_shifted = render_meta.get('component_display_contract') == '80-month component shifted by posterior mean trend level'
-    appendix_panels_in_article = 'figures/appendix_cutoff_panels/' in tex
+    appendix_setup_panels_in_article = 'setup_support.png' in tex
 
     items: list[dict[str, object]] = [
         {
@@ -105,7 +106,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
         {
             'item': 7,
             'request': 'Figure 7 and Figure A2 should align visually with Figure 4, be produced for all cutoffs, and also have extra overlay versions with raw/reference ensembles.',
-            'status': 'complete' if (has_all_cutoff_multivar_synthesis and has_all_cutoff_reference_synthesis and has_rep_multivar_overlay and has_rep_multivar and has_rep_univar) else 'partial',
+            'status': 'complete' if (has_all_cutoff_multivar_synthesis and has_all_cutoff_multivar_synthesis_overlay and has_all_cutoff_reference_synthesis and has_rep_multivar_overlay and has_rep_multivar and has_rep_univar) else 'partial',
             'evidence': [
                 'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png',
                 'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png',
@@ -129,17 +130,16 @@ def build_items(root: Path) -> list[dict[str, object]]:
         },
         {
             'item': 9,
-            'request': 'Keep the composite A3–A6 style panels only if useful; definitely preserve the forecast-context panel D for all cutoffs, and do the same cutoff-wide treatment for Figure 7 and A2 when full-history conditions allow it.',
-            'status': 'complete' if (has_all_cutoff_forecast_context and has_all_cutoff_multivar_synthesis and has_all_cutoff_reference_synthesis) else 'partial',
+            'request': 'Keep the forecast-context panel D for all cutoffs, and replace manuscript A3–A6 setup/support composites with cutoff-specific multivariate synthesis overlays.',
+            'status': 'complete' if (has_all_cutoff_forecast_context and has_all_cutoff_multivar_synthesis_overlay and not appendix_setup_panels_in_article) else 'partial',
             'evidence': [
                 'figures/forecast_context_by_cutoff/manifest.csv' if has_all_cutoff_forecast_context else 'figures/forecast_context_by_cutoff/',
-                'figures/multivariate_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_multivar_synthesis else 'figures/multivariate_synthesis_by_cutoff/',
+                'figures/multivariate_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_multivar_synthesis_overlay else 'figures/multivariate_synthesis_by_cutoff/',
                 'figures/reference_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_reference_synthesis else 'figures/reference_synthesis_by_cutoff/',
-                'figures/appendix_cutoff_panels/',
                 'artifacts/five_cutoff_setup_support/review/figure_manifest.csv',
                 'wileyNJD-APA.tex:483-520',
             ],
-            'note': 'Forecast-context figures, multivariate synthesis figures, and reference synthesis figures are now preserved cutoff-wide in advisor-facing folders. The remaining decision is whether the composite appendix panels should stay in the manuscript appendix or move to repo-only review support.',
+            'note': 'Forecast-context figures remain preserved cutoff-wide for review. The manuscript appendix now uses the cutoff-specific multivariate synthesis overlay figures; setup/support composites are retained only as generated support artifacts and are no longer included in the manuscript.',
         },
     ]
     return items
@@ -175,7 +175,7 @@ def write_markdown(path: Path, items: list[dict[str, object]]) -> None:
     lines.extend([
         '## Remaining work before the next modeling phase',
         '',
-        '1. Decide whether the appendix composite setup/support panels should remain in the manuscript appendix or move to repo-only documentation.',
+        '1. Keep setup/support composites as repo-only support artifacts unless a future manuscript revision explicitly requests them.',
         '2. Keep the early short-window cutoffs (`2021-01-23`, `2021-11-12`) separate from any future full-history-only interpretation claims until the full-table corrected bundle relaunch is complete.',
         '',
     ])

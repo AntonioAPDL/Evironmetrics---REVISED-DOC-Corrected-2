@@ -94,7 +94,7 @@ That bundle now includes:
 | Manuscript object | Current role | Locked cutoff/run | Exact verified source | Current manuscript target | Current status |
 |---|---|---|---|---|---|
 | `tab:benchmark_crps_models` | five-cutoff validation table | HE2 publication freeze across all five cutoffs | local snapshot in `artifacts/he2_publication_freeze/`, with the `exAL-M-T1` row additionally locked to `artifacts/five_cutoff_crps_validation_sources/<slug>/crps_forecast_summary.csv` | values in `wileyNJD-APA.tex` Table 1 | locked |
-| `fig:synth1` | representative selected-model illustration | `2022-12-25 exAL-M-T1 keep` | `artifacts/representative_selected_model_2022_12_25/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples.png` | `figures/manuscript/representative_synthesis_multivariate.png` | refreshed |
+| `fig:synth1` | representative selected-model illustration with retrospective and forecast-product overlays | `2022-12-25 exAL-M-T1 keep` | `artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png` | `figures/manuscript/representative_synthesis_multivariate.png` | refreshed |
 | `tab:components_23_31` | representative transfer-function summary | `2022-12-25 exAL-M-T1 keep` | `artifacts/representative_selected_model_2022_12_25/covariate_effects_summary.csv` | values in `wileyNJD-APA.tex` | refreshed |
 
 ### Supplementary appendix support tied to the representative selected-model run

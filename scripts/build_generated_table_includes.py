@@ -41,6 +41,16 @@ def read_csv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(f))
 
 
+def preserved_external_manifest_rows(path: Path) -> list[dict[str, str]]:
+    if not path.exists():
+        return []
+    rows = read_csv(path)
+    return [
+        row for row in rows
+        if row.get('table_label', '').startswith('tab:he3_')
+    ]
+
+
 def fmt_num(value: str | float, digits: int) -> str:
     return f'{float(value):.{digits}f}'
 
@@ -464,6 +474,9 @@ def main() -> None:
         r'\end{table*}',
     ]
     write_lines(out_root / TABLE_TEX_FILENAMES['sigma_block'], sigma_block_lines)
+
+    external_manifest_rows = preserved_external_manifest_rows(out_root / 'manifest.csv')
+    manifest_rows.extend(external_manifest_rows)
 
     with (out_root / 'manifest.csv').open('w', newline='') as f:
         writer = csv.DictWriter(
