@@ -1,6 +1,16 @@
 \ProvidesPackage{beamerthemeucscisba}
 
-\RequirePackage{fontspec}
+\RequirePackage{iftex}
+\ifPDFTeX
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage[utf8]{inputenc}
+  \RequirePackage[scaled=0.95]{helvet}
+  \renewcommand{\familydefault}{\sfdefault}
+\else
+  \RequirePackage{fontspec}
+  \setsansfont{TeX Gyre Heros}
+  \setmainfont{TeX Gyre Heros}
+\fi
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{booktabs}
@@ -8,9 +18,6 @@
 \RequirePackage{tikz}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage{enumitem}
-
-\setsansfont{TeX Gyre Heros}
-\setmainfont{TeX Gyre Heros}
 
 \definecolor{PosterInk}{HTML}{202124}
 \definecolor{PosterNavy}{HTML}{17324D}

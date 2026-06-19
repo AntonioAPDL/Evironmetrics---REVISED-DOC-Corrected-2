@@ -7,8 +7,18 @@ Main poster source:
 Recommended Overleaf setting:
 
 - Main file: `isba2026_poster/poster.tex`
-- Compiler: LuaLaTeX
+- Compiler: LuaLaTeX preferred; pdfLaTeX is also supported as a fallback
 - Output: one-page A0 portrait PDF
+
+The source includes graphics paths for both common Overleaf modes:
+
+- compiling from the project root with main file `isba2026_poster/poster.tex`;
+- compiling after opening/setting `poster.tex` from inside the `isba2026_poster/`
+  folder.
+
+The representative 2022-12-25 synthesis PNG is copied into
+`isba2026_poster/figures/frozen/` so the poster folder can compile without
+depending on article-level figure directories.
 
 Local build from the revised article repo root:
 
