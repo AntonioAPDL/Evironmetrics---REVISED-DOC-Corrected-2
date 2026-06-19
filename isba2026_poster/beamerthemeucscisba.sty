@@ -1,0 +1,135 @@
+\ProvidesPackage{beamerthemeucscisba}
+
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{ragged2e}
+\RequirePackage{tikz}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{enumitem}
+
+\setsansfont{TeX Gyre Heros}
+\setmainfont{TeX Gyre Heros}
+
+\definecolor{PosterInk}{HTML}{202124}
+\definecolor{PosterNavy}{HTML}{17324D}
+\definecolor{SoftPanel}{HTML}{F3F6F5}
+\definecolor{PanelLine}{HTML}{D6DEE0}
+\definecolor{ExalTeal}{HTML}{006D77}
+\definecolor{AlGold}{HTML}{E69F00}
+\definecolor{GlofasBlue}{HTML}{0072B2}
+\definecolor{NwsOrange}{HTML}{D55E00}
+\definecolor{MutedGrey}{HTML}{566168}
+\definecolor{BandTeal}{HTML}{BFDDE0}
+
+\mode<presentation>
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=PosterInk,bg=white}
+\setbeamercolor{item}{fg=ExalTeal}
+\setbeamerfont{normal text}{family=\sffamily}
+\setbeamersize{text margin left=2.0cm,text margin right=2.0cm}
+
+\newcommand{\postertitlefont}{\fontsize{74}{81}\selectfont}
+\newcommand{\postersubtitlefont}{\fontsize{33}{40}\selectfont}
+\newcommand{\posterauthorfont}{\fontsize{26}{32}\selectfont}
+\newcommand{\posterbodyfont}{\fontsize{26}{32}\selectfont}
+\newcommand{\postersmallfont}{\fontsize{21}{26}\selectfont}
+\newcommand{\posterfootfont}{\fontsize{17}{22}\selectfont}
+
+\newtcolorbox{posterpanel}[2][]{
+  enhanced,
+  colback=white,
+  colframe=PanelLine,
+  boxrule=0.65pt,
+  arc=1.5mm,
+  left=5.0mm,
+  right=5.0mm,
+  top=3.5mm,
+  bottom=4.2mm,
+  before skip=0.0mm,
+  after skip=7.5mm,
+  title={#2},
+  coltitle=PosterNavy,
+  colbacktitle=white,
+  fonttitle=\bfseries\fontsize{31}{37}\selectfont,
+  attach boxed title to top left={xshift=0mm,yshift=-1.0mm},
+  boxed title style={
+    frame hidden,
+    interior hidden,
+    left=0mm,
+    right=0mm,
+    top=0mm,
+    bottom=0mm
+  },
+  #1
+}
+
+\newtcolorbox{softcallout}[1][]{
+  enhanced,
+  colback=SoftPanel,
+  colframe=ExalTeal,
+  boxrule=0.9pt,
+  arc=1.5mm,
+  left=4mm,
+  right=4mm,
+  top=3mm,
+  bottom=3mm,
+  #1
+}
+
+\newtcolorbox{goldcallout}[1][]{
+  enhanced,
+  colback=white,
+  colframe=AlGold,
+  boxrule=0.9pt,
+  arc=1.5mm,
+  left=4mm,
+  right=4mm,
+  top=3mm,
+  bottom=3mm,
+  #1
+}
+
+\newcommand{\tagpill}[2]{%
+  \tikz[baseline=(x.base)] \node[
+    rounded corners=1.4mm,
+    inner xsep=2.2mm,
+    inner ysep=1.0mm,
+    fill=#1,
+    text=white,
+    font=\bfseries\postersmallfont
+  ] (x) {#2};%
+}
+
+\newcommand{\plainpill}[2]{%
+  \tikz[baseline=(x.base)] \node[
+    rounded corners=1.4mm,
+    inner xsep=2.2mm,
+    inner ysep=1.0mm,
+    draw=#1,
+    line width=0.45pt,
+    text=#1,
+    font=\bfseries\postersmallfont
+  ] (x) {#2};%
+}
+
+\newenvironment{posterbullets}{%
+  \begin{itemize}[leftmargin=1.05em,itemsep=0.16em,topsep=0.1em,parsep=0em]
+}{%
+  \end{itemize}
+}
+
+\newcommand{\smallcaption}[1]{%
+  {\postersmallfont\color{MutedGrey}\RaggedRight #1\par}
+}
+
+\newcommand{\evidencecaption}[1]{%
+  {\posterbodyfont\bfseries\color{PosterNavy}\RaggedRight #1\par}
+}
+
+\newcommand{\minirule}{\vspace{0.25em}{\color{PanelLine}\hrule height 0.7pt}\vspace{0.35em}}
