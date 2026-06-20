@@ -2,27 +2,39 @@
 
 Use this checklist before sharing or uploading the poster PDF.
 
+Verification pass: 2026-06-20. Checked against `poster.tex`,
+`poster_high_aesthetic.tex`, `scripts/build_poster_figures.R`, and the frozen
+article generated tables/representative synthesis artifact.
+
 ## Required claims
 
-- [ ] The title remains factual and method/application aligned.
-- [ ] The main result states "four of five" and names the 2022-12-25 exception.
-- [ ] The 8-day NWS comparison is labelled as a horizon-matched comparison.
-- [ ] The 2022-12-25 synthesis panel is labelled illustrative.
-- [ ] The active discount/epsilon screen is excluded from poster evidence.
+- [x] The title remains factual and method/application aligned.
+- [x] The main result states "four of five" and names the 2022-12-25 exception.
+- [x] The 8-day NWS comparison is labelled as a horizon-matched comparison.
+- [x] The 2022-12-25 synthesis panel is labelled illustrative.
+- [x] The active discount/epsilon screen is excluded from poster evidence.
 
 ## Prohibited wording
 
-- [ ] No unqualified "best model" claim.
-- [ ] No claim that exAL-M-T1 wins every cutoff.
-- [ ] No active-screen CRPS value.
-- [ ] No causal wording for forecast covariates.
-- [ ] No claim that the five origins are a dense continuous hindcast.
+- [x] No unqualified "best model" claim.
+- [x] No claim that exAL-M-T1 wins every cutoff.
+- [x] No active-screen CRPS value.
+- [x] No causal wording for forecast covariates.
+- [x] No claim that the five origins are a dense continuous hindcast.
 
 ## Provenance checks
 
-- [ ] `scripts/build_poster_figures.R` regenerates the poster figures.
-- [ ] Derived CSVs match frozen generated table values.
-- [ ] Main CRPS figure comes from `benchmark_crps_main_table.tex`.
-- [ ] NWS figure comes from `benchmark_crps_nws_horizon_table.tex`.
-- [ ] Representative synthesis uses the frozen article figure for 2022-12-25.
+- [x] `scripts/build_poster_figures.R` regenerates the poster figures.
+- [x] Derived CSVs match frozen generated table values.
+- [x] Main CRPS figure comes from `benchmark_crps_main_table.tex`.
+- [x] NWS figure comes from `benchmark_crps_nws_horizon_table.tex`.
+- [x] Representative synthesis uses the frozen article figure for 2022-12-25.
 
+Build commands verified locally:
+
+```bash
+Rscript isba2026_poster/scripts/build_poster_figures.R
+make -f isba2026_poster/Makefile poster
+make -f isba2026_poster/Makefile high-poster
+make -f isba2026_poster/Makefile clean
+```
