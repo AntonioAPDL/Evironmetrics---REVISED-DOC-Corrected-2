@@ -2,9 +2,10 @@
 
 Use this checklist before sharing or uploading the poster PDF.
 
-Verification pass: 2026-06-20. Checked against `poster.tex`,
-`poster_high_aesthetic.tex`, `scripts/build_poster_figures.R`, and the frozen
-article generated tables/representative synthesis artifact.
+Verification pass: 2026-06-20. Checked against the unified `poster.tex`,
+`scripts/build_poster_figures.R`, and the frozen article generated
+tables/representative synthesis artifact. The earlier `poster_high_aesthetic.tex`
+is retained only as a design reference.
 
 ## Required claims
 
