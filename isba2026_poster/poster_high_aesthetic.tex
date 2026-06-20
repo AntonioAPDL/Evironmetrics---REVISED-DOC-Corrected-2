@@ -1,4 +1,4 @@
-my% ============================================================================
+% ============================================================================
 % ISBA 2026 POSTER — HIGH-AESTHETIC, SELF-CONTAINED BEAMERPOSTER SOURCE
 % Compile with pdfLaTeX on Overleaf.
 %
@@ -21,8 +21,18 @@ my% ============================================================================
 % These packages are available in standard Overleaf TeX Live installations.
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[type1,defaultsans]{lato}
-\usepackage[type1,nosfdefault]{raleway}
+\IfFileExists{lato.sty}{%
+  \usepackage[type1,defaultsans]{lato}%
+}{%
+  \usepackage[scaled=0.95]{helvet}%
+}
+\newif\ifPosterHasRaleway
+\IfFileExists{raleway.sty}{%
+  \PosterHasRalewaytrue
+  \usepackage[type1,nosfdefault]{raleway}%
+}{%
+  \PosterHasRalewayfalse
+}
 \usefonttheme[onlymath]{serif}
 \usepackage{microtype}
 
@@ -36,7 +46,13 @@ my% ============================================================================
 \usetikzlibrary{calc,positioning,arrows.meta,shapes.geometric}
 \usepackage[most]{tcolorbox}
 \usepackage{etoolbox}
-\usepackage{qrcode}
+\newif\ifPosterHasQRCode
+\IfFileExists{qrcode.sty}{%
+  \PosterHasQRCodetrue
+  \usepackage{qrcode}%
+}{%
+  \PosterHasQRCodefalse
+}
 \usepackage{hyperref}
 
 % ---------- Figure search paths ---------------------------------------------
@@ -100,7 +116,7 @@ my% ============================================================================
 \renewcommand{\arraystretch}{1.18}
 
 % ---------- Type scale -------------------------------------------------------
-\newcommand{\DisplayFont}{\fontfamily{Raleway-TLF}\selectfont}
+\newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
 \newcommand{\PosterTitleFont}{\DisplayFont\fontsize{78}{83}\selectfont}
 \newcommand{\PosterAuthorFont}{\fontsize{28}{34}\selectfont}
 \newcommand{\PosterMetaFont}{\fontsize{21}{26}\selectfont}
@@ -673,7 +689,20 @@ lead-time structure, and distributional uncertainty.\par}
   \begin{columns}[c,totalwidth=\linewidth]
   \begin{column}{0.42\linewidth}
     \centering
-    \qrcode[height=2.75cm]{\PosterURL}
+    \ifPosterHasQRCode
+      \qrcode[height=2.75cm]{\PosterURL}
+    \else
+      \tikz\node[
+        draw=PanelLine,
+        fill=white,
+        rounded corners=1mm,
+        inner sep=0.20cm,
+        text width=2.35cm,
+        align=center,
+        font=\FootFont\bfseries,
+        text=PosterNavy
+      ] {Project\\repository};
+    \fi
   \end{column}
   \begin{column}{0.55\linewidth}
     {\FootFont\bfseries\color{PosterNavy}Code, figures, and artifacts\par}

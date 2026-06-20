@@ -1,13 +1,15 @@
 # ISBA 2026 Poster
 
-Main poster source:
+Poster sources:
 
-- `isba2026_poster/poster.tex`
+- `isba2026_poster/poster.tex`: standard source, compact and conservative.
+- `isba2026_poster/poster_high_aesthetic.tex`: more designed source with
+  optional Lato/Raleway/QR support and robust fallbacks.
 
 Recommended Overleaf setting:
 
 - Main file: `isba2026_poster/poster.tex`
-- Compiler: LuaLaTeX preferred; pdfLaTeX is also supported as a fallback
+- Compiler: pdfLaTeX
 - Output: one-page A0 portrait PDF
 
 The source includes graphics paths for both common Overleaf modes:
@@ -24,9 +26,13 @@ Local build from the revised article repo root:
 
 ```bash
 Rscript isba2026_poster/scripts/build_poster_figures.R
-lualatex -interaction=nonstopmode -halt-on-error -output-directory=isba2026_poster isba2026_poster/poster.tex
-lualatex -interaction=nonstopmode -halt-on-error -output-directory=isba2026_poster isba2026_poster/poster.tex
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory=isba2026_poster isba2026_poster/poster.tex
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory=isba2026_poster isba2026_poster/poster.tex
 ```
+
+`poster.tex` also supports LuaLaTeX/XeLaTeX through the theme fallback, but
+pdfLaTeX is the verified Overleaf-safe path. The high-aesthetic source should
+also be compiled with pdfLaTeX.
 
 The poster-specific CRPS and timeline figures are generated from the frozen
 manuscript tables in `tables/generated_tex/`. Do not hand-edit the derived CSV
