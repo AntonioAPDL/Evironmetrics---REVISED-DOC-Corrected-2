@@ -674,7 +674,7 @@ covariates update the same state to form calibrated predictive quantiles.}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
-      28-day CRPS across the five rolling origins\par}
+      Held-out forecast-window distributional accuracy\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.21\linewidth}
@@ -695,15 +695,15 @@ covariates update the same state to form calibrated predictive quantiles.}
   \begin{minipage}[t]{0.33\linewidth}
     \begin{ExceptionNote}
       {\CaptionFont\color{PosterInk}
-      Origin-level comparisons are shown directly; model decisions use the
-      frozen five-origin benchmark.\par}
+      Use all five origins for final claims.\par}
     \end{ExceptionNote}
   \end{minipage}
 \end{HeroResult}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
-Ratios below the raw GloFAS line indicate lower mean CRPS at the same origin.\par}
+Values left of the raw GloFAS line indicate lower mean CRPS at the same
+origin.\par}
 
 \end{minipage}
 \end{column}
@@ -715,50 +715,48 @@ Ratios below the raw GloFAS line indicate lower mean CRPS at the same origin.\pa
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Horizon}{NWS is compared over common days 1--8}
+\SectionHead{Horizon}{Horizon-matched NWS check}
 \PosterGraphic[19.0cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
 \FigureCaption[Horizon-matched evidence.]{NWS is available over common valid
-leads 1--8 in this evaluation. The medium-range claim uses the 28-day benchmark
-in the center column.}
+leads 1--8 in this evaluation. It is scored separately so the 28-day
+medium-range benchmark is not mixed with an 8-day product.}
 
 \vspace{0.72cm}
 
-\SectionHead{Example}{One forecast window for interpretation}
+\SectionHead{Example}{Representative forecast window}
 \PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
-source information and posterior uncertainty evolve at the 2022-12-25 origin.
-Use it as a forecast-window diagnostic; aggregate validation is summarized
-across all five origins.}
+source paths and posterior uncertainty evolve at the 2022-12-25 origin. It
+is illustrative; aggregate validation comes from the five-origin CRPS panel.}
 
 \vspace{0.64cm}
 
-\SectionHead{Dynamics}{Retrospective component interpretation}
+\SectionHead{Dynamics}{80-month component dynamics}
 \PosterGraphic[12.8cm]{historical_component_80month.png}{80-month component diagnostic}
-\FigureCaption[More than score correction.]{The state decomposition yields
-retrospective quantile diagnostics. The 80-month harmonic summarizes slow
-multi-year wet--dry structure while preserving quantile-specific variation.}
+\FigureCaption[More than forecast correction.]{The same state-space fit yields
+retrospective component diagnostics. The long-period harmonic tracks slow
+wet--dry structure while preserving quantile-specific variation.}
 
 \vspace{0.64cm}
 
-\SectionHead{Interpretation}{What this experiment supports}
+\SectionHead{Interpretation}{What the evidence supports}
 \begin{PosterItems}
-  \item Retrospective histories estimate source-specific corrections before the
-  forecast window.
-  \item Forecast ensembles and covariates enter the same dynamic quantile
-  system, instead of being averaged after the fact.
-  \item Observation-only AL/exAL quantile references have roughly 5.4--39x
-  higher 28-day CRPS across these origins, highlighting the value of external
-  products and exogenous covariates.
-  \item The five-window evaluation is a targeted stress test; broader regime
-  coverage remains the next validation step.
+  \item Historically aligned retrospective products identify source corrections
+  before the forecast window.
+  \item Issued ensembles and exogenous covariates enter the state-space model
+  directly, rather than being averaged after prediction.
+  \item Observation-only AL/exAL quantile references have about 5--41x higher
+  28-day CRPS than the selected multivariate reference across these origins.
+  \item The five-window design is a targeted stress test, not a continuous
+  hindcast; broader origin coverage is the next validation step.
 \end{PosterItems}
 
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} Source-aware Bayesian quantile synthesis can improve
-  medium-range flow distributions while exposing interpretable latent
-  components.\par}
+  \textbf{Take-home.} Correcting source-specific bias before blending can
+  improve medium-range forecast distributions while preserving interpretable
+  latent dynamics.\par}
 \end{KeyQuestion}
 
 \end{minipage}
