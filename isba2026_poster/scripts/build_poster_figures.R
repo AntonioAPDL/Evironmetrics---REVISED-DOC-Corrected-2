@@ -30,8 +30,8 @@ poster_cols <- c(
   lavender = "#F2EFF6",
   plum = "#6B5B8E",
   hydro = "#2F7C8C",
-  glofas = "#3C78A8",
-  rust = "#C66743",
+  glofas = "#C66743",
+  nws = "#6B5B8E",
   ochre = "#B6892F",
   usgs = "#242A2F",
   sage = "#6E8B70",
@@ -52,10 +52,10 @@ model_label <- function(x) {
 }
 
 palette <- c(
-  "Selected model" = poster_cols[["plum"]],
+  "Selected model" = poster_cols[["title"]],
   "AL synthesis" = poster_cols[["ochre"]],
   "GloFAS" = poster_cols[["glofas"]],
-  "NWS" = poster_cols[["rust"]],
+  "NWS" = poster_cols[["nws"]],
   "Other Bayesian variants" = poster_cols[["other"]]
 )
 
@@ -284,13 +284,13 @@ pt <- ggplot(timeline, aes(y = cutoff_panel)) +
     linewidth = 4.2, color = poster_cols[["rule"]], lineend = "round",
     arrow = grid::arrow(length = grid::unit(0.12, "in"), ends = "first", type = "closed")
   ) +
-  geom_segment(aes(x = 0.7, xend = 28, yend = cutoff_panel), linewidth = 4.2, color = "#D8E8EC", lineend = "round") +
-  geom_segment(aes(x = 0.7, xend = 8, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["rust"]], lineend = "round") +
+  geom_segment(aes(x = 0.7, xend = 28, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["glofas"]], lineend = "round") +
+  geom_segment(aes(x = 0.7, xend = 8, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["nws"]], lineend = "round") +
   geom_vline(xintercept = 0, linewidth = 0.8, linetype = "dashed", color = poster_cols[["title"]]) +
   geom_point(aes(x = 0), size = 4.8, color = poster_cols[["title"]]) +
   annotate("text", x = -9.5, y = 5.45, label = "fit archive\nfrozen", color = poster_cols[["muted"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
-  annotate("text", x = 4.4, y = 5.45, label = "NWS check\n1-8 d", color = poster_cols[["rust"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
-  annotate("text", x = 21.8, y = 5.45, label = "GloFAS\n1-28 d", color = poster_cols[["hydro"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 4.4, y = 5.45, label = "NWS check\n1-8 d", color = poster_cols[["nws"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 21.8, y = 5.45, label = "GloFAS\n1-28 d", color = poster_cols[["glofas"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
   scale_x_continuous(
     limits = c(-21, 30),
     breaks = c(history_start, 0, 8, 28),
