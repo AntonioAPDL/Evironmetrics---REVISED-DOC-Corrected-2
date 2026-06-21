@@ -439,20 +439,23 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Why forecast products need synthesis}
+\SectionHead{Question}{Correction before synthesis}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
-Can river observations, retrospective products, ensemble forecasts, and
-covariates be fused into calibrated predictive quantiles while preserving each
-source's bias, horizon, and uncertainty structure?\par}
+Forecast products are not interchangeable measurements of river flow.
+Retrospective product archives show how each source departs from observed flow;
+operational ensembles supply the post-origin forecast signal.\par}
 \end{KeyQuestion}
 
 \vspace{0.27cm}
 {\SmallBodyFont
-Case study: daily San Lorenzo River flow at the Big Trees gauge. The challenge
-is medium-range, flood-relevant validation when products arrive with different
-lead times, update cycles, and ensemble structures.\par}
+Case study: daily San Lorenzo River flow at the USGS Big Trees gauge. The
+framework learns dynamic corrections from USGS observations and retrospective
+ECMWF/GloFAS and NOAA/NWS products, then carries those corrections into the
+forecast window to synthesize calibrated predictive flow quantiles. This is
+needed because product families differ in lead time, update cycle, ensemble
+structure, and uncertainty representation.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}[top=0.48cm,bottom=0.46cm]
