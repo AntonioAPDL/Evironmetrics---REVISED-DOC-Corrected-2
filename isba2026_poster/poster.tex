@@ -527,10 +527,10 @@ CRPS uses GloFAS-supported days 1--28; the NWS comparison uses days 1--8.}
 
 \SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
-{\SmallBodyFont
+{\SmallBodyFont\RaggedRight\hyphenpenalty=10000\exhyphenpenalty=10000
 Seven independent Dynamic Quantile Linear Model (DQLM) lanes target
-\(p_0\in\{0.05,0.20,\ldots,0.95\}\). After fitting, their posterior forecasts
-are assembled into one predictive distribution for scoring.\par}
+\(p_0\in\{0.05,0.20,\ldots,0.95\}\). The fitted lanes are then assembled into
+one predictive distribution for scoring.\par}
 
 \vspace{0.20cm}
 \begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.7mm}{0pt}{ModelPlum}]
@@ -555,25 +555,29 @@ are assembled into one predictive distribution for scoring.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}
+  \RaggedRight
+  \hyphenpenalty=10000\exhyphenpenalty=10000
   {\SmallBodyFont\bfseries\color{TitleSlate}Parallel quantile lanes\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Each target quantile is a separate state-space fit, so the seven lanes can run
+  Each quantile level is fit as its own state-space model; the lanes can run
   concurrently before forecast quantiles are synthesized.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}MFVB\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Posterior approximation\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes avoids full MCMC while preserving Gaussian
-  filtering and smoothing updates for latent state blocks.\par}
+  Mean-field variational Bayes (MFVB) avoids full Markov chain Monte Carlo
+  (MCMC) while preserving Gaussian filtering and smoothing updates for latent
+  state blocks.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}VB-LD\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Non-conjugate updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Laplace--Delta updates use local mode, curvature, and Delta-method moments for
-  non-conjugate exAL scale/skewness terms.\par}
+  Variational Bayes with Laplace--Delta (VB-LD) uses local mode, curvature, and
+  Delta-method moments for non-conjugate extended asymmetric Laplace (exAL)
+  scale and skewness terms.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}State evolution\par}
