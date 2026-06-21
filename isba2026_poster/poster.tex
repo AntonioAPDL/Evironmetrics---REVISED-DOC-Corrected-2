@@ -352,8 +352,6 @@
     \fill[ModelPlum]
       ([xshift=0.72\paperwidth]current page.north west)
       rectangle ([yshift=-0.34cm]current page.north east);
-    \draw[RuleStone,line width=0.70pt]
-      ([yshift=-14.3cm]current page.north west) -- ([yshift=-14.3cm]current page.north east);
   \end{tikzpicture}
 
   \vspace*{0.18cm}
@@ -457,45 +455,52 @@ is medium-range, flood-relevant validation when products arrive with different
 lead times, update cycles, and ensemble structures.\par}
 
 \vspace{0.24cm}
-\begin{SoftNote}
-  \begin{minipage}[t]{0.38\linewidth}
-    \centering\LogoGraphic[1.60cm]{usgs_logo_green_cropped.png}{\linewidth}{USGS}
+\begin{SoftNote}[top=0.48cm,bottom=0.46cm]
+  \begin{minipage}[t]{0.42\linewidth}
+    \centering
+    \vspace{0.10cm}
+    \LogoGraphic[1.86cm]{usgs_logo_green_cropped.png}{\linewidth}{USGS}
   \end{minipage}
   \hfill
-  \begin{minipage}[t]{0.57\linewidth}
+  \begin{minipage}[t]{0.53\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}USGS observations\par}
-    {\CaptionFont\color{MutedSlate}state updating and post-cutoff verification.\par}
+    {\CaptionFont\color{MutedSlate}observed flow for state updating and
+    post-cutoff verification.\par}
   \end{minipage}
 
-  \vspace{0.28cm}
-  \begin{minipage}[t]{0.38\linewidth}
+  \vspace{0.34cm}
+  \begin{minipage}[t]{0.42\linewidth}
     \centering
-    \LogoGraphic[1.18cm]{ecmwf_logo_2400w_transparent.png}{\linewidth}{ECMWF}\par
-    \vspace{0.08cm}
-    \LogoGraphic[1.30cm]{glofas_logo.png}{0.98\linewidth}{GloFAS}
+    \vspace{0.12cm}
+    \LogoGraphic[1.38cm]{ecmwf_logo_2400w_transparent.png}{\linewidth}{ECMWF}\par
+    \vspace{0.12cm}
+    \LogoGraphic[1.52cm]{glofas_logo.png}{\linewidth}{GloFAS}
   \end{minipage}
   \hfill
-  \begin{minipage}[t]{0.57\linewidth}
+  \begin{minipage}[t]{0.53\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF / GloFAS\par}
-    {\CaptionFont\color{MutedSlate}retrospective alignment and 28-day ensemble guidance.\par}
+    {\CaptionFont\color{MutedSlate}retrospective product plus 28-day forecast
+    ensemble guidance.\par}
   \end{minipage}
 
-  \vspace{0.28cm}
-  \begin{minipage}[t]{0.38\linewidth}
+  \vspace{0.34cm}
+  \begin{minipage}[t]{0.42\linewidth}
     \centering
-    \LogoGraphic[1.90cm]{noaa_logo_1800px_transparent.png}{0.46\linewidth}{NOAA}\hspace{0.12cm}
-    \LogoGraphic[1.90cm]{nws_logo_1800px_transparent.png}{0.46\linewidth}{NWS}
+    \vspace{0.14cm}
+    \LogoGraphic[2.25cm]{noaa_logo_1800px_transparent.png}{0.46\linewidth}{NOAA}\hspace{0.14cm}
+    \LogoGraphic[2.25cm]{nws_logo_1800px_transparent.png}{0.46\linewidth}{NWS}
   \end{minipage}
   \hfill
-  \begin{minipage}[t]{0.57\linewidth}
+  \begin{minipage}[t]{0.53\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}NOAA / NWS\par}
-    {\CaptionFont\color{MutedSlate}short-range guidance over common valid leads 1--8.\par}
+    {\CaptionFont\color{MutedSlate}retrospective product plus NWS forecast
+    ensemble guidance over common leads 1--8.\par}
   \end{minipage}
 
-  \vspace{0.28cm}
-  \SourceRow{CovariateSage}{Transfer information}{precipitation, soil moisture,
-  and the GDPC climate index inform the retained forecast-window transfer
-  component.}
+  \vspace{0.34cm}
+  \SourceRow{CovariateSage}{Exogenous information}{precipitation, soil moisture,
+  and a generalized dynamic principal component (GDPC) climate-index summary
+  enter as exogenous covariates.}
 \end{SoftNote}
 
 \vspace{0.70cm}
@@ -554,8 +559,8 @@ assembled into one predictive distribution for scoring.\par}
 \PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
 \FigureCaption[From heterogeneous inputs to one distribution.]{The dynamic
 state includes trend and seasonality, source-specific discrepancy, and retained
-forecast-window transfer. Quantile-specific posterior forecasts are synthesized
-into one predictive distribution.}
+exogenous-covariate effects. Quantile-specific posterior forecasts are
+synthesized into one predictive distribution.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
@@ -611,7 +616,7 @@ into one predictive distribution.}
   \(\gamma\) are source-specific scale and skewness parameters.
   \(\boldsymbol{\theta}_t\) is the latent river-flow quantile,
   \(\boldsymbol{\delta}_t^j\) corrects product family \(j\), and
-  \((\zeta_t,\boldsymbol{\psi}_t)\) carries transfer information.\par}
+  \((\zeta_t,\boldsymbol{\psi}_t)\) carries exogenous covariate effects.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
@@ -694,7 +699,7 @@ multi-year wet--dry structure while preserving quantile-specific variation.}
   system, instead of being averaged after the fact.
   \item Observation-only AL/exAL quantile references have roughly 5.4--39x
   higher 28-day CRPS across these origins, highlighting the value of external
-  products and transfer information.
+  products and exogenous covariates.
   \item The five-window evaluation is a targeted stress test; broader regime
   coverage remains the next validation step.
 \end{PosterItems}
