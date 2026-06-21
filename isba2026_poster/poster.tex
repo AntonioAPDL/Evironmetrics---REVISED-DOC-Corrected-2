@@ -270,6 +270,41 @@
   \end{tcolorbox}%
 }
 
+\newcommand{\SourceLogoRibbon}{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=PanelLine,
+    boxrule=0.55pt,
+    arc=1.4mm,
+    height=2.35cm,
+    valign=center,
+    left=0.38cm,right=0.38cm,top=0.24cm,bottom=0.22cm,
+    borderline west={1.4mm}{0pt}{ExalTeal}
+  ]
+  \begin{minipage}[c]{0.30\linewidth}
+    \centering
+    \LogoGraphic[0.48cm]{usgs_logo_green_cropped.png}{0.92\linewidth}{USGS}\par
+    \vspace{0.05cm}
+    {\fontsize{15}{17}\selectfont\color{MutedGrey}observations\par}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.30\linewidth}
+    \centering
+    \LogoGraphic[0.58cm]{glofas_logo.png}{0.92\linewidth}{GloFAS}\par
+    \vspace{0.05cm}
+    {\fontsize{15}{17}\selectfont\color{MutedGrey}28-day guidance\par}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[c]{0.30\linewidth}
+    \centering
+    \LogoGraphic[0.68cm]{nws_logo_1800px.png}{0.54\linewidth}{NWS}\par
+    \vspace{0.05cm}
+    {\fontsize{15}{17}\selectfont\color{MutedGrey}8-day guidance\par}
+  \end{minipage}
+  \end{tcolorbox}%
+}
+
 \newenvironment{PosterItems}{%
   \begin{itemize}
   \setlength{\itemsep}{0.28cm}
@@ -407,12 +442,20 @@
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.225\textwidth}
-    \RaggedLeft
-    {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{PosterNavy}
-      \PosterConference\par}
-    \vspace{0.10cm}
-    {\PosterMetaFont\color{MutedGrey}\PosterLocation\par}
+    \begin{minipage}[t]{0.62\linewidth}
+      \RaggedLeft
+      {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{PosterNavy}
+        \PosterConference\par}
+      \vspace{0.10cm}
+      {\PosterMetaFont\color{MutedGrey}\PosterLocation\par}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.31\linewidth}
+      \RaggedLeft
+      \LogoGraphic[2.82cm]{ucsc_uc_seal_1800px.png}{2.82cm}{UCSC}
+    \end{minipage}
     \vspace{0.42cm}
+    \RaggedLeft
     {\SmallBodyFont\bfseries\color{PosterInk}San Lorenzo River\par}
     {\PosterMetaFont\color{MutedGrey}Big Trees USGS gauge\par}
   \end{minipage}
@@ -476,7 +519,10 @@ discrepancies, and uncertainty representations. We synthesize observations,
 forecast products, and hydrometeorological transfer information into evolving
 predictive quantiles.\par}
 
-\vspace{0.28cm}
+\vspace{0.22cm}
+\SourceLogoRibbon
+
+\vspace{0.24cm}
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.49\linewidth}
   \SourceCard{PosterInk}{USGS target}{Observed daily flow for state updating and post-cutoff verification.}
@@ -504,7 +550,7 @@ predictive quantiles.\par}
 source-specific discrepancy states rather than as one homogeneous ensemble.\par}
 \end{SoftCallout}
 
-\vspace{0.78cm}
+\vspace{0.54cm}
 
 \SectionHead{Validation}{Five held-out rolling origins}
 \PosterGraphic[14.3cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}

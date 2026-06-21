@@ -19,6 +19,9 @@ hierarchy and visual polish without changing the scientific lock.
 - Simplified the bottom area into a single conclusion band plus footer.
 - Simplified the logo strip to product/source marks plus UCSC text, avoiding an
   overfilled seal row.
+- Added the UCSC seal to the header as a restrained institutional anchor.
+- Added a compact source/product logo ribbon to the problem section so the forecast-product
+  context appears where the problem is introduced.
 - Removed visible active-screening and frozen-manuscript management language
   from the conference-facing poster surface.
 - Regenerated the poster CRPS figures with audience-facing captions.
