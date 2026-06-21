@@ -68,6 +68,8 @@
   {assets/logos/derived/}
   {Figures/multivariate_synthesis_by_cutoff/}
   {../Figures/multivariate_synthesis_by_cutoff/}
+  {Figures/manuscript/}
+  {../Figures/manuscript/}
 }
 
 % ---------- Refined semantic palette ----------------------------------------
@@ -100,7 +102,7 @@
 \urlstyle{same}
 
 % ---------- Poster metadata --------------------------------------------------
-\newcommand{\PosterTitle}{Dynamic Bayesian quantile synthesis for medium-range river-flow forecasting}
+\newcommand{\PosterTitle}{Bayesian quantile correction and synthesis for hydrologic forecast products}
 \newcommand{\PosterAuthors}{Antonio Aguirre \quad Raquel Prado \quad Bruno Sans\'o}
 \newcommand{\PosterAffiliation}{Department of Statistics, University of California, Santa Cruz}
 \newcommand{\PosterEmail}{jaguir@ucsc.edu}
@@ -117,7 +119,7 @@
   pdftitle={\PosterTitle},
   pdfauthor={Antonio Aguirre, Raquel Prado, Bruno Sanso},
   pdfsubject={ISBA 2026 scientific poster},
-  pdfkeywords={Bayesian forecasting, dynamic quantile models, hydrology, CRPS}
+  pdfkeywords={Bayesian forecasting, dynamic quantile models, hydrologic forecast products, CRPS}
 }
 
 \title{\PosterTitle}
@@ -278,8 +280,10 @@
   \IfFileExists{figures/generated/#1}{\gdef\ResolvedGraphic{figures/generated/#1}}{%
   \IfFileExists{figures/frozen/#1}{\gdef\ResolvedGraphic{figures/frozen/#1}}{%
   \IfFileExists{Figures/multivariate_synthesis_by_cutoff/#1}{\gdef\ResolvedGraphic{Figures/multivariate_synthesis_by_cutoff/#1}}{%
-  \IfFileExists{../Figures/multivariate_synthesis_by_cutoff/#1}{\gdef\ResolvedGraphic{../Figures/multivariate_synthesis_by_cutoff/#1}}{}%
-  }}}}}}%
+  \IfFileExists{../Figures/multivariate_synthesis_by_cutoff/#1}{\gdef\ResolvedGraphic{../Figures/multivariate_synthesis_by_cutoff/#1}}{%
+  \IfFileExists{Figures/manuscript/#1}{\gdef\ResolvedGraphic{Figures/manuscript/#1}}{%
+  \IfFileExists{../Figures/manuscript/#1}{\gdef\ResolvedGraphic{../Figures/manuscript/#1}}{}%
+  }}}}}}}}%
 }
 
 \newcommand{\PosterGraphic}[3][10cm]{%
@@ -356,10 +360,10 @@
   \end{tikzpicture}
 
   \vspace*{0.18cm}
-  \begin{minipage}[t]{0.735\textwidth}
+  \begin{minipage}[t]{0.705\textwidth}
     {\PosterTitleFont\bfseries\color{TitleSlate}\RaggedRight
-      Dynamic Bayesian quantile synthesis for\\[-0.04em]
-      medium-range river-flow forecasting\par
+      Bayesian quantile correction and synthesis\\[-0.04em]
+      for hydrologic forecast products\par
     }
     \vspace{0.42cm}
     {\PosterAuthorFont\color{PosterInk}\PosterAuthors\par}
@@ -370,16 +374,23 @@
     }
   \end{minipage}
   \hfill
-  \begin{minipage}[t]{0.225\textwidth}
-    \RaggedLeft
-    {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{TitleSlate}
-      \PosterConference\par}
-    \vspace{0.09cm}
-    {\PosterMetaFont\color{MutedSlate}\PosterLocation\par}
-    \vspace{0.46cm}
-    {\SmallBodyFont\bfseries\color{PosterInk}Application\par}
-    \vspace{0.04cm}
-    {\PosterMetaFont\color{MutedSlate}\PosterApplication\par}
+  \begin{minipage}[t]{0.265\textwidth}
+    \begin{minipage}[t]{0.27\linewidth}
+      \centering
+      \LogoGraphic[3.45cm]{ucsc_uc_seal_1800px.png}{\linewidth}{UCSC}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.70\linewidth}
+      \RaggedLeft
+      {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{TitleSlate}
+        \PosterConference\par}
+      \vspace{0.09cm}
+      {\PosterMetaFont\color{MutedSlate}\PosterLocation\par}
+      \vspace{0.42cm}
+      {\SmallBodyFont\bfseries\color{PosterInk}Application\par}
+      \vspace{0.04cm}
+      {\PosterMetaFont\color{MutedSlate}\PosterApplication\par}
+    \end{minipage}
   \end{minipage}
 
   \vspace{0.48cm}
@@ -401,10 +412,11 @@
       {\FootFont\bfseries\color{HydroBlue}28-DAY DISTRIBUTIONAL ACCURACY\par}
       \vspace{0.07cm}
       {\PosterClaimFont\color{TitleSlate}\RaggedRight
-        exAL-M-T1 has the lowest 28-day CRPS at four rolling origins.\par}
+        The selected source-aware model has the lowest 28-day CRPS at four
+        rolling origins.\par}
       \vspace{0.04cm}
       {\SmallBodyFont\bfseries\color{ALOchre}
-        AL-M-T1 leads at the 2022-12-25 origin.\par}
+        An asymmetric-Laplace synthesis variant leads at the 2022-12-25 origin.\par}
     \end{minipage}
   \end{tcolorbox}
 }
@@ -413,37 +425,20 @@
 \newcommand{\PosterFooter}{%
   {\color{RuleStone}\rule{\textwidth}{0.75pt}}\par
   \vspace{0.22cm}
-  \begin{minipage}[c]{0.73\textwidth}
-    \begin{minipage}[c]{0.21\linewidth}
-      {\FootFont\bfseries\color{TitleSlate}Data and forecast products\par}
-      \vspace{0.03cm}
-      {\FootFont\color{MutedSlate}Logos identify source products; no endorsement is implied.\par}
-    \end{minipage}
-    \hfill
-    \LogoMark[0.98cm]{usgs_logo_green_cropped.png}{0.145\linewidth}{USGS}
-    \hfill
-    \LogoMark[0.86cm]{ecmwf_logo_2400w.png}{0.145\linewidth}{ECMWF}
-    \hfill
-    \LogoMark[1.12cm]{glofas_logo.png}{0.125\linewidth}{GloFAS}
-    \hfill
-    \LogoMark[1.10cm]{nws_logo_1800px.png}{0.082\linewidth}{NWS}
-    \hfill
-    \begin{minipage}[c]{0.16\linewidth}
-      \RaggedLeft
-      {\FootFont\bfseries\color{TitleSlate}UC Santa Cruz\par}
-      {\FootFont\color{MutedSlate}Department of Statistics\par}
-    \end{minipage}
-
-    \vspace{0.20cm}
+  \begin{minipage}[c]{0.70\textwidth}
+    {\FootFont\bfseries\color{TitleSlate}UC Santa Cruz Department of Statistics\par}
+    \vspace{0.05cm}
     {\FootFont\color{MutedSlate}\RaggedRight
       \textbf{Contact:} \href{mailto:\PosterEmail}{\PosterEmail}
+      \quad\textbullet\quad
+      Data and product logos identify sources; no endorsement is implied.
       \quad\textbullet\quad
       Poster, manuscript, supplementary diagnostics, and reproducibility materials
       are available through the project repository.\par
     }
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.235\textwidth}
+  \begin{minipage}[c]{0.265\textwidth}
     \begin{columns}[c,totalwidth=\linewidth]
       \begin{column}{0.44\linewidth}
         \centering
@@ -489,27 +484,60 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Why heterogeneous forecasts are difficult}
+\SectionHead{Question}{Why forecast products need synthesis}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
-How can hydrologic products with different horizons, discrepancies, and
-uncertainty representations be reconciled into calibrated predictive quantiles?\par}
+Can observations, retrospective products, ensemble forecasts, and covariates be
+combined into calibrated predictive quantiles without pretending the sources
+are interchangeable?\par}
 \end{KeyQuestion}
 
 \vspace{0.27cm}
 {\SmallBodyFont
 The target is daily San Lorenzo River flow at the Big Trees gauge. The model
-synthesizes observations, operational and retrospective forecast products, and
-hydrometeorological transfer information without treating the sources as
-exchangeable.\par}
+synthesizes hydrologic products that differ in horizon, update pattern, and
+uncertainty representation.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}
-\SourceRow{USGSInk}{USGS observations}{state updating and post-cutoff verification.}
-\SourceRow{GloFASBlue}{ECMWF / GloFAS}{retrospective alignment and 28-day guidance.}
-\SourceRow{NWSRust}{NOAA / NWS}{short-range guidance over common valid leads 1--8.}
-\SourceRow{CovariateSage}{Transfer information}{precipitation, soil moisture, and the GDPC climate index.}
+  \begin{minipage}[t]{0.30\linewidth}
+    \centering\LogoGraphic[1.12cm]{usgs_logo_green_cropped.png}{\linewidth}{USGS}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.65\linewidth}
+    {\SmallBodyFont\bfseries\color{TitleSlate}USGS observations\par}
+    {\CaptionFont\color{MutedSlate}state updating and post-cutoff verification.\par}
+  \end{minipage}
+
+  \vspace{0.28cm}
+  \begin{minipage}[t]{0.30\linewidth}
+    \centering
+    \LogoGraphic[0.78cm]{ecmwf_logo_2400w.png}{0.98\linewidth}{ECMWF}\par
+    \vspace{0.08cm}
+    \LogoGraphic[0.86cm]{glofas_logo.png}{0.76\linewidth}{GloFAS}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.65\linewidth}
+    {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF / GloFAS\par}
+    {\CaptionFont\color{MutedSlate}retrospective alignment and 28-day ensemble guidance.\par}
+  \end{minipage}
+
+  \vspace{0.28cm}
+  \begin{minipage}[t]{0.30\linewidth}
+    \centering
+    \LogoGraphic[1.28cm]{noaa_logo_1800px.png}{0.43\linewidth}{NOAA}\hspace{0.12cm}
+    \LogoGraphic[1.28cm]{nws_logo_1800px.png}{0.43\linewidth}{NWS}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.65\linewidth}
+    {\SmallBodyFont\bfseries\color{TitleSlate}NOAA / NWS\par}
+    {\CaptionFont\color{MutedSlate}short-range guidance over common valid leads 1--8.\par}
+  \end{minipage}
+
+  \vspace{0.28cm}
+  \SourceRow{CovariateSage}{Transfer information}{precipitation, soil moisture,
+  and the GDPC climate index drive the forecast-window transfer component.}
 \end{SoftNote}
 
 \vspace{0.70cm}
@@ -522,43 +550,38 @@ post-cutoff USGS flow; days 1--8 define the separate NWS-compatible comparison.}
 
 \vspace{0.74cm}
 
-\SectionHead{Specification}{What exAL-M-T1 denotes}
+\SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
-\begin{columns}[T,totalwidth=\linewidth]
-  \begin{column}{0.31\linewidth}
-    \centering\ModelToken{exAL}\par
-    \vspace{0.14cm}
-    {\CaptionFont\color{MutedSlate}extended asymmetric Laplace family\par}
-  \end{column}
-  \begin{column}{0.31\linewidth}
-    \centering\ModelToken{M}\par
-    \vspace{0.14cm}
-    {\CaptionFont\color{MutedSlate}multivariate source synthesis\par}
-  \end{column}
-  \begin{column}{0.31\linewidth}
-    \centering\ModelToken{T1}\par
-    \vspace{0.14cm}
-    {\CaptionFont\color{MutedSlate}retained forecast-window transfer\par}
-  \end{column}
-\end{columns}
+{\SmallBodyFont
+For quantile levels \(0.05,0.20,\ldots,0.95\), each Dynamic Quantile Linear
+Model (DQLM) lane is fit separately and then combined into one predictive
+distribution.\par}
 
-\vspace{0.30cm}
-\centering\Pill{ModelPlum}{exAL-M-T1}\par
-\RaggedRight
-\vspace{0.28cm}
+\vspace{0.24cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Evaluation score\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}MFVB\par}
   \vspace{0.04cm}
-  {\SmallBodyFont\color{PosterInk}
-  \[
-  \operatorname{CRPS}(F,y)
-    =\int_{-\infty}^{\infty}
-      \left(F(z)-\mathbf 1\{y\le z\}\right)^2\,dz
-  \]
-  }
-  \vspace{-0.20cm}
   {\CaptionFont\color{MutedSlate}
-  CRPS is a proper score for the full predictive distribution; lower is better.\par}
+  Mean-field variational Bayes factorizes the posterior so the conditionally
+  Gaussian state blocks can be updated with fast filtering and smoothing
+  recursions.\par}
+
+  \vspace{0.22cm}
+  {\SmallBodyFont\bfseries\color{TitleSlate}VB-LD\par}
+  \vspace{0.04cm}
+  {\CaptionFont\color{MutedSlate}
+  Variational Bayes with Laplace--Delta approximations handles non-conjugate
+  extended-likelihood terms: Laplace gives a local Gaussian surrogate and the
+  Delta method feeds required moments back into the conjugate updates.\par}
+
+  \vspace{0.22cm}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Priors and evolution\par}
+  \vspace{0.04cm}
+  {\CaptionFont\color{MutedSlate}
+  Diffuse scale and skewness priors, a Gaussian initial state, and component
+  discounting encode a static level, persistent 12-month, 6-month, and
+  80-month seasonal harmonics, modestly adaptive source discrepancies, and
+  static covariate effects.\par}
 \end{SoftNote}
 
 \end{minipage}
@@ -577,6 +600,25 @@ post-cutoff USGS flow; days 1--8 define the separate NWS-compatible comparison.}
 state includes trend and seasonality, source-specific discrepancy, and retained
 forecast-window transfer. Quantile-specific posterior forecasts are synthesized
 into one predictive distribution.}
+
+\vspace{0.34cm}
+\begin{SoftNote}
+  {\SmallBodyFont\bfseries\color{TitleSlate}What the model learns\par}
+  \vspace{0.08cm}
+  {\CaptionFont\color{MutedSlate}
+  \textbf{Latent river quantiles:} trend plus seasonal harmonics describe the
+  underlying USGS flow distribution.\par}
+  \vspace{0.11cm}
+  {\CaptionFont\color{MutedSlate}
+  \textbf{Source corrections:} retrospective products teach dynamic
+  discrepancies for each external product family before those families enter
+  the forecast window.\par}
+  \vspace{0.11cm}
+  {\CaptionFont\color{MutedSlate}
+  \textbf{Forecast synthesis:} post-cutoff GloFAS and NWS ensembles enter as
+  source-specific channels, while precipitation, soil moisture, and the GDPC
+  index drive the retained transfer component.\par}
+\end{SoftNote}
 
 \vspace{0.62cm}
 
@@ -597,15 +639,16 @@ into one predictive distribution.}
   \vspace{0.30cm}
   \begin{minipage}[t]{0.64\linewidth}
     {\SmallBodyFont\color{PosterInk}
-      \textbf{Broad five-origin result.} exAL-M-T1 has the lowest 28-day CRPS at
-      four rolling origins and is retained as the extended-asymmetric-Laplace
-      multivariate reference.\par}
+      \textbf{Broad five-origin result.} The selected source-aware
+      extended-likelihood model has the lowest 28-day CRPS at four rolling
+      origins.\par}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.33\linewidth}
     \begin{ExceptionNote}
       {\CaptionFont\color{PosterInk}
-      \textbf{Exception.} AL-M-T1 is lower at 2022-12-25.\par}
+      \textbf{Exception.} An asymmetric-Laplace synthesis variant is lower at
+      2022-12-25.\par}
     \end{ExceptionNote}
   \end{minipage}
 \end{HeroResult}
@@ -633,21 +676,30 @@ not the 28-day medium-range benchmark.}
 \vspace{0.72cm}
 
 \SectionHead{Example}{One forecast window for interpretation}
-\PosterGraphic[24.8cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
 source information and posterior uncertainty evolve at the 2022-12-25 origin.
-AL-M-T1 has the lower 28-day CRPS at this cutoff; the reference decision uses
-all five origins.}
+The asymmetric-Laplace synthesis variant has the lower 28-day CRPS at this
+cutoff; the reference decision uses all five origins.}
 
-\vspace{0.72cm}
+\vspace{0.64cm}
+
+\SectionHead{Dynamics}{Retrospective component interpretation}
+\PosterGraphic[12.8cm]{historical_component_80month.png}{80-month component diagnostic}
+\FigureCaption[More than a corrected forecast.]{The selected model also yields
+retrospective dynamic diagnostics. The 80-month harmonic summarizes slow
+wet--dry regime structure while preserving quantile-specific variation.}
+
+\vspace{0.64cm}
 
 \SectionHead{Interpretation}{What this experiment supports}
 \begin{PosterItems}
-  \item The framework combines heterogeneous forecast sources while representing
-  source discrepancy, lead-time structure, and distributional uncertainty.
-  \item Across these five origins, exAL-M-T1 is the most consistently strong
-  extended-asymmetric-Laplace multivariate specification, with the 2022-12-25
-  exception stated explicitly.
+  \item The framework corrects external products before synthesis by learning
+  source-specific discrepancies from retrospective histories.
+  \item Observation-only AL/exAL quantile references have roughly 5.4--39x
+  higher 28-day CRPS than the selected source-aware model across these origins.
+  \item The selected extended-likelihood model is the strongest broad 28-day
+  performer, with the 2022-12-25 exception stated explicitly.
   \item The evaluation is a targeted five-window stress test; broader regime
   coverage remains an important next step.
 \end{PosterItems}
@@ -655,8 +707,8 @@ all five origins.}
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} The analysis evaluates complete predictive distributions
-  under strict post-cutoff verification, not only illustrative hydrographs.\par}
+  \textbf{Take-home.} The method is both a forecast-product synthesis tool and
+  an interpretable dynamic quantile analysis of river-flow components.\par}
 \end{KeyQuestion}
 
 \end{minipage}

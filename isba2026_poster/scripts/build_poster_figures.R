@@ -40,19 +40,30 @@ poster_cols <- c(
   other = "#8A9399"
 )
 
+model_labels <- c(
+  "exAL-M-T1" = "Selected model",
+  "AL-M-T1" = "AL synthesis",
+  "RAW-GLOFAS" = "GloFAS",
+  "RAW-NWS" = "NWS"
+)
+
+model_label <- function(x) {
+  dplyr::recode(x, !!!as.list(model_labels), .default = x)
+}
+
 palette <- c(
-  "exAL-M-T1" = poster_cols[["plum"]],
-  "AL-M-T1" = poster_cols[["ochre"]],
-  "RAW-GLOFAS" = poster_cols[["glofas"]],
-  "RAW-NWS" = poster_cols[["rust"]],
+  "Selected model" = poster_cols[["plum"]],
+  "AL synthesis" = poster_cols[["ochre"]],
+  "GloFAS" = poster_cols[["glofas"]],
+  "NWS" = poster_cols[["rust"]],
   "Other Bayesian variants" = poster_cols[["other"]]
 )
 
 shape_values <- c(
-  "exAL-M-T1" = 16,
-  "AL-M-T1" = 18,
-  "RAW-GLOFAS" = 15,
-  "RAW-NWS" = 17,
+  "Selected model" = 16,
+  "AL synthesis" = 18,
+  "GloFAS" = 15,
+  "NWS" = 17,
   "Other Bayesian variants" = 16
 )
 
@@ -130,21 +141,21 @@ crps_28d_plot <- crps_28d |>
     ratio_raw_glofas = crps / raw_glofas,
     winner = model[which.min(crps)],
     display_group = case_when(
-      model %in% c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS") ~ model,
+      model %in% c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS") ~ model_label(model),
       TRUE ~ "Other Bayesian variants"
     )
   ) |>
   ungroup() |>
   mutate(
     cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
-    display_group = factor(display_group, levels = c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS", "Other Bayesian variants"))
+    display_group = factor(display_group, levels = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants"))
   )
 
 winner_28d <- crps_28d_plot |>
   group_by(cutoff, cutoff_panel) |>
   slice_min(crps, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  mutate(winner_text = paste0("lowest: ", model))
+  mutate(winner_text = paste0("lowest: ", model_label(model)))
 
 p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
   geom_vline(xintercept = 1, linewidth = 0.7, linetype = "dashed", color = poster_cols[["muted"]]) +
@@ -180,14 +191,14 @@ p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
   ) +
   scale_color_manual(
     values = palette,
-    breaks = c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS", "Other Bayesian variants")
+    breaks = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")
   ) +
   scale_shape_manual(
-    values = shape_values[c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS", "Other Bayesian variants")],
-    breaks = c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS", "Other Bayesian variants")
+    values = shape_values[c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")],
+    breaks = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")
   ) +
   labs(
-    title = "28-day CRPS: exAL-M-T1 is lowest\nat four of five rolling origins",
+    title = "28-day CRPS: selected model is lowest\nat four of five rolling origins",
     subtitle = "Mean CRPS relative to raw GloFAS at the same cutoff; lower and farther left is better.",
     x = "Mean CRPS / raw GloFAS CRPS",
     y = NULL,
@@ -199,7 +210,7 @@ p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
       override.aes = list(
         alpha = c(1, 1, 1, 0.55),
         size = c(5, 5, 5, 4),
-        shape = unname(shape_values[c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS", "Other Bayesian variants")])
+        shape = unname(shape_values[c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")])
       )
     )
   ) +
@@ -221,16 +232,16 @@ crps_8d_plot <- crps_8d |>
   ungroup() |>
   mutate(
     cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
-    model = factor(model, levels = c("exAL-M-T1", "AL-M-T1", "RAW-NWS", "RAW-GLOFAS"))
+    model_display = factor(model_label(model), levels = c("Selected model", "AL synthesis", "NWS", "GloFAS"))
   )
 
 winner_8d <- crps_8d_plot |>
   group_by(cutoff, cutoff_panel) |>
   slice_min(crps, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  mutate(winner_text = paste0("lowest: ", model))
+  mutate(winner_text = paste0("lowest: ", model_label(model)))
 
-p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model, shape = model)) +
+p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model_display, shape = model_display)) +
   geom_vline(xintercept = 1, linewidth = 0.7, color = poster_cols[["ink"]]) +
   geom_point(size = 6.0, stroke = 1.15) +
   geom_line(aes(group = cutoff_panel), linewidth = 0.8, color = poster_cols[["rule"]]) +
@@ -246,8 +257,8 @@ p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model, 
     breaks = c(1, 2, 4, 8, 16, 32),
     labels = c("best", "2x", "4x", "8x", "16x", "32x")
   ) +
-  scale_color_manual(values = palette[c("exAL-M-T1", "AL-M-T1", "RAW-NWS", "RAW-GLOFAS")]) +
-  scale_shape_manual(values = shape_values[c("exAL-M-T1", "AL-M-T1", "RAW-NWS", "RAW-GLOFAS")]) +
+  scale_color_manual(values = palette[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
+  scale_shape_manual(values = shape_values[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
   labs(
     title = "8-day NWS-compatible\ncomparison",
     subtitle = "Days 1--8 only; lower is better.",
@@ -345,8 +356,8 @@ ps <- ggplot() +
   scale_color_manual(values = setNames(box_df$text_col, box_df$id), guide = "none") +
   coord_cartesian(xlim = c(0, 10.05), ylim = c(0.45, 6.15), expand = FALSE) +
   labs(
-    title = "Dynamic quantile synthesis learns source corrections",
-    subtitle = "Inputs enter distinct latent blocks before forming one predictive distribution."
+    title = "Source-aware quantile correction and synthesis",
+    subtitle = "Retrospective products learn discrepancies; forecast products enter with source-specific corrections."
   ) +
   theme_void(base_family = "DejaVu Sans") +
   theme(
