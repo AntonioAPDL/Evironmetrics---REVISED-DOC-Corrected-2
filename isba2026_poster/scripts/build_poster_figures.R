@@ -318,10 +318,10 @@ box_df <- tibble::tribble(
   "usgs", 0.4, 4.75, 2.25, 0.75, "USGS\nobservations", poster_cols[["white"]], poster_cols[["ink"]],
   "retro", 0.4, 3.78, 2.25, 0.75, "retrospective\nproducts", poster_cols[["white"]], poster_cols[["ink"]],
   "fcst", 0.4, 2.81, 2.25, 0.75, "GloFAS / NWS\nforecast products", "#E8F0F4", poster_cols[["title"]],
-  "covs", 0.4, 1.84, 2.25, 0.75, "PPT + SOIL\n+ GDPC", "#EEF3EE", poster_cols[["title"]],
+  "covs", 0.4, 1.84, 2.25, 0.75, "precipitation\nsoil moisture\nGDPC index", "#EEF3EE", poster_cols[["title"]],
   "latent", 3.35, 4.35, 2.75, 0.85, "shared latent\nriver-flow quantile", "#E8F0F2", poster_cols[["title"]],
-  "disc", 3.35, 3.18, 2.75, 0.85, "source-specific\ndiscrepancies", poster_cols[["panel"]], poster_cols[["title"]],
-  "transfer", 3.35, 2.01, 2.75, 0.85, "retained forecast-window\ntransfer", "#F4EAD2", poster_cols[["title"]],
+  "disc", 3.35, 3.18, 2.75, 0.85, "source-specific\ncorrections", poster_cols[["panel"]], poster_cols[["title"]],
+  "transfer", 3.35, 2.01, 2.75, 0.85, "forecast-window\nexogenous effects", "#F4EAD2", poster_cols[["title"]],
   "dynamic", 3.35, 0.84, 2.75, 0.85, "trend + seasonal\ndynamics", poster_cols[["panel"]], poster_cols[["title"]],
   "qpred", 6.85, 3.55, 2.85, 0.95, "quantile-specific\nposterior forecasts", "#E8F0F2", poster_cols[["title"]],
   "synth", 6.85, 2.25, 2.85, 0.95, "synthesized predictive\ndistribution", poster_cols[["plum"]], poster_cols[["white"]]
@@ -366,7 +366,7 @@ ps <- ggplot() +
   coord_cartesian(xlim = c(0, 10.05), ylim = c(0.45, 6.15), expand = FALSE) +
   labs(
     title = "Source-aware quantile correction and synthesis",
-    subtitle = "Retrospective products learn discrepancies; forecast products enter with source-specific corrections."
+    subtitle = "Retrospective products identify source corrections before the origin;\nforecast products enter through those corrected channels."
   ) +
   theme_void(base_family = "DejaVu Sans") +
   theme(

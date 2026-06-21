@@ -597,12 +597,12 @@ one predictive distribution for scoring.\par}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Model}{One source-aware dynamic quantile system}
+\SectionHead{Model}{One state-space model for correction and synthesis}
 \PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
-\FigureCaption[From heterogeneous inputs to one distribution.]{The dynamic
-state includes trend and seasonality, source-specific discrepancy, and retained
-exogenous-covariate effects. Quantile-specific posterior forecasts are
-synthesized into one predictive distribution.}
+\FigureCaption[Correction before synthesis.]{Before the origin, observations
+and retrospective products identify the shared quantile state and source
+corrections. After the origin, issued forecast products and exogenous
+covariates update the same state to form calibrated predictive quantiles.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
@@ -610,8 +610,10 @@ synthesized into one predictive distribution.}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\) and forecast origin \(T\), observed flow,
-  retrospective product histories, and issued forecast members share one latent
-  river-flow quantile plus source-specific corrections.\par}
+  retrospective product histories, and issued forecast members are linked
+  through one latent river-flow quantile. Retrospective products identify source
+  corrections before the origin; forecast products enter through those corrected
+  source channels.\par}
   \vspace{-0.20cm}
   {\ModelEqFont\color{PosterInk}
   \setlength{\jot}{0.045cm}
@@ -636,12 +638,12 @@ synthesized into one predictive distribution.}
   &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
   &\qquad& 1 \le t \le T+K_{\max},
   \\
-  \text{Discrepancy states:}\quad&
+  \text{Source correction states:}\quad&
   \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
   &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
   &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max},
   \\
-  \text{Transfer adjustment:}\quad&
+  \text{Exogenous adjustment:}\quad&
   \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
   &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
   &\qquad& 1 \le t \le T+K_{\max},
@@ -653,12 +655,17 @@ synthesized into one predictive distribution.}
   \end{alignat*}
   }
   \vspace{-0.18cm}
-  {\CaptionFont\color{MutedSlate}
-  Here exAL is the extended asymmetric Laplace likelihood; \(\sigma\) and
-  \(\gamma\) are source-specific scale and skewness parameters.
-  \(\boldsymbol{\theta}_t\) is the latent river-flow quantile,
-  \(\boldsymbol{\delta}_t^j\) corrects product family \(j\), and
-  \((\zeta_t,\boldsymbol{\psi}_t)\) carries exogenous covariate effects.\par}
+  {\FootFont\color{MutedSlate}
+  \(\operatorname{exAL}_{p_0}\) is the extended asymmetric Laplace likelihood;
+  \(\sigma\) and \(\gamma\) are source-specific scale and skewness terms.
+  \(T\) is the forecast origin, \(j\) a product family, \(i\) an ensemble
+  member, \(k\) a lead, \(K_{\max}\) the longest horizon, and \(\mathbf{x}_t\)
+  the exogenous covariates. \(\boldsymbol{\theta}_t\) is the shared quantile
+  state, \(\boldsymbol{\delta}_t^j\) is the source correction/discrepancy state,
+  and \((\zeta_t,\boldsymbol{\psi}_t)\) is the covariate-effect block. Priors
+  use bounded truncated Student-\(t\) terms for \(\gamma^j\), inverse-gamma
+  terms for \(\sigma^j\), Gaussian initial states, and component discounting for
+  evolution variances.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
