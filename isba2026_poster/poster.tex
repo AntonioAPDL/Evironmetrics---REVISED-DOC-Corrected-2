@@ -422,24 +422,21 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Fast synthesis of corrected products}
+\SectionHead{Question}{Correction before synthesis}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
-How can large retrospective product archives be used efficiently at an
-operational forecast origin to learn bias for each source, calibrate forecast
-ensembles across lead times, and synthesize predictive quantiles for the target
-process?\par}
+How can historical archives estimate source corrections before forecasts with
+different horizons are blended into one predictive distribution?\par}
 \end{KeyQuestion}
 
 \vspace{0.27cm}
 {\SmallBodyFont
-Case study: daily San Lorenzo River flow at the USGS Big Trees gauge. The
-framework learns dynamic corrections from USGS observations and retrospective
-ECMWF/GloFAS and NOAA/NWS products, then carries those corrections into the
-forecast window to synthesize calibrated predictive flow quantiles. This is
-needed because product families differ in lead time, update cycle, ensemble
-structure, and uncertainty representation.\par}
+Case study: daily San Lorenzo River flow at the USGS Big Trees gauge, modeled
+on the \(\log(1+x)\) scale with \(x\) in m\(^3\)/s. Before each origin, USGS
+observations and retrospective ECMWF/GloFAS and NOAA/NWS products identify
+time-varying source corrections. After the origin, issued ensembles and
+exogenous information produce source-adjusted predictive flow quantiles.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}[top=0.48cm,bottom=0.46cm]
@@ -452,8 +449,8 @@ structure, and uncertainty representation.\par}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
     {\SmallBodyFont\bfseries\color{TitleSlate}USGS observations\par}
-    {\CaptionFont\color{MutedSlate}15-min public gauge data; daily flow used for
-    state updating and held-out verification.\par}
+    {\CaptionFont\color{MutedSlate}15-min public gauge data; daily log-flow
+    target for state updating and held-out verification.\par}
   \end{minipage}
 
   \vspace{0.30cm}
@@ -467,9 +464,9 @@ structure, and uncertainty representation.\par}
   \begin{minipage}[c]{0.46\linewidth}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
-    {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF / GloFAS\par}
-    {\CaptionFont\color{MutedSlate}daily issues; retrospective flow for bias correction;
-    51-member forecasts to 28 days.\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF GloFAS\par}
+    {\CaptionFont\color{MutedSlate}retrospective alignment; daily 51-member
+    forecast guidance to 28 days.\par}
   \end{minipage}
 
   \vspace{0.30cm}
@@ -484,9 +481,9 @@ structure, and uncertainty representation.\par}
   \begin{minipage}[c]{0.46\linewidth}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
-    {\SmallBodyFont\bfseries\color{TitleSlate}NOAA / NWS\par}
-    {\CaptionFont\color{MutedSlate}hourly issues; retrospective flow for bias correction;
-    forecasts on common daily leads 1--8.\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}NOAA NWS\par}
+    {\CaptionFont\color{MutedSlate}retrospective alignment; hourly forecasts
+    evaluated on common daily leads 1--8.\par}
   \end{minipage}
 
   \vspace{0.34cm}
@@ -499,10 +496,11 @@ structure, and uncertainty representation.\par}
 
 \SectionHead{Validation}{Rolling-origin holdout design}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
-\FigureCaption[Frozen-origin validation.]{For each origin, source corrections
-are learned before forecasts are staged: the fit archive contains only USGS flow
-and product histories available by then. Future USGS is held out for scoring only. Main
-CRPS uses GloFAS-supported days 1--28; the NWS comparison uses days 1--8.}
+\FigureCaption[Strict temporal holdout.]{At each origin, fitting uses only USGS
+flow and retrospective products available through that date. Issued forecasts
+and forecast-window exogenous inputs enter after the origin; future USGS
+observations are reserved for scoring. Main CRPS uses GloFAS-supported days
+1--28, while NWS is compared over common leads 1--8.}
 
 \vspace{0.74cm}
 
@@ -510,8 +508,9 @@ CRPS uses GloFAS-supported days 1--28; the NWS comparison uses days 1--8.}
 
 {\SmallBodyFont\RaggedRight\hyphenpenalty=10000\exhyphenpenalty=10000
 Seven independent Dynamic Quantile Linear Model (DQLM) lanes target
-\(p_0\in\{0.05,0.20,\ldots,0.95\}\). The fitted lanes are then assembled into
-one predictive distribution for scoring.\par}
+seven levels: 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95. The fitted
+quantile forecasts are checked for crossing in the application and combined
+into the posterior predictive distribution scored by CRPS.\par}
 
 \vspace{0.20cm}
 \begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.7mm}{0pt}{ModelPlum}]
@@ -531,7 +530,8 @@ one predictive distribution for scoring.\par}
     {\FootFont\color{MutedSlate}all lanes + synthesis\par}
   \end{minipage}
   \vspace{0.08cm}
-  {\FootFont\color{MutedSlate}\centering final-origin archive maximum; wall-clock on 64 cores, workflow/output-retention dependent.\par}
+  {\FootFont\color{MutedSlate}\centering largest archive shown is the Dec 25
+  2022 origin; wall-clock on 64 cores, workflow/output-retention dependent.\par}
 \end{SoftNote}
 
 \vspace{0.24cm}
@@ -548,15 +548,15 @@ one predictive distribution for scoring.\par}
   {\SmallBodyFont\bfseries\color{TitleSlate}Posterior approximation\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes (MFVB) avoids full Markov chain Monte Carlo
-  (MCMC) while preserving Gaussian filtering and smoothing updates for latent
-  state blocks.\par}
+  Mean-field variational Bayes (MFVB) retains closed-form Gaussian filtering and
+  smoothing within latent-state blocks while approximating posterior dependence
+  across blocks.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}Non-conjugate updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Variational Bayes with Laplace--Delta (VB-LD) uses local mode, curvature, and
+  Variational Bayes with Laplace--Delta (VB-LD) uses local modes, curvature, and
   Delta-method moments for non-conjugate extended asymmetric Laplace (exAL)
   scale and skewness terms.\par}
 
@@ -565,7 +565,7 @@ one predictive distribution for scoring.\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
   Component discounting controls trend, multi-period seasonality, source
-  corrections, and exogenous-covariate effects.\par}
+  corrections, and exogenous-covariate adjustments.\par}
 \end{SoftNote}
 
 \end{minipage}
@@ -583,7 +583,7 @@ one predictive distribution for scoring.\par}
 \FigureCaption[Correction before synthesis.]{Before the origin, observations
 and retrospective products identify the shared quantile state and source
 corrections. After the origin, issued forecast products and exogenous
-covariates update the same state to form calibrated predictive quantiles.}
+covariates update the same state to form source-adjusted predictive quantiles.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
@@ -629,7 +629,7 @@ covariates update the same state to form calibrated predictive quantiles.}
   &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
   &\qquad& 1 \le t \le T+K_{\max},
   \\
-  \text{Covariate-effect states:}\quad&
+  \text{Covariate-adjustment states:}\quad&
   \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
   &\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
   &\qquad& 1 \le t \le T+K_{\max}.
@@ -637,16 +637,14 @@ covariates update the same state to form calibrated predictive quantiles.}
   }
   \vspace{-0.18cm}
   {\FootFont\color{MutedSlate}
-  \(\operatorname{exAL}_{p_0}\) is the extended asymmetric Laplace likelihood;
-  \(\sigma\) and \(\gamma\) are source-specific scale and skewness terms.
-  \(T\) is the forecast origin, \(j\) a product family, \(i\) an ensemble
-  member, \(k\) a lead, \(K_{\max}\) the longest horizon, and \(\mathbf{x}_t\)
-  the exogenous covariates. \(\boldsymbol{\theta}_t\) is the shared quantile
-  state, \(\boldsymbol{\delta}_t^j\) is the source correction/discrepancy state,
-  and \((\zeta_t,\boldsymbol{\psi}_t)\) is the covariate-effect block. Priors
-  use bounded truncated Student-\(t\) terms for \(\gamma^j\), inverse-gamma
-  terms for \(\sigma^j\), Gaussian initial states, and component discounting for
-  evolution variances.\par}
+  \(\operatorname{exAL}_{p_0}\) is the extended asymmetric Laplace working
+  likelihood; \(\sigma\) and \(\gamma\) are source-specific scale and skewness
+  terms. \(T\) is the forecast origin, \(j\) a product family, \(i\) an ensemble
+  member, \(k\) a lead, and \(K_{\max}\) the longest horizon. The shared
+  quantile state is \(\boldsymbol{\theta}_t\); source corrections are
+  \(\boldsymbol{\delta}_t^j\); and \((\zeta_t,\boldsymbol{\psi}_t)\) is the
+  exogenous-adjustment block driven by covariates \(\mathbf{x}_t\). Component
+  discounting controls the evolution variances.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
@@ -655,7 +653,7 @@ covariates update the same state to form calibrated predictive quantiles.}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
-      Held-out forecast-window distributional accuracy\par}
+      Source-aware exAL has the lowest 28-day CRPS at four of five origins\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.21\linewidth}
@@ -668,23 +666,25 @@ covariates update the same state to form calibrated predictive quantiles.}
   \vspace{0.30cm}
   \begin{minipage}[t]{0.64\linewidth}
     {\SmallBodyFont\color{PosterInk}
-      \textbf{How to read this panel.} Lower 28-day CRPS indicates better
-      distributional accuracy over the held-out forecast window at each
-      origin.\par}
+      \textbf{How to read this panel.} CRPS is the continuous ranked probability
+      score; lower values indicate better predictive-distribution accuracy over
+      the held-out forecast window. Ratios are relative to raw GloFAS at the
+      same origin.\par}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.33\linewidth}
     \begin{ExceptionNote}
       {\CaptionFont\color{PosterInk}
-      Use all five origins for final claims.\par}
+      \textbf{Exception:} AL-M-T1 has the lowest 28-day CRPS at the 2022-12-25
+      origin.\par}
     \end{ExceptionNote}
   \end{minipage}
 \end{HeroResult}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
-Values left of the raw GloFAS line indicate lower mean CRPS at the same
-origin.\par}
+Values left of the raw GloFAS line indicate lower mean CRPS than raw GloFAS at
+that origin; raw NWS is evaluated only in the separate 1--8 day panel.\par}
 
 \end{minipage}
 \end{column}
@@ -698,46 +698,50 @@ origin.\par}
 
 \SectionHead{Horizon}{Horizon-matched NWS check}
 \PosterGraphic[19.0cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
-\FigureCaption[Horizon-matched evidence.]{NWS is available over common valid
-leads 1--8 in this evaluation. It is scored separately so the 28-day
-medium-range benchmark is not mixed with the NWS 1--8 day horizon.}
+\FigureCaption[Horizon-matched evidence.]{Over common days 1--8, exAL-M-T1 has
+the lowest mean CRPS at three origins and raw NWS at two. The axis is normalized
+by the origin-specific best 8-day CRPS, so 1.0 marks the winner for that origin;
+this is separate from the 28-day benchmark.}
 
 \vspace{0.72cm}
 
 \SectionHead{Example}{Representative forecast window}
 \PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
-\FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
-forecast inputs and posterior uncertainty evolve at the 2022-12-25 origin. It
-is illustrative; aggregate validation comes from the five-origin CRPS panel.}
+\FigureCaption[Illustrative, not aggregate validation.]{The selected exAL-M-T1
+forecast at the 2022-12-25 origin shows how forecast inputs and posterior
+uncertainty evolve. At this origin AL-M-T1 has the lowest 28-day CRPS, so this
+panel is illustrative; aggregate evidence comes from all five origins.}
 
 \vspace{0.64cm}
 
-\SectionHead{Dynamics}{80-month component dynamics}
+\SectionHead{Dynamics}{80-month latent component}
 \PosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
-\FigureCaption[More than forecast correction.]{The same state-space fit yields
-retrospective component diagnostics. The long-period harmonic tracks slow
-wet--dry structure while preserving quantile-specific variation.}
+\FigureCaption[Retrospective diagnostic.]{From the selected exAL-M-T1 fit at
+the 2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
+components over 2000--2022; shading marks dry and wet periods for hydrologic
+context.}
 
 \vspace{0.64cm}
 
 \SectionHead{Interpretation}{What the evidence supports}
 \begin{PosterItems}
-  \item Historically aligned retrospective products identify source corrections
-  before the forecast window.
-  \item Issued ensembles and exogenous covariates enter the state-space model
-  directly, rather than being averaged after prediction.
-  \item Observation-only quantile references have about 5--41x higher
-  28-day CRPS than the selected source-aware model across these origins.
+  \item The source-aware exAL model (exAL-M-T1) has the lowest mean 28-day CRPS
+  at four origins; AL-M-T1 is lowest at 2022-12-25.
+  \item Over common days 1--8, exAL-M-T1 is lowest at three origins and raw NWS
+  at two.
+  \item Fitted latent states provide retrospective component diagnostics in
+  addition to forecast-window predictive quantiles.
   \item The five-window design is a targeted stress test, not a continuous
-  hindcast; broader origin coverage is the next validation step.
+  hindcast.
 \end{PosterItems}
 
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} Learning source-specific corrections before synthesis
-  can improve medium-range predictive distributions while preserving
-  interpretable latent dynamics.\par}
+  \textbf{Take-home.} Retrospective archives identify source-specific
+  corrections before forecast-product blending. In this five-origin study, the
+  source-aware exAL model leads the 28-day CRPS comparison at four origins and
+  yields interpretable retrospective diagnostics.\par}
 \end{KeyQuestion}
 
 \end{minipage}

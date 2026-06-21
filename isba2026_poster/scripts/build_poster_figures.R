@@ -261,10 +261,10 @@ p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model_d
   scale_shape_manual(values = shape_values[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
   labs(
     title = "8-day NWS-compatible\ncomparison",
-    subtitle = "Days 1-8 only; lower is better.",
+    subtitle = "Days 1-8 only; 1.0 marks the origin-specific winner.",
     x = "Mean CRPS / best 8-day CRPS at cutoff",
     y = NULL,
-    caption = "This is a horizon-matched comparison, not the 28-day medium-range result."
+    caption = "Horizon-matched; separate from the 28-day benchmark."
   ) +
   theme_poster(22)
 
@@ -318,10 +318,10 @@ box_df <- tibble::tribble(
   "usgs", 0.4, 4.75, 2.25, 0.75, "USGS\nobservations", poster_cols[["white"]], poster_cols[["ink"]],
   "retro", 0.4, 3.78, 2.25, 0.75, "retrospective\nproducts", poster_cols[["white"]], poster_cols[["ink"]],
   "fcst", 0.4, 2.81, 2.25, 0.75, "GloFAS / NWS\nforecast products", "#E8F0F4", poster_cols[["title"]],
-  "covs", 0.4, 1.84, 2.25, 0.75, "precipitation\nsoil moisture\nGDPC index", "#EEF3EE", poster_cols[["title"]],
+  "covs", 0.4, 1.84, 2.25, 0.75, "precipitation\nsoil moisture\nGDPC climate summary", "#EEF3EE", poster_cols[["title"]],
   "latent", 3.35, 4.35, 2.75, 0.85, "shared latent\nriver-flow quantile", "#E8F0F2", poster_cols[["title"]],
   "disc", 3.35, 3.18, 2.75, 0.85, "source-specific\ncorrections", poster_cols[["panel"]], poster_cols[["title"]],
-  "transfer", 3.35, 2.01, 2.75, 0.85, "forecast-window\nexogenous effects", "#F4EAD2", poster_cols[["title"]],
+  "transfer", 3.35, 2.01, 2.75, 0.85, "forecast-window\nexogenous adjustment", "#F4EAD2", poster_cols[["title"]],
   "dynamic", 3.35, 0.84, 2.75, 0.85, "trend + seasonal\ndynamics", poster_cols[["panel"]], poster_cols[["title"]],
   "qpred", 6.85, 3.55, 2.85, 0.95, "quantile-specific\nposterior forecasts", "#E8F0F2", poster_cols[["title"]],
   "synth", 6.85, 2.25, 2.85, 0.95, "synthesized predictive\ndistribution", poster_cols[["plum"]], poster_cols[["white"]]
@@ -470,11 +470,11 @@ if (file.exists(support_manifest_path)) {
         expand = expansion(mult = c(0.01, 0.015))
       ) +
       labs(
-        title = "80-month component, 2000-2022",
-        subtitle = "Selected 2022-12-25 fit; posterior medians by target quantile.",
+        title = "80-month latent component, 2000-2022",
+        subtitle = "Selected exAL-M-T1 fit at the 2022-12-25 origin; posterior medians.",
         x = NULL,
         y = "Component contribution\n(model scale)",
-        caption = "Shaded intervals mark dry and wet periods used for article support diagnostics."
+        caption = "Shaded intervals mark dry and wet periods for hydrologic context."
       ) +
       theme_poster(22) +
       guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
