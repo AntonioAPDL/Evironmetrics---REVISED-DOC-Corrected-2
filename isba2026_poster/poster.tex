@@ -528,33 +528,59 @@ CRPS uses GloFAS-supported days 1--28; the NWS comparison uses days 1--8.}
 \SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
 {\SmallBodyFont
-Each Dynamic Quantile Linear Model (DQLM) lane targets one quantile level
-\(p_0\in\{0.05,0.20,\ldots,0.95\}\). The lanes are fit separately and then
-assembled into one predictive distribution for scoring.\par}
+Seven independent Dynamic Quantile Linear Model (DQLM) lanes target
+\(p_0\in\{0.05,0.20,\ldots,0.95\}\). After fitting, their posterior forecasts
+are assembled into one predictive distribution for scoring.\par}
+
+\vspace{0.20cm}
+\begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.7mm}{0pt}{ModelPlum}]
+  \begin{minipage}[t]{0.27\linewidth}
+    \centering
+    {\DisplayFont\bfseries\fontsize{31}{34}\selectfont\color{TitleSlate}7\par}
+    {\FootFont\color{MutedSlate}quantile lanes\par}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.34\linewidth}
+    \centering
+    {\DisplayFont\bfseries\fontsize{31}{34}\selectfont\color{TitleSlate}12,995\par}
+    {\FootFont\color{MutedSlate}daily observations\par}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.30\linewidth}
+    \centering
+    {\DisplayFont\bfseries\fontsize{31}{34}\selectfont\color{TitleSlate}\(\sim\)2--4 h\par}
+    {\FootFont\color{MutedSlate}all lanes + synthesis\par}
+  \end{minipage}
+  \vspace{0.08cm}
+  {\FootFont\color{MutedSlate}\centering single-site wall-clock on 64 cores; workflow and output-retention dependent.\par}
+\end{SoftNote}
 
 \vspace{0.24cm}
 \begin{SoftNote}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Parallel quantile lanes\par}
+  \vspace{0.04cm}
+  {\CaptionFont\color{MutedSlate}
+  Each target quantile is a separate state-space fit, so the seven lanes can run
+  concurrently before forecast quantiles are synthesized.\par}
+
+  \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}MFVB\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes keeps the high-dimensional posterior scalable
-  while preserving Gaussian filtering and smoothing updates for state blocks.\par}
+  Mean-field variational Bayes avoids full MCMC while preserving Gaussian
+  filtering and smoothing updates for latent state blocks.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}VB-LD\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Variational Bayes with Laplace--Delta approximations turns non-conjugate
-  extended-likelihood terms into local moment updates for the conjugate state
-  recursions.\par}
+  Laplace--Delta updates use local mode, curvature, and Delta-method moments for
+  non-conjugate exAL scale/skewness terms.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Priors and state evolution\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}State evolution\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Diffuse scale/skewness priors, Gaussian initial states, and component
-  discounting encode level, 12-, 6-, and 80-month harmonics, source
-  discrepancies, and transfer effects.\par}
+  Component discounting controls trend, multi-period seasonality, source
+  corrections, and exogenous-covariate effects.\par}
 \end{SoftNote}
 
 \end{minipage}
