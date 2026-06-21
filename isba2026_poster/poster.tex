@@ -1,6 +1,6 @@
 % ============================================================================
 % ISBA 2026 POSTER -- SINGLE-SOURCE, PDFLATEX-SAFE A0 PORTRAIT
-% Replace isba2026_poster/poster.tex with this file.
+% Canonical Overleaf main file for the ISBA 2026 poster.
 %
 % CLAIM GOVERNANCE -- DO NOT CHANGE WITHOUT PROMOTED/FROZEN RESULTS:
 %   1. exAL-M-T1 has the lowest 28-day CRPS at 4 of 5 rolling origins.
@@ -401,7 +401,7 @@
       {\FootFont\bfseries\color{HydroBlue}28-DAY DISTRIBUTIONAL ACCURACY\par}
       \vspace{0.07cm}
       {\PosterClaimFont\color{TitleSlate}\RaggedRight
-        exAL-M-T1 has the lowest CRPS at four rolling origins.\par}
+        exAL-M-T1 has the lowest 28-day CRPS at four rolling origins.\par}
       \vspace{0.04cm}
       {\SmallBodyFont\bfseries\color{ALOchre}
         AL-M-T1 leads at the 2022-12-25 origin.\par}
@@ -485,7 +485,7 @@
 \begin{columns}[T,totalwidth=\textwidth]
 
 % ======================== LEFT COLUMN ========================================
-\begin{column}{0.235\textwidth}
+\begin{column}{0.225\textwidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -567,12 +567,12 @@ post-cutoff USGS flow; days 1--8 define the separate NWS-compatible comparison.}
 \hfill
 
 % ======================== CENTER COLUMN ======================================
-\begin{column}{0.47\textwidth}
+\begin{column}{0.50\textwidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
 \SectionHead{Model}{One source-aware dynamic quantile system}
-\PosterGraphic[19.2cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
+\PosterGraphic[20.8cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
 \FigureCaption[From heterogeneous inputs to one distribution.]{The dynamic
 state includes trend and seasonality, source-specific discrepancy, and retained
 forecast-window transfer. Quantile-specific posterior forecasts are synthesized
@@ -580,7 +580,7 @@ into one predictive distribution.}
 
 \vspace{0.62cm}
 
-\SectionHead{Main evidence}{Four of five 28-day origins favor exAL-M-T1}
+\SectionHead{Main evidence}{28-day CRPS comparison}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
@@ -620,7 +620,7 @@ Raw GloFAS is shown as the 28-day product reference.\par}
 \hfill
 
 % ======================== RIGHT COLUMN =======================================
-\begin{column}{0.235\textwidth}
+\begin{column}{0.225\textwidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -646,18 +646,17 @@ all five origins.}
   \item The framework combines heterogeneous forecast sources while representing
   source discrepancy, lead-time structure, and distributional uncertainty.
   \item Across these five origins, exAL-M-T1 is the most consistently strong
-  extended-asymmetric-Laplace multivariate specification, but it is not a
-  universal winner.
-  \item The experiment contains five flood-relevant forecast windows, not a
-  dense continuous hindcast; broader regime coverage remains an important test.
+  extended-asymmetric-Laplace multivariate specification, with the 2022-12-25
+  exception stated explicitly.
+  \item The evaluation is a targeted five-window stress test; broader regime
+  coverage remains an important next step.
 \end{PosterItems}
 
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} Dynamic Bayesian quantile synthesis combines source-aware
-  correction with strict post-cutoff verification of complete predictive
-  distributions.\par}
+  \textbf{Take-home.} The analysis evaluates complete predictive distributions
+  under strict post-cutoff verification, not only illustrative hydrographs.\par}
 \end{KeyQuestion}
 
 \end{minipage}

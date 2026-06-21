@@ -6,6 +6,12 @@ Access note: a shell `git clone` failed in this Codex session because `github.co
 could not be resolved. Repository files were inspected through the authenticated
 GitHub connector instead.
 
+Supersession note: the ideas below describe the reference-poster pass that led
+to an intermediate ISBA poster. A later Pro-style simplification pass removed
+the header seal and body source-logo ribbon in favor of a quieter metadata
+header, compact source legend, and restrained footer logo row. The current
+canonical source remains `isba2026_poster/poster.tex`.
+
 ## Files Reviewed
 
 - `README.md`
