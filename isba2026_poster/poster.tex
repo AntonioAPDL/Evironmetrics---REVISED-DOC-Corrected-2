@@ -518,10 +518,10 @@ structure, and uncertainty representation.\par}
 
 \SectionHead{Validation}{Rolling-origin holdout design}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
-\FigureCaption[Strict temporal split.]{At each origin, the fit archive is frozen
-before forecasting: USGS flow and product histories available by then inform the
-fit; no post-origin USGS enters it. Main CRPS: days 1--28,
-matching GloFAS support. NWS: daily leads 1--8.}
+\FigureCaption[Frozen-origin validation.]{For each origin, source corrections
+are learned before forecasts are staged: the fit archive contains only USGS flow
+and product histories available by then. Future USGS is held out for scoring only. Main
+CRPS uses GloFAS-supported days 1--28; the NWS comparison uses days 1--8.}
 
 \vspace{0.74cm}
 
