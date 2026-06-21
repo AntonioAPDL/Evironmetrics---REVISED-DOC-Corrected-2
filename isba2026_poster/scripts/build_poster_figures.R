@@ -288,9 +288,9 @@ pt <- ggplot(timeline, aes(y = cutoff_panel)) +
   geom_segment(aes(x = 0.7, xend = 8, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["rust"]], lineend = "round") +
   geom_vline(xintercept = 0, linewidth = 0.8, linetype = "dashed", color = poster_cols[["title"]]) +
   geom_point(aes(x = 0), size = 4.8, color = poster_cols[["title"]]) +
-  annotate("text", x = -9.3, y = 5.45, label = "all available\nhistory", color = poster_cols[["muted"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
-  annotate("text", x = 4.4, y = 5.45, label = "NWS\n1-8 d", color = poster_cols[["rust"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
-  annotate("text", x = 21.8, y = 5.45, label = "main score\n1-28 d", color = poster_cols[["hydro"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = -9.3, y = 5.45, label = "fit archive\nfrozen at origin", color = poster_cols[["muted"]], size = 4.7, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 4.4, y = 5.45, label = "NWS-compatible\n1-8 d", color = poster_cols[["rust"]], size = 4.5, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 21.8, y = 5.45, label = "GloFAS support\n1-28 d", color = poster_cols[["hydro"]], size = 4.7, fontface = "bold", lineheight = 0.92) +
   scale_x_continuous(
     limits = c(-21, 30),
     breaks = c(history_start, 0, 8, 28),
