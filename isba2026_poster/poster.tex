@@ -3,10 +3,9 @@
 % Canonical Overleaf main file for the ISBA 2026 poster.
 %
 % CLAIM GOVERNANCE -- DO NOT CHANGE WITHOUT PROMOTED/FROZEN RESULTS:
-%   1. exAL-M-T1 has the lowest 28-day CRPS at 4 of 5 rolling origins.
-%   2. AL-M-T1 has the lowest 28-day CRPS at the 2022-12-25 origin.
-%   3. NWS is evaluated separately over common valid leads 1--8.
-%   4. Screening/discount/epsilon runs are non-authoritative and must not appear.
+%   1. Use only frozen article-facing CRPS and synthesis artifacts.
+%   2. NWS is evaluated separately over common valid leads 1--8.
+%   3. Screening/discount/epsilon runs are non-authoritative and must not appear.
 % ============================================================================
 
 \documentclass[final]{beamer}
@@ -377,33 +376,6 @@
     \vspace{-1.65cm}
     \LogoGraphic[11.75cm]{ucsc_uc_seal_1800px_transparent.png}{11.75cm}{UCSC}\par
   \end{minipage}
-
-  \vspace{0.48cm}
-  \begin{tcolorbox}[
-    enhanced,
-    colback=PosterWhite,
-    colframe=PosterWhite,
-    boxrule=0pt,
-    arc=1.4mm,
-    left=0.58cm,right=0.62cm,top=0.42cm,bottom=0.40cm,
-    borderline west={2.8mm}{0pt}{ModelPlum}
-  ]
-    \begin{minipage}[c]{0.115\linewidth}
-      {\PosterMetricFont\color{ModelPlum}4/5\par}
-      {\PosterMetaFont\bfseries\color{TitleSlate}held-out origins\par}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{0.84\linewidth}
-      {\FootFont\bfseries\color{HydroBlue}28-DAY DISTRIBUTIONAL ACCURACY\par}
-      \vspace{0.07cm}
-      {\PosterClaimFont\color{TitleSlate}\RaggedRight
-        The selected source-aware model has the lowest 28-day CRPS at four
-        rolling origins.\par}
-      \vspace{0.04cm}
-      {\SmallBodyFont\bfseries\color{ALOchre}
-        An asymmetric-Laplace synthesis variant leads at the 2022-12-25 origin.\par}
-    \end{minipage}
-  \end{tcolorbox}
 }
 
 % ---------- Footer -----------------------------------------------------------
@@ -661,16 +633,16 @@ into one predictive distribution.}
   \vspace{0.30cm}
   \begin{minipage}[t]{0.64\linewidth}
     {\SmallBodyFont\color{PosterInk}
-      \textbf{Broad five-origin result.} The selected source-aware
-      extended-likelihood model has the lowest 28-day CRPS at four rolling
-      origins.\par}
+      \textbf{How to read this panel.} Lower 28-day CRPS indicates better
+      distributional accuracy over the held-out forecast window at each
+      origin.\par}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.33\linewidth}
     \begin{ExceptionNote}
       {\CaptionFont\color{PosterInk}
-      \textbf{Exception.} An asymmetric-Laplace synthesis variant is lower at
-      2022-12-25.\par}
+      Origin-level comparisons are shown directly; model decisions use the
+      frozen five-origin benchmark.\par}
     \end{ExceptionNote}
   \end{minipage}
 \end{HeroResult}
@@ -701,8 +673,8 @@ in the center column.}
 \PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
 source information and posterior uncertainty evolve at the 2022-12-25 origin.
-The asymmetric-Laplace synthesis variant has the lower 28-day CRPS at this
-cutoff, but the reference decision uses all five origins.}
+Use it as a forecast-window diagnostic; aggregate validation is summarized
+across all five origins.}
 
 \vspace{0.64cm}
 

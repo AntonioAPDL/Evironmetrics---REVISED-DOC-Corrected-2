@@ -198,7 +198,7 @@ p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
     breaks = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")
   ) +
   labs(
-    title = "28-day CRPS: selected model is lowest\nat four of five rolling origins",
+    title = "28-day CRPS across five\nheld-out rolling origins",
     subtitle = "Mean CRPS relative to raw GloFAS at the same cutoff; lower and farther left is better.",
     x = "Mean CRPS / raw GloFAS CRPS",
     y = NULL,

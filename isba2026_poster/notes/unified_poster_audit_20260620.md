@@ -18,8 +18,8 @@ audit. The GitHub remote head was `65ef6fd` before edits.
 
 Strengths:
 
-- Clear claim governance: four-of-five result, explicit 2022-12-25 exception,
-  NWS horizon nuance, and active-screen exclusion.
+- Clear claim governance: frozen CRPS evidence, NWS horizon nuance, neutral
+  origin-level comparison framing, and active-screen exclusion.
 - Compact code and simpler layout.
 - Strong reproducibility language.
 
@@ -59,9 +59,10 @@ is the only file that should be set as the Overleaf main file.
 ## Current Scientific Lock
 
 - Use frozen manuscript-facing outputs dated 2026-06-19.
-- State that exAL-M-T1 has the lowest 28-day CRPS at four of five rolling
-  origins.
-- State that AL-M-T1 is the 2022-12-25 exception.
+- Use the frozen 28-day CRPS comparison without a front-page numeric winner
+  headline claim.
+- Let origin-level differences be read from the figure rather than repeated as
+  a banner claim.
 - Treat the 2022-12-25 synthesis panel as illustrative, not aggregate evidence.
 - Exclude active discount/epsilon screening results until a future replacement
   is formally promoted through the workflow, article, and response records.

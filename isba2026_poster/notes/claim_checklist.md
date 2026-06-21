@@ -14,7 +14,7 @@ scientific lock below.
 ## Required claims
 
 - [x] The title remains factual and method/application aligned.
-- [x] The main result states "four of five" and names the 2022-12-25 exception.
+- [x] The main CRPS evidence is shown with neutral, figure-reading wording.
 - [x] The 8-day NWS comparison is labelled as a horizon-matched comparison.
 - [x] The 2022-12-25 synthesis panel is labelled illustrative.
 - [x] The active discount/epsilon screen is excluded from poster evidence.
