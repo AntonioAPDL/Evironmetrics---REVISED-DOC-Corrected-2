@@ -489,16 +489,16 @@
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
-Can observations, retrospective products, ensemble forecasts, and covariates be
-combined into calibrated predictive quantiles without pretending the sources
-are interchangeable?\par}
+Can river observations, retrospective products, ensemble forecasts, and
+covariates be fused into calibrated predictive quantiles while preserving each
+source's bias, horizon, and uncertainty structure?\par}
 \end{KeyQuestion}
 
 \vspace{0.27cm}
 {\SmallBodyFont
-The target is daily San Lorenzo River flow at the Big Trees gauge. The model
-synthesizes hydrologic products that differ in horizon, update pattern, and
-uncertainty representation.\par}
+Case study: daily San Lorenzo River flow at the Big Trees gauge. The challenge
+is medium-range, flood-relevant validation when products arrive with different
+lead times, update cycles, and ensemble structures.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}
@@ -538,7 +538,8 @@ uncertainty representation.\par}
 
   \vspace{0.28cm}
   \SourceRow{CovariateSage}{Transfer information}{precipitation, soil moisture,
-  and the GDPC climate index drive the forecast-window transfer component.}
+  and the GDPC climate index inform the retained forecast-window transfer
+  component.}
 \end{SoftNote}
 
 \vspace{0.70cm}
@@ -547,42 +548,40 @@ uncertainty representation.\par}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
 \FigureCaption[Strict temporal holdout.]{At each cutoff, fitting uses only
 information available through the origin. The next 28 days are scored against
-post-cutoff USGS flow; days 1--8 define the separate NWS-compatible comparison.}
+post-cutoff USGS flow; days 1--8 define a separate NWS-compatible check.}
 
 \vspace{0.74cm}
 
 \SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
 {\SmallBodyFont
-For quantile levels \(0.05,0.20,\ldots,0.95\), each Dynamic Quantile Linear
-Model (DQLM) lane is fit separately and then combined into one predictive
-distribution.\par}
+Each Dynamic Quantile Linear Model (DQLM) lane targets one quantile level
+\(p_0\in\{0.05,0.20,\ldots,0.95\}\). The lanes are fit separately and then
+assembled into one predictive distribution for scoring.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}
   {\SmallBodyFont\bfseries\color{TitleSlate}MFVB\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes factorizes the posterior so the conditionally
-  Gaussian state blocks can be updated with fast filtering and smoothing
-  recursions.\par}
+  Mean-field variational Bayes keeps the high-dimensional posterior scalable
+  while preserving Gaussian filtering and smoothing updates for state blocks.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}VB-LD\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Variational Bayes with Laplace--Delta approximations handles non-conjugate
-  extended-likelihood terms: Laplace gives a local Gaussian surrogate and the
-  Delta method feeds required moments back into the conjugate updates.\par}
+  Variational Bayes with Laplace--Delta approximations turns non-conjugate
+  extended-likelihood terms into local moment updates for the conjugate state
+  recursions.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Priors and evolution\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Priors and state evolution\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Diffuse scale and skewness priors, a Gaussian initial state, and component
-  discounting encode a static level, persistent 12-month, 6-month, and
-  80-month seasonal harmonics, modestly adaptive source discrepancies, and
-  static covariate effects.\par}
+  Diffuse scale/skewness priors, Gaussian initial states, and component
+  discounting encode level, 12-, 6-, and 80-month harmonics, source
+  discrepancies, and transfer effects.\par}
 \end{SoftNote}
 
 \end{minipage}
@@ -607,9 +606,9 @@ into one predictive distribution.}
   {\SmallBodyFont\bfseries\color{TitleSlate}Expanded quantile state-space model\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
-  For a fixed target quantile \(p_0\) and forecast origin \(T\), the poster
-  model uses the expanded article specification rather than a compact stacked
-  representation.\par}
+  For each target quantile \(p_0\) and forecast origin \(T\), observed flow,
+  retrospective product histories, and issued forecast members share one latent
+  river-flow quantile plus source-specific corrections.\par}
   \vspace{-0.20cm}
   {\ModelEqFont\color{PosterInk}
   \setlength{\jot}{0.045cm}
@@ -652,10 +651,11 @@ into one predictive distribution.}
   }
   \vspace{-0.18cm}
   {\CaptionFont\color{MutedSlate}
-  Here \(\boldsymbol{\theta}_t\) is the latent river-flow quantile block,
-  \(\boldsymbol{\delta}_t^j\) is the dynamic correction for product family
-  \(j\), and \((\zeta_t,\boldsymbol{\psi}_t)\) carries retained transfer
-  information from precipitation, soil moisture, and climate covariates.\par}
+  Here exAL is the extended asymmetric Laplace likelihood; \(\sigma\) and
+  \(\gamma\) are source-specific scale and skewness parameters.
+  \(\boldsymbol{\theta}_t\) is the latent river-flow quantile,
+  \(\boldsymbol{\delta}_t^j\) corrects product family \(j\), and
+  \((\zeta_t,\boldsymbol{\psi}_t)\) carries transfer information.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
@@ -693,7 +693,7 @@ into one predictive distribution.}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
-Raw GloFAS is shown as the 28-day product reference.\par}
+Ratios below the raw GloFAS line indicate lower mean CRPS at the same origin.\par}
 
 \end{minipage}
 \end{column}
@@ -707,9 +707,9 @@ Raw GloFAS is shown as the 28-day product reference.\par}
 
 \SectionHead{Horizon}{NWS is compared over common days 1--8}
 \PosterGraphic[19.0cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
-\FigureCaption[Horizon-matched evidence.]{NWS contributes valid guidance over
-days 1--8, so products are compared only over those common lead times. This is
-not the 28-day medium-range benchmark.}
+\FigureCaption[Horizon-matched evidence.]{NWS is available over common valid
+leads 1--8 in this evaluation. The medium-range claim uses the 28-day benchmark
+in the center column.}
 
 \vspace{0.72cm}
 
@@ -718,35 +718,37 @@ not the 28-day medium-range benchmark.}
 \FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
 source information and posterior uncertainty evolve at the 2022-12-25 origin.
 The asymmetric-Laplace synthesis variant has the lower 28-day CRPS at this
-cutoff; the reference decision uses all five origins.}
+cutoff, but the reference decision uses all five origins.}
 
 \vspace{0.64cm}
 
 \SectionHead{Dynamics}{Retrospective component interpretation}
 \PosterGraphic[12.8cm]{historical_component_80month.png}{80-month component diagnostic}
-\FigureCaption[More than a corrected forecast.]{The selected model also yields
-retrospective dynamic diagnostics. The 80-month harmonic summarizes slow
-wet--dry regime structure while preserving quantile-specific variation.}
+\FigureCaption[More than score correction.]{The state decomposition yields
+retrospective quantile diagnostics. The 80-month harmonic summarizes slow
+multi-year wet--dry structure while preserving quantile-specific variation.}
 
 \vspace{0.64cm}
 
 \SectionHead{Interpretation}{What this experiment supports}
 \begin{PosterItems}
-  \item The framework corrects external products before synthesis by learning
-  source-specific discrepancies from retrospective histories.
+  \item Retrospective histories estimate source-specific corrections before the
+  forecast window.
+  \item Forecast ensembles and covariates enter the same dynamic quantile
+  system, instead of being averaged after the fact.
   \item Observation-only AL/exAL quantile references have roughly 5.4--39x
-  higher 28-day CRPS than the selected source-aware model across these origins.
-  \item The selected extended-likelihood model is the strongest broad 28-day
-  performer, with the 2022-12-25 exception stated explicitly.
-  \item The evaluation is a targeted five-window stress test; broader regime
-  coverage remains an important next step.
+  higher 28-day CRPS across these origins, highlighting the value of external
+  products and transfer information.
+  \item The five-window evaluation is a targeted stress test; broader regime
+  coverage remains the next validation step.
 \end{PosterItems}
 
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} The method is both a forecast-product synthesis tool and
-  an interpretable dynamic quantile analysis of river-flow components.\par}
+  \textbf{Take-home.} Source-aware Bayesian quantile synthesis can improve
+  medium-range flow distributions while exposing interpretable latent
+  components.\par}
 \end{KeyQuestion}
 
 \end{minipage}

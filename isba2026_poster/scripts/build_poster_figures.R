@@ -261,7 +261,7 @@ p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model_d
   scale_shape_manual(values = shape_values[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
   labs(
     title = "8-day NWS-compatible\ncomparison",
-    subtitle = "Days 1--8 only; lower is better.",
+    subtitle = "Days 1-8 only; lower is better.",
     x = "Mean CRPS / best 8-day CRPS at cutoff",
     y = NULL,
     caption = "This is a horizon-matched comparison, not the 28-day medium-range result."
@@ -283,8 +283,8 @@ pt <- ggplot(timeline, aes(y = cutoff_panel)) +
   geom_vline(xintercept = 0, linewidth = 0.8, linetype = "dashed", color = poster_cols[["title"]]) +
   geom_point(aes(x = 0), size = 4.8, color = poster_cols[["title"]]) +
   annotate("text", x = -14, y = 5.35, label = "fit through cutoff", color = poster_cols[["muted"]], size = 4.9, fontface = "bold") +
-  annotate("text", x = 4.2, y = 5.35, label = "8-day NWS", color = poster_cols[["rust"]], size = 4.9, fontface = "bold") +
-  annotate("text", x = 20.5, y = 5.35, label = "28-day verification", color = poster_cols[["hydro"]], size = 4.9, fontface = "bold") +
+  annotate("text", x = 4.4, y = 5.35, label = "NWS 1-8 d", color = poster_cols[["rust"]], size = 4.9, fontface = "bold") +
+  annotate("text", x = 22.0, y = 5.35, label = "28-day score", color = poster_cols[["hydro"]], size = 4.9, fontface = "bold") +
   scale_x_continuous(
     limits = c(-30, 30),
     breaks = c(-28, -14, 0, 8, 28),

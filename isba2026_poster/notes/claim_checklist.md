@@ -7,6 +7,10 @@ Verification pass: 2026-06-20. Checked against the unified `poster.tex`,
 tables/representative synthesis artifact. `poster.tex` is the only
 Overleaf-facing poster source.
 
+Viewer-first polish pass: 2026-06-20. Wording, model definitions, interpretation
+bullets, and generated plot labels were tightened without changing the frozen
+scientific lock below.
+
 ## Required claims
 
 - [x] The title remains factual and method/application aligned.
