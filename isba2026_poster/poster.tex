@@ -516,11 +516,11 @@ structure, and uncertainty representation.\par}
 
 \vspace{0.70cm}
 
-\SectionHead{Validation}{Five held-out rolling origins}
+\SectionHead{Validation}{Rolling-origin holdout design}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
-\FigureCaption[Strict temporal holdout.]{At each cutoff, fitting uses only
-information available through the origin. The next 28 days are scored against
-post-cutoff USGS flow; days 1--8 define a separate NWS-compatible check.}
+\FigureCaption[Strict temporal holdout.]{Model fitting uses data available at
+each cutoff. Forecasts issued by then are staged; future USGS flow is held out
+for scoring. Main benchmark: days 1--28; NWS-compatible check: days 1--8.}
 
 \vspace{0.74cm}
 

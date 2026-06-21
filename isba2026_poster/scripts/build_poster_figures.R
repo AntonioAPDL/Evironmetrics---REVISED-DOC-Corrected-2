@@ -276,32 +276,41 @@ ggsave(
 timeline <- cutoff_map |>
   mutate(cutoff_panel = factor(cutoff_label, levels = rev(cutoff_label)))
 
+history_start <- -18
+
 pt <- ggplot(timeline, aes(y = cutoff_panel)) +
-  geom_segment(aes(x = -28, xend = 0, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["rule"]], lineend = "round") +
+  geom_segment(
+    aes(x = history_start, xend = 0, yend = cutoff_panel),
+    linewidth = 4.2, color = poster_cols[["rule"]], lineend = "round",
+    arrow = grid::arrow(length = grid::unit(0.12, "in"), ends = "first", type = "closed")
+  ) +
   geom_segment(aes(x = 0.7, xend = 28, yend = cutoff_panel), linewidth = 4.2, color = "#D8E8EC", lineend = "round") +
   geom_segment(aes(x = 0.7, xend = 8, yend = cutoff_panel), linewidth = 4.2, color = poster_cols[["rust"]], lineend = "round") +
   geom_vline(xintercept = 0, linewidth = 0.8, linetype = "dashed", color = poster_cols[["title"]]) +
   geom_point(aes(x = 0), size = 4.8, color = poster_cols[["title"]]) +
-  annotate("text", x = -14, y = 5.35, label = "fit through cutoff", color = poster_cols[["muted"]], size = 4.9, fontface = "bold") +
-  annotate("text", x = 4.4, y = 5.35, label = "NWS 1-8 d", color = poster_cols[["rust"]], size = 4.9, fontface = "bold") +
-  annotate("text", x = 22.0, y = 5.35, label = "28-day score", color = poster_cols[["hydro"]], size = 4.9, fontface = "bold") +
+  annotate("text", x = -9.3, y = 5.45, label = "all available\nhistory", color = poster_cols[["muted"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 4.4, y = 5.45, label = "NWS\n1-8 d", color = poster_cols[["rust"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 21.8, y = 5.45, label = "main score\n1-28 d", color = poster_cols[["hydro"]], size = 4.9, fontface = "bold", lineheight = 0.92) +
   scale_x_continuous(
-    limits = c(-30, 30),
-    breaks = c(-28, -14, 0, 8, 28),
-    labels = c("-28 d", "-14 d", "cutoff", "+8 d", "+28 d")
+    limits = c(-21, 30),
+    breaks = c(history_start, 0, 8, 28),
+    labels = c("history", "origin", "+8 d", "+28 d")
   ) +
   labs(
-    title = "Five held-out rolling origins",
-    subtitle = "Fit through cutoff; score post-cutoff USGS observations only.",
-    x = "Days relative to forecast origin",
+    x = NULL,
     y = NULL
   ) +
+  coord_cartesian(ylim = c(0.55, 5.65), clip = "off") +
   theme_poster(22) +
-  theme(legend.position = "none")
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(face = "bold", color = poster_cols[["ink"]]),
+    plot.margin = margin(12, 18, 10, 18)
+  )
 
 ggsave(
   filename = file.path(fig_dir, "rolling_origin_timeline.pdf"),
-  plot = pt, device = cairo_pdf, width = 8.8, height = 7.6, units = "in"
+  plot = pt, device = cairo_pdf, width = 9.2, height = 5.25, units = "in"
 )
 
 box_df <- tibble::tribble(
