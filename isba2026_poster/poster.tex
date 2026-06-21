@@ -157,6 +157,7 @@
 \newcommand{\CaptionFont}{\fontsize{22.5}{28}\selectfont}
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
+\newcommand{\ModelEqFont}{\fontsize{16.4}{19.2}\selectfont}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
@@ -595,7 +596,7 @@ distribution.\par}
 \vspace{0pt}
 
 \SectionHead{Model}{One source-aware dynamic quantile system}
-\PosterGraphic[20.8cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
+\PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
 \FigureCaption[From heterogeneous inputs to one distribution.]{The dynamic
 state includes trend and seasonality, source-specific discrepancy, and retained
 forecast-window transfer. Quantile-specific posterior forecasts are synthesized
@@ -603,21 +604,58 @@ into one predictive distribution.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}What the model learns\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Expanded quantile state-space model\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
-  \textbf{Latent river quantiles:} trend plus seasonal harmonics describe the
-  underlying USGS flow distribution.\par}
-  \vspace{0.11cm}
+  For a fixed target quantile \(p_0\) and forecast origin \(T\), the poster
+  model uses the expanded article specification rather than a compact stacked
+  representation.\par}
+  \vspace{-0.20cm}
+  {\ModelEqFont\color{PosterInk}
+  \setlength{\jot}{0.045cm}
+  \begin{alignat*}{3}
+  \text{Observed measurements:}\quad&
+  y_t^o
+  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
+  &\qquad& 1 \le t \le T,
+  \\
+  \text{Retrospective products:}\quad&
+  z_t^j
+  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
+  &\qquad& j \in \mathcal{J},\ 1 \le t \le T,
+  \\
+  \text{Forecast products:}\quad&
+  y_T^{j,i}(k)
+  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
+  &\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j,
+  \\
+  \text{Trend and seasonal states:}\quad&
+  \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
+  &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
+  &\qquad& 1 \le t \le T+K_{\max},
+  \\
+  \text{Discrepancy states:}\quad&
+  \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
+  &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
+  &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max},
+  \\
+  \text{Transfer adjustment:}\quad&
+  \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
+  &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
+  &\qquad& 1 \le t \le T+K_{\max},
+  \\
+  \text{Covariate-effect states:}\quad&
+  \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
+  &\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
+  &\qquad& 1 \le t \le T+K_{\max}.
+  \end{alignat*}
+  }
+  \vspace{-0.18cm}
   {\CaptionFont\color{MutedSlate}
-  \textbf{Source corrections:} retrospective products teach dynamic
-  discrepancies for each external product family before those families enter
-  the forecast window.\par}
-  \vspace{0.11cm}
-  {\CaptionFont\color{MutedSlate}
-  \textbf{Forecast synthesis:} post-cutoff GloFAS and NWS ensembles enter as
-  source-specific channels, while precipitation, soil moisture, and the GDPC
-  index drive the retained transfer component.\par}
+  Here \(\boldsymbol{\theta}_t\) is the latent river-flow quantile block,
+  \(\boldsymbol{\delta}_t^j\) is the dynamic correction for product family
+  \(j\), and \((\zeta_t,\boldsymbol{\psi}_t)\) carries retained transfer
+  information from precipitation, soil moisture, and climate covariates.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
@@ -634,7 +672,7 @@ into one predictive distribution.}
   \end{minipage}
 
   \vspace{0.24cm}
-  \PosterGraphic[45.0cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
+  \PosterGraphic[43.0cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
 
   \vspace{0.30cm}
   \begin{minipage}[t]{0.64\linewidth}

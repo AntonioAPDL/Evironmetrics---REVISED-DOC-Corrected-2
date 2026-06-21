@@ -27,6 +27,10 @@ model shorthand toward audience-facing scientific language.
 - Added the explicit observation-only quantile-reference comparison:
   best AL/exAL univariate quantile references have roughly `5.4--39x` higher
   28-day CRPS than the selected source-aware model across the five origins.
+- Added an expert-facing expanded model-expression panel under the schematic,
+  using the revised article's observed-measurement, retrospective-product,
+  forecast-product, trend/seasonal, discrepancy, transfer, and covariate-effect
+  equations rather than the compact stacked representation.
 
 ## Claim Governance
 
