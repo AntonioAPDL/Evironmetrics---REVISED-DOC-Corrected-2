@@ -28,6 +28,9 @@ high-resolution PNG derivatives:
 - `derived/usgs_logo_green_cropped.png`: 296 x 118 px, cropped from the
   uploaded square USGS PNG to remove transparent padding.
 - `derived/ucsc_uc_seal_1800px.png`: 1800 x 1800 px.
+- `derived/ucsc_uc_seal_1800px_transparent.png`: 1800 x 1800 px, derived from
+  the seal PNG with transparent corners around the circular seal mark for the
+  poster header.
 
 These PNGs are safe for pdfLaTeX and suitable for a compact poster logo strip.
 They are not a replacement for vector PDF masters if an Inkscape/CairoSVG
