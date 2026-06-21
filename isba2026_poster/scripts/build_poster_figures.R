@@ -380,4 +380,143 @@ ggsave(
   plot = ps, device = cairo_pdf, width = 13.0, height = 9.0, units = "in"
 )
 
+support_manifest_path <- file.path(
+  repo_root,
+  "artifacts",
+  "representative_selected_model_2022_12_25",
+  "authoritative_support",
+  "manifest.csv"
+)
+
+if (file.exists(support_manifest_path)) {
+  support_manifest <- read_csv(support_manifest_path, show_col_types = FALSE)
+  component_source_row <- support_manifest |>
+    filter(filename == "authoritative_component_summary.csv") |>
+    slice_head(n = 1)
+
+  if (nrow(component_source_row) == 1 && file.exists(component_source_row$source_absolute_path)) {
+    component_contract <- "component_6_plus_trend_component_1_samplewise"
+    component_start <- as.Date("2000-01-01")
+    dry_start <- as.Date("2012-01-01")
+    dry_end <- as.Date("2016-12-31")
+    wet_start <- as.Date("2017-01-01")
+    wet_end <- as.Date("2019-12-31")
+
+    component_data <- read_csv(component_source_row$source_absolute_path, show_col_types = FALSE) |>
+      filter(
+        date >= component_start,
+        component == 6,
+        component_contract == !!component_contract,
+        quantile %in% c("q05", "q50", "q95")
+      ) |>
+      mutate(
+        quantile_label = recode(
+          quantile,
+          q05 = "5th target quantile",
+          q50 = "median target quantile",
+          q95 = "95th target quantile"
+        ),
+        quantile_label = factor(
+          quantile_label,
+          levels = c("5th target quantile", "median target quantile", "95th target quantile")
+        )
+      )
+
+    component_y_range <- range(component_data$median_500, na.rm = TRUE)
+    component_y_top <- component_y_range[2] - 0.05 * diff(component_y_range)
+
+    component_palette <- c(
+      "5th target quantile" = poster_cols[["sage"]],
+      "median target quantile" = poster_cols[["title"]],
+      "95th target quantile" = poster_cols[["hydro"]]
+    )
+
+    pc <- ggplot(component_data, aes(x = date, y = median_500, color = quantile_label)) +
+      annotate(
+        "rect", xmin = dry_start, xmax = dry_end, ymin = -Inf, ymax = Inf,
+        fill = "#F4EAD2", alpha = 0.74
+      ) +
+      annotate(
+        "rect", xmin = wet_start, xmax = wet_end, ymin = -Inf, ymax = Inf,
+        fill = "#E8F0F4", alpha = 0.78
+      ) +
+      geom_hline(yintercept = 0, linewidth = 0.55, color = poster_cols[["rule"]]) +
+      geom_line(
+        data = filter(component_data, quantile != "q50"),
+        linewidth = 0.78, alpha = 0.82
+      ) +
+      geom_line(
+        data = filter(component_data, quantile == "q50"),
+        linewidth = 1.25
+      ) +
+      annotate(
+        "text", x = as.Date("2014-07-01"), y = component_y_top,
+        label = "dry\n2012-2016", color = poster_cols[["ochre"]],
+        fontface = "bold", size = 5.3, lineheight = 0.92
+      ) +
+      annotate(
+        "text", x = as.Date("2018-07-01"), y = component_y_top,
+        label = "wet\n2017-2019", color = poster_cols[["hydro"]],
+        fontface = "bold", size = 5.3, lineheight = 0.92
+      ) +
+      scale_color_manual(
+        values = component_palette,
+        breaks = c("5th target quantile", "median target quantile", "95th target quantile"),
+        labels = c("5th", "median", "95th")
+      ) +
+      scale_x_date(
+        date_breaks = "5 years",
+        date_labels = "%Y",
+        expand = expansion(mult = c(0.01, 0.015))
+      ) +
+      labs(
+        title = "80-month component, 2000-2022",
+        subtitle = "Selected 2022-12-25 fit; posterior medians by target quantile.",
+        x = NULL,
+        y = "Component contribution\n(model scale)",
+        caption = "Shaded intervals mark dry and wet periods used for article support diagnostics."
+      ) +
+      theme_poster(22) +
+      guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
+      theme(
+        legend.position = "bottom",
+        legend.text = element_text(size = 13.2),
+        axis.title.y = element_text(size = 15, lineheight = 0.95),
+        axis.text.x = element_text(size = 14),
+        axis.text.y = element_text(size = 13),
+        plot.title = element_text(size = 22.5),
+        plot.subtitle = element_text(size = 15.5, margin = margin(b = 8)),
+        plot.caption = element_text(size = 11.5),
+        panel.grid.major.x = element_line(color = "#E1E5E3", linewidth = 0.35),
+        plot.margin = margin(9, 12, 7, 12)
+      )
+
+    ggsave(
+      filename = file.path(fig_dir, "component_80month_poster.pdf"),
+      plot = pc, device = cairo_pdf, width = 8.8, height = 5.8, units = "in"
+    )
+
+    write_csv(
+      tibble(
+        generated_asset = "isba2026_poster/figures/generated/component_80month_poster.pdf",
+        source_manifest = "artifacts/representative_selected_model_2022_12_25/authoritative_support/manifest.csv",
+        source_absolute_path = component_source_row$source_absolute_path,
+        expected_sha256 = component_source_row$sha256,
+        component = 6,
+        component_contract = component_contract,
+        date_window_start = as.character(component_start),
+        date_window_end = as.character(max(component_data$date, na.rm = TRUE)),
+        dry_period = "2012-01-01/2016-12-31",
+        wet_period = "2017-01-01/2019-12-31",
+        note = "Poster-specific rendering from authoritative selected-model support data; runtime CSV is not copied into the article repository."
+      ),
+      file.path(data_dir, "component_80month_poster_provenance.csv")
+    )
+  } else {
+    warning("Skipping component_80month_poster.pdf because authoritative component summary is unavailable.")
+  }
+} else {
+  warning("Skipping component_80month_poster.pdf because authoritative support manifest is unavailable.")
+}
+
 message("Wrote poster figures and derived data to ", poster_dir)

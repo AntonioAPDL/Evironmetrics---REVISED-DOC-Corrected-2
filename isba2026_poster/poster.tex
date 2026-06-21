@@ -441,7 +441,7 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Fast blending of corrected products}
+\SectionHead{Question}{Fast synthesis of corrected products}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
@@ -719,20 +719,20 @@ origin.\par}
 \PosterGraphic[19.0cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
 \FigureCaption[Horizon-matched evidence.]{NWS is available over common valid
 leads 1--8 in this evaluation. It is scored separately so the 28-day
-medium-range benchmark is not mixed with an 8-day product.}
+medium-range benchmark is not mixed with the NWS 1--8 day horizon.}
 
 \vspace{0.72cm}
 
 \SectionHead{Example}{Representative forecast window}
 \PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Illustrative, not aggregate validation.]{The panel shows how
-source paths and posterior uncertainty evolve at the 2022-12-25 origin. It
+forecast inputs and posterior uncertainty evolve at the 2022-12-25 origin. It
 is illustrative; aggregate validation comes from the five-origin CRPS panel.}
 
 \vspace{0.64cm}
 
 \SectionHead{Dynamics}{80-month component dynamics}
-\PosterGraphic[12.8cm]{historical_component_80month.png}{80-month component diagnostic}
+\PosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
 \FigureCaption[More than forecast correction.]{The same state-space fit yields
 retrospective component diagnostics. The long-period harmonic tracks slow
 wet--dry structure while preserving quantile-specific variation.}
@@ -745,8 +745,8 @@ wet--dry structure while preserving quantile-specific variation.}
   before the forecast window.
   \item Issued ensembles and exogenous covariates enter the state-space model
   directly, rather than being averaged after prediction.
-  \item Observation-only AL/exAL quantile references have about 5--41x higher
-  28-day CRPS than the selected multivariate reference across these origins.
+  \item Observation-only quantile references have about 5--41x higher
+  28-day CRPS than the selected source-aware model across these origins.
   \item The five-window design is a targeted stress test, not a continuous
   hindcast; broader origin coverage is the next validation step.
 \end{PosterItems}
@@ -754,9 +754,9 @@ wet--dry structure while preserving quantile-specific variation.}
 \vspace{0.22cm}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} Correcting source-specific bias before blending can
-  improve medium-range forecast distributions while preserving interpretable
-  latent dynamics.\par}
+  \textbf{Take-home.} Learning source-specific corrections before synthesis
+  can improve medium-range predictive distributions while preserving
+  interpretable latent dynamics.\par}
 \end{KeyQuestion}
 
 \end{minipage}
