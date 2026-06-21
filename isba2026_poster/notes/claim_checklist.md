@@ -4,8 +4,8 @@ Use this checklist before sharing or uploading the poster PDF.
 
 Verification pass: 2026-06-20. Checked against the unified `poster.tex`,
 `scripts/build_poster_figures.R`, and the frozen article generated
-tables/representative synthesis artifact. The earlier `poster_high_aesthetic.tex`
-is retained only as a design reference.
+tables/representative synthesis artifact. `poster.tex` is the only
+Overleaf-facing poster source.
 
 ## Required claims
 
@@ -36,6 +36,5 @@ Build commands verified locally:
 ```bash
 Rscript isba2026_poster/scripts/build_poster_figures.R
 make -f isba2026_poster/Makefile poster
-make -f isba2026_poster/Makefile high-poster
 make -f isba2026_poster/Makefile clean
 ```

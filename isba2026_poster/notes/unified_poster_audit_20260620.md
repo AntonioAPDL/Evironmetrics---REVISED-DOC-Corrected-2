@@ -6,8 +6,10 @@ Overleaf-facing ISBA 2026 poster source.
 ## Inputs Compared
 
 - `poster.tex` before this pass: compact, conservative, claim-disciplined.
-- `poster_high_aesthetic.tex`: stronger hierarchy, more polished sectioning,
-  better visual rhythm, and robust pdfLaTeX package fallbacks.
+- Historical high-aesthetic source: stronger hierarchy, more polished
+  sectioning, better visual rhythm, and robust pdfLaTeX package fallbacks. Its
+  selected improvements were promoted into the canonical `poster.tex`, and the
+  alternate `.tex` source was removed.
 
 No newer third poster source was visible on `origin/main` at the time of this
 audit. The GitHub remote head was `65ef6fd` before edits.

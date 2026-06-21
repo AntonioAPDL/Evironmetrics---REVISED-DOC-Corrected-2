@@ -10,6 +10,8 @@ stable poster references.
 - `noaa_logo.svg`: NOAA vector logo source.
 - `noaa_logo.png`: NOAA raster fallback, 100 x 100 px, transparent PNG.
 - `nws_logo.svg`: National Weather Service vector logo source.
+- `USGS_logo_green_SQUARE.png`: USGS raster logo, 300 x 300 px,
+  transparent PNG.
 - `ucsc_uc_seal.svg`: UC/UCSC seal-style vector source.
 
 ## Derived pdfLaTeX-Ready Files
@@ -23,11 +25,18 @@ high-resolution PNG derivatives:
 - `derived/ecmwf_logo_2400w.png`: 2400 x 489 px.
 - `derived/noaa_logo_1800px.png`: 1800 x 1800 px.
 - `derived/nws_logo_1800px.png`: 1800 x 1800 px.
+- `derived/usgs_logo_green_cropped.png`: 296 x 118 px, cropped from the
+  uploaded square USGS PNG to remove transparent padding.
 - `derived/ucsc_uc_seal_1800px.png`: 1800 x 1800 px.
 
 These PNGs are safe for pdfLaTeX and suitable for a compact poster logo strip.
 They are not a replacement for vector PDF masters if an Inkscape/CairoSVG
 conversion path becomes available later.
+
+`glofas_logo.png` is already a transparent PNG and can be included directly at
+compact poster-logo sizes. Use `derived/usgs_logo_green_cropped.png`, not the
+square USGS upload, inside the poster; the source square has substantial
+transparent padding that makes the visible wordmark too small.
 
 ## Poster Use
 
@@ -37,9 +46,3 @@ PDF or high-resolution transparent PNG before being included directly in
 
 Use these logos as source/data/affiliation cues only. Avoid language or placement
 that implies endorsement by NOAA, NWS, ECMWF, GloFAS, USGS, or UCSC.
-
-## Current Gap
-
-USGS is not present in this upload. If a USGS mark is needed in the final logo
-strip, add an official vector or high-resolution transparent PNG here before the
-poster integration pass.

@@ -4,11 +4,6 @@ Poster source:
 
 - `isba2026_poster/poster.tex`: unified main poster source for Overleaf.
 
-Design reference:
-
-- `isba2026_poster/poster_high_aesthetic.tex`: prior high-aesthetic source kept
-  for comparison while the poster is still being refined.
-
 Recommended Overleaf setting:
 
 - Main file: `isba2026_poster/poster.tex`
@@ -24,6 +19,9 @@ The source includes graphics paths for both common Overleaf modes:
 The representative 2022-12-25 synthesis PNG is copied into
 `isba2026_poster/figures/frozen/` so the poster folder can compile without
 depending on article-level figure directories.
+
+The poster source also includes a compact source/affiliation logo strip using
+pdfLaTeX-ready PNG assets under `isba2026_poster/assets/logos/`.
 
 Local build from the revised article repo root:
 

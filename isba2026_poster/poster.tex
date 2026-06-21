@@ -59,8 +59,12 @@
 \graphicspath{
   {isba2026_poster/figures/generated/}
   {isba2026_poster/figures/frozen/}
+  {isba2026_poster/assets/logos/}
+  {isba2026_poster/assets/logos/derived/}
   {figures/generated/}
   {figures/frozen/}
+  {assets/logos/}
+  {assets/logos/derived/}
   {Figures/multivariate_synthesis_by_cutoff/}
   {../Figures/multivariate_synthesis_by_cutoff/}
 }
@@ -320,6 +324,72 @@
     \centering
     \includegraphics[width=\linewidth,height=#1,keepaspectratio]{\ResolvedGraphic}\par
   }%
+}
+
+\newcommand{\ResolveLogo}[1]{%
+  \gdef\ResolvedLogo{}%
+  \IfFileExists{#1}{\gdef\ResolvedLogo{#1}}{%
+  \IfFileExists{isba2026_poster/assets/logos/#1}{\gdef\ResolvedLogo{isba2026_poster/assets/logos/#1}}{%
+  \IfFileExists{isba2026_poster/assets/logos/derived/#1}{\gdef\ResolvedLogo{isba2026_poster/assets/logos/derived/#1}}{%
+  \IfFileExists{assets/logos/#1}{\gdef\ResolvedLogo{assets/logos/#1}}{%
+  \IfFileExists{assets/logos/derived/#1}{\gdef\ResolvedLogo{assets/logos/derived/#1}}{}%
+  }}}}%
+}
+
+\newcommand{\LogoGraphic}[4][1.18cm]{%
+  \ResolveLogo{#2}%
+  \ifdefempty{\ResolvedLogo}{%
+    \tikz[baseline=(logo.base)]\node[
+      draw=PanelLine,
+      fill=white,
+      rounded corners=1mm,
+      inner xsep=0.18cm,
+      inner ysep=0.12cm,
+      text width=#3,
+      align=center,
+      font=\FootFont\bfseries,
+      text=PosterNavy
+    ] (logo) {#4};
+  }{%
+    \includegraphics[height=#1,width=#3,keepaspectratio]{\ResolvedLogo}%
+  }%
+}
+
+\newcommand{\LogoMark}[4][1.18cm]{%
+  \begin{minipage}[c]{#3}
+    \centering
+    \LogoGraphic[#1]{#2}{\linewidth}{#4}
+  \end{minipage}%
+}
+
+\newcommand{\PosterLogoStrip}{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=PanelLine,
+    boxrule=0.55pt,
+    arc=1.4mm,
+    left=0.55cm,right=0.55cm,top=0.42cm,bottom=0.38cm,
+    borderline north={1.1mm}{0pt}{ExalTeal}
+  ]
+    \begin{minipage}[c]{0.18\linewidth}
+      {\FootFont\bfseries\color{PosterNavy}Source, forecast, and affiliation marks\par}
+      \vspace{0.04cm}
+      {\fontsize{15.5}{19}\selectfont\color{MutedGrey}Used as provenance cues, not endorsements.\par}
+    \end{minipage}
+    \hfill
+    \LogoMark[1.30cm]{usgs_logo_green_cropped.png}{0.120\linewidth}{USGS}
+    \hfill
+    \LogoMark[1.16cm]{ecmwf_logo_2400w.png}{0.145\linewidth}{ECMWF}
+    \hfill
+    \LogoMark[1.28cm]{glofas_logo.png}{0.115\linewidth}{GloFAS}
+    \hfill
+    \LogoMark[1.30cm]{noaa_logo_1800px.png}{0.085\linewidth}{NOAA}
+    \hfill
+    \LogoMark[1.30cm]{nws_logo_1800px.png}{0.085\linewidth}{NWS}
+    \hfill
+    \LogoMark[1.32cm]{ucsc_uc_seal_1800px.png}{0.095\linewidth}{UCSC}
+  \end{tcolorbox}%
 }
 
 % ---------- Header -----------------------------------------------------------
@@ -673,7 +743,9 @@ lead-time structure, and distributional uncertainty.\par}
 }
 
 % ======================== FOOTER =============================================
-\vspace{0.38cm}
+\vspace{0.30cm}
+\PosterLogoStrip
+\vspace{0.28cm}
 \begin{FooterBox}
 \begin{minipage}[c]{0.77\linewidth}
   {\FootFont\color{MutedGrey}\RaggedRight
