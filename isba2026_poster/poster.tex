@@ -144,7 +144,7 @@
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
 \newlength{\MainBodyHeight}
-\setlength{\MainBodyHeight}{72.6cm}
+\setlength{\MainBodyHeight}{77.4cm}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
@@ -154,7 +154,8 @@
   \vspace{0.06cm}
   {\SectionFont\color{PosterNavy}\RaggedRight #2\par}
   \vspace{0.13cm}
-  {\color{PanelLine}\rule{\linewidth}{0.7pt}}\par
+  {\color{ExalTeal}\rule{0.18\linewidth}{1.25pt}%
+   \color{PanelLine}\rule{0.82\linewidth}{0.7pt}}\par
   \vspace{0.30cm}
 }
 
@@ -259,7 +260,7 @@
     colframe=PanelLine,
     boxrule=0.55pt,
     arc=1.4mm,
-    height=5.15cm,
+    height=5.65cm,
     valign=top,
     left=0.42cm,right=0.38cm,top=0.34cm,bottom=0.25cm,
     borderline west={1.7mm}{0pt}{#1}
@@ -277,29 +278,32 @@
     colframe=PanelLine,
     boxrule=0.55pt,
     arc=1.4mm,
-    height=3.35cm,
+    height=3.92cm,
     valign=center,
-    left=0.46cm,right=0.46cm,top=0.30cm,bottom=0.28cm,
+    left=0.46cm,right=0.46cm,top=0.34cm,bottom=0.32cm,
     borderline west={1.4mm}{0pt}{ExalTeal}
   ]
   \begin{minipage}[c]{0.30\linewidth}
     \centering
-    \LogoGraphic[0.80cm]{usgs_logo_green_cropped.png}{0.92\linewidth}{USGS}\par
+    \LogoGraphic[0.86cm]{usgs_logo_green_cropped.png}{0.92\linewidth}{USGS}\par
     \vspace{0.08cm}
     {\fontsize{17.3}{19.3}\selectfont\color{MutedGrey}observations\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.30\linewidth}
     \centering
-    \LogoGraphic[0.98cm]{glofas_logo.png}{0.92\linewidth}{GloFAS}\par
-    \vspace{0.08cm}
+    \LogoGraphic[0.50cm]{ecmwf_logo_2400w.png}{0.94\linewidth}{ECMWF}\par
+    \vspace{0.05cm}
+    \LogoGraphic[0.74cm]{glofas_logo.png}{0.94\linewidth}{GloFAS}\par
+    \vspace{0.07cm}
     {\fontsize{17.3}{19.3}\selectfont\color{MutedGrey}28-day guidance\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.30\linewidth}
     \centering
-    \LogoGraphic[1.16cm]{nws_logo_1800px.png}{0.62\linewidth}{NWS}\par
-    \vspace{0.08cm}
+    \LogoGraphic[0.94cm]{noaa_logo_1800px.png}{0.42\linewidth}{NOAA}\hspace{0.10cm}%
+    \LogoGraphic[0.96cm]{nws_logo_1800px.png}{0.42\linewidth}{NWS}\par
+    \vspace{0.07cm}
     {\fontsize{17.3}{19.3}\selectfont\color{MutedGrey}8-day guidance\par}
   \end{minipage}
   \end{tcolorbox}%
@@ -396,21 +400,23 @@
 }
 
 \newcommand{\PosterLogoStrip}{%
-  \begin{minipage}[c]{0.22\linewidth}
+  \begin{minipage}[c]{0.20\linewidth}
     {\FootFont\bfseries\color{PosterNavy}Data and forecast products\par}
     \vspace{0.03cm}
     {\FootFont\color{MutedGrey}Source identification only; no endorsement implied.\par}
   \end{minipage}
   \hfill
-  \LogoMark[1.05cm]{usgs_logo_green_cropped.png}{0.135\linewidth}{USGS}
+  \LogoMark[1.05cm]{usgs_logo_green_cropped.png}{0.120\linewidth}{USGS}
   \hfill
-  \LogoMark[0.98cm]{ecmwf_logo_2400w.png}{0.145\linewidth}{ECMWF}
+  \LogoMark[0.98cm]{ecmwf_logo_2400w.png}{0.125\linewidth}{ECMWF}
   \hfill
-  \LogoMark[1.25cm]{glofas_logo.png}{0.120\linewidth}{GloFAS}
+  \LogoMark[1.20cm]{glofas_logo.png}{0.105\linewidth}{GloFAS}
   \hfill
-  \LogoMark[1.22cm]{nws_logo_1800px.png}{0.075\linewidth}{NWS}
+  \LogoMark[1.12cm]{noaa_logo_1800px.png}{0.068\linewidth}{NOAA}
   \hfill
-  \begin{minipage}[c]{0.17\linewidth}
+  \LogoMark[1.16cm]{nws_logo_1800px.png}{0.064\linewidth}{NWS}
+  \hfill
+  \begin{minipage}[c]{0.150\linewidth}
     \RaggedLeft
     {\FootFont\bfseries\color{PosterNavy}UC Santa Cruz\par}
     {\FootFont\color{MutedGrey}Department of Statistics\par}
@@ -452,9 +458,11 @@
     \hfill
     \begin{minipage}[t]{0.31\linewidth}
       \RaggedLeft
-      \LogoGraphic[2.82cm]{ucsc_uc_seal_1800px.png}{2.82cm}{UCSC}
+      \LogoGraphic[3.12cm]{ucsc_uc_seal_1800px.png}{3.12cm}{UCSC}
+      \vspace{0.06cm}
+      {\FootFont\bfseries\color{PosterNavy}UC Santa Cruz\par}
     \end{minipage}
-    \vspace{0.42cm}
+    \vspace{0.30cm}
     \RaggedLeft
     {\SmallBodyFont\bfseries\color{PosterInk}San Lorenzo River\par}
     {\PosterMetaFont\color{MutedGrey}Big Trees USGS gauge\par}
@@ -553,7 +561,7 @@ source-specific discrepancy states rather than as one homogeneous ensemble.\par}
 \vspace{0.54cm}
 
 \SectionHead{Validation}{Five held-out rolling origins}
-\PosterGraphic[15.8cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
+\PosterGraphic[19.6cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
 \FigureCaption[Strict temporal holdout.]{At each cutoff, the model is fit using
 only information available through the origin. The following 28 days are verified
 against post-cutoff USGS observations; days 1--8 define the NWS-compatible comparison.}
@@ -609,7 +617,7 @@ better distributional forecasts.\par}
 \vspace{0pt}
 
 \SectionHead{Model}{Source-specific dynamic quantile synthesis}
-\PosterGraphic[18.2cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
+\PosterGraphic[21.0cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
 \FigureCaption[One evolving predictive system.]{For each target quantile, the
 model combines multivariate forecast information with source-specific discrepancy
 states, trend and seasonal dynamics, and a retained forecast-window transfer
@@ -629,7 +637,7 @@ component to produce posterior predictive quantiles.}
   \end{minipage}
 
   \vspace{0.26cm}
-  \PosterGraphic[35.2cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
+  \PosterGraphic[41.8cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
 
   \vspace{0.34cm}
   \begin{tcolorbox}[
@@ -665,7 +673,7 @@ the separate horizon-aligned eight-day comparison.\par}
 \vspace{0pt}
 
 \SectionHead{Horizon}{8-day NWS-compatible comparison}
-\PosterGraphic[15.2cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
+\PosterGraphic[18.2cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
 \FigureCaption[Horizon-aligned comparison.]{NWS contributes valid guidance over
 days 1--8. Scores are therefore compared only over these common lead times, not
 as the 28-day medium-range benchmark.}
@@ -673,7 +681,7 @@ as the 28-day medium-range benchmark.}
 \vspace{0.82cm}
 
 \SectionHead{Window}{Illustrative forecast window}
-\PosterGraphic[20.0cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\PosterGraphic[23.6cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Illustrative forecast window.]{This panel shows distributional
 synthesis at the 2022-12-25 origin with reference forecast products. AL-M-T1
 attains the lower 28-day CRPS at this cutoff; model selection is based on all
