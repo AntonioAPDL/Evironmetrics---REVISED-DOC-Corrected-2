@@ -43,10 +43,10 @@ Strengths:
 Issues Corrected In Unified Source:
 
 - Replaced broad "dominance" wording with a more precise strong-reference claim.
-- Restored explicit visible exclusion of active discount/epsilon screening
-  evidence.
-- Updated provenance text so the frozen-artifact boundary is visible in the
-  poster itself.
+- Preserved explicit exclusion of active discount/epsilon screening evidence in
+  the source comments, README, and claim checklist.
+- Kept the frozen-artifact boundary in internal poster documentation while
+  simplifying the audience-facing footer.
 - Promoted the high-aesthetic structure into `poster.tex` so Overleaf has one
   primary main file.
 
@@ -65,6 +65,7 @@ is the only file that should be set as the Overleaf main file.
 - Treat the 2022-12-25 synthesis panel as illustrative, not aggregate evidence.
 - Exclude active discount/epsilon screening results until a future replacement
   is formally promoted through the workflow, article, and response records.
+- Avoid visible workflow-management language on the conference-facing poster.
 
 ## Verification Commands
 

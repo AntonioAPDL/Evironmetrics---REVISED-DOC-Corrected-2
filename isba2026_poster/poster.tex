@@ -93,13 +93,24 @@
 \urlstyle{same}
 
 % ---------- Poster metadata --------------------------------------------------
-\newcommand{\PosterTitle}{Dynamic Bayesian Quantile Synthesis for Medium-Range River-Flow Forecasting}
-\newcommand{\PosterAuthors}{Antonio Aguirre \quad Raquel Prado \quad Bruno Sanso}
+\newcommand{\PosterTitle}{Dynamic Bayesian quantile synthesis for medium-range river-flow forecasting}
+\newcommand{\PosterAuthors}{Antonio Aguirre \quad Raquel Prado \quad Bruno Sans\'o}
 \newcommand{\PosterAffiliation}{Department of Statistics, University of California, Santa Cruz}
 \newcommand{\PosterEmail}{jaguir@ucsc.edu}
 \newcommand{\PosterURL}{https://github.com/AntonioAPDL/Project1}
 \newcommand{\PosterConference}{ISBA 2026 World Meeting}
 \newcommand{\PosterLocation}{Nagoya, Japan}
+
+\pdfstringdefDisableCommands{%
+  \def\quad{ }%
+  \def\textbullet{ - }%
+}
+\hypersetup{
+  pdftitle={\PosterTitle},
+  pdfauthor={Antonio Aguirre, Raquel Prado, Bruno Sanso},
+  pdfsubject={ISBA 2026 scientific poster},
+  pdfkeywords={Bayesian forecasting, quantile models, hydrology, CRPS}
+}
 
 \title{\PosterTitle}
 \author{\PosterAuthors}
@@ -121,40 +132,30 @@
 
 % ---------- Type scale -------------------------------------------------------
 \newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
-\newcommand{\PosterTitleFont}{\DisplayFont\fontsize{78}{83}\selectfont}
-\newcommand{\PosterAuthorFont}{\fontsize{28}{34}\selectfont}
-\newcommand{\PosterMetaFont}{\fontsize{21}{26}\selectfont}
-\newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{32}{38}\selectfont}
-\newcommand{\PosterMetricFont}{\DisplayFont\bfseries\fontsize{58}{58}\selectfont}
-\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{30}{35}\selectfont}
-\newcommand{\BodyFont}{\fontsize{24}{30}\selectfont}
-\newcommand{\SmallBodyFont}{\fontsize{21.5}{27}\selectfont}
-\newcommand{\CaptionFont}{\fontsize{20.5}{26}\selectfont}
-\newcommand{\FootFont}{\fontsize{17.5}{22}\selectfont}
-\newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19}{22}\selectfont}
+\newcommand{\PosterTitleFont}{\DisplayFont\fontsize{80}{85}\selectfont}
+\newcommand{\PosterAuthorFont}{\fontsize{29}{35}\selectfont}
+\newcommand{\PosterMetaFont}{\fontsize{22}{27}\selectfont}
+\newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{34}{40}\selectfont}
+\newcommand{\PosterMetricFont}{\DisplayFont\bfseries\fontsize{60}{60}\selectfont}
+\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{32}{37}\selectfont}
+\newcommand{\BodyFont}{\fontsize{25}{31}\selectfont}
+\newcommand{\SmallBodyFont}{\fontsize{23}{29}\selectfont}
+\newcommand{\CaptionFont}{\fontsize{22}{28}\selectfont}
+\newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
+\newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
+\newlength{\MainBodyHeight}
+\setlength{\MainBodyHeight}{80.0cm}
 
 % ---------- Reusable visual components --------------------------------------
-\newcommand{\SectionTag}[1]{%
-  \tikz[baseline=(tag.base)]{
-    \node[
-      fill=PosterNavy,
-      text=white,
-      rounded corners=1.1mm,
-      inner xsep=0.34cm,
-      inner ysep=0.18cm,
-      font=\DisplayFont\bfseries\fontsize{17}{17}\selectfont
-    ] (tag) {#1};
-  }%
-}
-
 \newcommand{\SectionHead}[2]{%
   \noindent
-  \begin{tabularx}{\linewidth}{@{}l@{\hspace{0.35cm}}X@{}}
-    \SectionTag{#1} & {\SectionFont\color{PosterNavy}\RaggedRight #2}
-  \end{tabularx}
-  \vspace{0.10cm}
-  {\color{PanelLine}\rule{\linewidth}{0.65pt}}\par
-  \vspace{0.34cm}
+  {\DisplayFont\bfseries\fontsize{16.5}{19.5}\selectfont
+   \color{ExalTeal}\MakeUppercase{#1}\par}
+  \vspace{0.06cm}
+  {\SectionFont\color{PosterNavy}\RaggedRight #2\par}
+  \vspace{0.13cm}
+  {\color{PanelLine}\rule{\linewidth}{0.7pt}}\par
+  \vspace{0.30cm}
 }
 
 \newtcolorbox{QuestionBox}{
@@ -221,6 +222,21 @@
   }%
 }
 
+\newcommand{\ModelToken}[1]{%
+  \tikz[baseline=(tok.base)]{
+    \node[
+      draw=PanelLine,
+      line width=0.7pt,
+      fill=white,
+      text=PosterNavy,
+      rounded corners=1.5mm,
+      inner xsep=0.34cm,
+      inner ysep=0.16cm,
+      font=\ChipFont
+    ] (tok) {#1};
+  }%
+}
+
 \newcommand{\FactPill}[1]{%
   \tikz[baseline=(pill.base)]{
     \node[
@@ -251,24 +267,6 @@
   {\SmallBodyFont\bfseries\color{PosterNavy}#2\par}
   \vspace{0.05cm}
   {\CaptionFont\color{MutedGrey}#3\par}
-  \end{tcolorbox}%
-}
-
-\newcommand{\TakeawayCard}[3]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=PanelLine,
-    boxrule=0.55pt,
-    arc=1.5mm,
-    height=7.4cm,
-    valign=top,
-    left=0.55cm,right=0.50cm,top=0.45cm,bottom=0.35cm,
-    borderline north={1.5mm}{0pt}{#1}
-  ]
-  \Pill{#1}{#2}\par
-  \vspace{0.24cm}
-  {\SmallBodyFont\color{PosterInk}#3\par}
   \end{tcolorbox}%
 }
 
@@ -363,33 +361,25 @@
 }
 
 \newcommand{\PosterLogoStrip}{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=PanelLine,
-    boxrule=0.55pt,
-    arc=1.4mm,
-    left=0.55cm,right=0.55cm,top=0.42cm,bottom=0.38cm,
-    borderline north={1.1mm}{0pt}{ExalTeal}
-  ]
-    \begin{minipage}[c]{0.18\linewidth}
-      {\FootFont\bfseries\color{PosterNavy}Source, forecast, and affiliation marks\par}
-      \vspace{0.04cm}
-      {\fontsize{15.5}{19}\selectfont\color{MutedGrey}Used as provenance cues, not endorsements.\par}
-    \end{minipage}
-    \hfill
-    \LogoMark[1.30cm]{usgs_logo_green_cropped.png}{0.120\linewidth}{USGS}
-    \hfill
-    \LogoMark[1.16cm]{ecmwf_logo_2400w.png}{0.145\linewidth}{ECMWF}
-    \hfill
-    \LogoMark[1.28cm]{glofas_logo.png}{0.115\linewidth}{GloFAS}
-    \hfill
-    \LogoMark[1.30cm]{noaa_logo_1800px.png}{0.085\linewidth}{NOAA}
-    \hfill
-    \LogoMark[1.30cm]{nws_logo_1800px.png}{0.085\linewidth}{NWS}
-    \hfill
-    \LogoMark[1.32cm]{ucsc_uc_seal_1800px.png}{0.095\linewidth}{UCSC}
-  \end{tcolorbox}%
+  \begin{minipage}[c]{0.22\linewidth}
+    {\FootFont\bfseries\color{PosterNavy}Data and forecast products\par}
+    \vspace{0.03cm}
+    {\FootFont\color{MutedGrey}Source identification only; no endorsement implied.\par}
+  \end{minipage}
+  \hfill
+  \LogoMark[0.95cm]{usgs_logo_green_cropped.png}{0.135\linewidth}{USGS}
+  \hfill
+  \LogoMark[0.86cm]{ecmwf_logo_2400w.png}{0.145\linewidth}{ECMWF}
+  \hfill
+  \LogoMark[1.10cm]{glofas_logo.png}{0.120\linewidth}{GloFAS}
+  \hfill
+  \LogoMark[1.08cm]{nws_logo_1800px.png}{0.075\linewidth}{NWS}
+  \hfill
+  \begin{minipage}[c]{0.17\linewidth}
+    \RaggedLeft
+    {\FootFont\bfseries\color{PosterNavy}UC Santa Cruz\par}
+    {\FootFont\color{MutedGrey}Department of Statistics\par}
+  \end{minipage}%
 }
 
 % ---------- Header -----------------------------------------------------------
@@ -404,8 +394,8 @@
   \vspace*{0.20cm}
   \begin{minipage}[t]{0.735\textwidth}
     {\PosterTitleFont\bfseries\color{PosterNavy}\RaggedRight
-      Dynamic Bayesian Quantile Synthesis for\\[-0.04em]
-      Medium-Range River-Flow Forecasting\par
+      Dynamic Bayesian quantile synthesis for\\[-0.04em]
+      medium-range river-flow forecasting\par
     }
     \vspace{0.45cm}
     {\PosterAuthorFont\color{PosterInk}\PosterAuthors\par}
@@ -417,25 +407,14 @@
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.225\textwidth}
-    \begin{tcolorbox}[
-      enhanced,
-      colback=white,
-      colframe=PanelLine,
-      boxrule=0.65pt,
-      arc=1.6mm,
-      left=0.55cm,right=0.45cm,top=0.48cm,bottom=0.45cm,
-      borderline north={1.8mm}{0pt}{PosterNavy}
-    ]
-      {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{PosterNavy}
-        \PosterConference\par}
-      \vspace{0.10cm}
-      {\PosterMetaFont\color{MutedGrey}\PosterLocation\par}
-      \vspace{0.35cm}
-      {\color{PanelLine}\rule{\linewidth}{0.6pt}\par}
-      \vspace{0.30cm}
-      {\SmallBodyFont\bfseries\color{PosterInk}San Lorenzo River\par}
-      {\PosterMetaFont\color{MutedGrey}Big Trees USGS gauge\par}
-    \end{tcolorbox}
+    \RaggedLeft
+    {\DisplayFont\bfseries\fontsize{27}{31}\selectfont\color{PosterNavy}
+      \PosterConference\par}
+    \vspace{0.10cm}
+    {\PosterMetaFont\color{MutedGrey}\PosterLocation\par}
+    \vspace{0.42cm}
+    {\SmallBodyFont\bfseries\color{PosterInk}San Lorenzo River\par}
+    {\PosterMetaFont\color{MutedGrey}Big Trees USGS gauge\par}
   \end{minipage}
 
   \vspace{0.50cm}
@@ -454,6 +433,8 @@
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.84\linewidth}
+      {\FootFont\bfseries\color{ExalTeal}HELD-OUT DISTRIBUTIONAL ACCURACY\par}
+      \vspace{0.08cm}
       {\PosterClaimFont\color{PosterNavy}\RaggedRight
         exAL-M-T1 has the lowest 28-day CRPS at four cutoffs;
         AL-M-T1 leads at the 2022-12-25 cutoff.\par
@@ -476,11 +457,11 @@
 \begin{columns}[T,totalwidth=\textwidth]
 
 % ======================== LEFT COLUMN ========================================
-\begin{column}{0.255\textwidth}
-\begin{minipage}[t][76.2cm][t]{\linewidth}
+\begin{column}{0.245\textwidth}
+\begin{minipage}[t][\MainBodyHeight][t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{01}{Forecasting challenge}
+\SectionHead{Problem}{Why heterogeneous flow forecasts are difficult}
 
 \begin{QuestionBox}
 {\SmallBodyFont\bfseries\color{PosterNavy}
@@ -490,9 +471,10 @@ predictive quantiles as conditions and lead times evolve?\par}
 
 \vspace{0.30cm}
 {\SmallBodyFont
-Medium-range decisions require a predictive distribution, but the available
-information is neither exchangeable nor horizon-aligned. Forecast quality changes
-with source, lead time, and hydrologic regime.\par}
+Medium-range guidance comes from products with different horizons,
+discrepancies, and uncertainty representations. We synthesize observations,
+forecast products, and hydrometeorological transfer information into evolving
+predictive quantiles.\par}
 
 \vspace{0.28cm}
 \begin{columns}[T,totalwidth=\linewidth]
@@ -515,54 +497,48 @@ with source, lead time, and hydrologic regime.\par}
 \end{column}
 \end{columns}
 
-\vspace{0.24cm}
+\vspace{0.20cm}
 \begin{SoftCallout}
 {\SmallBodyFont
 \textbf{Source-aware correction.} External products enter through
 source-specific discrepancy states rather than as one homogeneous ensemble.\par}
 \end{SoftCallout}
 
-\vfill
+\vspace{0.78cm}
 
-\SectionHead{02}{Held-out rolling-origin validation}
-\PosterGraphic[12.8cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
+\SectionHead{Validation}{Five held-out rolling origins}
+\PosterGraphic[14.3cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
 \FigureCaption[Strict temporal holdout.]{At each cutoff, the model is fit using
 only information available through the origin. The following 28 days are verified
 against post-cutoff USGS observations; days 1--8 define the NWS-compatible comparison.}
 
-\vspace{0.28cm}
-\centering
-\FactPill{5 origins}\hspace{0.16cm}
-\FactPill{28-day holdout}\hspace{0.16cm}
-\FactPill{NWS: days 1--8}\par
-\vspace{0.16cm}
-\FactPill{score scale: $\log(1+Q)$}\hspace{0.16cm}
-\FactPill{lower CRPS is better}\par
-\RaggedRight
+\vspace{0.80cm}
 
-\vfill
-
-\SectionHead{03}{Model code and scoring rule}
+\SectionHead{Scoring}{Model label and evaluation}
 
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.31\linewidth}
-  \centering\Pill{ExalTeal}{exAL}\par
+  \centering\ModelToken{exAL}\par
   \vspace{0.16cm}
-  {\CaptionFont\color{MutedGrey}extended likelihood family\par}
+  {\CaptionFont\color{MutedGrey}extended asymmetric Laplace family\par}
 \end{column}
 \begin{column}{0.31\linewidth}
-  \centering\Pill{GloFASBlue}{M}\par
+  \centering\ModelToken{M}\par
   \vspace{0.16cm}
   {\CaptionFont\color{MutedGrey}multivariate source synthesis\par}
 \end{column}
 \begin{column}{0.31\linewidth}
-  \centering\Pill{AlGold}{T1}\par
+  \centering\ModelToken{T1}\par
   \vspace{0.16cm}
   {\CaptionFont\color{MutedGrey}retained forecast-window transfer\par}
 \end{column}
 \end{columns}
 
 \vspace{0.34cm}
+\centering
+\Pill{ExalTeal}{exAL-M-T1}\par
+\RaggedRight
+\vspace{0.26cm}
 \begin{SoftCallout}
 \centering
 {\SmallBodyFont\color{PosterNavy}
@@ -582,28 +558,20 @@ better distributional forecasts.\par}
 \hfill
 
 % ======================== CENTER COLUMN ======================================
-\begin{column}{0.420\textwidth}
-\begin{minipage}[t][76.2cm][t]{\linewidth}
+\begin{column}{0.445\textwidth}
+\begin{minipage}[t][\MainBodyHeight][t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{04}{Dynamic Bayesian quantile synthesis}
-\PosterGraphic[17.2cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
+\SectionHead{Model}{Source-specific dynamic quantile synthesis}
+\PosterGraphic[15.4cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
 \FigureCaption[One evolving predictive system.]{For each target quantile, the
 model combines multivariate forecast information with source-specific discrepancy
-states, trend and seasonal dynamics, and a retained forecast-window transfer component.}
+states, trend and seasonal dynamics, and a retained forecast-window transfer
+component to produce posterior predictive quantiles.}
 
-\vspace{0.26cm}
-\begin{SoftCallout}
-{\SmallBodyFont\color{PosterInk}
-\textbf{Poster-level model summary:}
-multivariate source synthesis $+$ dynamic discrepancy correction $+$
-trend/seasonal states $+$ precipitation, soil moisture, and GDPC transfer
-$\longrightarrow$ posterior predictive quantiles.\par}
-\end{SoftCallout}
+\vspace{0.75cm}
 
-\vfill
-
-\SectionHead{05}{Five-cutoff evidence}
+\SectionHead{Evidence}{exAL-M-T1 is lowest at four of five origins}
 \begin{HeroResult}
   \begin{minipage}[c]{0.77\linewidth}
     {\SmallBodyFont\bfseries\color{PosterNavy}
@@ -615,7 +583,7 @@ $\longrightarrow$ posterior predictive quantiles.\par}
   \end{minipage}
 
   \vspace{0.26cm}
-  \PosterGraphic[27.6cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
+  \PosterGraphic[32.5cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
 
   \vspace{0.34cm}
   \begin{tcolorbox}[
@@ -624,26 +592,15 @@ $\longrightarrow$ posterior predictive quantiles.\par}
     colframe=SoftTeal,
     boxrule=0pt,
     arc=1.5mm,
-    left=0.50cm,right=0.50cm,top=0.38cm,bottom=0.38cm
+    left=0.55cm,right=0.55cm,top=0.42cm,bottom=0.42cm,
+    borderline west={2.0mm}{0pt}{ExalTeal}
   ]
-    \begin{minipage}[c]{0.16\linewidth}
-      {\PosterMetricFont\color{ExalTeal}4/5\par}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[c]{0.80\linewidth}
-      {\SmallBodyFont\color{PosterInk}
-        \textbf{exAL-M-T1} has the lowest 28-day CRPS at four rolling origins
-        and is retained as the extended-likelihood multivariate reference.\par}
-    \end{minipage}
+    {\SmallBodyFont\color{PosterInk}
+    \textbf{Result.} exAL-M-T1 has the lowest 28-day CRPS at four of five
+    rolling origins. \textbf{Exception:} AL-M-T1 is lower at 2022-12-25.
+    exAL-M-T1 is therefore retained as the extended-asymmetric-Laplace
+    multivariate reference, with that exception stated explicitly.\par}
   \end{tcolorbox}
-
-  \vspace{0.24cm}
-  \begin{GoldCallout}
-  {\SmallBodyFont
-    \textbf{Important exception.} At the 2022-12-25 origin,
-    \textbf{AL-M-T1} has the lowest 28-day CRPS. The evidence supports
-    exAL-M-T1 as a strong reference model, not a universal winner.\par}
-  \end{GoldCallout}
 \end{HeroResult}
 
 \vspace{0.28cm}
@@ -657,30 +614,24 @@ the separate horizon-aligned eight-day comparison.\par}
 \hfill
 
 % ======================== RIGHT COLUMN =======================================
-\begin{column}{0.255\textwidth}
-\begin{minipage}[t][76.2cm][t]{\linewidth}
+\begin{column}{0.245\textwidth}
+\begin{minipage}[t][\MainBodyHeight][t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{06}{NWS horizon nuance}
-\PosterGraphic[13.2cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
-\FigureCaption[Horizon-aligned comparison.]{NWS contributes eight valid daily
-leads at these origins. This panel is the direct NWS comparison and should not be
-read as the 28-day medium-range benchmark.}
+\SectionHead{Horizon}{8-day NWS-compatible comparison}
+\PosterGraphic[13.5cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
+\FigureCaption[Horizon-aligned comparison.]{NWS contributes valid guidance over
+days 1--8. Scores are therefore compared only over these common lead times, not
+as the 28-day medium-range benchmark.}
 
-\vspace{0.28cm}
-\begin{GoldCallout}
-{\SmallBodyFont
-\textbf{Design principle:} compare products only where their lead-time contracts
-overlap. This avoids penalizing a shorter-horizon source for forecasts it does not issue.\par}
-\end{GoldCallout}
+\vspace{0.82cm}
 
-\vfill
-
-\SectionHead{07}{One forecast window, for intuition}
+\SectionHead{Window}{Illustrative forecast window}
 \PosterGraphic[18.0cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
-\FigureCaption[Illustrative, not aggregate evidence.]{Representative exAL-M-T1
-synthesis at the 2022-12-25 origin with reference forecast products. The principal
-validation remains the five-cutoff score comparison.}
+\FigureCaption[Illustrative forecast window.]{This panel shows distributional
+synthesis at the 2022-12-25 origin with reference forecast products. AL-M-T1
+attains the lower 28-day CRPS at this cutoff; model selection is based on all
+five rolling origins.}
 
 \vspace{0.24cm}
 \begin{SoftCallout}
@@ -689,18 +640,16 @@ The example shows how source information and posterior uncertainty evolve across
 a forecast window; it does not establish the model ranking by itself.\par}
 \end{SoftCallout}
 
-\vfill
+\vspace{0.82cm}
 
-\SectionHead{08}{Interpretation and limits}
+\SectionHead{Scope}{What the five-origin experiment supports}
 \begin{PosterItems}
-  \item Within the frozen manuscript benchmark, the multivariate active-transfer
+  \item Within the manuscript benchmark, the multivariate retained-transfer
   specifications give the strongest corrected rolling-origin performance.
-  \item exAL-M-T1 is the selected extended-likelihood reference because of its
-  broad five-origin performance, not because it wins every cutoff.
+  \item exAL-M-T1 is the selected extended-asymmetric-Laplace reference because of its
+  broad five-origin performance, with the 2022-12-25 exception stated explicitly.
   \item The evaluation covers five flood-relevant origins rather than a dense,
   continuous hindcast; generalization across regimes remains a key next test.
-  \item Active discount/epsilon screening results are excluded until a future
-  replacement is formally promoted through the article and response workflow.
 \end{PosterItems}
 
 \vspace{0.25cm}
@@ -717,72 +666,89 @@ lead-time structure, and distributional uncertainty.\par}
 \end{columns}
 }
 
-% ======================== BOTTOM TAKEAWAYS ===================================
-\vspace{0.62cm}
+% ======================== CONCLUSION BAND ====================================
+\vspace{0.46cm}
 {\BodyFont
-\SectionHead{09}{Three messages to remember}
-\begin{columns}[T,totalwidth=\textwidth]
-\begin{column}{0.32\textwidth}
-  \TakeawayCard{ExalTeal}{1}{\textbf{Source-aware dynamics.}
-  Observations, retrospective products, operational forecasts, and covariates
-  enter as distinct information channels rather than one exchangeable ensemble.}
+\begin{tcolorbox}[
+  enhanced,
+  height=5.25cm,
+  valign=center,
+  colback=SoftPanel,
+  colframe=PanelLine,
+  boxrule=0.6pt,
+  arc=1.4mm,
+  left=0.65cm,right=0.65cm,top=0.42cm,bottom=0.42cm,
+  borderline north={1.8mm}{0pt}{ExalTeal}
+]
+\begin{columns}[c,totalwidth=\linewidth]
+\begin{column}{0.31\linewidth}
+{\SmallBodyFont
+\textbf{\color{PosterNavy}Source-aware dynamics.}
+Distinct observation, forecast, retrospective, and covariate channels are
+corrected rather than treated as exchangeable.\par}
 \end{column}
 \hfill
-\begin{column}{0.32\textwidth}
-  \TakeawayCard{PosterNavy}{2}{\textbf{Validation first.}
-  The main evidence is post-cutoff scoring at five rolling origins. A single
-  hydrograph is explanatory context, not the validation claim.}
+\begin{column}{0.31\linewidth}
+{\SmallBodyFont
+\textbf{\color{PosterNavy}Validation first.}
+The scientific claim is based on post-cutoff scoring across five rolling
+origins, not one illustrative hydrograph.\par}
 \end{column}
 \hfill
-\begin{column}{0.32\textwidth}
-  \TakeawayCard{NWSOrange}{3}{\textbf{Horizon contracts matter.}
-  The medium-range result uses the 28-day GloFAS-compatible window; raw NWS is
-  compared only on common leads 1--8.}
+\begin{column}{0.31\linewidth}
+{\SmallBodyFont
+\textbf{\color{PosterNavy}Match the horizon.}
+The 28-day result uses the GloFAS-compatible window; NWS is compared over
+common valid leads 1--8.\par}
 \end{column}
 \end{columns}
+\end{tcolorbox}
 }
 
 % ======================== FOOTER =============================================
-\vspace{0.30cm}
+\vspace{0.22cm}
+{\color{PanelLine}\rule{\textwidth}{0.7pt}}\par
+\vspace{0.20cm}
 \PosterLogoStrip
-\vspace{0.28cm}
+\vspace{0.20cm}
+{\color{PanelLine}\rule{\textwidth}{0.7pt}}\par
+\vspace{0.26cm}
 \begin{FooterBox}
-\begin{minipage}[c]{0.77\linewidth}
+\begin{minipage}[c]{0.75\linewidth}
   {\FootFont\color{MutedGrey}\RaggedRight
-  \textbf{Provenance.} Figures and numerical claims come from frozen
-  manuscript-facing artifacts dated 2026-06-19. Core references:
-  Yu and Moyeed (2001), Prado and West (2010), Yan et al. (2025), and revised
-  article manifests. Active screening results are excluded unless formally
-  promoted later.\par
-  \vspace{0.16cm}
+  \textbf{Data and products:} USGS observations, ECMWF/GloFAS, and NOAA/NWS.
+  \textbf{Methods:} dynamic quantile models, source-specific discrepancy states,
+  and forecast-window transfer covariates.\par
+  \vspace{0.12cm}
   \textbf{Contact.} \href{mailto:\PosterEmail}{\PosterEmail}\quad\textbullet\quad
-  \href{\PosterURL}{github.com/AntonioAPDL/Project1}\par
+  poster, manuscript, supplementary diagnostics, and reproducibility materials
+  are available through the project repository.\par
   }
 \end{minipage}
 \hfill
-\begin{minipage}[c]{0.20\linewidth}
+\begin{minipage}[c]{0.21\linewidth}
   \begin{columns}[c,totalwidth=\linewidth]
-  \begin{column}{0.42\linewidth}
+  \begin{column}{0.46\linewidth}
     \centering
     \ifPosterHasQRCode
-      \qrcode[height=2.75cm]{\PosterURL}
+      \qrcode[height=3.20cm]{\PosterURL}
     \else
       \tikz\node[
         draw=PanelLine,
         fill=white,
         rounded corners=1mm,
-        inner sep=0.20cm,
-        text width=2.35cm,
+        inner sep=0.22cm,
+        text width=2.70cm,
         align=center,
         font=\FootFont\bfseries,
         text=PosterNavy
       ] {Project\\repo};
     \fi
   \end{column}
-  \begin{column}{0.55\linewidth}
-    {\FootFont\bfseries\color{PosterNavy}Code, figures, and artifacts\par}
+  \begin{column}{0.51\linewidth}
+    {\FootFont\bfseries\color{PosterNavy}Poster and reproducibility materials\par}
     \vspace{0.08cm}
-    {\FootFont\color{MutedGrey}Scan for the project repository and reproducibility materials.\par}
+    {\FootFont\color{MutedGrey}\href{\PosterURL}{Project repository}\par}
   \end{column}
   \end{columns}
 \end{minipage}

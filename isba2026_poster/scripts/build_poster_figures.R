@@ -156,7 +156,7 @@ p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
     subtitle = "Mean CRPS relative to raw GloFAS at the same cutoff; lower and farther left is better.",
     x = "Mean CRPS / raw GloFAS CRPS",
     y = NULL,
-    caption = "Grey points are the remaining Bayesian benchmark variants from the frozen manuscript table."
+    caption = "Grey points are the remaining Bayesian benchmark variants."
   ) +
   guides(shape = "none") +
   theme_poster(25)
@@ -204,7 +204,7 @@ p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model))
   ) +
   scale_color_manual(values = palette[c("exAL-M-T1", "AL-M-T1", "RAW-NWS", "RAW-GLOFAS")]) +
   labs(
-    title = "NWS horizon:\ncommon leads 1-8",
+    title = "8-day NWS-compatible\ncomparison",
     subtitle = "Mean CRPS relative to the best row at each cutoff; lower is better.",
     x = "Mean CRPS / best 8-day CRPS at cutoff",
     y = NULL,
