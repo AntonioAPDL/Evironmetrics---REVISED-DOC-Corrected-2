@@ -45,13 +45,6 @@
 \usetikzlibrary{calc,positioning,arrows.meta,shapes.geometric}
 \usepackage[most]{tcolorbox}
 \usepackage{etoolbox}
-\newif\ifPosterHasQRCode
-\IfFileExists{qrcode.sty}{%
-  \PosterHasQRCodetrue
-  \usepackage{qrcode}%
-}{%
-  \PosterHasQRCodefalse
-}
 \usepackage{hyperref}
 
 % ---------- Figure and logo search paths ------------------------------------
@@ -61,10 +54,12 @@
   {isba2026_poster/figures/frozen/}
   {isba2026_poster/assets/logos/}
   {isba2026_poster/assets/logos/derived/}
+  {isba2026_poster/assets/qr/}
   {figures/generated/}
   {figures/frozen/}
   {assets/logos/}
   {assets/logos/derived/}
+  {assets/qr/}
   {Figures/multivariate_synthesis_by_cutoff/}
   {../Figures/multivariate_synthesis_by_cutoff/}
   {Figures/manuscript/}
@@ -398,20 +393,7 @@
     \begin{columns}[c,totalwidth=\linewidth]
       \begin{column}{0.44\linewidth}
         \centering
-        \ifPosterHasQRCode
-          \qrcode[height=3.15cm]{\PosterURL}
-        \else
-          \tikz\node[
-            draw=RuleStone,
-            fill=PosterWhite,
-            rounded corners=0.8mm,
-            inner sep=0.20cm,
-            text width=2.65cm,
-            align=center,
-            font=\FootFont\bfseries,
-            text=TitleSlate
-          ] {Project\\repo};
-        \fi
+        \includegraphics[height=3.15cm]{project1_repo_qr.png}
       \end{column}
       \begin{column}{0.53\linewidth}
         {\FootFont\bfseries\color{TitleSlate}Code and reproducibility\par}
