@@ -1,12 +1,14 @@
 # Audience-Facing Model Revision, 2026-06-20
 
 This note records the poster revision that shifts the surface from internal
-model shorthand toward audience-facing scientific language.
+model shorthand toward audience-facing scientific language. It was superseded
+in part by the 2026-06-21 evidence-narrative polish recorded in
+`claim_checklist.md` and `README.md`.
 
 ## Adopted Changes
 
 - Retitled the poster as:
-  `Bayesian quantile correction and synthesis for hydrologic forecast products`.
+  `Bayesian quantile correction and synthesis for climate products`.
 - Moved the UCSC seal into the header as the institutional anchor.
 - Moved USGS, ECMWF/GloFAS, and NOAA/NWS logos into the problem/data-source
   panel where the products are introduced.
@@ -24,9 +26,9 @@ model shorthand toward audience-facing scientific language.
 - Added the `historical_component_80month.png` diagnostic from the authoritative
   manuscript figure set to show that the selected model supports retrospective
   dynamic component interpretation, not only forecast correction.
-- Added the explicit observation-only quantile-reference comparison:
-  best AL/exAL univariate quantile references have roughly `5.4--39x` higher
-  28-day CRPS than the selected source-aware model across the five origins.
+- Replaced the earlier observation-only comparison emphasis with the scoped
+  main evidence statement: source-aware exAL has the lowest mean 28-day CRPS at
+  four of five origins, while AL-M-T1 is lowest at 2022-12-25.
 - Added an expert-facing expanded model-expression panel under the schematic,
   using the revised article's observed-measurement, retrospective-product,
   forecast-product, trend/seasonal, discrepancy, transfer, and covariate-effect

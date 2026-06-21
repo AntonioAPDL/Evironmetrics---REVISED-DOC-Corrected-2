@@ -3,6 +3,21 @@
 Poster source:
 
 - `isba2026_poster/poster.tex`: unified main poster source for Overleaf.
+- `isba2026_poster/poster.pdf`: tracked rendered PDF kept in sync with the
+  canonical source for GitHub/Overleaf comparison.
+
+Current poster title:
+
+- `Bayesian quantile correction and synthesis for climate products`
+
+Current evidence narrative:
+
+- correction-before-synthesis framing in the opening question;
+- main 28-day result stated as source-aware exAL having the lowest mean CRPS at
+  four of five origins;
+- explicit exception that AL-M-T1 has the lowest 28-day CRPS at the
+  2022-12-25 origin;
+- separate NWS horizon-matched check over common days 1--8.
 
 Recommended Overleaf setting:
 
@@ -38,6 +53,16 @@ The poster-specific CRPS and timeline figures are generated from the frozen
 manuscript tables in `tables/generated_tex/`. Do not hand-edit the derived CSV
 or numerical plot values unless the corresponding frozen article artifacts have
 been formally replaced.
+
+Latest local validation:
+
+- 2026-06-21 evidence-narrative polish compiled with pdfLaTeX twice.
+- `poster.pdf` verified as one A0 portrait page.
+- No fatal, undefined-control-sequence, or overfull LaTeX errors were present in
+  the final log; remaining underfull boxes are from narrow poster text columns,
+  and embedded-PDF page-group warnings are benign.
+- Visual crops were inspected for the header/question area, right column, and
+  footer.
 
 Current scientific lock:
 
