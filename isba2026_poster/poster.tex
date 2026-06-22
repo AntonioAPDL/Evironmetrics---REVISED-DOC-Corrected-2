@@ -149,7 +149,7 @@
 \newcommand{\CaptionFont}{\fontsize{22.5}{28}\selectfont}
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
-\newcommand{\ModelEqFont}{\fontsize{16.4}{19.2}\selectfont}
+\newcommand{\ModelEqFont}{\fontsize{18.0}{20.8}\selectfont}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
@@ -273,29 +273,29 @@
     y=1cm,
     box/.style={
       draw=RuleStone,
-      line width=0.45pt,
+      line width=0.44pt,
       rounded corners=1.1mm,
       align=center,
-      inner xsep=0.13cm,
-      inner ysep=0.10cm,
-      font=\sffamily\bfseries\fontsize{7.9}{8.8}\selectfont,
+      inner xsep=0.11cm,
+      inner ysep=0.08cm,
+      font=\sffamily\bfseries\fontsize{7.35}{8.15}\selectfont,
       text=TitleSlate,
-      minimum width=2.43cm,
-      minimum height=0.82cm
+      minimum width=2.28cm,
+      minimum height=0.74cm
     },
     modelbox/.style={
       box,
-      minimum width=2.58cm,
-      minimum height=0.91cm
+      minimum width=2.44cm,
+      minimum height=0.83cm
     },
     outbox/.style={
       box,
-      minimum width=2.50cm,
-      minimum height=0.90cm
+      minimum width=2.38cm,
+      minimum height=0.82cm
     },
     arrow/.style={
-      -{Latex[length=2.0mm,width=1.45mm]},
-      line width=0.48pt,
+      -{Latex[length=2.15mm,width=1.55mm]},
+      line width=0.54pt,
       draw=MutedSlate
     },
     title/.style={
@@ -304,11 +304,11 @@
       text=TitleSlate
     },
     source/.style={
-      font=\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont
+      font=\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont
     },
     fitgroup/.style={
       draw=RuleStone,
-      line width=0.45pt,
+      line width=0.58pt,
       rounded corners=1.4mm,
       fill=PanelStone
     },
@@ -319,13 +319,13 @@
     },
     scorebox/.style={
       outbox,
-      minimum width=3.08cm,
-      minimum height=1.28cm,
-      font=\sffamily\bfseries\fontsize{6.45}{7.25}\selectfont
+      minimum width=2.98cm,
+      minimum height=1.20cm,
+      font=\sffamily\bfseries\fontsize{6.12}{6.90}\selectfont
     }
   ]
-    \path[use as bounding box] (-0.10,0.08) rectangle (12.42,5.88);
-    \draw[fitgroup] (-0.05,0.08) rectangle (5.78,5.16);
+    \path[use as bounding box] (-0.12,0.08) rectangle (12.42,5.88);
+    \draw[fitgroup] (-0.06,0.12) rectangle (5.70,5.14);
 
     \node[title] at (1.30,5.60) {available at\\ the cutoff};
     \node[title] at (4.42,5.60) {DQLM correction\\ for fixed \(p_0\)};
@@ -336,10 +336,10 @@
       {USGS flow\\[-0.02cm]\(\color{USGSInk}y_t^o\)\\[-0.02cm]{\color{MutedSlate}through cutoff}\\[-0.03cm]{\color{MutedSlate}future held out}};
     \node[box,fill=PosterWhite] (retro) at (1.30,3.18)
       {retrospectives\\[-0.02cm]\(\color{PosterInk}z_t^j\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.36cm}{\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{NWSPurple}NWS}};
     \node[box,fill=HydroBlue!8] (fcst) at (1.30,2.02)
       {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_{\mathrm{cutoff}}^{j,i}(k)\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.36cm}{\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{NWSPurple}NWS}};
     \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.92)
       {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
 
@@ -359,8 +359,7 @@
     \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,1.95)
       {synthesis predictive\\[-0.02cm]performance\\[-0.02cm]
        \(\operatorname{CRPS}(F,y)\)\\[-0.03cm]
-       \(=2\int_0^1\rho_\tau(y-Q_\tau)\,d\tau\)\\[-0.03cm]
-       {\color{MutedSlate}\(Q_\tau=F^{-1}(\tau)\)}};
+       \(=2\int_0^1\rho_\tau\!\left(y-F^{-1}(\tau)\right)\,d\tau\)};
 
     \draw[arrow] (usgs.east) -- (theta.west);
     \draw[arrow] (retro.east) -- (delta.west);
@@ -741,18 +740,19 @@ into the posterior predictive distribution scored by CRPS.\par}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Model}{One DQLM for source correction, then synthesis}
+\SectionHead{Model}{Main Workflow}
 \PosterModelSchematic
-\FigureCaption[DQLM correction stage.]{For each \(p_0\), the Dynamic Quantile
-Linear Model uses pre-origin USGS observations and retrospectives to learn a
-latent river-flow quantile and source discrepancies. After the cutoff, issued
-ensembles and staged covariates propagate corrected quantiles; seven lanes are
+\FigureCaption[Source-aware DQLM workflow.]{For each target quantile \(p_0\),
+pre-origin USGS observations and retrospective product histories identify a
+latent river-flow quantile and source-specific correction states. After the
+cutoff, issued ensemble forecasts and staged exogenous covariates propagate
+corrected forecast-window quantiles. The seven fitted quantile lanes are then
 synthesized into one posterior predictive distribution and scored only with
 held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Expanded quantile state-space model\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Dynamic Quantile Linear Model\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\), let \(T\) denote the forecast
