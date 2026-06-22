@@ -521,8 +521,8 @@ if (file.exists(support_manifest_path)) {
         )
       )
 
-    component_y_range <- range(c(component_data$lower_025, component_data$upper_975), na.rm = TRUE)
-    component_y_top <- component_y_range[2] + 0.035 * diff(component_y_range)
+    component_ylim <- c(-0.2, 0.3)
+    component_y_top <- 0.255
 
     component_palette <- c(
       "5th target quantile" = "#8E2F2F",
@@ -580,6 +580,11 @@ if (file.exists(support_manifest_path)) {
         date_labels = "%Y",
         expand = expansion(mult = c(0.01, 0.015))
       ) +
+      scale_y_continuous(
+        breaks = seq(-0.2, 0.3, by = 0.1),
+        expand = expansion(mult = c(0, 0.015))
+      ) +
+      coord_cartesian(ylim = component_ylim, clip = "on") +
       labs(
         title = "80-month seasonal component, 2008-2022",
         subtitle = "Pure component-6 state: posterior medians and light 95% credible bands.",
