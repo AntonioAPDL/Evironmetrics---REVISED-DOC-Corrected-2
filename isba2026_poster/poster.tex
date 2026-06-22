@@ -605,22 +605,23 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Correction before synthesis}
+\SectionHead{Question}{Fast correction before synthesis}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\bfseries\color{TitleSlate}
-How can historical archives estimate source corrections before forecasts with
-different horizons are blended into one predictive distribution?\par}
+Can historical product archives learn source discrepancies, propagate those
+corrections into new quantile-level ensemble forecasts, and synthesize
+calibrated posterior predictions fast enough for real-time product updates?\par}
 \end{KeyQuestion}
 
-\vspace{0.27cm}
+\vspace{0.20cm}
 {\SmallBodyFont
-Case study: daily San Lorenzo River flow at the USGS Big Trees gauge, modeled
-on the \(\log(1+x)\) scale with \(x\) in m\(^3\)/s. Before each forecast origin,
-USGS
-observations and retrospective ECMWF/GloFAS and NOAA/NWS products identify
-time-varying source corrections. After that origin, issued ensembles and
-exogenous information produce source-adjusted predictive flow quantiles.\par}
+Case study: daily San Lorenzo River flow at the USGS Big Trees gauge on the
+\(\log(1+x)\) scale. Before each origin, USGS flow and retrospective
+GloFAS/NWS products learn dynamic source discrepancies relative to the gauge.
+After the origin, issued ensembles and exogenous covariates carry those
+corrections into source-adjusted quantile forecasts and one posterior predictive
+flow distribution.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}[top=0.48cm,bottom=0.46cm]
@@ -676,7 +677,7 @@ exogenous information produce source-adjusted predictive flow quantiles.\par}
   summarizes key Pacific, Atlantic, and global climate indices.}
 \end{SoftNote}
 
-\vspace{0.70cm}
+\vspace{0.58cm}
 
 \SectionHead{Validation}{Rolling-origin holdout design}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
