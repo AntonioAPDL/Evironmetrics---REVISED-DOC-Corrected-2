@@ -73,25 +73,23 @@
 \definecolor{PosterWhite}{HTML}{FFFFFF}
 \definecolor{PosterInk}{HTML}{1E252B}
 \definecolor{TitleSlate}{HTML}{1F3442}
-\definecolor{MutedSlate}{HTML}{616B73}
-\definecolor{RuleStone}{HTML}{D8DCDE}
-\definecolor{PanelStone}{HTML}{F3F4F3}
-\definecolor{PanelLavender}{HTML}{EEF2F4}
+\definecolor{MutedSlate}{HTML}{5D6870}
+\definecolor{RuleStone}{HTML}{C9D0D2}
+\definecolor{PanelStone}{HTML}{F0F2F1}
+\definecolor{PanelLavender}{HTML}{F0EDF4}
 
-\definecolor{SelectedModelColor}{HTML}{5C4B86}
+\definecolor{SelectedModelColor}{HTML}{514174}
 \definecolor{StructureColor}{HTML}{3A7180}
-\definecolor{GloFASColor}{HTML}{356C9C}
-\definecolor{NWSColor}{HTML}{B9553A}
-\definecolor{ComparatorColor}{HTML}{9D7A29}
+\definecolor{GloFASColor}{HTML}{3C78A6}
+\definecolor{NWSColor}{HTML}{B65A42}
+\definecolor{ComparatorColor}{HTML}{A07D2E}
 \definecolor{USGSColor}{HTML}{181D21}
-\definecolor{CovariateColor}{HTML}{657765}
-\definecolor{CovariateSkyColor}{HTML}{708EAA}
-\definecolor{ClimateIndexColor}{HTML}{827184}
+\definecolor{CovariateColor}{HTML}{667866}
+\definecolor{CovariateSkyColor}{HTML}{748FAA}
+\definecolor{ClimateIndexColor}{HTML}{81717F}
 
 \colorlet{ModelPlum}{SelectedModelColor}
 \colorlet{HydroBlue}{StructureColor}
-\colorlet{GloFASOrange}{GloFASColor}
-\colorlet{NWSPurple}{NWSColor}
 \colorlet{ALOchre}{ComparatorColor}
 \colorlet{USGSInk}{USGSColor}
 \colorlet{CovariateSage}{CovariateColor}
@@ -133,10 +131,10 @@
 \setbeamersize{text margin left=1.85cm,text margin right=1.85cm}
 \setbeamercolor{background canvas}{bg=PosterPaper}
 \setbeamercolor{normal text}{fg=PosterInk,bg=PosterPaper}
-\setbeamercolor{itemize item}{fg=ModelPlum}
+\setbeamercolor{itemize item}{fg=StructureColor}
 \setbeamercolor{itemize subitem}{fg=HydroBlue}
 \setbeamertemplate{itemize item}{%
-  \raisebox{0.18ex}{\tikz\fill[ModelPlum] (0,0) circle (0.105em);}%
+  \raisebox{0.18ex}{\tikz\fill[StructureColor] (0,0) circle (0.105em);}%
 }
 \setbeamertemplate{itemize subitem}{%
   \raisebox{0.18ex}{\tikz\fill[HydroBlue] (0,0) circle (0.085em);}%
@@ -171,30 +169,31 @@
 \newcommand{\PosterTitleFont}{\DisplayFont\fontsize{82}{87}\selectfont}
 \newcommand{\PosterConferenceFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
 \newcommand{\PosterConferenceMetaFont}{\fontsize{18.5}{22}\selectfont}
-\newcommand{\PosterAuthorFont}{\fontsize{29}{35}\selectfont}
-\newcommand{\PosterMetaFont}{\fontsize{22}{27}\selectfont}
-\newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{34}{40}\selectfont}
-\newcommand{\PosterMetricFont}{\DisplayFont\bfseries\fontsize{60}{60}\selectfont}
-\newcommand{\SectionKickerFont}{\DisplayFont\bfseries\fontsize{38}{41}\selectfont}
-\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{28.5}{33.5}\selectfont}
+\newcommand{\PosterAuthorFont}{\fontsize{30}{36}\selectfont}
+\newcommand{\PosterMetaFont}{\fontsize{21.5}{26}\selectfont}
+\newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{32}{38}\selectfont}
+\newcommand{\PosterMetricFont}{\DisplayFont\bfseries\fontsize{56}{58}\selectfont}
+\newcommand{\SectionKickerFont}{\DisplayFont\bfseries\fontsize{24}{27}\selectfont}
+\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{32}{37}\selectfont}
 \newcommand{\BodyFont}{\fontsize{25}{31}\selectfont}
-\newcommand{\SmallBodyFont}{\fontsize{23.5}{29.5}\selectfont}
-\newcommand{\CaptionFont}{\fontsize{22.5}{28}\selectfont}
+\newcommand{\SmallBodyFont}{\fontsize{24}{30}\selectfont}
+\newcommand{\CaptionFont}{\fontsize{23.5}{29}\selectfont}
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
 \newcommand{\FooterLabelFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
 \newcommand{\FooterURLFont}{\fontsize{23.5}{28}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
-\newcommand{\ModelEqFont}{\fontsize{18.0}{20.8}\selectfont}
+\newcommand{\ModelEqFont}{\fontsize{21.0}{25.0}\selectfont}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
   \noindent
-  {\SectionKickerFont\color{HydroBlue}\RaggedRight\MakeUppercase{#1}\par}
-  \vspace{0.035cm}
+  {\SectionKickerFont\color{StructureColor}\RaggedRight
+   \textls[70]{\MakeUppercase{#1}}\par}
+  \vspace{0.05cm}
   {\SectionFont\color{TitleSlate}\RaggedRight #2\par}
   \vspace{0.14cm}
-  {\color{HydroBlue}\rule{0.18\linewidth}{1.35pt}%
-   \color{RuleStone}\rule{0.82\linewidth}{0.58pt}}\par
+  {\color{StructureColor}\rule{0.12\linewidth}{1.0pt}%
+   \color{RuleStone}\rule{0.88\linewidth}{0.50pt}}\par
   \vspace{0.29cm}
 }
 
@@ -203,30 +202,30 @@
   colback=PanelLavender,
   colframe=PanelLavender,
   boxrule=0pt,
-  arc=1.2mm,
-  left=0.55cm,right=0.55cm,top=0.42cm,bottom=0.42cm,
-  borderline west={2.2mm}{0pt}{ModelPlum}
+  arc=0.8mm,
+  left=0.48cm,right=0.48cm,top=0.36cm,bottom=0.36cm,
+  borderline west={1.3mm}{0pt}{StructureColor}
 }
 
 \newtcolorbox{SoftNote}[1][]{
   enhanced,
-  colback=PanelStone,
-  colframe=PanelStone,
-  boxrule=0pt,
-  arc=1.2mm,
+  colback=PosterPaper,
+  colframe=RuleStone,
+  boxrule=0.45pt,
+  arc=0.8mm,
   left=0.50cm,right=0.50cm,top=0.38cm,bottom=0.38cm,
-  borderline west={1.7mm}{0pt}{HydroBlue},
+  borderline west={1.0mm}{0pt}{StructureColor},
   #1
 }
 
 \newtcolorbox{ExceptionNote}[1][]{
   enhanced,
-  colback=ALOchre!8,
-  colframe=ALOchre!8,
+  colback=ComparatorColor!7!PosterPaper,
+  colframe=ComparatorColor!7!PosterPaper,
   boxrule=0pt,
-  arc=1.2mm,
+  arc=0.8mm,
   left=0.50cm,right=0.50cm,top=0.38cm,bottom=0.38cm,
-  borderline west={1.7mm}{0pt}{ALOchre},
+  borderline west={1.2mm}{0pt}{ComparatorColor},
   #1
 }
 
@@ -234,10 +233,20 @@
   enhanced,
   colback=PosterWhite,
   colframe=RuleStone,
-  boxrule=0.65pt,
-  arc=1.4mm,
+  boxrule=0.50pt,
+  arc=1.0mm,
   left=0.60cm,right=0.60cm,top=0.56cm,bottom=0.54cm,
-  borderline north={2.5mm}{0pt}{ModelPlum}
+  borderline north={1.6mm}{0pt}{SelectedModelColor}
+}
+
+\newtcolorbox{TakeawayBox}{
+  enhanced,
+  colback=PosterWhite,
+  colframe=RuleStone,
+  boxrule=0.50pt,
+  arc=1.0mm,
+  left=0.56cm,right=0.56cm,top=0.50cm,bottom=0.50cm,
+  borderline north={1.6mm}{0pt}{SelectedModelColor}
 }
 
 \newcommand{\Pill}[3][white]{%
@@ -275,8 +284,7 @@
 \newcommand{\SourceRow}[3]{%
   \begin{minipage}[t]{\linewidth}
     \RaggedRight
-    \hyphenpenalty=10000\exhyphenpenalty=10000
-    {\SmallBodyFont\bfseries\color{TitleSlate}#2\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}\SourceDot{#1}\enspace #2\par}
     \vspace{0.03cm}
     {\CaptionFont\color{MutedSlate}#3\par}
   \end{minipage}\par
@@ -312,7 +320,7 @@
       align=center,
       inner xsep=0.11cm,
       inner ysep=0.08cm,
-      font=\sffamily\bfseries\fontsize{7.35}{8.15}\selectfont,
+      font=\sffamily\bfseries\fontsize{7.9}{8.8}\selectfont,
       text=TitleSlate,
       minimum width=2.28cm,
       minimum height=0.74cm
@@ -334,11 +342,11 @@
     },
     title/.style={
       align=center,
-      font=\sffamily\bfseries\fontsize{8.9}{9.9}\selectfont,
+      font=\sffamily\bfseries\fontsize{9.2}{10.2}\selectfont,
       text=TitleSlate
     },
     source/.style={
-      font=\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont
+      font=\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont
     },
     fitgroup/.style={
       draw=RuleStone,
@@ -348,14 +356,14 @@
     },
     lanenote/.style={
       align=center,
-      font=\sffamily\bfseries\fontsize{6.35}{7.0}\selectfont,
+      font=\sffamily\bfseries\fontsize{7.3}{8.0}\selectfont,
       text=MutedSlate
     },
     scorebox/.style={
       outbox,
       minimum width=2.98cm,
       minimum height=1.20cm,
-      font=\sffamily\bfseries\fontsize{6.05}{6.85}\selectfont
+      font=\sffamily\bfseries\fontsize{7.1}{7.8}\selectfont
     }
   ]
     \path[use as bounding box] (-0.12,0.08) rectangle (12.42,5.88);
@@ -370,10 +378,10 @@
       {USGS flow\\[-0.02cm]\(\color{USGSInk}y_t^o\)\\[-0.02cm]{\color{MutedSlate}through cutoff}\\[-0.03cm]{\color{MutedSlate}future held out}};
     \node[box,fill=PosterWhite] (retro) at (1.30,3.18)
       {retrospectives\\[-0.02cm]\(\color{PosterInk}z_t^j\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.36cm}{\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{GloFASColor}GloFAS}\hspace{0.24cm}{\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{NWSColor}NWS}};
     \node[box,fill=HydroBlue!8] (fcst) at (1.30,2.02)
       {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_{\mathrm{cutoff}}^{j,i}(k)\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.36cm}{\sffamily\bfseries\fontsize{4.7}{5.2}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{GloFASColor}GloFAS}\hspace{0.24cm}{\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{NWSColor}NWS}};
     \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.92)
       {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
 
@@ -405,7 +413,7 @@
     \draw[arrow] (delta.east) -- (synth.west);
     \draw[arrow] (transfer.east) -- ([yshift=-0.20cm]synth.west);
 
-    \draw[arrow] (synth.east) -- (verify.west);
+    \draw[arrow] (synth.east) -- (score.west);
     \draw[arrow] (verify.south) -- (score.north);
   \end{tikzpicture}%
   }
@@ -463,8 +471,8 @@
       height=#1,
       valign=center,
       colback=PanelStone,
-      colframe=TitleSlate,
-      boxrule=0.85pt,
+      colframe=RuleStone,
+      boxrule=0.50pt,
       arc=0.8mm,
       halign=center,
       left=0.06cm,
@@ -484,8 +492,8 @@
       enhanced,
       width=\linewidth,
       colback=PosterWhite,
-      colframe=TitleSlate,
-      boxrule=0.85pt,
+      colframe=RuleStone,
+      boxrule=0.50pt,
       arc=0.8mm,
       left=0.055cm,
       right=0.055cm,
@@ -542,10 +550,10 @@
 \newcommand{\PosterHeader}{%
   \begin{tikzpicture}[remember picture,overlay]
     \fill[PosterPaper] (current page.north west) rectangle ([yshift=-14.3cm]current page.north east);
-    \fill[HydroBlue] (current page.north west) rectangle ([yshift=-0.34cm]current page.north east);
-    \fill[ModelPlum]
-      ([xshift=0.72\paperwidth]current page.north west)
-      rectangle ([yshift=-0.34cm]current page.north east);
+    \fill[StructureColor] (current page.north west) rectangle ([yshift=-0.24cm]current page.north east);
+    \fill[SelectedModelColor]
+      ([xshift=0.84\paperwidth]current page.north west)
+      rectangle ([yshift=-0.24cm]current page.north east);
     \node[
       anchor=north east,
       align=right,
@@ -594,7 +602,20 @@
   \begin{minipage}[c]{0.47\textwidth}
     \begin{minipage}[c]{0.23\linewidth}
       \centering
-      \includegraphics[height=3.65cm]{project1_repo_qr.png}
+      \IfFileExists{project1_repo_qr.png}{%
+        \includegraphics[height=3.65cm]{project1_repo_qr.png}%
+      }{%
+        \IfFileExists{isba2026_poster/assets/qr/project1_repo_qr.png}{%
+          \includegraphics[height=3.65cm]{isba2026_poster/assets/qr/project1_repo_qr.png}%
+        }{%
+          \IfFileExists{assets/qr/project1_repo_qr.png}{%
+            \includegraphics[height=3.65cm]{assets/qr/project1_repo_qr.png}%
+          }{%
+            \fbox{\parbox[c][3.65cm][c]{3.65cm}{\centering
+              {\FootFont\bfseries QR pending}}}%
+          }%
+        }%
+      }%
     \end{minipage}
     \hfill
     \begin{minipage}[c]{0.73\linewidth}
@@ -625,10 +646,11 @@
 \SectionHead{Question}{Fast correction before synthesis}
 
 \begin{KeyQuestion}
-{\SmallBodyFont\bfseries\color{TitleSlate}
-Can historical product archives learn source discrepancies, propagate those
-corrections into new quantile-level ensemble forecasts, and synthesize
-calibrated posterior predictions fast enough for real-time product updates?\par}
+{\SmallBodyFont\color{TitleSlate}
+\textbf{Can historical product archives learn source discrepancies} and
+propagate those corrections into new quantile-level ensemble forecasts,
+yielding synthesized posterior predictions fast enough for real-time product
+updates?\par}
 \end{KeyQuestion}
 
 \vspace{0.20cm}
@@ -715,7 +737,7 @@ quantile forecasts are checked for crossing in the application and combined
 into the posterior predictive distribution scored by CRPS.\par}
 
 \vspace{0.20cm}
-\begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.7mm}{0pt}{ModelPlum},top=0.48cm,bottom=0.46cm]
+\begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.0mm}{0pt}{StructureColor},top=0.48cm,bottom=0.46cm]
   \begin{minipage}[c]{0.29\linewidth}
     \centering
     {\DisplayFont\bfseries\fontsize{43}{43}\selectfont\color{TitleSlate}7\par}
@@ -739,7 +761,6 @@ into the posterior predictive distribution scored by CRPS.\par}
 \vspace{0.24cm}
 \begin{SoftNote}
   \RaggedRight
-  \hyphenpenalty=10000\exhyphenpenalty=10000
   {\SmallBodyFont\bfseries\color{TitleSlate}Parallel quantile lanes\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
@@ -747,27 +768,20 @@ into the posterior predictive distribution scored by CRPS.\par}
   concurrently before forecast quantiles are synthesized.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Conjugate DQLM baseline\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}DQLM baseline versus exDQLM\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  The asymmetric-Laplace DQLM is fully conjugate under its latent
-  representation; this is the baseline labeled DQLM in the Results panel.\par}
+  The asymmetric-Laplace DQLM is conjugate under its latent representation; the
+  selected exDQLM replaces AL by exAL for source-specific scale and skewness
+  flexibility.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Non-conjugate exDQLM updates\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Scalable VB-LD updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  The selected exDQLM replaces AL by exAL. Mean-field variational Bayes keeps
-  Kalman filtering and backward smoothing for Gaussian state blocks, while
-  VB-LD uses local modes, curvature, and Delta-method moments for non-conjugate
-  exAL scale and skewness terms.\par}
-
-  \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}State evolution\par}
-  \vspace{0.04cm}
-  {\CaptionFont\color{MutedSlate}
-  Component discounting controls trend, multi-period seasonality, source
-  corrections, and exogenous-covariate adjustments.\par}
+  Mean-field variational Bayes keeps Kalman filtering and backward smoothing
+  for Gaussian state blocks; VB-LD uses local modes, curvature, and
+  Delta-method moments for non-conjugate exAL terms.\par}
 \end{SoftNote}
 
 \end{minipage}
@@ -790,74 +804,57 @@ held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}extended Dynamic Quantile Linear Model\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Dynamic Quantile Linear Model (exDQLM)\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\), let \(T\) denote the forecast
-  origin/cutoff. The extended Dynamic Quantile Linear Model (exDQLM) links observed flow,
-  retrospective product histories, and issued forecast members through one
-  latent river-flow quantile. Product-family discrepancies learn source
-  corrections before the origin; the same source channels, with forecast-window
-  covariates \(\mathbf{x}_{T+k}\), then define corrected predictive quantiles
-  after the origin.\par}
-  \vspace{-0.20cm}
-  \noindent\resizebox{0.995\linewidth}{!}{%
-  \begin{minipage}{1.13\linewidth}
-    {\ModelEqFont\color{PosterInk}
-    \setlength{\jot}{0.045cm}
-    \begin{alignat*}{3}
-    \text{Observed measurements:}\quad&
-    y_t^o
-    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
-    &\qquad& 1 \le t \le T,
-    \\
-    \text{Retrospective products:}\quad&
-    z_t^j
-    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
-    &\qquad& j \in \mathcal{J},\ 1 \le t \le T,
-    \\
-    \text{Forecast products:}\quad&
-    y_T^{j,i}(k)
-    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
-    &\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j,
-    \\
-    \text{Trend and seasonal states:}\quad&
-    \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
-    &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
-    &\qquad& 1 \le t \le T+K_{\max},
-    \\
-    \text{Source correction states:}\quad&
-    \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
-    &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
-    &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max},
-    \\
-    \text{Exogenous adjustment:}\quad&
-    \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
-    &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
-    &\qquad& 1 \le t \le T+K_{\max},
-    \\
-    \text{Covariate-adjustment states:}\quad&
-    \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
-    &\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
-    &\qquad& 1 \le t \le T+K_{\max}.
-    \end{alignat*}
-    }
-  \end{minipage}%
+  origin/cutoff. The selected exDQLM links observed flow, retrospective product
+  histories, and issued forecast members through one latent river-flow quantile.
+  Source discrepancies learn pre-origin corrections; forecast ensembles and
+  staged covariates then propagate corrected quantiles after the origin.\par}
+  \vspace{-0.05cm}
+  {\ModelEqFont\color{PosterInk}
+  \[
+  \begin{aligned}
+  y_t^o &\sim \operatorname{exAL}_{p_0}
+    \!\left(\mathbf{F}_t'\boldsymbol{\theta}_t+\zeta_t,\sigma^o,\gamma^o\right),
+  && 1\leq t\leq T,\\
+  z_t^j &\sim \operatorname{exAL}_{p_0}
+    \!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t+\boldsymbol{\delta}_t^j)+\zeta_t,
+    \sigma^j,\gamma^j\right),
+  && j\in\mathcal J,\ 1\leq t\leq T,\\
+  y_T^{j,i}(k) &\sim \operatorname{exAL}_{p_0}
+    \!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k}+\boldsymbol{\delta}_{T+k}^j)
+    +\zeta_{T+k},\sigma^j,\gamma^j\right),
+  && j\in\mathcal J,\ i\in\mathcal I_j,\ k\in\mathcal K_j .
+  \end{aligned}
+  \]
+  \vspace{-0.38cm}
+  \[
+  \boldsymbol{\theta}_t\mid\boldsymbol{\theta}_{t-1}
+  \sim \mathcal N(\mathbf G_t\boldsymbol{\theta}_{t-1},\mathbf W_t^\theta),
+  \qquad
+  \boldsymbol{\delta}_t^j\mid\boldsymbol{\delta}_{t-1}^j
+  \sim \mathcal N(\mathbf G_t\boldsymbol{\delta}_{t-1}^j,\mathbf W_t^{\delta^j}).
+  \]
+  \vspace{-0.38cm}
+  \[
+  \zeta_t\mid\zeta_{t-1},\boldsymbol{\psi}_{t-1}
+  \sim \mathcal N(\lambda\zeta_{t-1}+\mathbf x_t'\boldsymbol{\psi}_{t-1},w_t^\zeta),
+  \qquad
+  \boldsymbol{\psi}_t\mid\boldsymbol{\psi}_{t-1}
+  \sim \mathcal N(\boldsymbol{\psi}_{t-1},\mathbf W_t^\psi).
+  \]
   }
-  \vspace{-0.18cm}
+  \vspace{-0.16cm}
   {\FootFont\color{MutedSlate}
-  \(\operatorname{exAL}_{p_0}\) is the extended asymmetric Laplace working
-  likelihood for target quantile \(p_0\); \(\sigma\) and \(\gamma\) are
-  source-specific scale and skewness terms. \(T\) is the forecast origin, \(j\)
-  a product family, \(i\) an ensemble member, \(k\) a lead, and \(K_{\max}\) the
-  longest horizon. The shared quantile state is \(\boldsymbol{\theta}_t\);
-  source discrepancies/corrections are \(\boldsymbol{\delta}_t^j\); and
-  \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-adjustment block driven by
-  covariates \(\mathbf{x}_t\) such as precipitation, soil moisture, and the GDPC
-  climate-index summary. Component discounting controls the evolution
-  variances. The DQLM comparison in the Results panel is the conjugate
-  AL-likelihood baseline; the selected exDQLM uses exAL and updates the
-  non-conjugate \(\sigma,\gamma\) terms with VB-LD.\par}
+  Here \(\boldsymbol{\theta}_t\) is the shared trend--seasonal river quantile,
+  \(\boldsymbol{\delta}_t^j\) is the source-specific correction, and
+  \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-covariate block driven by
+  \(\mathbf{x}_t\) (local precipitation, local soil moisture, and GDPC climate
+  summaries). The DQLM comparator uses the conjugate AL likelihood; the selected
+  exDQLM uses exAL and updates non-conjugate \(\sigma,\gamma\) terms with
+  VB-LD.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
@@ -866,7 +863,7 @@ held-out USGS observations.}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
-      Selected exDQLM has the lowest forecast-window CRPS at four origins; DQLM leads once\par}
+      Selected exDQLM is lowest at four of five origins; DQLM leads at 2022-12-25\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.21\linewidth}
@@ -879,11 +876,10 @@ held-out USGS observations.}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
-Values left of the raw GloFAS line indicate lower mean CRPS than raw GloFAS at
-that origin. DQLM denotes the conjugate AL-likelihood baseline; selected exDQLM
-denotes the exAL extension. Raw NWS is evaluated over common leads 1--8 in the
-horizon-matched tables, not mixed into this 1--28 lead GloFAS-supported
-benchmark.\par}
+CRPS is the continuous ranked probability score; lower values are better.
+DQLM is the conjugate AL-likelihood baseline, while selected exDQLM denotes the
+exAL extension. Raw NWS is evaluated separately over common leads 1--8, not
+mixed into this 1--28 lead GloFAS-supported benchmark.\par}
 
 \vspace{0.24cm}
 
@@ -926,22 +922,20 @@ dry and wet regimes.}
 \vspace{0.64cm}
 
 \SectionHead{Takeaways}{Main takeaways}
-\begin{KeyQuestion}
+\begin{TakeawayBox}
   {\BodyFont\color{PosterInk}
   \begin{itemize}
-    \setlength{\itemsep}{0.16cm}
+    \setlength{\itemsep}{0.18cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
-    \item Historical archives learn source-specific corrections before new
-    forecast products are blended.
-    \item The selected exDQLM extends the conjugate DQLM with exAL scale and
-    skewness flexibility.
-    \item Seven corrected quantile lanes synthesize one posterior predictive
-    distribution.
     \item Selected exDQLM has the lowest 1--28-step-ahead CRPS at four of five
-    origins; DQLM leads at the final origin.
+    origins; DQLM leads at 2022-12-25.
+    \item Historical product archives learn source-specific corrections that
+    propagate into new forecast ensembles.
+    \item Seven corrected quantile lanes synthesize one posterior predictive
+    distribution; NWS is compared separately over common leads 1--8.
   \end{itemize}\par}
-\end{KeyQuestion}
+\end{TakeawayBox}
 
 \end{minipage}
 \end{minipage}

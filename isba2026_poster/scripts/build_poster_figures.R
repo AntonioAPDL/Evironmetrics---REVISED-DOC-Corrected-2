@@ -35,19 +35,19 @@ poster_cols <- c(
   white = env_col("white", "#FFFFFF"),
   ink = env_col("ink", "#1E252B"),
   title = env_col("title", "#1F3442"),
-  muted = env_col("muted", "#616B73"),
-  rule = env_col("rule", "#D8DCDE"),
-  panel = env_col("panel", "#F3F4F3"),
-  lavender = env_col("lavender", "#EEF2F4"),
-  plum = env_col("plum", "#5C4B86"),
+  muted = env_col("muted", "#5D6870"),
+  rule = env_col("rule", "#C9D0D2"),
+  panel = env_col("panel", "#F0F2F1"),
+  lavender = env_col("lavender", "#F0EDF4"),
+  plum = env_col("plum", "#514174"),
   hydro = env_col("hydro", "#3A7180"),
-  glofas = env_col("glofas", "#356C9C"),
-  nws = env_col("nws", "#B9553A"),
-  ochre = env_col("ochre", "#9D7A29"),
+  glofas = env_col("glofas", "#3C78A6"),
+  nws = env_col("nws", "#B65A42"),
+  ochre = env_col("ochre", "#A07D2E"),
   usgs = env_col("usgs", "#181D21"),
-  sage = env_col("sage", "#657765"),
-  sky = env_col("sky", "#708EAA"),
-  mauve = env_col("mauve", "#827184"),
+  sage = env_col("sage", "#667866"),
+  sky = env_col("sky", "#748FAA"),
+  mauve = env_col("mauve", "#81717F"),
   other = env_col("other", "#8A9399")
 )
 
@@ -63,7 +63,7 @@ model_label <- function(x) {
 }
 
 palette <- c(
-  "Selected exDQLM" = poster_cols[["title"]],
+  "Selected exDQLM" = poster_cols[["plum"]],
   "DQLM" = poster_cols[["ochre"]],
   "GloFAS" = poster_cols[["glofas"]],
   "NWS" = poster_cols[["nws"]],
@@ -190,7 +190,7 @@ crps_28d_main <- crps_28d_plot |>
   )
 
 p28_palette <- c(
-  "Selected exDQLM" = poster_cols[["title"]],
+  "Selected exDQLM" = poster_cols[["plum"]],
   "DQLM" = poster_cols[["ochre"]],
   "Raw GloFAS" = poster_cols[["glofas"]]
 )

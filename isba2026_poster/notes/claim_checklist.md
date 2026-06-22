@@ -14,7 +14,7 @@ changing the frozen scientific lock below.
 ## Required claims
 
 - [x] The title remains factual and method/application aligned:
-  `Bayesian quantile correction and synthesis for climate products`.
+  `Bayesian quantile-based correction and synthesis for climate products`.
 - [x] The main CRPS evidence states the scoped result: source-aware exAL has the
   lowest mean 28-day CRPS at four of five origins.
 - [x] The 2022-12-25 exception is explicit: AL-M-T1 has the lowest 28-day CRPS
