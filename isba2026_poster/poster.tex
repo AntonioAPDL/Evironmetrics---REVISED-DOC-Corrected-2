@@ -154,7 +154,8 @@
 \newcommand{\PosterMetaFont}{\fontsize{22}{27}\selectfont}
 \newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{34}{40}\selectfont}
 \newcommand{\PosterMetricFont}{\DisplayFont\bfseries\fontsize{60}{60}\selectfont}
-\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{35}{40.5}\selectfont}
+\newcommand{\SectionKickerFont}{\DisplayFont\bfseries\fontsize{38}{41}\selectfont}
+\newcommand{\SectionFont}{\DisplayFont\bfseries\fontsize{28.5}{33.5}\selectfont}
 \newcommand{\BodyFont}{\fontsize{25}{31}\selectfont}
 \newcommand{\SmallBodyFont}{\fontsize{23.5}{29.5}\selectfont}
 \newcommand{\CaptionFont}{\fontsize{22.5}{28}\selectfont}
@@ -165,14 +166,13 @@
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
   \noindent
-  {\DisplayFont\bfseries\fontsize{24}{28}\selectfont
-   \color{HydroBlue}\RaggedRight\MakeUppercase{#1}\par}
-  \vspace{0.02cm}
+  {\SectionKickerFont\color{HydroBlue}\RaggedRight\MakeUppercase{#1}\par}
+  \vspace{0.035cm}
   {\SectionFont\color{TitleSlate}\RaggedRight #2\par}
-  \vspace{0.13cm}
-  {\color{HydroBlue}\rule{0.16\linewidth}{1.15pt}%
-   \color{RuleStone}\rule{0.84\linewidth}{0.65pt}}\par
-  \vspace{0.27cm}
+  \vspace{0.14cm}
+  {\color{HydroBlue}\rule{0.18\linewidth}{1.35pt}%
+   \color{RuleStone}\rule{0.82\linewidth}{0.58pt}}\par
+  \vspace{0.29cm}
 }
 
 \newtcolorbox{KeyQuestion}{
