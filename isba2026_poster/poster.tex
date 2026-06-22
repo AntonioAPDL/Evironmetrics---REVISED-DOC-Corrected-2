@@ -136,6 +136,19 @@
 \setlength{\parskip}{0.14cm}
 \renewcommand{\arraystretch}{1.16}
 
+% The poster uses a fixed orientation column plus two equal-width evidence
+% columns. Keeping these as lengths makes the layout rule explicit and prevents
+% the right evidence column from being squeezed by a dominant center column.
+\newlength{\PosterLeftColumnWidth}
+\newlength{\PosterSharedColumnWidth}
+\newlength{\PosterColumnGap}
+\newlength{\PosterColumnSafetyInset}
+\setlength{\PosterLeftColumnWidth}{0.225\textwidth}
+\setlength{\PosterColumnGap}{0.014\textwidth}
+\setlength{\PosterColumnSafetyInset}{0.62cm}
+\setlength{\PosterSharedColumnWidth}{%
+  \dimexpr(\textwidth-\PosterLeftColumnWidth-2\PosterColumnGap-\PosterColumnSafetyInset)/2\relax}
+
 % ---------- Type scale -------------------------------------------------------
 \newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
 \newcommand{\PosterTitleFont}{\DisplayFont\fontsize{82}{87}\selectfont}
@@ -321,7 +334,7 @@
       outbox,
       minimum width=2.98cm,
       minimum height=1.20cm,
-      font=\sffamily\bfseries\fontsize{6.12}{6.90}\selectfont
+      font=\sffamily\bfseries\fontsize{6.05}{6.85}\selectfont
     }
   ]
     \path[use as bounding box] (-0.12,0.08) rectangle (12.42,5.88);
@@ -359,7 +372,8 @@
     \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,1.95)
       {synthesis predictive\\[-0.02cm]performance\\[-0.02cm]
        \(\operatorname{CRPS}(F,y)\)\\[-0.03cm]
-       \(=2\int_0^1\rho_\tau\!\left(y-F^{-1}(\tau)\right)\,d\tau\)};
+       \scalebox{0.90}{\(\displaystyle
+       =2\int_0^1\rho_\tau\!\left(y-F^{-1}(\tau)\right)\,d\tau\)}};
 
     \draw[arrow] (usgs.east) -- (theta.west);
     \draw[arrow] (retro.east) -- (delta.west);
@@ -539,7 +553,7 @@
 \newcommand{\PosterFooter}{%
   {\color{RuleStone}\rule{\textwidth}{0.75pt}}\par
   \vspace{0.22cm}
-  \begin{minipage}[c]{0.70\textwidth}
+  \begin{minipage}[c]{0.64\textwidth}
     {\FootFont\bfseries\color{TitleSlate}UC Santa Cruz Department of Statistics\par}
     \vspace{0.05cm}
     {\FootFont\color{MutedSlate}\RaggedRight
@@ -550,13 +564,13 @@
     }
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.265\textwidth}
+  \begin{minipage}[c]{0.32\textwidth}
     \begin{columns}[c,totalwidth=\linewidth]
-      \begin{column}{0.44\linewidth}
+      \begin{column}{0.34\linewidth}
         \centering
         \includegraphics[height=3.15cm]{project1_repo_qr.png}
       \end{column}
-      \begin{column}{0.53\linewidth}
+      \begin{column}{0.63\linewidth}
         {\FootFont\bfseries\color{TitleSlate}Code and reproducibility\par}
         \vspace{0.07cm}
         {\FootFont\color{MutedSlate}\href{\PosterURL}{\PosterURLShort}\par}
@@ -579,7 +593,7 @@
 \begin{columns}[T,totalwidth=\textwidth]
 
 % ======================== LEFT COLUMN ========================================
-\begin{column}{0.225\textwidth}
+\begin{column}{\PosterLeftColumnWidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -733,10 +747,10 @@ into the posterior predictive distribution scored by CRPS.\par}
 \end{minipage}
 \end{column}
 
-\hfill
+\hspace{\PosterColumnGap}
 
 % ======================== CENTER COLUMN ======================================
-\begin{column}{0.50\textwidth}
+\begin{column}{\PosterSharedColumnWidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -763,44 +777,48 @@ held-out USGS observations.}
   covariates \(\mathbf{x}_{T+k}\), then define corrected predictive quantiles
   after the origin.\par}
   \vspace{-0.20cm}
-  {\ModelEqFont\color{PosterInk}
-  \setlength{\jot}{0.045cm}
-  \begin{alignat*}{3}
-  \text{Observed measurements:}\quad&
-  y_t^o
-  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
-  &\qquad& 1 \le t \le T,
-  \\
-  \text{Retrospective products:}\quad&
-  z_t^j
-  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
-  &\qquad& j \in \mathcal{J},\ 1 \le t \le T,
-  \\
-  \text{Forecast products:}\quad&
-  y_T^{j,i}(k)
-  &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
-  &\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j,
-  \\
-  \text{Trend and seasonal states:}\quad&
-  \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
-  &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
-  &\qquad& 1 \le t \le T+K_{\max},
-  \\
-  \text{Source correction states:}\quad&
-  \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
-  &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
-  &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max},
-  \\
-  \text{Exogenous adjustment:}\quad&
-  \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
-  &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
-  &\qquad& 1 \le t \le T+K_{\max},
-  \\
-  \text{Covariate-adjustment states:}\quad&
-  \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
-  &\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
-  &\qquad& 1 \le t \le T+K_{\max}.
-  \end{alignat*}
+  \noindent\resizebox{0.995\linewidth}{!}{%
+  \begin{minipage}{1.13\linewidth}
+    {\ModelEqFont\color{PosterInk}
+    \setlength{\jot}{0.045cm}
+    \begin{alignat*}{3}
+    \text{Observed measurements:}\quad&
+    y_t^o
+    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t' \boldsymbol{\theta}_t + \zeta_t, \sigma^o, \gamma^o\right),
+    &\qquad& 1 \le t \le T,
+    \\
+    \text{Retrospective products:}\quad&
+    z_t^j
+    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t + \boldsymbol{\delta}_t^j) + \zeta_t, \sigma^j, \gamma^j\right),
+    &\qquad& j \in \mathcal{J},\ 1 \le t \le T,
+    \\
+    \text{Forecast products:}\quad&
+    y_T^{j,i}(k)
+    &\sim{}& \operatorname{exAL}_{p_0}\!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k} + \boldsymbol{\delta}_{T+k}^j) + \zeta_{T+k}, \sigma^j, \gamma^j\right),
+    &\qquad& j \in \mathcal{J},\ i \in \mathcal{I}_j,\ k \in \mathcal{K}_j,
+    \\
+    \text{Trend and seasonal states:}\quad&
+    \boldsymbol{\theta}_t \mid \boldsymbol{\theta}_{t-1}
+    &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\theta}_{t-1}, \mathbf{W}_t^\theta\right),
+    &\qquad& 1 \le t \le T+K_{\max},
+    \\
+    \text{Source correction states:}\quad&
+    \boldsymbol{\delta}_t^j \mid \boldsymbol{\delta}_{t-1}^j
+    &\sim{}& \mathcal{N}\!\left(\mathbf{G}_t \boldsymbol{\delta}_{t-1}^j, \mathbf{W}_t^{\delta^j}\right),
+    &\qquad& j \in \mathcal{J},\ 1 \le t \le T+K_{\max},
+    \\
+    \text{Exogenous adjustment:}\quad&
+    \zeta_t \mid \zeta_{t-1}, \boldsymbol{\psi}_{t-1}
+    &\sim{}& \mathcal{N}\!\left(\lambda \zeta_{t-1} + \mathbf{x}_t'\boldsymbol{\psi}_{t-1}, w_t^\zeta\right),
+    &\qquad& 1 \le t \le T+K_{\max},
+    \\
+    \text{Covariate-adjustment states:}\quad&
+    \boldsymbol{\psi}_t \mid \boldsymbol{\psi}_{t-1}
+    &\sim{}& \mathcal{N}\!\left(\boldsymbol{\psi}_{t-1}, \mathbf{W}_t^\psi\right),
+    &\qquad& 1 \le t \le T+K_{\max}.
+    \end{alignat*}
+    }
+  \end{minipage}%
   }
   \vspace{-0.18cm}
   {\FootFont\color{MutedSlate}
@@ -858,15 +876,15 @@ tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
 \end{minipage}
 \end{column}
 
-\hfill
+\hspace{\PosterColumnGap}
 
 % ======================== RIGHT COLUMN =======================================
-\begin{column}{0.225\textwidth}
+\begin{column}{\PosterSharedColumnWidth}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
 \SectionHead{Fit}{Wet-period quantile fit}
-\FramedPosterGraphic[13.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
+\FramedPosterGraphic[14.4cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
 \FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
 locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
 fits are shown with observed USGS flow; wider upper-tail bands during winter
@@ -876,9 +894,9 @@ an additional forecast-validation result.}
 \vspace{0.72cm}
 
 \SectionHead{Example}{Two forecast-window examples}
-\FramedPosterGraphic[10.9cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
+\FramedPosterGraphic[12.6cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
 \vspace{0.28cm}
-\FramedPosterGraphic[10.9cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\FramedPosterGraphic[12.6cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Origin-level illustrations.]{Two selected forecast windows show
 how corrected quantile forecasts combine into a posterior predictive envelope
 after the cutoff. The panels are illustrative checks of behavior at individual
@@ -887,7 +905,7 @@ origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 \vspace{0.64cm}
 
 \SectionHead{Dynamics}{80-month latent component}
-\FramedPosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
+\FramedPosterGraphic[13.5cm]{component_80month_poster.pdf}{80-month component diagnostic}
 \FigureCaption[Retrospective diagnostic.]{From the selected model at the
 2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
 components over 2000--2022; shaded intervals mark dry and wet regimes.}
