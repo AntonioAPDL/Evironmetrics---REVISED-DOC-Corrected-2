@@ -305,9 +305,27 @@
     },
     source/.style={
       font=\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont
+    },
+    fitgroup/.style={
+      draw=RuleStone,
+      line width=0.45pt,
+      rounded corners=1.4mm,
+      fill=PanelStone
+    },
+    lanenote/.style={
+      align=center,
+      font=\sffamily\bfseries\fontsize{6.35}{7.0}\selectfont,
+      text=MutedSlate
+    },
+    scorebox/.style={
+      outbox,
+      minimum width=3.08cm,
+      minimum height=1.28cm,
+      font=\sffamily\bfseries\fontsize{6.45}{7.25}\selectfont
     }
   ]
-    \path[use as bounding box] (-0.10,0.18) rectangle (12.42,5.88);
+    \path[use as bounding box] (-0.10,0.08) rectangle (12.42,5.88);
+    \draw[fitgroup] (-0.05,0.08) rectangle (5.78,5.16);
 
     \node[title] at (1.30,5.60) {available at\\ the cutoff};
     \node[title] at (4.42,5.60) {DQLM correction\\ for fixed \(p_0\)};
@@ -316,41 +334,43 @@
 
     \node[box,fill=PosterWhite,draw=USGSInk] (usgs) at (1.30,4.34)
       {USGS flow\\[-0.02cm]\(\color{USGSInk}y_t^o\)\\[-0.02cm]{\color{MutedSlate}through cutoff}\\[-0.03cm]{\color{MutedSlate}future held out}};
-    \node[box,fill=PosterWhite] (retro) at (1.30,3.03)
+    \node[box,fill=PosterWhite] (retro) at (1.30,3.18)
       {retrospectives\\[-0.02cm]\(\color{PosterInk}z_t^j\)\\[-0.02cm]
        {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
-    \node[box,fill=HydroBlue!8] (fcst) at (1.30,1.85)
+    \node[box,fill=HydroBlue!8] (fcst) at (1.30,2.02)
       {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_{\mathrm{cutoff}}^{j,i}(k)\)\\[-0.02cm]
        {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
-    \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.61)
+    \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.92)
       {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
 
     \node[modelbox,fill=HydroBlue!10,draw=HydroBlue] (theta) at (4.42,4.23)
       {shared USGS quantile\\[-0.02cm]\(\color{HydroBlue}\boldsymbol{\theta}_t\)\\[-0.02cm]{\color{MutedSlate}trend + seasonality}};
-    \node[modelbox,fill=PanelStone] (delta) at (4.42,3.03)
+    \node[modelbox,fill=PosterWhite] (delta) at (4.42,3.12)
       {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}bias/correction states}};
-    \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.42,1.83)
+    \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.42,2.01)
       {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}driven by \(\mathbf{x}_t\)}};
+    \node[lanenote] at (2.86,0.27)
+      {repeat over seven quantile lanes: \(p_0\in\{.05,\ldots,.95\}\)};
 
-    \node[outbox,fill=HydroBlue!10,draw=HydroBlue] (qlanes) at (7.68,3.95)
-      {seven quantile lanes\\[-0.02cm]\(\color{HydroBlue}p_0\in\{.05,\ldots,.95\}\)};
-    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite] (synth) at (7.68,2.43)
+    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite,minimum height=1.12cm] (synth) at (7.68,3.16)
       {synthesized posterior\\[-0.02cm]predictive distribution};
     \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (11.02,3.68)
       {held-out USGS\\[-0.02cm]verification flow};
-    \node[outbox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,2.05)
-      {CRPS and\\[-0.02cm]check-loss summaries\\[-0.02cm]{\color{MutedSlate}lower is better}};
+    \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,1.95)
+      {synthesis predictive\\[-0.02cm]performance\\[-0.02cm]
+       \(\operatorname{CRPS}(F,y)\)\\[-0.03cm]
+       \(=2\int_0^1\rho_\tau(y-Q_\tau)\,d\tau\)\\[-0.03cm]
+       {\color{MutedSlate}\(Q_\tau=F^{-1}(\tau)\)}};
 
     \draw[arrow] (usgs.east) -- (theta.west);
     \draw[arrow] (retro.east) -- (delta.west);
     \draw[arrow] (fcst.east) -- (delta.west);
     \draw[arrow] (covs.east) -- (transfer.west);
 
-    \draw[arrow] (theta.east) -- (qlanes.west);
-    \draw[arrow] (delta.east) -- (qlanes.west);
-    \draw[arrow] (transfer.east) -- (qlanes.west);
+    \draw[arrow] (theta.east) -- ([yshift=0.20cm]synth.west);
+    \draw[arrow] (delta.east) -- (synth.west);
+    \draw[arrow] (transfer.east) -- ([yshift=-0.20cm]synth.west);
 
-    \draw[arrow] (qlanes.south) -- (synth.north);
     \draw[arrow] (synth.east) -- (verify.west);
     \draw[arrow] (verify.south) -- (score.north);
   \end{tikzpicture}%
@@ -723,12 +743,12 @@ into the posterior predictive distribution scored by CRPS.\par}
 
 \SectionHead{Model}{One DQLM for source correction, then synthesis}
 \PosterModelSchematic
-\FigureCaption[DQLM correction stage.]{For a fixed quantile \(p_0\), one
-Dynamic Quantile Linear Model spans the historical archive and forecast window:
-USGS observations and retrospectives identify the latent flow quantile and
-source-specific discrepancies before the forecast origin; issued ensembles and
-staged covariates propagate forecast-window quantiles. Seven quantile lanes are
-then synthesized and scored only against held-out USGS observations.}
+\FigureCaption[DQLM correction stage.]{For each \(p_0\), the Dynamic Quantile
+Linear Model uses pre-origin USGS observations and retrospectives to learn a
+latent river-flow quantile and source discrepancies. After the cutoff, issued
+ensembles and staged covariates propagate corrected quantiles; seven lanes are
+synthesized into one posterior predictive distribution and scored only with
+held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
@@ -798,7 +818,7 @@ then synthesized and scored only against held-out USGS observations.}
 
 \vspace{0.62cm}
 
-\SectionHead{Main evidence}{28-day CRPS comparison}
+\SectionHead{Results}{28-day CRPS comparison}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
@@ -833,7 +853,8 @@ then synthesized and scored only against held-out USGS observations.}
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
 Values left of the raw GloFAS line indicate lower mean CRPS than raw GloFAS at
-that origin; raw NWS is evaluated only in the separate 1--8 day panel.\par}
+that origin; raw NWS is evaluated over common leads 1--8 in the horizon-matched
+tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
 
 \end{minipage}
 \end{column}
@@ -874,16 +895,22 @@ components over 2000--2022; shaded intervals mark dry and wet regimes.}
 
 \vspace{0.64cm}
 
-\SectionHead{Interpretation}{Main takeaway}
+\SectionHead{Takeaways}{Main takeaways}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Answer to the poster question.} Historical product archives can be
-  used to learn source-specific corrections before forecast products are
-  blended. In this five-origin San Lorenzo study, the selected source-aware
-  model leads the 28-day CRPS comparison at four origins, while the fitted
-  quantile diagnostics show interpretable changes in spread across wet
-  high-flow periods. The design is a targeted rolling-origin stress test, not a
-  continuous hindcast.\par}
+  \begin{itemize}
+    \setlength{\itemsep}{0.07cm}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+    \item Historical archives learn source-specific corrections before forecast
+    products are blended.
+    \item Seven corrected quantile lanes are synthesized into one posterior
+    predictive distribution.
+    \item In this five-origin study, the selected source-aware model has the
+    lowest 28-day CRPS at four origins; 2022-12-25 favors AL synthesis.
+    \item Fitted quantile dynamics remain interpretable: spread widens during
+    wet high-flow periods.
+  \end{itemize}\par}
 \end{KeyQuestion}
 
 \end{minipage}

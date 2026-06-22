@@ -289,7 +289,7 @@ pt <- ggplot(timeline, aes(y = cutoff_panel)) +
   geom_vline(xintercept = 0, linewidth = 0.8, linetype = "dashed", color = poster_cols[["title"]]) +
   geom_point(aes(x = 0), size = 4.8, color = poster_cols[["title"]]) +
   annotate("text", x = -9.5, y = 5.45, label = "fit archive\nfrozen", color = poster_cols[["muted"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
-  annotate("text", x = 4.4, y = 5.45, label = "NWS check\n1-8 d", color = poster_cols[["nws"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
+  annotate("text", x = 4.4, y = 5.45, label = "NWS\n1-8 d", color = poster_cols[["nws"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
   annotate("text", x = 21.8, y = 5.45, label = "GloFAS\n1-28 d", color = poster_cols[["glofas"]], size = 5.1, fontface = "bold", lineheight = 0.92) +
   scale_x_continuous(
     limits = c(-21, 30),
@@ -315,23 +315,28 @@ ggsave(
 
 box_df <- tibble::tribble(
   ~id, ~x, ~y, ~w, ~h, ~label, ~fill, ~border_col, ~text_col,
-  "usgs", 0.35, 4.88, 2.85, 0.82, "USGS flow\ny^o_1:T\npost-T held out", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["ink"]],
-  "retro", 0.35, 3.86, 2.85, 0.82, "retrospectives\nz^j_1:T", poster_cols[["white"]], poster_cols[["rule"]], poster_cols[["ink"]],
-  "fcst", 0.35, 2.84, 2.85, 0.82, "issued ensembles\ny_T^{j,i}(k)", "#E8F0F4", poster_cols[["rule"]], poster_cols[["title"]],
+  "usgs", 0.35, 4.88, 2.85, 0.82, "USGS flow\ny^o_t\nfuture held out", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["ink"]],
+  "retro", 0.35, 3.86, 2.85, 0.82, "retrospectives\nz^j_t", poster_cols[["white"]], poster_cols[["rule"]], poster_cols[["ink"]],
+  "fcst", 0.35, 2.84, 2.85, 0.82, "issued ensembles\ny_cutoff^{j,i}(k)", "#E8F0F4", poster_cols[["rule"]], poster_cols[["title"]],
   "covs", 0.35, 1.72, 2.85, 0.92, "exogenous covariates\nx_t: precip, soil,\nGDPC climate", "#EEF3EE", poster_cols[["sage"]], poster_cols[["title"]],
   "latent", 4.10, 4.70, 3.25, 0.90, "shared USGS quantile\ntheta_t\ntrend + seasonality", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
   "disc", 4.10, 3.58, 3.25, 0.90, "source discrepancies\ndelta_t^j\nbias/correction states", poster_cols[["panel"]], poster_cols[["rule"]], poster_cols[["title"]],
-  "transfer", 4.10, 2.46, 3.25, 0.90, "transfer component\nzeta_t, psi_t\nx_t before + after T", "#F4EAD2", poster_cols[["sage"]], poster_cols[["title"]],
-  "span", 4.10, 1.34, 3.25, 0.90, "one DQLM spans\nhistory and forecast\nwith channel switch at T", "#F4F1EB", poster_cols[["ochre"]], poster_cols[["title"]],
-  "qlanes", 8.50, 4.35, 3.35, 0.92, "seven quantile lanes\np0 = .05,...,.95", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
-  "synth", 8.50, 3.06, 3.35, 0.92, "synthesized posterior\npredictive distribution", poster_cols[["plum"]], poster_cols[["plum"]], poster_cols[["white"]],
-  "score", 8.50, 1.77, 3.35, 0.92, "forecast-window scoring\nheld-out USGS + CRPS", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["title"]]
+  "transfer", 4.10, 2.46, 3.25, 0.90, "transfer component\nzeta_t, psi_t\ndriven by x_t", "#F4EAD2", poster_cols[["sage"]], poster_cols[["title"]],
+  "synth", 8.25, 3.50, 2.85, 0.95, "synthesized posterior\npredictive distribution", poster_cols[["plum"]], poster_cols[["plum"]], poster_cols[["white"]],
+  "verify", 11.70, 4.10, 2.55, 0.82, "held-out USGS\nverification flow", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["title"]],
+  "score", 11.70, 2.52, 2.55, 1.06, "synthesis predictive\nperformance\nCRPS = integrated\nquantile loss", poster_cols[["white"]], poster_cols[["plum"]], poster_cols[["title"]]
 ) |>
   mutate(
     border_key = paste0(id, "_border"),
     text_key = paste0(id, "_text"),
     label_y = if_else(id %in% c("retro", "fcst"), y + h * 0.62, y + h / 2)
   )
+
+lane_note <- tibble::tibble(
+  x = 3.86,
+  y = 1.18,
+  label = "repeat over seven quantile lanes: p0 = .05,...,.95"
+)
 
 source_marks <- tibble::tribble(
   ~x, ~y, ~label, ~text_col,
@@ -348,12 +353,11 @@ arrow_df <- tibble::tribble(
   3.20, 4.27, 4.10, 4.03,
   3.20, 3.25, 4.10, 3.92,
   3.20, 2.18, 4.10, 2.91,
-  7.35, 5.15, 8.50, 4.81,
-  7.35, 4.03, 8.50, 4.81,
-  7.35, 2.91, 8.50, 4.81,
-  7.35, 1.79, 8.50, 4.81,
-  10.18, 4.35, 10.18, 3.98,
-  10.18, 3.06, 10.18, 2.69
+  7.35, 5.15, 8.25, 4.10,
+  7.35, 4.03, 8.25, 3.98,
+  7.35, 2.91, 8.25, 3.62,
+  11.10, 3.98, 11.70, 4.51,
+  12.98, 4.10, 12.98, 3.58
 )
 
 color_values <- c(
@@ -363,6 +367,12 @@ color_values <- c(
 )
 
 ps <- ggplot() +
+  annotate(
+    "rect",
+    xmin = 0.10, xmax = 7.60, ymin = 0.95, ymax = 5.92,
+    fill = poster_cols[["panel"]], color = poster_cols[["rule"]],
+    linewidth = 0.6
+  ) +
   geom_segment(
     data = arrow_df,
     aes(x = x, y = y, xend = xend, yend = yend),
@@ -384,15 +394,22 @@ ps <- ggplot() +
     aes(x = x, y = y, label = label, color = text_key),
     size = 3.45, lineheight = 0.92, fontface = "bold"
   ) +
-  annotate("text", x = 1.78, y = 6.05, label = "available at\norigin T", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  geom_text(
+    data = lane_note,
+    aes(x = x, y = y, label = label),
+    size = 3.8, lineheight = 0.92, fontface = "bold",
+    color = poster_cols[["muted"]]
+  ) +
+  annotate("text", x = 1.78, y = 6.20, label = "available at\nthe cutoff", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   annotate("text", x = 5.72, y = 6.05, label = "DQLM correction\nfor fixed p0", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
-  annotate("text", x = 10.18, y = 6.05, label = "posterior synthesis\nand scoring", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  annotate("text", x = 9.68, y = 6.05, label = "posterior\nsynthesis", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  annotate("text", x = 12.98, y = 6.05, label = "forecast-window\nscoring", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   scale_fill_manual(values = setNames(box_df$fill, box_df$id), guide = "none") +
   scale_color_manual(values = color_values, guide = "none") +
-  coord_cartesian(xlim = c(0, 12.2), ylim = c(0.75, 6.35), expand = FALSE) +
+  coord_cartesian(xlim = c(0, 14.55), ylim = c(0.75, 6.45), expand = FALSE) +
   labs(
     title = "Source-aware dynamic quantile correction and synthesis",
-    subtitle = "Retrospectives learn source discrepancies before T; issued ensembles and staged covariates\npropagate corrected forecast-window quantiles."
+    subtitle = "Retrospectives learn source discrepancies before the cutoff; issued ensembles and staged covariates\npropagate corrected forecast-window quantiles."
   ) +
   theme_void(base_family = "DejaVu Sans") +
   theme(
@@ -403,7 +420,7 @@ ps <- ggplot() +
 
 ggsave(
   filename = file.path(fig_dir, "model_schematic.pdf"),
-  plot = ps, device = cairo_pdf, width = 13.0, height = 9.0, units = "in"
+  plot = ps, device = cairo_pdf, width = 14.8, height = 9.0, units = "in"
 )
 
 support_manifest_path <- file.path(
