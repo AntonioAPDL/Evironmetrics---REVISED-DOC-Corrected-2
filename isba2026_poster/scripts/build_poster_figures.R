@@ -14,30 +14,41 @@ script_path <- normalizePath(str_replace(file_arg, "^--file=", ""), mustWork = T
 poster_dir <- normalizePath(file.path(dirname(script_path), ".."), mustWork = TRUE)
 repo_root <- normalizePath(file.path(poster_dir, ".."), mustWork = TRUE)
 
-data_dir <- file.path(poster_dir, "data", "derived")
-fig_dir <- file.path(poster_dir, "figures", "generated")
+data_dir <- Sys.getenv(
+  "POSTER_DATA_DIR",
+  unset = file.path(poster_dir, "data", "derived")
+)
+fig_dir <- Sys.getenv(
+  "POSTER_FIG_DIR",
+  unset = file.path(poster_dir, "figures", "generated")
+)
 dir.create(data_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 
+env_col <- function(name, default) {
+  value <- Sys.getenv(paste0("POSTER_COL_", toupper(name)), unset = "")
+  if (nzchar(value)) value else default
+}
+
 poster_cols <- c(
-  paper = "#FBFAF6",
-  white = "#FFFFFF",
-  ink = "#26323A",
-  title = "#263C4C",
-  muted = "#606B72",
-  rule = "#D5D9D7",
-  panel = "#F0F2EF",
-  lavender = "#F2EFF6",
-  plum = "#6B5B8E",
-  hydro = "#2F7C8C",
-  glofas = "#C66743",
-  nws = "#6B5B8E",
-  ochre = "#B6892F",
-  usgs = "#242A2F",
-  sage = "#6E8B70",
-  sky = "#6E91B7",
-  mauve = "#8A6F84",
-  other = "#8A9399"
+  paper = env_col("paper", "#FBFAF6"),
+  white = env_col("white", "#FFFFFF"),
+  ink = env_col("ink", "#26323A"),
+  title = env_col("title", "#263C4C"),
+  muted = env_col("muted", "#606B72"),
+  rule = env_col("rule", "#D5D9D7"),
+  panel = env_col("panel", "#F0F2EF"),
+  lavender = env_col("lavender", "#F2EFF6"),
+  plum = env_col("plum", "#6B5B8E"),
+  hydro = env_col("hydro", "#2F7C8C"),
+  glofas = env_col("glofas", "#C66743"),
+  nws = env_col("nws", "#6B5B8E"),
+  ochre = env_col("ochre", "#B6892F"),
+  usgs = env_col("usgs", "#242A2F"),
+  sage = env_col("sage", "#6E8B70"),
+  sky = env_col("sky", "#6E91B7"),
+  mauve = env_col("mauve", "#8A6F84"),
+  other = env_col("other", "#8A9399")
 )
 
 model_labels <- c(

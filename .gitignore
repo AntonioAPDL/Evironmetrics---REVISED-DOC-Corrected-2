@@ -14,6 +14,7 @@ wileyNJD-APA.pdf
 output.pdf
 main.pdf
 empty-eps-converted-to.pdf
+isba2026_poster/palette_previews/
 
 # Large workflow-side posterior support data should stay out of the
 # Overleaf-facing article repository. Regenerate figures from the workflow
