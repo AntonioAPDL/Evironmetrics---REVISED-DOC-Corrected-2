@@ -142,12 +142,10 @@
 \newlength{\PosterLeftColumnWidth}
 \newlength{\PosterSharedColumnWidth}
 \newlength{\PosterColumnGap}
-\newlength{\PosterColumnSafetyInset}
 \setlength{\PosterLeftColumnWidth}{0.225\textwidth}
 \setlength{\PosterColumnGap}{0.014\textwidth}
-\setlength{\PosterColumnSafetyInset}{0.62cm}
 \setlength{\PosterSharedColumnWidth}{%
-  \dimexpr(\textwidth-\PosterLeftColumnWidth-2\PosterColumnGap-\PosterColumnSafetyInset)/2\relax}
+  \dimexpr(\textwidth-\PosterLeftColumnWidth-2\PosterColumnGap)/2\relax}
 
 % ---------- Type scale -------------------------------------------------------
 \newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
@@ -590,10 +588,9 @@
 \vspace{0.76cm}
 
 {\BodyFont
-\begin{columns}[T,totalwidth=\textwidth]
-
+\noindent%
 % ======================== LEFT COLUMN ========================================
-\begin{column}{\PosterLeftColumnWidth}
+\begin{minipage}[t]{\PosterLeftColumnWidth}%
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -745,12 +742,10 @@ into the posterior predictive distribution scored by CRPS.\par}
 \end{SoftNote}
 
 \end{minipage}
-\end{column}
-
-\hspace{\PosterColumnGap}
-
+\end{minipage}%
+\hspace{\PosterColumnGap}%
 % ======================== CENTER COLUMN ======================================
-\begin{column}{\PosterSharedColumnWidth}
+\begin{minipage}[t]{\PosterSharedColumnWidth}%
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -874,12 +869,10 @@ that origin; raw NWS is evaluated over common leads 1--8 in the horizon-matched
 tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
 
 \end{minipage}
-\end{column}
-
-\hspace{\PosterColumnGap}
-
+\end{minipage}%
+\hspace{\PosterColumnGap}%
 % ======================== RIGHT COLUMN =======================================
-\begin{column}{\PosterSharedColumnWidth}
+\begin{minipage}[t]{\PosterSharedColumnWidth}%
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
@@ -931,9 +924,7 @@ components over 2000--2022; shaded intervals mark dry and wet regimes.}
 \end{KeyQuestion}
 
 \end{minipage}
-\end{column}
-
-\end{columns}
+\end{minipage}
 }
 
 % ======================== FOOTER =============================================
