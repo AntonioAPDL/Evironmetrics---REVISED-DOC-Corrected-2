@@ -348,7 +348,7 @@
     \draw[fitgroup] (-0.06,0.12) rectangle (5.70,5.14);
 
     \node[title] at (1.30,5.60) {available at\\ the cutoff};
-    \node[title] at (4.42,5.60) {DQLM correction\\ for fixed \(p_0\)};
+    \node[title] at (4.42,5.60) {exDQLM correction\\ for fixed \(p_0\)};
     \node[title] at (7.68,5.60) {posterior\\ synthesis};
     \node[title] at (11.02,5.60) {forecast-window\\ scoring};
 
@@ -691,7 +691,7 @@ observations are reserved for scoring. Main CRPS uses GloFAS-supported days
 \SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
 {\SmallBodyFont\RaggedRight\hyphenpenalty=10000\exhyphenpenalty=10000
-Seven independent Dynamic Quantile Linear Model (DQLM) lanes target
+Seven independent extended Dynamic Quantile Linear Model (exDQLM) lanes target
 seven levels: 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95. The fitted
 quantile forecasts are checked for crossing in the application and combined
 into the posterior predictive distribution scored by CRPS.\par}
@@ -729,20 +729,20 @@ into the posterior predictive distribution scored by CRPS.\par}
   concurrently before forecast quantiles are synthesized.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}State distribution updates\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Conjugate DQLM baseline\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes (MFVB) uses Kalman filtering and backward
-  smoothing equations to update Gaussian state distributions within each
-  latent-state block.\par}
+  The asymmetric-Laplace DQLM is fully conjugate under its latent
+  representation; this is the baseline labeled DQLM in the Results panel.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Non-conjugate updates\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Non-conjugate exDQLM updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Variational Bayes with Laplace--Delta (VB-LD) uses local modes, curvature, and
-  Delta-method moments for non-conjugate extended asymmetric Laplace (exAL)
-  scale and skewness terms.\par}
+  The selected exDQLM replaces AL by exAL. Mean-field variational Bayes keeps
+  Kalman filtering and backward smoothing for Gaussian state blocks, while
+  VB-LD uses local modes, curvature, and Delta-method moments for non-conjugate
+  exAL scale and skewness terms.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}State evolution\par}
@@ -762,7 +762,7 @@ into the posterior predictive distribution scored by CRPS.\par}
 
 \SectionHead{Model}{Main Workflow}
 \PosterModelSchematic
-\FigureCaption[Source-aware DQLM workflow.]{For each target quantile \(p_0\),
+\FigureCaption[Source-aware exDQLM workflow.]{For each target quantile \(p_0\),
 pre-origin USGS observations and retrospective product histories identify a
 latent river-flow quantile and source-specific correction states. After the
 cutoff, issued ensemble forecasts and staged exogenous covariates propagate
@@ -772,11 +772,11 @@ held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Dynamic Quantile Linear Model\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}extended Dynamic Quantile Linear Model\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\), let \(T\) denote the forecast
-  origin/cutoff. The Dynamic Quantile Linear Model (DQLM) links observed flow,
+  origin/cutoff. The extended Dynamic Quantile Linear Model (exDQLM) links observed flow,
   retrospective product histories, and issued forecast members through one
   latent river-flow quantile. Product-family discrepancies learn source
   corrections before the origin; the same source channels, with forecast-window
@@ -837,16 +837,18 @@ held-out USGS observations.}
   \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-adjustment block driven by
   covariates \(\mathbf{x}_t\) such as precipitation, soil moisture, and the GDPC
   climate-index summary. Component discounting controls the evolution
-  variances.\par}
+  variances. The DQLM comparison in the Results panel is the conjugate
+  AL-likelihood baseline; the selected exDQLM uses exAL and updates the
+  non-conjugate \(\sigma,\gamma\) terms with VB-LD.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
 
-\SectionHead{Results}{28-day CRPS comparison}
+\SectionHead{Results}{1--28-step-ahead forecast CRPS comparison}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
-      Selected DQLM has the lowest 28-day CRPS at four origins; AL synthesis leads once\par}
+      Selected exDQLM has the lowest forecast-window CRPS at four origins; DQLM leads once\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.21\linewidth}
@@ -854,20 +856,22 @@ held-out USGS observations.}
   \end{minipage}
 
   \vspace{0.24cm}
-  \PosterGraphic[41.8cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
+  \PosterGraphic[41.8cm]{crps_28d_poster.pdf}{Five-cutoff 1--28-step-ahead CRPS comparison}
 \end{HeroResult}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
 Values left of the raw GloFAS line indicate lower mean CRPS than raw GloFAS at
-that origin; raw NWS is evaluated over common leads 1--8 in the horizon-matched
-tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
+that origin. DQLM denotes the conjugate AL-likelihood baseline; selected exDQLM
+denotes the exAL extension. Raw NWS is evaluated over common leads 1--8 in the
+horizon-matched tables, not mixed into this 1--28 lead GloFAS-supported
+benchmark.\par}
 
 \vspace{0.24cm}
 
 \SectionHead{Fit}{Wet-period quantile fit}
 \FramedPosterGraphic[15.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
-\FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
+\FigureCaption[Historical fit diagnostic.]{Selected exDQLM fitted quantile
 locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
 fits are shown with observed USGS flow; wider upper-tail bands make winter
 high-flow behavior visible.}
@@ -886,7 +890,7 @@ high-flow behavior visible.}
 \FramedPosterGraphic[15.2cm]{cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-11-12 synthesis}
 \vspace{0.18cm}
 \FramedPosterGraphic[15.2cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
-\FigureCaption[Origin-level illustrations.]{Three selected forecast windows show
+\FigureCaption[Origin-level illustrations.]{Three selected exDQLM forecast windows show
 how corrected quantile forecasts combine into a posterior predictive envelope
 after the cutoff. The panels are illustrative checks of behavior at individual
 origins; the aggregate comparison remains the five-origin CRPS benchmark.}
@@ -895,7 +899,7 @@ origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 
 \SectionHead{Dynamics}{80-month seasonal component}
 \FramedPosterGraphic[14.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
-\FigureCaption[Retrospective diagnostic.]{From the selected model at the
+\FigureCaption[Retrospective diagnostic.]{From the selected exDQLM at the
 2022-12-25 origin. Lines show the isolated 80-month state component, without the
 trend component added, for the 5th, 50th, and 95th target-quantile lanes over
 2008--2022; light ribbons show 95\% credible bands and shaded intervals mark
@@ -905,19 +909,19 @@ dry and wet regimes.}
 
 \SectionHead{Takeaways}{Main takeaways}
 \begin{KeyQuestion}
-  {\SmallBodyFont\color{PosterInk}
+  {\BodyFont\color{PosterInk}
   \begin{itemize}
-    \setlength{\itemsep}{0.07cm}
+    \setlength{\itemsep}{0.16cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
-    \item Historical archives learn source-specific corrections before forecast
-    products are blended.
-    \item Seven corrected quantile lanes are synthesized into one posterior
-    predictive distribution.
-    \item In this five-origin study, the selected DQLM has the
-    lowest 28-day CRPS at four origins; 2022-12-25 favors AL synthesis.
-    \item Fitted quantile dynamics remain interpretable: spread widens during
-    wet high-flow periods.
+    \item Historical archives learn source-specific corrections before new
+    forecast products are blended.
+    \item The selected exDQLM extends the conjugate DQLM with exAL scale and
+    skewness flexibility.
+    \item Seven corrected quantile lanes synthesize one posterior predictive
+    distribution.
+    \item Selected exDQLM has the lowest 1--28-step-ahead CRPS at four of five
+    origins; DQLM leads at the final origin.
   \end{itemize}\par}
 \end{KeyQuestion}
 

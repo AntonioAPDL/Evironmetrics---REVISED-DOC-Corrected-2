@@ -41,8 +41,8 @@ poster_cols <- c(
 )
 
 model_labels <- c(
-  "exAL-M-T1" = "Selected model",
-  "AL-M-T1" = "AL synthesis",
+  "exAL-M-T1" = "Selected exDQLM",
+  "AL-M-T1" = "DQLM",
   "RAW-GLOFAS" = "GloFAS",
   "RAW-NWS" = "NWS"
 )
@@ -52,16 +52,16 @@ model_label <- function(x) {
 }
 
 palette <- c(
-  "Selected model" = poster_cols[["title"]],
-  "AL synthesis" = poster_cols[["ochre"]],
+  "Selected exDQLM" = poster_cols[["title"]],
+  "DQLM" = poster_cols[["ochre"]],
   "GloFAS" = poster_cols[["glofas"]],
   "NWS" = poster_cols[["nws"]],
   "Other Bayesian variants" = poster_cols[["other"]]
 )
 
 shape_values <- c(
-  "Selected model" = 16,
-  "AL synthesis" = 18,
+  "Selected exDQLM" = 16,
+  "DQLM" = 18,
   "GloFAS" = 15,
   "NWS" = 17,
   "Other Bayesian variants" = 16
@@ -148,7 +148,7 @@ crps_28d_plot <- crps_28d |>
   ungroup() |>
   mutate(
     cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
-    display_group = factor(display_group, levels = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants"))
+    display_group = factor(display_group, levels = c("Selected exDQLM", "DQLM", "GloFAS", "Other Bayesian variants"))
   )
 
 winner_28d <- crps_28d_plot |>
@@ -158,8 +158,8 @@ winner_28d <- crps_28d_plot |>
   mutate(
     winner_text = paste0(sprintf("%.2f", ratio_raw_glofas), "x"),
     winner_type = factor(
-      recode(model, "exAL-M-T1" = "Selected DQLM", "AL-M-T1" = "AL synthesis"),
-      levels = c("Selected DQLM", "AL synthesis")
+      recode(model, "exAL-M-T1" = "Selected exDQLM", "AL-M-T1" = "DQLM"),
+      levels = c("Selected exDQLM", "DQLM")
     ),
     label_x = pmin(ratio_raw_glofas * 1.10, 0.70)
   )
@@ -170,23 +170,23 @@ crps_28d_main <- crps_28d_plot |>
     result_group = factor(
       recode(
         model,
-        "exAL-M-T1" = "Selected DQLM",
-        "AL-M-T1" = "AL synthesis",
+        "exAL-M-T1" = "Selected exDQLM",
+        "AL-M-T1" = "DQLM",
         "RAW-GLOFAS" = "Raw GloFAS"
       ),
-      levels = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
+      levels = c("Selected exDQLM", "DQLM", "Raw GloFAS")
     )
   )
 
 p28_palette <- c(
-  "Selected DQLM" = poster_cols[["title"]],
-  "AL synthesis" = poster_cols[["ochre"]],
+  "Selected exDQLM" = poster_cols[["title"]],
+  "DQLM" = poster_cols[["ochre"]],
   "Raw GloFAS" = poster_cols[["glofas"]]
 )
 
 p28_shapes <- c(
-  "Selected DQLM" = 16,
-  "AL synthesis" = 18,
+  "Selected exDQLM" = 16,
+  "DQLM" = 18,
   "Raw GloFAS" = 15
 )
 
@@ -238,14 +238,14 @@ p28 <- ggplot(crps_28d_main, aes(y = cutoff_panel)) +
   ) +
   scale_color_manual(
     values = p28_palette,
-    breaks = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
+    breaks = c("Selected exDQLM", "DQLM", "Raw GloFAS")
   ) +
   scale_shape_manual(
     values = p28_shapes,
-    breaks = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
+    breaks = c("Selected exDQLM", "DQLM", "Raw GloFAS")
   ) +
   labs(
-    x = "Mean 28-day CRPS / raw GloFAS CRPS",
+    x = "Mean CRPS / raw GloFAS CRPS",
     y = NULL
   ) +
   guides(
@@ -254,7 +254,7 @@ p28 <- ggplot(crps_28d_main, aes(y = cutoff_panel)) +
       nrow = 1,
       override.aes = list(
         size = c(5.6, 5.6, 5.6),
-        shape = unname(p28_shapes[c("Selected DQLM", "AL synthesis", "Raw GloFAS")])
+        shape = unname(p28_shapes[c("Selected exDQLM", "DQLM", "Raw GloFAS")])
       )
     )
   ) +
@@ -288,7 +288,7 @@ crps_8d_plot <- crps_8d |>
   ungroup() |>
   mutate(
     cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
-    model_display = factor(model_label(model), levels = c("Selected model", "AL synthesis", "NWS", "GloFAS"))
+    model_display = factor(model_label(model), levels = c("Selected exDQLM", "DQLM", "NWS", "GloFAS"))
   )
 
 winner_8d <- crps_8d_plot |>
@@ -313,8 +313,8 @@ p8 <- ggplot(crps_8d_plot, aes(x = ratio_best, y = cutoff_panel, color = model_d
     breaks = c(1, 2, 4, 8, 16, 32),
     labels = c("best", "2x", "4x", "8x", "16x", "32x")
   ) +
-  scale_color_manual(values = palette[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
-  scale_shape_manual(values = shape_values[c("Selected model", "AL synthesis", "NWS", "GloFAS")]) +
+  scale_color_manual(values = palette[c("Selected exDQLM", "DQLM", "NWS", "GloFAS")]) +
+  scale_shape_manual(values = shape_values[c("Selected exDQLM", "DQLM", "NWS", "GloFAS")]) +
   labs(
     title = "8-day NWS-compatible\ncomparison",
     subtitle = "Days 1-8 only; 1.0 marks the origin-specific winner.",
@@ -457,7 +457,7 @@ ps <- ggplot() +
     color = poster_cols[["muted"]]
   ) +
   annotate("text", x = 1.78, y = 6.20, label = "available at\nthe cutoff", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
-  annotate("text", x = 5.72, y = 6.05, label = "DQLM correction\nfor fixed p0", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  annotate("text", x = 5.72, y = 6.05, label = "exDQLM correction\nfor fixed p0", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   annotate("text", x = 9.68, y = 6.05, label = "posterior\nsynthesis", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   annotate("text", x = 12.98, y = 6.05, label = "forecast-window\nscoring", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   scale_fill_manual(values = setNames(box_df$fill, box_df$id), guide = "none") +
