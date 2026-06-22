@@ -22,7 +22,8 @@ lock.
 - Removed the full-width takeaway band and retained one quieter footer.
 - Used a wider center evidence column so the 28-day CRPS panel remains the
   primary visual object.
-- Adopted a warmer slate/plum/hydrologic-blue/rust/ochre palette.
+- Adopted a warmer slate/plum/product-color/ochre palette. Current product
+  colors use dark orange for GloFAS and purple for NWS.
 - Recolored regenerated poster figures to match the new semantic palette.
 - Used marker shape as well as color for the selected model, AL comparator, and
   raw source references in the score figures.
