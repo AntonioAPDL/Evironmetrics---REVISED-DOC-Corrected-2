@@ -314,30 +314,52 @@ ggsave(
 )
 
 box_df <- tibble::tribble(
-  ~id, ~x, ~y, ~w, ~h, ~label, ~fill, ~text_col,
-  "usgs", 0.4, 4.75, 2.25, 0.75, "USGS\nobservations", poster_cols[["white"]], poster_cols[["ink"]],
-  "retro", 0.4, 3.78, 2.25, 0.75, "retrospective\nproducts", poster_cols[["white"]], poster_cols[["ink"]],
-  "fcst", 0.4, 2.81, 2.25, 0.75, "GloFAS / NWS\nforecast products", "#E8F0F4", poster_cols[["title"]],
-  "covs", 0.4, 1.84, 2.25, 0.75, "precipitation\nsoil moisture\nGDPC climate summary", "#EEF3EE", poster_cols[["title"]],
-  "latent", 3.35, 4.35, 2.75, 0.85, "shared latent\nriver-flow quantile", "#E8F0F2", poster_cols[["title"]],
-  "disc", 3.35, 3.18, 2.75, 0.85, "source-specific\ncorrections", poster_cols[["panel"]], poster_cols[["title"]],
-  "transfer", 3.35, 2.01, 2.75, 0.85, "forecast-window\nexogenous adjustment", "#F4EAD2", poster_cols[["title"]],
-  "dynamic", 3.35, 0.84, 2.75, 0.85, "trend + seasonal\ndynamics", poster_cols[["panel"]], poster_cols[["title"]],
-  "qpred", 6.85, 3.55, 2.85, 0.95, "quantile-specific\nposterior forecasts", "#E8F0F2", poster_cols[["title"]],
-  "synth", 6.85, 2.25, 2.85, 0.95, "synthesized predictive\ndistribution", poster_cols[["plum"]], poster_cols[["white"]]
-)
+  ~id, ~x, ~y, ~w, ~h, ~label, ~fill, ~border_col, ~text_col,
+  "usgs", 0.35, 4.88, 2.85, 0.82, "USGS flow\ny^o_1:T\npost-T held out", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["ink"]],
+  "retro", 0.35, 3.86, 2.85, 0.82, "retrospectives\nz^j_1:T", poster_cols[["white"]], poster_cols[["rule"]], poster_cols[["ink"]],
+  "fcst", 0.35, 2.84, 2.85, 0.82, "issued ensembles\ny_T^{j,i}(k)", "#E8F0F4", poster_cols[["rule"]], poster_cols[["title"]],
+  "covs", 0.35, 1.72, 2.85, 0.92, "exogenous covariates\nx_t: precip, soil,\nGDPC climate", "#EEF3EE", poster_cols[["sage"]], poster_cols[["title"]],
+  "latent", 4.10, 4.70, 3.25, 0.90, "shared USGS quantile\ntheta_t\ntrend + seasonality", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
+  "disc", 4.10, 3.58, 3.25, 0.90, "source discrepancies\ndelta_t^j\nbias/correction states", poster_cols[["panel"]], poster_cols[["rule"]], poster_cols[["title"]],
+  "transfer", 4.10, 2.46, 3.25, 0.90, "transfer component\nzeta_t, psi_t\nx_t before + after T", "#F4EAD2", poster_cols[["sage"]], poster_cols[["title"]],
+  "span", 4.10, 1.34, 3.25, 0.90, "one DQLM spans\nhistory and forecast\nwith channel switch at T", "#F4F1EB", poster_cols[["ochre"]], poster_cols[["title"]],
+  "qlanes", 8.50, 4.35, 3.35, 0.92, "seven quantile lanes\np0 = .05,...,.95", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
+  "synth", 8.50, 3.06, 3.35, 0.92, "synthesized posterior\npredictive distribution", poster_cols[["plum"]], poster_cols[["plum"]], poster_cols[["white"]],
+  "score", 8.50, 1.77, 3.35, 0.92, "forecast-window scoring\nheld-out USGS + CRPS", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["title"]]
+) |>
+  mutate(
+    border_key = paste0(id, "_border"),
+    text_key = paste0(id, "_text"),
+    label_y = if_else(id %in% c("retro", "fcst"), y + h * 0.62, y + h / 2)
+  )
+
+source_marks <- tibble::tribble(
+  ~x, ~y, ~label, ~text_col,
+  1.18, 4.05, "GloFAS", poster_cols[["glofas"]],
+  2.20, 4.05, "NWS", poster_cols[["nws"]],
+  1.18, 3.03, "GloFAS", poster_cols[["glofas"]],
+  2.20, 3.03, "NWS", poster_cols[["nws"]]
+) |>
+  mutate(text_key = paste0("source_", row_number()))
 
 arrow_df <- tibble::tribble(
   ~x, ~y, ~xend, ~yend,
-  2.65, 5.12, 3.35, 4.78,
-  2.65, 4.15, 3.35, 3.60,
-  2.65, 3.18, 3.35, 3.60,
-  2.65, 2.21, 3.35, 2.43,
-  6.10, 4.78, 6.85, 4.03,
-  6.10, 3.60, 6.85, 4.03,
-  6.10, 2.43, 6.85, 4.03,
-  6.10, 1.26, 6.85, 4.03,
-  8.28, 3.55, 8.28, 3.20
+  3.20, 5.29, 4.10, 5.15,
+  3.20, 4.27, 4.10, 4.03,
+  3.20, 3.25, 4.10, 3.92,
+  3.20, 2.18, 4.10, 2.91,
+  7.35, 5.15, 8.50, 4.81,
+  7.35, 4.03, 8.50, 4.81,
+  7.35, 2.91, 8.50, 4.81,
+  7.35, 1.79, 8.50, 4.81,
+  10.18, 4.35, 10.18, 3.98,
+  10.18, 3.06, 10.18, 2.69
+)
+
+color_values <- c(
+  setNames(box_df$border_col, box_df$border_key),
+  setNames(box_df$text_col, box_df$text_key),
+  setNames(source_marks$text_col, source_marks$text_key)
 )
 
 ps <- ggplot() +
@@ -349,24 +371,28 @@ ps <- ggplot() +
   ) +
   geom_rect(
     data = box_df,
-    aes(xmin = x, xmax = x + w, ymin = y, ymax = y + h, fill = id),
-    color = poster_cols[["rule"]], linewidth = 0.55
+    aes(xmin = x, xmax = x + w, ymin = y, ymax = y + h, fill = id, color = border_key),
+    linewidth = 0.65
   ) +
   geom_text(
     data = box_df,
-    aes(x = x + w / 2, y = y + h / 2, label = label, color = id),
-    size = 4.9, lineheight = 0.94, fontface = "bold"
+    aes(x = x + w / 2, y = label_y, label = label, color = text_key),
+    size = 4.25, lineheight = 0.91, fontface = "bold"
   ) +
-  annotate("text", x = 1.5, y = 5.83, label = "available\ninformation", fontface = "bold", color = poster_cols[["title"]], size = 5.8, lineheight = 0.95) +
-  annotate("text", x = 4.72, y = 5.83, label = "dynamic Bayesian\nquantile synthesis", fontface = "bold", color = poster_cols[["title"]], size = 5.8, lineheight = 0.95) +
-  annotate("text", x = 8.25, y = 5.83, label = "forecast\ndistribution", fontface = "bold", color = poster_cols[["title"]], size = 5.8, lineheight = 0.95) +
-  annotate("text", x = 8.28, y = 1.55, label = "scored by held-out\nUSGS observations", color = poster_cols[["muted"]], size = 4.8, lineheight = 0.95) +
+  geom_text(
+    data = source_marks,
+    aes(x = x, y = y, label = label, color = text_key),
+    size = 3.45, lineheight = 0.92, fontface = "bold"
+  ) +
+  annotate("text", x = 1.78, y = 6.05, label = "available at\norigin T", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  annotate("text", x = 5.72, y = 6.05, label = "DQLM correction\nfor fixed p0", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
+  annotate("text", x = 10.18, y = 6.05, label = "posterior synthesis\nand scoring", fontface = "bold", color = poster_cols[["title"]], size = 5.25, lineheight = 0.92) +
   scale_fill_manual(values = setNames(box_df$fill, box_df$id), guide = "none") +
-  scale_color_manual(values = setNames(box_df$text_col, box_df$id), guide = "none") +
-  coord_cartesian(xlim = c(0, 10.05), ylim = c(0.45, 6.15), expand = FALSE) +
+  scale_color_manual(values = color_values, guide = "none") +
+  coord_cartesian(xlim = c(0, 12.2), ylim = c(0.75, 6.35), expand = FALSE) +
   labs(
-    title = "Source-aware quantile correction and synthesis",
-    subtitle = "Retrospective products identify source corrections before the origin;\nforecast products enter through those corrected channels."
+    title = "Source-aware dynamic quantile correction and synthesis",
+    subtitle = "Retrospectives learn source discrepancies before T; issued ensembles and staged covariates\npropagate corrected forecast-window quantiles."
   ) +
   theme_void(base_family = "DejaVu Sans") +
   theme(

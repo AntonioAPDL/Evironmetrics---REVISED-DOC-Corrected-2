@@ -578,23 +578,26 @@ into the posterior predictive distribution scored by CRPS.\par}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Model}{One state-space model for correction and synthesis}
-\PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile synthesis schematic}
-\FigureCaption[Correction before synthesis.]{Before the origin, observations
-and retrospective products identify the shared quantile state and source
-corrections. After the origin, issued forecast products and exogenous
-covariates update the same state to form source-adjusted predictive quantiles.}
+\SectionHead{Model}{One DQLM for source correction, then synthesis}
+\PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile correction schematic}
+\FigureCaption[DQLM correction stage.]{For a fixed quantile \(p_0\), one
+Dynamic Quantile Linear Model spans the pre-origin and forecast windows: USGS
+observations and retrospectives identify the latent flow quantile and
+source-specific discrepancies before \(T\); issued ensembles and staged
+covariates propagate forecast-window quantiles. Seven quantile lanes are then
+synthesized and scored only against held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
   {\SmallBodyFont\bfseries\color{TitleSlate}Expanded quantile state-space model\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
-  For each target quantile \(p_0\) and forecast origin \(T\), observed flow,
-  retrospective product histories, and issued forecast members are linked
-  through one latent river-flow quantile. Retrospective products identify source
-  corrections before the origin; forecast products enter through those corrected
-  source channels.\par}
+  For each target quantile \(p_0\) and forecast origin \(T\), the Dynamic
+  Quantile Linear Model (DQLM) links observed flow, retrospective product
+  histories, and issued forecast members through one latent river-flow quantile.
+  Product-family discrepancies learn source corrections before the origin; the
+  same source channels, with forecast-window covariates \(\mathbf{x}_{T+k}\),
+  then define corrected predictive quantiles after the origin.\par}
   \vspace{-0.20cm}
   {\ModelEqFont\color{PosterInk}
   \setlength{\jot}{0.045cm}
@@ -638,13 +641,15 @@ covariates update the same state to form source-adjusted predictive quantiles.}
   \vspace{-0.18cm}
   {\FootFont\color{MutedSlate}
   \(\operatorname{exAL}_{p_0}\) is the extended asymmetric Laplace working
-  likelihood; \(\sigma\) and \(\gamma\) are source-specific scale and skewness
-  terms. \(T\) is the forecast origin, \(j\) a product family, \(i\) an ensemble
-  member, \(k\) a lead, and \(K_{\max}\) the longest horizon. The shared
-  quantile state is \(\boldsymbol{\theta}_t\); source corrections are
-  \(\boldsymbol{\delta}_t^j\); and \((\zeta_t,\boldsymbol{\psi}_t)\) is the
-  exogenous-adjustment block driven by covariates \(\mathbf{x}_t\). Component
-  discounting controls the evolution variances.\par}
+  likelihood for target quantile \(p_0\); \(\sigma\) and \(\gamma\) are
+  source-specific scale and skewness terms. \(T\) is the forecast origin, \(j\)
+  a product family, \(i\) an ensemble member, \(k\) a lead, and \(K_{\max}\) the
+  longest horizon. The shared quantile state is \(\boldsymbol{\theta}_t\);
+  source discrepancies/corrections are \(\boldsymbol{\delta}_t^j\); and
+  \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-adjustment block driven by
+  covariates \(\mathbf{x}_t\) such as precipitation, soil moisture, and the GDPC
+  climate-index summary. Component discounting controls the evolution
+  variances.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
