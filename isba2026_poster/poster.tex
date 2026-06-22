@@ -159,6 +159,8 @@
 % ---------- Type scale -------------------------------------------------------
 \newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
 \newcommand{\PosterTitleFont}{\DisplayFont\fontsize{82}{87}\selectfont}
+\newcommand{\PosterConferenceFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
+\newcommand{\PosterConferenceMetaFont}{\fontsize{18.5}{22}\selectfont}
 \newcommand{\PosterAuthorFont}{\fontsize{29}{35}\selectfont}
 \newcommand{\PosterMetaFont}{\fontsize{22}{27}\selectfont}
 \newcommand{\PosterClaimFont}{\DisplayFont\bfseries\fontsize{34}{40}\selectfont}
@@ -169,6 +171,8 @@
 \newcommand{\SmallBodyFont}{\fontsize{23.5}{29.5}\selectfont}
 \newcommand{\CaptionFont}{\fontsize{22.5}{28}\selectfont}
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
+\newcommand{\FooterLabelFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
+\newcommand{\FooterURLFont}{\fontsize{23.5}{28}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
 \newcommand{\ModelEqFont}{\fontsize{18.0}{20.8}\selectfont}
 
@@ -532,6 +536,14 @@
     \fill[ModelPlum]
       ([xshift=0.72\paperwidth]current page.north west)
       rectangle ([yshift=-0.34cm]current page.north east);
+    \node[
+      anchor=north east,
+      align=right,
+      inner sep=0pt
+    ] at ([xshift=-1.85cm,yshift=-0.82cm]current page.north east) {%
+      {\PosterConferenceFont\color{TitleSlate}ISBA 2026}\\[-0.02cm]
+      {\PosterConferenceMetaFont\color{MutedSlate}World Meeting, Nagoya, Japan}%
+    };
   \end{tikzpicture}
 
   \vspace*{0.18cm}
@@ -561,30 +573,25 @@
 % ---------- Footer -----------------------------------------------------------
 \newcommand{\PosterFooter}{%
   {\color{RuleStone}\rule{\textwidth}{0.75pt}}\par
-  \vspace{0.22cm}
-  \begin{minipage}[c]{0.64\textwidth}
-    {\FootFont\bfseries\color{TitleSlate}UC Santa Cruz Department of Statistics\par}
-    \vspace{0.05cm}
+  \vspace{0.06cm}
+  \begin{minipage}[c]{0.48\textwidth}
     {\FootFont\color{MutedSlate}\RaggedRight
-      \textbf{Contact:} \href{mailto:\PosterEmail}{\PosterEmail}
-      \quad\textbullet\quad
       Source logos identify data and forecast-product providers; no endorsement
       is implied.\par
     }
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.32\textwidth}
-    \begin{columns}[c,totalwidth=\linewidth]
-      \begin{column}{0.34\linewidth}
-        \centering
-        \includegraphics[height=3.15cm]{project1_repo_qr.png}
-      \end{column}
-      \begin{column}{0.63\linewidth}
-        {\FootFont\bfseries\color{TitleSlate}Code and reproducibility\par}
-        \vspace{0.07cm}
-        {\FootFont\color{MutedSlate}\href{\PosterURL}{\PosterURLShort}\par}
-      \end{column}
-    \end{columns}
+  \begin{minipage}[c]{0.47\textwidth}
+    \begin{minipage}[c]{0.23\linewidth}
+      \centering
+      \includegraphics[height=3.65cm]{project1_repo_qr.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.73\linewidth}
+      {\FooterLabelFont\color{TitleSlate}Code and reproducibility\par}
+      \vspace{0.07cm}
+      {\FooterURLFont\color{MutedSlate}\href{\PosterURL}{\PosterURLShort}\par}
+    \end{minipage}
   \end{minipage}
 }
 
@@ -932,7 +939,7 @@ dry and wet regimes.}
 
 % ======================== FOOTER =============================================
 \vfill
-\vspace{0.25cm}
+\vspace{0.00cm}
 \PosterFooter
 
 \end{frame}
