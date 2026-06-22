@@ -494,7 +494,7 @@ if (file.exists(support_manifest_path)) {
     slice_head(n = 1)
 
   if (nrow(component_source_row) == 1 && file.exists(component_source_row$source_absolute_path)) {
-    component_contract <- "component_6_plus_trend_component_1_samplewise"
+    component_contract <- "raw_state_component"
     component_start <- as.Date("2008-01-01")
     dry_start <- as.Date("2012-01-01")
     dry_end <- as.Date("2016-12-31")
@@ -522,7 +522,7 @@ if (file.exists(support_manifest_path)) {
       )
 
     component_y_range <- range(c(component_data$lower_025, component_data$upper_975), na.rm = TRUE)
-    component_y_top <- component_y_range[2] - 0.05 * diff(component_y_range)
+    component_y_top <- component_y_range[2] + 0.035 * diff(component_y_range)
 
     component_palette <- c(
       "5th target quantile" = "#8E2F2F",
@@ -582,7 +582,7 @@ if (file.exists(support_manifest_path)) {
       ) +
       labs(
         title = "80-month seasonal component, 2008-2022",
-        subtitle = "Posterior median lines and light 95% credible bands for three quantile lanes.",
+        subtitle = "Pure component-6 state: posterior medians and light 95% credible bands.",
         x = NULL,
         y = "Component contribution\n(model scale)",
         caption = "Shaded intervals mark dry and wet regimes."
@@ -624,7 +624,7 @@ if (file.exists(support_manifest_path)) {
         dry_period = "2012-01-01/2016-12-31",
         wet_period = "2017-01-01/2019-12-31",
         interval = "lower_025/upper_975 credible band with median_500 line",
-        note = "Poster-specific single-panel rendering from authoritative selected-model support data; runtime CSV is not copied into the article repository."
+        note = "Poster-specific single-panel rendering of raw state component 6 only; no trend component is added. Runtime CSV is not copied into the article repository."
       ),
       file.path(data_dir, "component_80month_poster_provenance.csv")
     )
