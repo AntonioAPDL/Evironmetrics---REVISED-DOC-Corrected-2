@@ -264,6 +264,103 @@
   }
 }
 
+\newcommand{\PosterModelSchematic}{%
+  \vspace{-0.06cm}
+  \begin{center}
+  \resizebox{0.965\linewidth}{!}{%
+  \begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    box/.style={
+      draw=RuleStone,
+      line width=0.45pt,
+      rounded corners=1.1mm,
+      align=center,
+      inner xsep=0.13cm,
+      inner ysep=0.10cm,
+      font=\sffamily\bfseries\fontsize{7.6}{8.5}\selectfont,
+      text=TitleSlate,
+      minimum width=2.85cm,
+      minimum height=0.82cm
+    },
+    modelbox/.style={
+      box,
+      minimum width=3.35cm,
+      minimum height=0.92cm
+    },
+    outbox/.style={
+      box,
+      minimum width=3.35cm,
+      minimum height=0.92cm
+    },
+    arrow/.style={
+      -{Latex[length=2.1mm,width=1.5mm]},
+      line width=0.48pt,
+      draw=MutedSlate
+    },
+    title/.style={
+      align=center,
+      font=\sffamily\bfseries\fontsize{8.1}{8.8}\selectfont,
+      text=TitleSlate
+    },
+    source/.style={
+      font=\sffamily\bfseries\fontsize{4.9}{5.4}\selectfont
+    }
+  ]
+    \node[font=\sffamily\bfseries\fontsize{13.0}{14.0}\selectfont,text=TitleSlate,anchor=west]
+      at (0.05,6.34) {Source-aware dynamic quantile correction and synthesis};
+    \node[font=\sffamily\fontsize{8.8}{9.8}\selectfont,text=MutedSlate,anchor=west,align=left]
+      at (0.05,6.02) {Retrospectives learn source discrepancies before \(T\); issued ensembles and staged covariates propagate corrected forecast-window quantiles.};
+
+    \node[title] at (1.55,5.46) {available at\\ origin \(T\)};
+    \node[title] at (5.65,5.46) {DQLM correction\\ for fixed \(p_0\)};
+    \node[title] at (10.12,5.46) {posterior synthesis\\ and scoring};
+
+    \node[box,fill=PosterWhite,draw=USGSInk] (usgs) at (1.55,4.55)
+      {USGS flow\\[-0.02cm]\(\color{USGSInk}y^o_{1:T}\)\\[-0.02cm]{\color{MutedSlate}post-\(T\) held out}};
+    \node[box,fill=PosterWhite] (retro) at (1.55,3.52)
+      {retrospectives\\[-0.02cm]\(\color{PosterInk}z^j_{1:T}\)\\[-0.02cm]
+       {\sffamily\bfseries\fontsize{4.9}{5.4}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.42cm}{\sffamily\bfseries\fontsize{4.9}{5.4}\selectfont\color{NWSPurple}NWS}};
+    \node[box,fill=HydroBlue!8] (fcst) at (1.55,2.49)
+      {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_T^{j,i}(k)\)\\[-0.02cm]
+       {\sffamily\bfseries\fontsize{4.9}{5.4}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.42cm}{\sffamily\bfseries\fontsize{4.9}{5.4}\selectfont\color{NWSPurple}NWS}};
+    \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.55,1.38)
+      {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
+
+    \node[modelbox,fill=HydroBlue!10,draw=HydroBlue] (theta) at (5.65,4.60)
+      {shared USGS quantile\\[-0.02cm]\(\color{HydroBlue}\boldsymbol{\theta}_t\)\\[-0.02cm]{\color{MutedSlate}trend + seasonality}};
+    \node[modelbox,fill=PanelStone] (delta) at (5.65,3.48)
+      {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}bias/correction states}};
+    \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (5.65,2.36)
+      {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}\(\mathbf{x}_t\) before + after \(T\)}};
+    \node[modelbox,fill=ALOchre!7,draw=ALOchre] (span) at (5.65,1.24)
+      {one DQLM spans\\[-0.02cm]history and forecast\\[-0.02cm]{\color{MutedSlate}channel switch at \(T\)}};
+
+    \node[outbox,fill=HydroBlue!10,draw=HydroBlue] (qlanes) at (10.12,4.15)
+      {seven quantile lanes\\[-0.02cm]\(\color{HydroBlue}p_0\in\{.05,\ldots,.95\}\)};
+    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite] (synth) at (10.12,2.84)
+      {synthesized posterior\\[-0.02cm]predictive distribution};
+    \node[outbox,fill=PosterWhite,draw=USGSInk] (score) at (10.12,1.53)
+      {forecast-window scoring\\[-0.02cm]held-out \(\color{USGSInk}y^o_{T+1:T+K_{\max}}\) + CRPS};
+
+    \draw[arrow] (usgs.east) -- (theta.west);
+    \draw[arrow] (retro.east) -- (delta.west);
+    \draw[arrow] (fcst.east) -- (delta.west);
+    \draw[arrow] (covs.east) -- (transfer.west);
+
+    \draw[arrow] (theta.east) -- (qlanes.west);
+    \draw[arrow] (delta.east) -- (qlanes.west);
+    \draw[arrow] (transfer.east) -- (qlanes.west);
+    \draw[arrow] (span.east) -- (qlanes.west);
+
+    \draw[arrow] (qlanes.south) -- (synth.north);
+    \draw[arrow] (synth.south) -- (score.north);
+  \end{tikzpicture}%
+  }
+  \end{center}
+  \vspace{-0.10cm}
+}
+
 % ---------- Robust figure loader --------------------------------------------
 % Missing figures become clean placeholders, so the source remains editable and
 % compilable before all generated assets are present.
@@ -579,7 +676,7 @@ into the posterior predictive distribution scored by CRPS.\par}
 \vspace{0pt}
 
 \SectionHead{Model}{One DQLM for source correction, then synthesis}
-\PosterGraphic[18.4cm]{model_schematic.pdf}{Dynamic quantile correction schematic}
+\PosterModelSchematic
 \FigureCaption[DQLM correction stage.]{For a fixed quantile \(p_0\), one
 Dynamic Quantile Linear Model spans the pre-origin and forecast windows: USGS
 observations and retrospectives identify the latent flow quantile and
