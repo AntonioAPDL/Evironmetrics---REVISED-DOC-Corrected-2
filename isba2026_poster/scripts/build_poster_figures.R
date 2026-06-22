@@ -495,7 +495,7 @@ if (file.exists(support_manifest_path)) {
 
   if (nrow(component_source_row) == 1 && file.exists(component_source_row$source_absolute_path)) {
     component_contract <- "component_6_plus_trend_component_1_samplewise"
-    component_start <- as.Date("2000-01-01")
+    component_start <- as.Date("2008-01-01")
     dry_start <- as.Date("2012-01-01")
     dry_end <- as.Date("2016-12-31")
     wet_start <- as.Date("2017-01-01")
@@ -521,7 +521,7 @@ if (file.exists(support_manifest_path)) {
         )
       )
 
-    component_y_range <- range(component_data$median_500, na.rm = TRUE)
+    component_y_range <- range(c(component_data$lower_025, component_data$upper_975), na.rm = TRUE)
     component_y_top <- component_y_range[2] - 0.05 * diff(component_y_range)
 
     component_palette <- c(
@@ -530,7 +530,26 @@ if (file.exists(support_manifest_path)) {
       "95th target quantile" = poster_cols[["hydro"]]
     )
 
-    pc <- ggplot(component_data, aes(x = date, y = median_500, color = quantile_label)) +
+    top_facet <- factor(
+      "5th target quantile",
+      levels = c("5th target quantile", "median target quantile", "95th target quantile")
+    )
+
+    dry_label <- tibble(
+      quantile_label = top_facet,
+      x = as.Date("2014-07-01"),
+      y = component_y_top,
+      label = "dry\n2012-2016"
+    )
+
+    wet_label <- tibble(
+      quantile_label = top_facet,
+      x = as.Date("2018-07-01"),
+      y = component_y_top,
+      label = "wet\n2017-2019"
+    )
+
+    pc <- ggplot(component_data, aes(x = date, y = median_500, color = quantile_label, fill = quantile_label)) +
       annotate(
         "rect", xmin = dry_start, xmax = dry_end, ymin = -Inf, ymax = Inf,
         fill = "#F4EAD2", alpha = 0.74
@@ -540,51 +559,56 @@ if (file.exists(support_manifest_path)) {
         fill = "#E8F0F4", alpha = 0.78
       ) +
       geom_hline(yintercept = 0, linewidth = 0.55, color = poster_cols[["rule"]]) +
-      geom_line(
-        data = filter(component_data, quantile != "q50"),
-        linewidth = 0.78, alpha = 0.82
+      geom_ribbon(aes(ymin = lower_025, ymax = upper_975), alpha = 0.16, color = NA, show.legend = FALSE) +
+      geom_line(linewidth = 0.92) +
+      geom_text(
+        data = dry_label,
+        aes(x = x, y = y, label = label),
+        inherit.aes = FALSE,
+        color = poster_cols[["ochre"]],
+        fontface = "bold", size = 3.6, lineheight = 0.92
       ) +
-      geom_line(
-        data = filter(component_data, quantile == "q50"),
-        linewidth = 1.25
-      ) +
-      annotate(
-        "text", x = as.Date("2014-07-01"), y = component_y_top,
-        label = "dry\n2012-2016", color = poster_cols[["ochre"]],
-        fontface = "bold", size = 5.3, lineheight = 0.92
-      ) +
-      annotate(
-        "text", x = as.Date("2018-07-01"), y = component_y_top,
-        label = "wet\n2017-2019", color = poster_cols[["hydro"]],
-        fontface = "bold", size = 5.3, lineheight = 0.92
+      geom_text(
+        data = wet_label,
+        aes(x = x, y = y, label = label),
+        inherit.aes = FALSE,
+        color = poster_cols[["hydro"]],
+        fontface = "bold", size = 3.6, lineheight = 0.92
       ) +
       scale_color_manual(
         values = component_palette,
         breaks = c("5th target quantile", "median target quantile", "95th target quantile"),
         labels = c("5th", "median", "95th")
       ) +
+      scale_fill_manual(values = component_palette, guide = "none") +
       scale_x_date(
-        date_breaks = "5 years",
+        limits = c(as.Date("2008-01-01"), as.Date("2022-12-31")),
+        date_breaks = "2 years",
         date_labels = "%Y",
         expand = expansion(mult = c(0.01, 0.015))
       ) +
       labs(
-        title = "80-month latent component, 2000-2022",
-        subtitle = "Selected exAL-M-T1 fit at the 2022-12-25 origin; posterior medians.",
+        title = "Selected 2022-12-25 model",
+        subtitle = "Median with 95% credible band.",
         x = NULL,
         y = "Component contribution\n(model scale)",
-        caption = "Shaded intervals mark dry and wet periods for hydrologic context."
+        caption = "Shaded intervals mark dry and wet regimes."
       ) +
+      facet_grid(quantile_label ~ ., switch = "y") +
       theme_poster(22) +
       guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
       theme(
-        legend.position = "bottom",
-        legend.text = element_text(size = 13.2),
+        legend.position = "none",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(
+          angle = 0, face = "bold", color = poster_cols[["title"]],
+          size = 12.2, margin = margin(r = 5)
+        ),
         axis.title.y = element_text(size = 15, lineheight = 0.95),
         axis.text.x = element_text(size = 14),
         axis.text.y = element_text(size = 13),
-        plot.title = element_text(size = 22.5),
-        plot.subtitle = element_text(size = 15.5, margin = margin(b = 8)),
+        plot.title = element_text(size = 18.5),
+        plot.subtitle = element_text(size = 13.6, margin = margin(b = 7)),
         plot.caption = element_text(size = 11.5),
         panel.grid.major.x = element_line(color = "#E1E5E3", linewidth = 0.35),
         plot.margin = margin(9, 12, 7, 12)
@@ -607,6 +631,7 @@ if (file.exists(support_manifest_path)) {
         date_window_end = as.character(max(component_data$date, na.rm = TRUE)),
         dry_period = "2012-01-01/2016-12-31",
         wet_period = "2017-01-01/2019-12-31",
+        interval = "lower_025/upper_975 credible band with median_500 line",
         note = "Poster-specific rendering from authoritative selected-model support data; runtime CSV is not copied into the article repository."
       ),
       file.path(data_dir, "component_80month_poster_provenance.csv")

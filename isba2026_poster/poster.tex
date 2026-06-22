@@ -868,6 +868,15 @@ Values left of the raw GloFAS line indicate lower mean CRPS than raw GloFAS at
 that origin; raw NWS is evaluated over common leads 1--8 in the horizon-matched
 tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
 
+\vspace{0.24cm}
+
+\SectionHead{Fit}{Wet-period quantile fit}
+\FramedPosterGraphic[9.0cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
+\FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
+locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
+fits are shown with observed USGS flow; wider upper-tail bands make winter
+high-flow behavior visible.}
+
 \end{minipage}
 \end{minipage}%
 \hspace{\PosterColumnGap}%
@@ -876,32 +885,25 @@ tables, not mixed into this 28-day GloFAS-supported benchmark.\par}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Fit}{Wet-period quantile fit}
-\FramedPosterGraphic[14.4cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
-\FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
-locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
-fits are shown with observed USGS flow; wider upper-tail bands during winter
-peaks make the dynamic quantile behavior visible. This is a fit diagnostic, not
-an additional forecast-validation result.}
-
-\vspace{0.72cm}
-
-\SectionHead{Example}{Two forecast-window examples}
-\FramedPosterGraphic[12.6cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
-\vspace{0.28cm}
-\FramedPosterGraphic[12.6cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
-\FigureCaption[Origin-level illustrations.]{Two selected forecast windows show
+\SectionHead{Example}{Three forecast-window examples}
+\FramedPosterGraphic[11.4cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
+\vspace{0.24cm}
+\FramedPosterGraphic[11.4cm]{cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-11-12 synthesis}
+\vspace{0.24cm}
+\FramedPosterGraphic[11.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\FigureCaption[Origin-level illustrations.]{Three selected forecast windows show
 how corrected quantile forecasts combine into a posterior predictive envelope
 after the cutoff. The panels are illustrative checks of behavior at individual
 origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 
 \vspace{0.64cm}
 
-\SectionHead{Dynamics}{80-month latent component}
-\FramedPosterGraphic[13.5cm]{component_80month_poster.pdf}{80-month component diagnostic}
+\SectionHead{Dynamics}{80-month seasonal component}
+\FramedPosterGraphic[14.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
 \FigureCaption[Retrospective diagnostic.]{From the selected model at the
-2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
-components over 2000--2022; shaded intervals mark dry and wet regimes.}
+2022-12-25 origin. Each row shows the posterior median and 95\% credible band
+for one target-quantile lane over 2008--2022; shaded intervals mark dry and wet
+regimes.}
 
 \vspace{0.64cm}
 
