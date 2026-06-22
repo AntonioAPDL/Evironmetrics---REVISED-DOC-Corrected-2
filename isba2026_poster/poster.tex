@@ -142,10 +142,19 @@
 \newlength{\PosterLeftColumnWidth}
 \newlength{\PosterSharedColumnWidth}
 \newlength{\PosterColumnGap}
+\newlength{\PosterThirdColumnCenterX}
+\newlength{\PosterUCSCLogoSize}
+\newlength{\PosterHeaderLogoBoxWidth}
 \setlength{\PosterLeftColumnWidth}{0.225\textwidth}
 \setlength{\PosterColumnGap}{0.014\textwidth}
 \setlength{\PosterSharedColumnWidth}{%
   \dimexpr(\textwidth-\PosterLeftColumnWidth-2\PosterColumnGap)/2\relax}
+\setlength{\PosterThirdColumnCenterX}{%
+  \dimexpr\PosterLeftColumnWidth+\PosterColumnGap+\PosterSharedColumnWidth+\PosterColumnGap\relax}
+\addtolength{\PosterThirdColumnCenterX}{0.5\PosterSharedColumnWidth}
+\setlength{\PosterUCSCLogoSize}{11.75cm}
+\setlength{\PosterHeaderLogoBoxWidth}{\dimexpr\textwidth-\PosterThirdColumnCenterX\relax}
+\addtolength{\PosterHeaderLogoBoxWidth}{0.5\PosterUCSCLogoSize}
 
 % ---------- Type scale -------------------------------------------------------
 \newcommand{\DisplayFont}{\ifPosterHasRaleway\fontfamily{Raleway-TLF}\selectfont\else\sffamily\fi}
@@ -543,7 +552,9 @@
   \begin{minipage}[t]{0.270\textwidth}
     \raggedleft
     \vspace{-1.65cm}
-    \LogoGraphic[11.75cm]{ucsc_uc_seal_1800px_transparent.png}{11.75cm}{UCSC}\par
+    \makebox[\PosterHeaderLogoBoxWidth][l]{%
+      \LogoGraphic[\PosterUCSCLogoSize]{ucsc_uc_seal_1800px_transparent.png}{\PosterUCSCLogoSize}{UCSC}%
+    }\par
   \end{minipage}
 }
 
