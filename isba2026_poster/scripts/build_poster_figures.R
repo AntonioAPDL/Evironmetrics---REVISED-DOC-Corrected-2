@@ -552,8 +552,8 @@ if (file.exists(support_manifest_path)) {
         fill = "#E8F0F4", alpha = 0.78
       ) +
       geom_hline(yintercept = 0, linewidth = 0.55, color = poster_cols[["rule"]]) +
-      geom_ribbon(aes(ymin = lower_025, ymax = upper_975), alpha = 0.115, color = NA, show.legend = FALSE) +
-      geom_line(linewidth = 1.05, lineend = "round") +
+      geom_ribbon(aes(ymin = lower_025, ymax = upper_975), alpha = 0.18, color = NA, show.legend = FALSE) +
+      geom_line(linewidth = 0.82, lineend = "round") +
       geom_text(
         data = dry_label,
         aes(x = x, y = y, label = label),
