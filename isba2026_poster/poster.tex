@@ -154,9 +154,9 @@
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
   \noindent
-  {\DisplayFont\bfseries\fontsize{20.5}{24}\selectfont
-   \color{HydroBlue}\MakeUppercase{#1}\par}
-  \vspace{0.03cm}
+  {\DisplayFont\bfseries\fontsize{24}{28}\selectfont
+   \color{HydroBlue}\RaggedRight\MakeUppercase{#1}\par}
+  \vspace{0.02cm}
   {\SectionFont\color{TitleSlate}\RaggedRight #2\par}
   \vspace{0.13cm}
   {\color{HydroBlue}\rule{0.16\linewidth}{1.15pt}%
@@ -276,52 +276,52 @@
       line width=0.45pt,
       rounded corners=1.1mm,
       align=center,
-      inner xsep=0.16cm,
-      inner ysep=0.12cm,
-      font=\sffamily\bfseries\fontsize{8.7}{9.7}\selectfont,
+      inner xsep=0.13cm,
+      inner ysep=0.10cm,
+      font=\sffamily\bfseries\fontsize{7.9}{8.8}\selectfont,
       text=TitleSlate,
-      minimum width=2.66cm,
-      minimum height=0.94cm
+      minimum width=2.43cm,
+      minimum height=0.82cm
     },
     modelbox/.style={
       box,
-      minimum width=2.82cm,
-      minimum height=1.04cm
+      minimum width=2.58cm,
+      minimum height=0.91cm
     },
     outbox/.style={
       box,
-      minimum width=2.72cm,
-      minimum height=1.02cm
+      minimum width=2.50cm,
+      minimum height=0.90cm
     },
     arrow/.style={
-      -{Latex[length=2.3mm,width=1.6mm]},
-      line width=0.54pt,
+      -{Latex[length=2.0mm,width=1.45mm]},
+      line width=0.48pt,
       draw=MutedSlate
     },
     title/.style={
       align=center,
-      font=\sffamily\bfseries\fontsize{9.5}{10.5}\selectfont,
+      font=\sffamily\bfseries\fontsize{8.9}{9.9}\selectfont,
       text=TitleSlate
     },
     source/.style={
-      font=\sffamily\bfseries\fontsize{5.4}{6.0}\selectfont
+      font=\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont
     }
   ]
     \path[use as bounding box] (-0.10,0.18) rectangle (12.42,5.88);
 
     \node[title] at (1.30,5.60) {available at\\ the cutoff};
     \node[title] at (4.42,5.60) {DQLM correction\\ for fixed \(p_0\)};
-    \node[title] at (7.56,5.60) {posterior\\ synthesis};
-    \node[title] at (10.96,5.60) {forecast-window\\ scoring};
+    \node[title] at (7.68,5.60) {posterior\\ synthesis};
+    \node[title] at (11.02,5.60) {forecast-window\\ scoring};
 
     \node[box,fill=PosterWhite,draw=USGSInk] (usgs) at (1.30,4.34)
       {USGS flow\\[-0.02cm]\(\color{USGSInk}y_t^o\)\\[-0.02cm]{\color{MutedSlate}through cutoff}\\[-0.03cm]{\color{MutedSlate}future held out}};
     \node[box,fill=PosterWhite] (retro) at (1.30,3.03)
       {retrospectives\\[-0.02cm]\(\color{PosterInk}z_t^j\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{5.4}{6.0}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.42cm}{\sffamily\bfseries\fontsize{5.4}{6.0}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
     \node[box,fill=HydroBlue!8] (fcst) at (1.30,1.85)
       {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_{\mathrm{cutoff}}^{j,i}(k)\)\\[-0.02cm]
-       {\sffamily\bfseries\fontsize{5.4}{6.0}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.42cm}{\sffamily\bfseries\fontsize{5.4}{6.0}\selectfont\color{NWSPurple}NWS}};
+       {\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{GloFASOrange}GloFAS}\hspace{0.38cm}{\sffamily\bfseries\fontsize{5.0}{5.6}\selectfont\color{NWSPurple}NWS}};
     \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.61)
       {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
 
@@ -332,13 +332,13 @@
     \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.42,1.83)
       {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}driven by \(\mathbf{x}_t\)}};
 
-    \node[outbox,fill=HydroBlue!10,draw=HydroBlue] (qlanes) at (7.56,3.95)
+    \node[outbox,fill=HydroBlue!10,draw=HydroBlue] (qlanes) at (7.68,3.95)
       {seven quantile lanes\\[-0.02cm]\(\color{HydroBlue}p_0\in\{.05,\ldots,.95\}\)};
-    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite] (synth) at (7.56,2.43)
+    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite] (synth) at (7.68,2.43)
       {synthesized posterior\\[-0.02cm]predictive distribution};
-    \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (10.96,3.68)
+    \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (11.02,3.68)
       {held-out USGS\\[-0.02cm]verification flow};
-    \node[outbox,fill=PosterWhite,draw=ModelPlum] (score) at (10.96,2.05)
+    \node[outbox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,2.05)
       {CRPS and\\[-0.02cm]check-loss summaries\\[-0.02cm]{\color{MutedSlate}lower is better}};
 
     \draw[arrow] (usgs.east) -- (theta.west);
