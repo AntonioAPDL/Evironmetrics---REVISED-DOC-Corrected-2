@@ -525,25 +525,18 @@ if (file.exists(support_manifest_path)) {
     component_y_top <- component_y_range[2] - 0.05 * diff(component_y_range)
 
     component_palette <- c(
-      "5th target quantile" = poster_cols[["sage"]],
-      "median target quantile" = poster_cols[["title"]],
-      "95th target quantile" = poster_cols[["hydro"]]
-    )
-
-    top_facet <- factor(
-      "5th target quantile",
-      levels = c("5th target quantile", "median target quantile", "95th target quantile")
+      "5th target quantile" = "#8E2F2F",
+      "median target quantile" = "#1F6B4A",
+      "95th target quantile" = "#1E4F7A"
     )
 
     dry_label <- tibble(
-      quantile_label = top_facet,
       x = as.Date("2014-07-01"),
       y = component_y_top,
       label = "dry\n2012-2016"
     )
 
     wet_label <- tibble(
-      quantile_label = top_facet,
       x = as.Date("2018-07-01"),
       y = component_y_top,
       label = "wet\n2017-2019"
@@ -559,26 +552,26 @@ if (file.exists(support_manifest_path)) {
         fill = "#E8F0F4", alpha = 0.78
       ) +
       geom_hline(yintercept = 0, linewidth = 0.55, color = poster_cols[["rule"]]) +
-      geom_ribbon(aes(ymin = lower_025, ymax = upper_975), alpha = 0.16, color = NA, show.legend = FALSE) +
-      geom_line(linewidth = 0.92) +
+      geom_ribbon(aes(ymin = lower_025, ymax = upper_975), alpha = 0.115, color = NA, show.legend = FALSE) +
+      geom_line(linewidth = 1.05, lineend = "round") +
       geom_text(
         data = dry_label,
         aes(x = x, y = y, label = label),
         inherit.aes = FALSE,
         color = poster_cols[["ochre"]],
-        fontface = "bold", size = 3.6, lineheight = 0.92
+        fontface = "bold", size = 4.2, lineheight = 0.92
       ) +
       geom_text(
         data = wet_label,
         aes(x = x, y = y, label = label),
         inherit.aes = FALSE,
         color = poster_cols[["hydro"]],
-        fontface = "bold", size = 3.6, lineheight = 0.92
+        fontface = "bold", size = 4.2, lineheight = 0.92
       ) +
       scale_color_manual(
         values = component_palette,
         breaks = c("5th target quantile", "median target quantile", "95th target quantile"),
-        labels = c("5th", "median", "95th")
+        labels = c("5th", "50th", "95th")
       ) +
       scale_fill_manual(values = component_palette, guide = "none") +
       scale_x_date(
@@ -588,35 +581,34 @@ if (file.exists(support_manifest_path)) {
         expand = expansion(mult = c(0.01, 0.015))
       ) +
       labs(
-        title = "Selected 2022-12-25 model",
-        subtitle = "Median with 95% credible band.",
+        title = "80-month seasonal component, 2008-2022",
+        subtitle = "Posterior median lines and light 95% credible bands for three quantile lanes.",
         x = NULL,
         y = "Component contribution\n(model scale)",
         caption = "Shaded intervals mark dry and wet regimes."
       ) +
-      facet_grid(quantile_label ~ ., switch = "y") +
       theme_poster(22) +
       guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
       theme(
-        legend.position = "none",
-        strip.placement = "outside",
-        strip.text.y.left = element_text(
-          angle = 0, face = "bold", color = poster_cols[["title"]],
-          size = 12.2, margin = margin(r = 5)
-        ),
-        axis.title.y = element_text(size = 15, lineheight = 0.95),
-        axis.text.x = element_text(size = 14),
-        axis.text.y = element_text(size = 13),
-        plot.title = element_text(size = 18.5),
-        plot.subtitle = element_text(size = 13.6, margin = margin(b = 7)),
-        plot.caption = element_text(size = 11.5),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 12.8, color = poster_cols[["title"]]),
+        legend.key.width = unit(1.15, "cm"),
+        legend.margin = margin(t = -3, b = -4),
+        axis.title.y = element_text(size = 15.8, lineheight = 0.95),
+        axis.text.x = element_text(size = 14.4),
+        axis.text.y = element_text(size = 13.8),
+        plot.title = element_text(size = 20.5),
+        plot.subtitle = element_text(size = 13.8, margin = margin(b = 8)),
+        plot.caption = element_text(size = 11.8),
         panel.grid.major.x = element_line(color = "#E1E5E3", linewidth = 0.35),
-        plot.margin = margin(9, 12, 7, 12)
+        panel.grid.minor = element_blank(),
+        plot.margin = margin(9, 12, 5, 12)
       )
 
     ggsave(
       filename = file.path(fig_dir, "component_80month_poster.pdf"),
-      plot = pc, device = cairo_pdf, width = 8.8, height = 5.8, units = "in"
+      plot = pc, device = cairo_pdf, width = 8.8, height = 4.55, units = "in"
     )
 
     write_csv(
@@ -632,7 +624,7 @@ if (file.exists(support_manifest_path)) {
         dry_period = "2012-01-01/2016-12-31",
         wet_period = "2017-01-01/2019-12-31",
         interval = "lower_025/upper_975 credible band with median_500 line",
-        note = "Poster-specific rendering from authoritative selected-model support data; runtime CSV is not copied into the article repository."
+        note = "Poster-specific single-panel rendering from authoritative selected-model support data; runtime CSV is not copied into the article repository."
       ),
       file.path(data_dir, "component_80month_poster_provenance.csv")
     )
