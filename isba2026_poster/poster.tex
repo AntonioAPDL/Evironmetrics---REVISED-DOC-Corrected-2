@@ -798,52 +798,45 @@ that origin; raw NWS is evaluated only in the separate 1--8 day panel.\par}
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Horizon}{Horizon-matched NWS check}
-\PosterGraphic[19.0cm]{crps_8d_nws_poster.pdf}{Eight-day NWS-horizon CRPS comparison}
-\FigureCaption[Horizon-matched evidence.]{Over common days 1--8, exAL-M-T1 has
-the lowest mean CRPS at three origins and raw NWS at two. The axis is normalized
-by the origin-specific best 8-day CRPS, so 1.0 marks the winner for that origin;
-this is separate from the 28-day benchmark.}
+\SectionHead{Fit}{Wet-period quantile fit}
+\PosterGraphic[13.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
+\FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
+locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
+fits are shown with observed USGS flow; wider upper-tail bands during winter
+peaks make the dynamic quantile behavior visible. This is a fit diagnostic, not
+an additional forecast-validation result.}
 
 \vspace{0.72cm}
 
-\SectionHead{Example}{Representative forecast window}
-\PosterGraphic[20.4cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
-\FigureCaption[Illustrative, not aggregate validation.]{The selected exAL-M-T1
-forecast at the 2022-12-25 origin shows how forecast inputs and posterior
-uncertainty evolve. At this origin AL-M-T1 has the lowest 28-day CRPS, so this
-panel is illustrative; aggregate evidence comes from all five origins.}
+\SectionHead{Example}{Two forecast-window examples}
+\PosterGraphic[10.9cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
+\vspace{0.28cm}
+\PosterGraphic[10.9cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\FigureCaption[Origin-level illustrations.]{Two selected forecast windows show
+how corrected quantile forecasts combine into a posterior predictive envelope
+after the cutoff. The panels are illustrative checks of behavior at individual
+origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 
 \vspace{0.64cm}
 
 \SectionHead{Dynamics}{80-month latent component}
 \PosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
-\FigureCaption[Retrospective diagnostic.]{From the selected exAL-M-T1 fit at
-the 2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
-components over 2000--2022; shading marks dry and wet periods for hydrologic
-context.}
+\FigureCaption[Retrospective diagnostic.]{From the selected model at the
+2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
+components over 2000--2022; shaded intervals mark dry and wet regimes.}
 
 \vspace{0.64cm}
 
-\SectionHead{Interpretation}{What the evidence supports}
-\begin{PosterItems}
-  \item The source-aware exAL model (exAL-M-T1) has the lowest mean 28-day CRPS
-  at four origins; AL-M-T1 is lowest at 2022-12-25.
-  \item Over common days 1--8, exAL-M-T1 is lowest at three origins and raw NWS
-  at two.
-  \item Fitted latent states provide retrospective component diagnostics in
-  addition to forecast-window predictive quantiles.
-  \item The five-window design is a targeted stress test, not a continuous
-  hindcast.
-\end{PosterItems}
-
-\vspace{0.22cm}
+\SectionHead{Interpretation}{Main takeaway}
 \begin{KeyQuestion}
   {\SmallBodyFont\color{PosterInk}
-  \textbf{Take-home.} Retrospective archives identify source-specific
-  corrections before forecast-product blending. In this five-origin study, the
-  source-aware exAL model leads the 28-day CRPS comparison at four origins and
-  yields interpretable retrospective diagnostics.\par}
+  \textbf{Answer to the poster question.} Historical product archives can be
+  used to learn source-specific corrections before forecast products are
+  blended. In this five-origin San Lorenzo study, the selected source-aware
+  model leads the 28-day CRPS comparison at four origins, while the fitted
+  quantile diagnostics show interpretable changes in spread across wet
+  high-flow periods. The design is a targeted rolling-origin stress test, not a
+  continuous hindcast.\par}
 \end{KeyQuestion}
 
 \end{minipage}
