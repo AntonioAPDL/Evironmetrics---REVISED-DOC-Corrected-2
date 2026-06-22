@@ -144,7 +144,7 @@
 \setlength{\parskip}{0.14cm}
 \renewcommand{\arraystretch}{1.16}
 
-% The poster uses a fixed orientation column plus two equal-width evidence
+% The poster uses a fixed orientation column and two equal-width evidence
 % columns. Keeping these as lengths makes the layout rule explicit and prevents
 % the right evidence column from being squeezed by a dominant center column.
 \newlength{\PosterLeftColumnWidth}
@@ -277,14 +277,10 @@
   }%
 }
 
-\newcommand{\SourceDot}[1]{%
-  \tikz[baseline=-0.55ex]\fill[#1] (0,0) circle (0.17cm);%
-}
-
 \newcommand{\SourceRow}[3]{%
   \begin{minipage}[t]{\linewidth}
     \RaggedRight
-    {\SmallBodyFont\bfseries\color{TitleSlate}\SourceDot{#1}\enspace #2\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}#2\par}
     \vspace{0.03cm}
     {\CaptionFont\color{MutedSlate}#3\par}
   \end{minipage}\par
@@ -643,24 +639,24 @@
 \begin{minipage}[t]{\linewidth}
 \vspace{0pt}
 
-\SectionHead{Question}{Fast correction before synthesis}
+\SectionHead{Question}{Correct first, then synthesize}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\color{TitleSlate}
-\textbf{Can historical product archives learn source discrepancies} and
-propagate those corrections into new quantile-level ensemble forecasts,
-yielding synthesized posterior predictions fast enough for real-time product
-updates?\par}
+\textbf{Can a Bayesian quantile model learn source-specific corrections} from
+paired gauge observations and retrospective product archives, propagate them
+into new ensemble forecasts, and synthesize one posterior predictive
+distribution on operational update timescales?\par}
 \end{KeyQuestion}
 
 \vspace{0.20cm}
 {\SmallBodyFont
 Case study: daily San Lorenzo River flow at the USGS Big Trees gauge on the
-\(\log(1+x)\) scale. Before each origin, USGS flow and retrospective
-GloFAS/NWS products learn dynamic source discrepancies relative to the gauge.
-After the origin, issued ensembles and exogenous covariates carry those
-corrections into source-adjusted quantile forecasts and one posterior predictive
-flow distribution.\par}
+\(\log(1+x)\) scale. Before each forecast origin, observed flow is paired with
+retrospective ECMWF/GloFAS and NOAA/NWS products to learn dynamic source
+corrections. After the origin, issued ensembles and staged exogenous covariates
+carry those corrections into source-adjusted quantile forecasts and one
+posterior predictive distribution.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}[top=0.48cm,bottom=0.46cm]
@@ -673,8 +669,8 @@ flow distribution.\par}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
     {\SmallBodyFont\bfseries\color{TitleSlate}USGS observations\par}
-    {\CaptionFont\color{MutedSlate}15-min public gauge data; daily log-flow
-    target for state updating and held-out verification.\par}
+    {\CaptionFont\color{MutedSlate}15-min public gauge record aggregated to
+    daily log-flow; target for state updating and held-out verification.\par}
   \end{minipage}
 
   \vspace{0.30cm}
@@ -689,8 +685,8 @@ flow distribution.\par}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
     {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF GloFAS\par}
-    {\CaptionFont\color{MutedSlate}retrospective alignment; daily 51-member
-    forecast guidance to 28 days.\par}
+    {\CaptionFont\color{MutedSlate}retrospective alignment and daily
+    51-member forecast guidance to 28 days.\par}
   \end{minipage}
 
   \vspace{0.30cm}
@@ -706,8 +702,8 @@ flow distribution.\par}
     \RaggedRight
     \hyphenpenalty=10000\exhyphenpenalty=10000
     {\SmallBodyFont\bfseries\color{TitleSlate}NOAA NWS\par}
-    {\CaptionFont\color{MutedSlate}retrospective alignment; hourly forecasts
-    evaluated on common daily leads 1--8.\par}
+    {\CaptionFont\color{MutedSlate}retrospective alignment and hourly
+    forecasts evaluated on common daily leads 1--8.\par}
   \end{minipage}
 
   \vspace{0.34cm}
