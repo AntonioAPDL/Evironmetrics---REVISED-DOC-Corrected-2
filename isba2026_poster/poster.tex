@@ -66,27 +66,37 @@
   {../Figures/manuscript/}
 }
 
-% ---------- Refined semantic palette ----------------------------------------
-% Warm paper + slate ink keep the surface quiet. Source colors are fixed:
-% GloFAS uses dark orange; NWS uses purple. Ochre distinguishes the AL-M-T1
-% exception/comparator.
-\definecolor{PosterPaper}{HTML}{FBFAF6}
+% ---------- Semantic palette: Sumi Minimal ----------------------------------
+% Quiet editorial neutrals with separated scientific roles:
+% selected exDQLM = plum, GloFAS = blue, NWS = rust, DQLM comparator = gold.
+\definecolor{PosterPaper}{HTML}{FCFCFA}
 \definecolor{PosterWhite}{HTML}{FFFFFF}
-\definecolor{PosterInk}{HTML}{26323A}
-\definecolor{TitleSlate}{HTML}{263C4C}
-\definecolor{MutedSlate}{HTML}{606B72}
-\definecolor{RuleStone}{HTML}{D5D9D7}
-\definecolor{PanelStone}{HTML}{F0F2EF}
-\definecolor{PanelLavender}{HTML}{F2EFF6}
-\definecolor{ModelPlum}{HTML}{6B5B8E}
-\definecolor{HydroBlue}{HTML}{2F7C8C}
-\definecolor{GloFASOrange}{HTML}{C66743}
-\definecolor{NWSPurple}{HTML}{6B5B8E}
-\definecolor{ALOchre}{HTML}{B6892F}
-\definecolor{USGSInk}{HTML}{242A2F}
-\definecolor{CovariateSage}{HTML}{6E8B70}
-\definecolor{CovariateSky}{HTML}{6E91B7}
-\definecolor{ClimateMauve}{HTML}{8A6F84}
+\definecolor{PosterInk}{HTML}{1E252B}
+\definecolor{TitleSlate}{HTML}{1F3442}
+\definecolor{MutedSlate}{HTML}{616B73}
+\definecolor{RuleStone}{HTML}{D8DCDE}
+\definecolor{PanelStone}{HTML}{F3F4F3}
+\definecolor{PanelLavender}{HTML}{EEF2F4}
+
+\definecolor{SelectedModelColor}{HTML}{5C4B86}
+\definecolor{StructureColor}{HTML}{3A7180}
+\definecolor{GloFASColor}{HTML}{356C9C}
+\definecolor{NWSColor}{HTML}{B9553A}
+\definecolor{ComparatorColor}{HTML}{9D7A29}
+\definecolor{USGSColor}{HTML}{181D21}
+\definecolor{CovariateColor}{HTML}{657765}
+\definecolor{CovariateSkyColor}{HTML}{708EAA}
+\definecolor{ClimateIndexColor}{HTML}{827184}
+
+\colorlet{ModelPlum}{SelectedModelColor}
+\colorlet{HydroBlue}{StructureColor}
+\colorlet{GloFASOrange}{GloFASColor}
+\colorlet{NWSPurple}{NWSColor}
+\colorlet{ALOchre}{ComparatorColor}
+\colorlet{USGSInk}{USGSColor}
+\colorlet{CovariateSage}{CovariateColor}
+\colorlet{CovariateSky}{CovariateSkyColor}
+\colorlet{ClimateMauve}{ClimateIndexColor}
 
 \hypersetup{
   colorlinks=true,
