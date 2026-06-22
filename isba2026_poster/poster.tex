@@ -822,7 +822,7 @@ held-out USGS observations.}
 \begin{HeroResult}
   \begin{minipage}[c]{0.76\linewidth}
     {\SmallBodyFont\bfseries\color{TitleSlate}
-      Source-aware exAL has the lowest 28-day CRPS at four of five origins\par}
+      Selected DQLM has the lowest 28-day CRPS at four origins; AL synthesis leads once\par}
   \end{minipage}
   \hfill
   \begin{minipage}[c]{0.21\linewidth}
@@ -830,22 +830,21 @@ held-out USGS observations.}
   \end{minipage}
 
   \vspace{0.24cm}
-  \PosterGraphic[43.0cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
+  \PosterGraphic[41.8cm]{crps_28d_poster.pdf}{Five-cutoff 28-day CRPS comparison}
 
   \vspace{0.30cm}
   \begin{minipage}[t]{0.64\linewidth}
     {\SmallBodyFont\color{PosterInk}
-      \textbf{How to read this panel.} CRPS is the continuous ranked probability
-      score; lower values indicate better predictive-distribution accuracy over
-      the held-out forecast window. Ratios are relative to raw GloFAS at the
-      same origin.\par}
+      \textbf{How to read this panel.} Each point is mean forecast-window CRPS
+      divided by raw GloFAS CRPS at the same origin. Values below \(1.0\) improve
+      on the uncorrected 28-day GloFAS benchmark.\par}
   \end{minipage}
   \hfill
   \begin{minipage}[t]{0.33\linewidth}
     \begin{ExceptionNote}
       {\CaptionFont\color{PosterInk}
-      \textbf{Exception:} AL-M-T1 has the lowest 28-day CRPS at the 2022-12-25
-      origin.\par}
+      \textbf{Exception:} AL synthesis has the lowest 28-day CRPS at the
+      2022-12-25 origin.\par}
     \end{ExceptionNote}
   \end{minipage}
 \end{HeroResult}
@@ -906,7 +905,7 @@ components over 2000--2022; shaded intervals mark dry and wet regimes.}
     products are blended.
     \item Seven corrected quantile lanes are synthesized into one posterior
     predictive distribution.
-    \item In this five-origin study, the selected source-aware model has the
+    \item In this five-origin study, the selected DQLM has the
     lowest 28-day CRPS at four origins; 2022-12-25 favors AL synthesis.
     \item Fitted quantile dynamics remain interpretable: spread widens during
     wet high-flow periods.

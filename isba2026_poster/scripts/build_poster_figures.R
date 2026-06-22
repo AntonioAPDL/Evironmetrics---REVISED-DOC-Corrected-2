@@ -155,70 +155,126 @@ winner_28d <- crps_28d_plot |>
   group_by(cutoff, cutoff_panel) |>
   slice_min(crps, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  mutate(winner_text = paste0("lowest: ", model_label(model)))
+  mutate(
+    winner_text = paste0(sprintf("%.2f", ratio_raw_glofas), "x"),
+    winner_type = factor(
+      recode(model, "exAL-M-T1" = "Selected DQLM", "AL-M-T1" = "AL synthesis"),
+      levels = c("Selected DQLM", "AL synthesis")
+    ),
+    label_x = pmin(ratio_raw_glofas * 1.10, 0.70)
+  )
 
-p28 <- ggplot(crps_28d_plot, aes(y = cutoff_panel)) +
-  geom_vline(xintercept = 1, linewidth = 0.7, linetype = "dashed", color = poster_cols[["muted"]]) +
-  geom_point(
-    data = filter(crps_28d_plot, display_group == "Other Bayesian variants"),
-    aes(x = ratio_raw_glofas, color = display_group),
-    position = position_jitter(width = 0, height = 0.07, seed = 25),
-    size = 3.3, alpha = 0.42
+crps_28d_main <- crps_28d_plot |>
+  filter(model %in% c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS")) |>
+  mutate(
+    result_group = factor(
+      recode(
+        model,
+        "exAL-M-T1" = "Selected DQLM",
+        "AL-M-T1" = "AL synthesis",
+        "RAW-GLOFAS" = "Raw GloFAS"
+      ),
+      levels = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
+    )
+  )
+
+p28_palette <- c(
+  "Selected DQLM" = poster_cols[["title"]],
+  "AL synthesis" = poster_cols[["ochre"]],
+  "Raw GloFAS" = poster_cols[["glofas"]]
+)
+
+p28_shapes <- c(
+  "Selected DQLM" = 16,
+  "AL synthesis" = 18,
+  "Raw GloFAS" = 15
+)
+
+p28 <- ggplot(crps_28d_main, aes(y = cutoff_panel)) +
+  geom_segment(
+    data = winner_28d,
+    aes(x = ratio_raw_glofas, xend = 1, y = cutoff_panel, yend = cutoff_panel),
+    inherit.aes = FALSE,
+    linewidth = 1.25, color = poster_cols[["rule"]], alpha = 0.88
   ) +
   geom_segment(
-    data = filter(crps_28d_plot, model %in% c("exAL-M-T1", "AL-M-T1")) |>
+    data = crps_28d_main |>
+      filter(model %in% c("exAL-M-T1", "AL-M-T1")) |>
       select(cutoff, cutoff_panel, model, ratio_raw_glofas) |>
       pivot_wider(names_from = model, values_from = ratio_raw_glofas),
     aes(x = `exAL-M-T1`, xend = `AL-M-T1`, y = cutoff_panel, yend = cutoff_panel),
-    inherit.aes = FALSE, linewidth = 1.2, color = poster_cols[["rule"]]
+    inherit.aes = FALSE, linewidth = 1.35, color = poster_cols[["rule"]]
+  ) +
+  geom_vline(
+    xintercept = 1, linewidth = 0.8, linetype = "dashed",
+    color = poster_cols[["muted"]]
   ) +
   geom_point(
-    data = filter(crps_28d_plot, display_group != "Other Bayesian variants"),
-    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 6.5, stroke = 1.15
+    aes(x = ratio_raw_glofas, color = result_group, shape = result_group),
+    size = 7.0, stroke = 1.1
   ) +
   geom_label(
     data = winner_28d,
-    aes(x = 1.16, y = cutoff_panel, label = winner_text),
+    aes(x = label_x, y = cutoff_panel, label = winner_text, color = winner_type),
     inherit.aes = FALSE,
-    hjust = 0, size = 5.7, linewidth = 0, fill = poster_cols[["panel"]], color = poster_cols[["title"]],
-    label.padding = unit(0.18, "lines")
+    hjust = 0, size = 5.2, fontface = "bold", linewidth = 0,
+    fill = poster_cols[["white"]], label.padding = unit(0.15, "lines"),
+    show.legend = FALSE
+  ) +
+  annotate(
+    "text", x = 0.965, y = 5.46, label = "raw GloFAS",
+    hjust = 1, vjust = 0.5, color = poster_cols[["glofas"]],
+    size = 5.4, fontface = "bold"
+  ) +
+  annotate(
+    "text", x = 0.092, y = 5.46, label = "lower CRPS",
+    hjust = 0, vjust = 0.5, color = poster_cols[["hydro"]],
+    size = 5.4, fontface = "bold"
   ) +
   scale_x_log10(
-    limits = c(0.06, 12),
-    breaks = c(0.1, 0.25, 0.5, 1, 2, 4, 8),
-    labels = c("0.10x", "0.25x", "0.50x", "raw", "2x", "4x", "8x")
+    limits = c(0.08, 1.18),
+    breaks = c(0.1, 0.25, 0.5, 1),
+    labels = c("0.10x", "0.25x", "0.50x", "1.0x")
   ) +
   scale_color_manual(
-    values = palette,
-    breaks = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")
+    values = p28_palette,
+    breaks = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
   ) +
   scale_shape_manual(
-    values = shape_values[c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")],
-    breaks = c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")
+    values = p28_shapes,
+    breaks = c("Selected DQLM", "AL synthesis", "Raw GloFAS")
   ) +
   labs(
-    title = "28-day CRPS across five\nheld-out rolling origins",
-    subtitle = "Mean CRPS relative to raw GloFAS at the same cutoff; lower and farther left is better.",
-    x = "Mean CRPS / raw GloFAS CRPS",
-    y = NULL,
-    caption = "Grey points are the remaining Bayesian benchmark variants."
+    x = "Mean 28-day CRPS / raw GloFAS CRPS",
+    y = NULL
   ) +
   guides(
     shape = "none",
     color = guide_legend(
+      nrow = 1,
       override.aes = list(
-        alpha = c(1, 1, 1, 0.55),
-        size = c(5, 5, 5, 4),
-        shape = unname(shape_values[c("Selected model", "AL synthesis", "GloFAS", "Other Bayesian variants")])
+        size = c(5.6, 5.6, 5.6),
+        shape = unname(p28_shapes[c("Selected DQLM", "AL synthesis", "Raw GloFAS")])
       )
     )
   ) +
-  theme_poster(25)
+  theme_poster(26) +
+  coord_cartesian(ylim = c(0.62, 5.55), clip = "off") +
+  theme(
+    legend.position = "bottom",
+    legend.justification = "left",
+    legend.box.margin = margin(t = 2, r = 0, b = 0, l = 0),
+    panel.grid.major.x = element_line(color = "#E3E6E4", linewidth = 0.62),
+    panel.grid.major.y = element_blank(),
+    axis.text.y = element_text(size = 24, color = poster_cols[["ink"]]),
+    axis.text.x = element_text(size = 21, color = poster_cols[["ink"]]),
+    axis.title.x = element_text(size = 25, color = poster_cols[["title"]]),
+    plot.margin = margin(8, 14, 6, 10)
+  )
 
 ggsave(
   filename = file.path(fig_dir, "crps_28d_poster.pdf"),
-  plot = p28, device = cairo_pdf, width = 13.0, height = 13.0, units = "in"
+  plot = p28, device = cairo_pdf, width = 13.0, height = 8.4, units = "in"
 )
 
 crps_8d_plot <- crps_8d |>
