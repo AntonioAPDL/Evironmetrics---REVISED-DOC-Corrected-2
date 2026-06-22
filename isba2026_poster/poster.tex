@@ -400,6 +400,53 @@
   }%
 }
 
+\newcommand{\FramedPosterGraphic}[3][10cm]{%
+  \ResolveGraphic{#2}%
+  \ifdefempty{\ResolvedGraphic}{%
+    \begin{tcolorbox}[
+      enhanced,
+      width=\linewidth,
+      height=#1,
+      valign=center,
+      colback=PanelStone,
+      colframe=TitleSlate,
+      boxrule=0.85pt,
+      arc=0.8mm,
+      halign=center,
+      left=0.06cm,
+      right=0.06cm,
+      top=0.06cm,
+      bottom=0.06cm,
+      boxsep=0pt,
+      before skip=0pt,
+      after skip=0pt
+    ]
+      {\DisplayFont\bfseries\fontsize{21}{25}\selectfont\color{TitleSlate}#3\par}
+      \vspace{0.16cm}
+      {\fontsize{15.5}{19}\selectfont\color{MutedSlate}\nolinkurl{#2}\par}
+    \end{tcolorbox}%
+  }{%
+    \begin{tcolorbox}[
+      enhanced,
+      width=\linewidth,
+      colback=PosterWhite,
+      colframe=TitleSlate,
+      boxrule=0.85pt,
+      arc=0.8mm,
+      left=0.055cm,
+      right=0.055cm,
+      top=0.055cm,
+      bottom=0.055cm,
+      boxsep=0pt,
+      before skip=0pt,
+      after skip=0pt
+    ]
+      \centering
+      \includegraphics[width=\linewidth,height=#1,keepaspectratio]{\ResolvedGraphic}\par
+    \end{tcolorbox}%
+  }%
+}
+
 % ---------- Robust logo loader ----------------------------------------------
 \newcommand{\ResolveLogo}[1]{%
   \gdef\ResolvedLogo{}%
@@ -799,7 +846,7 @@ that origin; raw NWS is evaluated only in the separate 1--8 day panel.\par}
 \vspace{0pt}
 
 \SectionHead{Fit}{Wet-period quantile fit}
-\PosterGraphic[13.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
+\FramedPosterGraphic[13.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
 \FigureCaption[Historical fit diagnostic.]{Selected-model fitted quantile
 locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
 fits are shown with observed USGS flow; wider upper-tail bands during winter
@@ -809,9 +856,9 @@ an additional forecast-validation result.}
 \vspace{0.72cm}
 
 \SectionHead{Example}{Two forecast-window examples}
-\PosterGraphic[10.9cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
+\FramedPosterGraphic[10.9cm]{cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png}{Representative 2021-01-23 synthesis}
 \vspace{0.28cm}
-\PosterGraphic[10.9cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
+\FramedPosterGraphic[10.9cm]{cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png}{Representative 2022-12-25 synthesis}
 \FigureCaption[Origin-level illustrations.]{Two selected forecast windows show
 how corrected quantile forecasts combine into a posterior predictive envelope
 after the cutoff. The panels are illustrative checks of behavior at individual
@@ -820,7 +867,7 @@ origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 \vspace{0.64cm}
 
 \SectionHead{Dynamics}{80-month latent component}
-\PosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
+\FramedPosterGraphic[12.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
 \FigureCaption[Retrospective diagnostic.]{From the selected model at the
 2022-12-25 origin. Curves show the 5th, 50th, and 95th target-quantile
 components over 2000--2022; shaded intervals mark dry and wet regimes.}
