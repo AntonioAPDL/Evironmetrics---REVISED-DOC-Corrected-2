@@ -395,7 +395,7 @@
     \node[modelbox,fill=HydroBlue!10,draw=HydroBlue] (theta) at (4.92,4.74)
       {shared USGS quantile\\[-0.02cm]\(\color{HydroBlue}\boldsymbol{\theta}_t\)\\[-0.02cm]{\color{MutedSlate}trend + seasonality}};
     \node[modelbox,fill=PosterWhite] (delta) at (4.92,3.48)
-      {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}bias/correction states}};
+      {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}correction states}};
     \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.92,2.22)
       {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}driven by \(\mathbf{x}_t\)}};
     \node[lanenote,text width=5.65cm] at (3.13,0.12)
@@ -662,10 +662,11 @@ Recent climate analysis and forecasting rely heavily on climate-center model
 archives and ensemble prediction systems.
 \textbf{\color{TitleSlate}Retrospective products} replay a center's
 physical--numerical modeling system over past conditions, so simulated flows can
-be compared with observations and source bias can be learned.
+be compared with observations and source-specific discrepancies can be
+estimated.
 \textbf{\color{TitleSlate}Forecast ensembles} run the operational system from
 current initial conditions to issue many plausible futures; their spread is
-useful, but biases, horizons, and update cycles differ by source.\par}
+useful, but discrepancies, horizons, and update cycles differ by source.\par}
 \end{SoftNote}
 
 \vspace{0.36cm}
@@ -673,20 +674,21 @@ useful, but biases, horizons, and update cycles differ by source.\par}
 
 \begin{KeyQuestion}
 {\SmallBodyFont\color{TitleSlate}
-\textbf{Can quantile-level bias be learned from diverse climate-product
-archives} and propagated into newly issued ensemble forecasts on operational
-update timescales, while preserving an interpretable dynamic decomposition of
-source corrections, trend, seasonality, and exogenous effects?\par}
+\textbf{Can quantile-level source discrepancies be estimated from diverse
+climate-product archives} and propagated into newly issued ensemble forecasts
+on operational update timescales, while preserving an interpretable dynamic
+decomposition of source corrections, trend, seasonality, and exogenous effects?\par}
 \end{KeyQuestion}
 
 \vspace{0.20cm}
 {\SmallBodyFont
 Case study: daily San Lorenzo River flow at the USGS Big Trees gauge on the
 \(\log(1+x)\) scale. Before each forecast origin, observed flow is paired with
-retrospective ECMWF/GloFAS and NOAA/NWS products to estimate source
-corrections. After the origin, issued ensembles and staged exogenous covariates
-are used to carry those corrections into source-adjusted quantile forecasts and one
-posterior predictive distribution.\par}
+retrospective ECMWF/GloFAS and NOAA/NWS products to estimate source-specific
+discrepancy states. After the origin, issued ensembles condition the forecast
+quantiles, while exogenous covariates from the origin-specific input bundle
+enter the transfer component. The result is a set of source-adjusted quantile
+forecasts synthesized into one posterior predictive distribution.\par}
 
 \vspace{0.24cm}
 \begin{SoftNote}[top=0.40cm,bottom=0.38cm]
@@ -747,7 +749,8 @@ posterior predictive distribution.\par}
 \PosterGraphic[21.2cm]{rolling_origin_timeline.pdf}{Rolling-origin validation timeline}
 \FigureCaption[Strict temporal holdout.]{At each origin, fitting uses only USGS
 flow and retrospective products available through that date. Issued forecasts
-and forecast-window exogenous inputs enter after the origin; future USGS
+and forecast-window exogenous inputs from the origin-specific bundle enter after
+the origin; future USGS
 observations are reserved for scoring. Main CRPS uses GloFAS-supported days
 1--28, while NWS is compared over common leads 1--8.}
 
@@ -756,10 +759,10 @@ observations are reserved for scoring. Main CRPS uses GloFAS-supported days
 \SectionHead{Inference}{Scalable Bayesian quantile fitting}
 
 {\SmallBodyFont\RaggedRight\hyphenpenalty=10000\exhyphenpenalty=10000
-Seven independent extended Dynamic Quantile Linear Model (exDQLM) lanes target
-seven levels: 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95. Posterior
-predictive samples are generated for each fitted quantile lane and synthesized
-into one posterior predictive distribution.\par}
+Seven quantile-specific extended Dynamic Quantile Linear Models (exDQLMs) are
+fitted separately at levels 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95.
+Posterior predictive samples are generated for each fitted quantile lane and
+synthesized into one posterior predictive distribution.\par}
 
 \vspace{0.20cm}
 \begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.0mm}{0pt}{StructureColor},top=0.48cm,bottom=0.46cm]
@@ -789,16 +792,16 @@ into one posterior predictive distribution.\par}
   {\SmallBodyFont\bfseries\color{TitleSlate}Parallel quantile lanes\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Each quantile level is fit as its own state-space model; the lanes can run
+  Each quantile level is fitted as its own state-space model; the lanes can run
   concurrently before forecast quantiles are synthesized.\par}
 
   \vspace{0.22cm}
   {\SmallBodyFont\bfseries\color{TitleSlate}Scalable VB updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes supports Kalman filtering and backward smoothing
-  for state-distribution updates. Laplace--Delta approximations handle the
-  non-conjugate exAL scale and skewness parameters.\par}
+  Within the mean-field variational updates, Gaussian state blocks are updated
+  by Kalman filtering and backward smoothing. Laplace--Delta approximations
+  update the non-conjugate exAL scale and skewness parameters.\par}
 \end{SoftNote}
 
 \end{minipage}
@@ -812,9 +815,9 @@ into one posterior predictive distribution.\par}
 \SectionHead{Model}{Main Workflow}
 \PosterModelSchematic
 \FigureCaption[Source-aware exDQLM workflow.]{For each target quantile \(p_0\),
-pre-origin USGS observations and retrospective product histories identify a
-latent river-flow quantile and source-specific correction states. After the
-cutoff, issued ensemble forecasts and staged exogenous covariates propagate
+pre-origin USGS observations and retrospective product histories estimate a
+latent river-flow quantile and source-specific discrepancy states. After the
+cutoff, issued ensemble forecasts and origin-bundle covariates propagate
 corrected forecast-window quantiles. The seven fitted quantile lanes are then
 synthesized into one posterior predictive distribution using isotonic adjustment
 and monotone rearranged draws, then scored only with held-out USGS observations.}
@@ -827,8 +830,8 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   For each target quantile \(p_0\), let \(T\) denote the forecast
   origin/cutoff. The selected exDQLM links observed flow, retrospective product
   histories, and issued forecast members through one latent river-flow quantile.
-  Source discrepancies learn pre-origin corrections; forecast ensembles and
-  staged covariates then propagate corrected quantiles after the origin.\par}
+  Source discrepancies estimate pre-origin corrections; forecast ensembles and
+  origin-bundle covariates then propagate corrected quantiles after the origin.\par}
   \vspace{-0.05cm}
   {\ModelEqFont\color{PosterInk}
   \begin{center}
@@ -882,13 +885,12 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   \(\sigma^s\sim IG(a_s,b_s)\), and
   \(\gamma^s\sim t_{(L,U)}(0,\phi^s,\nu^s)\); component discounting controls
   pre-cutoff state covariances \(\mathbf W_t\). In the forecast window,
-  covariance is regularized by an Inverse Wishart prior
-  \(\operatorname{IW}(\nu_t,\mathbf S_t)\), with \(\nu_t=p_t+1+\epsilon\) and
-  \(\mathbf S_t=(\nu_t-p_t-1)c\,\mathbf W_T\), centering the prior mean on
-  \(c\,\mathbf W_T\) after restricting to active forecast states.\par}
+  the active state-block covariance receives an Inverse Wishart prior centered
+  on a scaled version of the final pre-cutoff covariance restricted to active
+  forecast states.\par}
 \end{SoftNote}
 
-\vspace{0.62cm}
+\vspace{0.44cm}
 
 \SectionHead{Results}{1--28-step-ahead forecast CRPS comparison}
 \begin{HeroResult}
@@ -902,24 +904,25 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   \end{minipage}
 
   \vspace{0.24cm}
-  \PosterGraphic[41.8cm]{crps_28d_poster.pdf}{Five-cutoff 1--28-step-ahead CRPS comparison}
+  \PosterGraphic[40.0cm]{crps_28d_poster.pdf}{Five-cutoff 1--28-step-ahead CRPS comparison}
 \end{HeroResult}
 
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
 CRPS is the continuous ranked probability score; lower values are better.
 DQLM is the conjugate AL-likelihood baseline, while selected exDQLM denotes the
-exAL extension. Raw NWS is evaluated separately over common leads 1--8, not
-mixed into this 1--28 lead GloFAS-supported benchmark.\par}
+exAL extension. Raw NWS is evaluated separately over common valid leads 1--8
+because its horizon is shorter than the 1--28-day GloFAS-supported benchmark.\par}
 
 \vspace{0.24cm}
 
 \SectionHead{Fit}{Wet-period quantile fit}
-\FramedPosterGraphic[15.2cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
-\FigureCaption[Historical fit diagnostic.]{Selected exDQLM fitted quantile
-locations during the 2017--2019 wet period. The 5th, 50th, and 95th quantile
-fits are shown with observed USGS flow; wider upper-tail bands make winter
-high-flow behavior visible.}
+\FramedPosterGraphic[14.7cm]{historical_summary_wet_period.png}{Wet-period fitted quantiles}
+\FigureCaption[Historical fit diagnostic.]{Posterior mean fitted conditional
+quantiles and 95\% credible intervals from the selected exDQLM during the
+2017--2019 wet period. The 5th, 50th, and 95th quantile fits are shown with
+observed USGS flow; wider upper-tail bands make winter high-flow behavior
+visible.}
 
 \end{minipage}
 \end{minipage}%
@@ -940,35 +943,36 @@ how corrected quantile forecasts combine into a posterior predictive envelope
 after the cutoff. The panels are illustrative checks of behavior at individual
 origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 
-\vspace{0.64cm}
+\vspace{0.52cm}
 
-\SectionHead{Dynamics}{Interpretable seasonal component}
+\SectionHead{Dynamics}{80-month harmonic diagnostic}
 \FramedPosterGraphic[14.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
 \FigureCaption[Retrospective diagnostic.]{One component of the interpretable
 state decomposition. From the selected exDQLM at the 2022-12-25 origin, lines
-show the 80-month seasonal state for the 5th, 50th, and 95th target-quantile
-lanes over 2008--2022; light ribbons show 95\% credible bands. Shaded dry
+show the 80-month harmonic state for the 5th, 50th, and 95th target-quantile
+lanes over 2008--2022; ribbons show 95\% credible intervals. Shaded dry
 (2012--2016) and wet (2017--2019) regimes mark Santa Cruz-relevant water-supply
-contrasts, and the recovered long-cycle state tracks this multi-year behavior.}
+contrasts, and the recovered long-cycle state summarizes multi-year variation
+rather than additional forecast-validation evidence.}
 
-\vspace{0.64cm}
+\vspace{0.48cm}
 
 \SectionHead{Takeaways}{Main takeaways}
 \begin{TakeawayBox}
   {\BodyFont\color{PosterInk}
   \begin{itemize}
-    \setlength{\itemsep}{0.12cm}
+    \setlength{\itemsep}{0.09cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
-    \item \textbf{\color{TitleSlate}Source correction.} Quantile-level bias is
-    learned from retrospective archives and propagated into newly issued
-    ensemble forecasts.
+    \item \textbf{\color{TitleSlate}Source correction.} Quantile-level
+    source discrepancies are estimated from retrospective archives and
+    propagated into newly issued ensemble forecasts.
     \item \textbf{\color{TitleSlate}Operational synthesis.} Seven corrected
-    quantile lanes are fit in parallel and synthesized into one posterior
-    predictive distribution on update timescales.
+    quantile lanes are fitted separately, run in parallel, and synthesized into
+    one posterior predictive distribution on update timescales.
     \item \textbf{\color{TitleSlate}Interpretable dynamics.} The state
     decomposition separates source corrections from trend, seasonality, and
-    exogenous effects, linking product bias to river-flow dynamics.
+    exogenous effects, linking product discrepancies to river-flow dynamics.
   \end{itemize}\par}
 \end{TakeawayBox}
 
@@ -981,19 +985,21 @@ contrasts, and the recovered long-cycle state tracks this multi-year behavior.}
     \setlength{\itemsep}{0.02cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
+    \item \textbf{\color{LimitColor}Scope.} Evidence is from one gauge and
+    five held-out origins; broader basin and regime testing is needed before
+    operational generalization.
     \item \textbf{\color{LimitColor}Quantile coherence.} Crossing was not
     material here; joint quantile estimation could improve coherence and
     possibly forecast skill.
-    \item \textbf{\color{LimitColor}Nonlinear response.} Linear state dynamics
-    aid interpretation, but may miss nonlinear hydrologic behavior.
-    \item \textbf{\color{LimitColor}Deployment tuning.} Discount factors and
-    transfer rate \(\lambda\) require tuning or model selection before
-    operational use.
+    \item \textbf{\color{LimitColor}Model selection.} Linear dynamics aid
+    interpretation, while discount factors and transfer rate \(\lambda\) still
+    require tuning before operational use.
   \end{itemize}\par}
 \end{LimitBox}
 
 \end{minipage}
 \end{minipage}
+\vspace*{-2.05cm}
 }
 
 % ======================== FOOTER =============================================

@@ -387,7 +387,7 @@ box_df <- tibble::tribble(
   "fcst", 0.35, 2.84, 2.85, 0.82, "issued ensembles\ny_cutoff^{j,i}(k)", "#E8F0F4", poster_cols[["rule"]], poster_cols[["title"]],
   "covs", 0.35, 1.72, 2.85, 0.92, "exogenous covariates\nx_t: precip, soil,\nGDPC climate", "#EEF3EE", poster_cols[["sage"]], poster_cols[["title"]],
   "latent", 4.10, 4.70, 3.25, 0.90, "shared USGS quantile\ntheta_t\ntrend + seasonality", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
-  "disc", 4.10, 3.58, 3.25, 0.90, "source discrepancies\ndelta_t^j\nbias/correction states", poster_cols[["panel"]], poster_cols[["rule"]], poster_cols[["title"]],
+  "disc", 4.10, 3.58, 3.25, 0.90, "source discrepancies\ndelta_t^j\ncorrection states", poster_cols[["panel"]], poster_cols[["rule"]], poster_cols[["title"]],
   "transfer", 4.10, 2.46, 3.25, 0.90, "transfer component\nzeta_t, psi_t\ndriven by x_t", "#F4EAD2", poster_cols[["sage"]], poster_cols[["title"]],
   "synth", 8.25, 3.50, 2.85, 0.95, "synthesized posterior\npredictive distribution", poster_cols[["plum"]], poster_cols[["plum"]], poster_cols[["white"]],
   "verify", 11.70, 4.10, 2.55, 0.82, "held-out USGS\nverification flow", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["title"]],
@@ -476,7 +476,7 @@ ps <- ggplot() +
   coord_cartesian(xlim = c(0, 14.55), ylim = c(0.75, 6.45), expand = FALSE) +
   labs(
     title = "Source-aware dynamic quantile correction and synthesis",
-    subtitle = "Retrospectives learn source discrepancies before the cutoff; issued ensembles and staged covariates\npropagate corrected forecast-window quantiles."
+    subtitle = "Retrospectives estimate source discrepancies before the cutoff; issued ensembles and origin-bundle covariates\npropagate corrected forecast-window quantiles."
   ) +
   theme_void(base_family = "DejaVu Sans") +
   theme(
@@ -597,7 +597,7 @@ if (file.exists(support_manifest_path)) {
       ) +
       coord_cartesian(ylim = component_ylim, clip = "on") +
       labs(
-        title = "80-month seasonal component, 2008-2022",
+        title = "80-month harmonic component, 2008-2022",
         subtitle = "Pure component-6 state: posterior medians and light 95% credible bands.",
         x = NULL,
         y = "Component contribution\n(model scale)",
