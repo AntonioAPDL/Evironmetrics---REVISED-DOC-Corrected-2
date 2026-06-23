@@ -99,7 +99,7 @@
 \urlstyle{same}
 
 % ---------- Poster metadata --------------------------------------------------
-\newcommand{\PosterTitle}{Bayesian quantile-based correction and synthesis for climate products}
+\newcommand{\PosterTitle}{Bayesian quantile-based correction and synthesis of climate products}
 \newcommand{\PosterAuthors}{Antonio Aguirre \quad Raquel Prado \quad Bruno Sans\'o}
 \newcommand{\PosterAffiliation}{Department of Statistics, University of California, Santa Cruz}
 \newcommand{\PosterEmail}{jaguir@ucsc.edu}
@@ -613,7 +613,7 @@
   \begin{minipage}[t]{0.685\textwidth}
     {\PosterTitleFont\bfseries\color{TitleSlate}\RaggedRight
       Bayesian quantile-based correction\\[-0.04em]
-      and synthesis for climate products\par
+      and synthesis of climate products\par
     }
     \vspace{0.42cm}
     {\PosterAuthorFont\color{PosterInk}\PosterAuthors\par}
@@ -827,10 +827,12 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\), let \(T\) denote the forecast
-  origin/cutoff. The selected exDQLM links observed flow, retrospective product
-  histories, and issued forecast members through one latent river-flow quantile.
-  Source discrepancies estimate pre-origin corrections; forecast ensembles and
-  origin-bundle covariates then propagate corrected quantiles after the origin.\par}
+  origin/cutoff. The exDQLM uses an extended asymmetric Laplace (exAL)
+  likelihood whose location is the \(p_0\) quantile. The selected model links
+  observed flow, retrospective product histories, and issued forecast members
+  through one latent river-flow quantile. Source discrepancies estimate
+  pre-origin corrections; forecast ensembles and origin-bundle covariates then
+  propagate corrected quantiles after the origin.\par}
   \vspace{-0.05cm}
   {\ModelEqFont\color{PosterInk}
   \begin{center}
@@ -875,11 +877,17 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   }
   \vspace{-0.16cm}
   {\FootFont\color{MutedSlate}
-  Here \(\boldsymbol{\theta}_t\) is the shared trend--seasonal river quantile,
-  \(\boldsymbol{\delta}_t^j\) is the source-specific correction, and
-  \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-covariate block driven by
-  \(\mathbf{x}_t\) (local precipitation, local soil moisture, and GDPC climate
-  summaries). \textbf{\color{TitleSlate}Priors:}
+  \textbf{\color{TitleSlate}Notation:}
+  \(y_t^o\) is USGS flow, \(z_t^j\) retrospective product \(j\), and
+  \(y_T^{j,i}(k)\) forecast member \(i\) from source \(j\) at lead \(k\);
+  \(\mathcal J,\mathcal I_j,\mathcal K_j\) index sources, members, and leads.
+  \(\mathbf F_t\) loads the state, \(\mathbf G_t\) evolves trend--seasonal
+  blocks, and \(\mathbf W_t^\cdot,w_t^\zeta\) are evolution covariances.
+  \(\boldsymbol{\theta}_t\) is the shared river quantile,
+  \(\boldsymbol{\delta}_t^j\) the source correction, and
+  \((\zeta_t,\boldsymbol{\psi}_t,\lambda)\) the transfer block driven by
+  \(\mathbf{x}_t\) (precipitation, soil moisture, GDPC). \(\sigma^s,\gamma^s\)
+  are exAL channel scale and skewness. \textbf{\color{TitleSlate}Priors:}
   \(\boldsymbol{\theta}_0\sim\mathcal N(\mathbf m_0,\mathbf C_0)\),
   \(\sigma^s\sim IG(a_s,b_s)\), and
   \(\gamma^s\sim t_{(L,U)}(0,\phi^s,\nu^s)\); component discounting controls
