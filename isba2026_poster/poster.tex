@@ -884,9 +884,12 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   \(\boldsymbol{\delta}_t^j\) is the source-specific correction, and
   \((\zeta_t,\boldsymbol{\psi}_t)\) is the exogenous-covariate block driven by
   \(\mathbf{x}_t\) (local precipitation, local soil moisture, and GDPC climate
-  summaries). The DQLM comparator uses the conjugate AL likelihood; the selected
-  exDQLM uses exAL and updates non-conjugate \(\sigma,\gamma\) terms with
-  VB-LD.\par}
+  summaries). \textbf{\color{TitleSlate}Priors:}
+  \(\boldsymbol{\theta}_0\sim\mathcal N(\mathbf m_0,\mathbf C_0)\),
+  \(\sigma^s\sim IG(a_s,b_s)\), and
+  \(\gamma^s\sim t_{(L,U)}(0,\phi^s,\nu^s)\); component discounting controls
+  \(\mathbf W_t\) and time adaptation. DQLM uses conjugate AL; selected exDQLM
+  uses exAL and VB-LD for non-conjugate \(\sigma,\gamma\).\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
