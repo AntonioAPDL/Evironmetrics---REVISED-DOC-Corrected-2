@@ -20,18 +20,11 @@
 % ---------- Typography -------------------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\IfFileExists{lato.sty}{%
-  \usepackage[type1,defaultsans]{lato}%
-}{%
-  \usepackage[scaled=0.95]{helvet}%
-}
+% Pin typography to Helvetica so local pdfLaTeX and Overleaf do not silently
+% choose different optional font packages and reflow the A0 layout.
+\usepackage[scaled=0.95]{helvet}
 \newif\ifPosterHasRaleway
-\IfFileExists{raleway.sty}{%
-  \PosterHasRalewaytrue
-  \usepackage[type1,nosfdefault]{raleway}%
-}{%
-  \PosterHasRalewayfalse
-}
+\PosterHasRalewayfalse
 \usefonttheme[onlymath]{serif}
 \usepackage{microtype}
 
