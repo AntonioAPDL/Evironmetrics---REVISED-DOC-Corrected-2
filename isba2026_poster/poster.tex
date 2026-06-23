@@ -409,12 +409,12 @@
       {repeat over seven quantile lanes\\[-0.02cm]
        \(p_0\in\{.05,.20,\ldots,.95\}\)};
 
-    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite,
-      minimum width=3.10cm,minimum height=1.56cm,
-      font=\sffamily\bfseries\fontsize{7.1}{7.8}\selectfont] (synth) at (8.78,3.28)
-      {synthesized posterior\\[-0.02cm]predictive distribution\\[-0.03cm]
-       {\sffamily\bfseries\fontsize{6.3}{6.9}\selectfont\color{PosterWhite!82}isotonic adjustment}\\[-0.04cm]
-       {\sffamily\bfseries\fontsize{6.3}{6.9}\selectfont\color{PosterWhite!82}monotone rearranged draws}};
+    \node[outbox,fill=ModelPlum!9,draw=ModelPlum,text=TitleSlate,
+      minimum width=3.24cm,minimum height=1.66cm,
+      font=\sffamily\bfseries\fontsize{7.2}{7.9}\selectfont] (synth) at (8.78,3.28)
+      {posterior synthesis\\[-0.02cm]\(\{Q_{p_0}\}\rightarrow F\)\\[-0.03cm]
+       {\sffamily\bfseries\fontsize{6.35}{6.95}\selectfont\color{MutedSlate}isotonic adjustment}\\[-0.04cm]
+       {\sffamily\bfseries\fontsize{6.35}{6.95}\selectfont\color{MutedSlate}monotone posterior draws}};
     \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (12.16,3.88)
       {held-out USGS\\[-0.02cm]verification flow};
     \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (12.16,1.92)
@@ -901,8 +901,11 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   \(\boldsymbol{\theta}_0\sim\mathcal N(\mathbf m_0,\mathbf C_0)\),
   \(\sigma^s\sim IG(a_s,b_s)\), and
   \(\gamma^s\sim t_{(L,U)}(0,\phi^s,\nu^s)\); component discounting controls
-  \(\mathbf W_t\) and time adaptation. DQLM uses conjugate AL; selected exDQLM
-  uses exAL and VB-LD for non-conjugate \(\sigma,\gamma\).\par}
+  pre-cutoff state covariances \(\mathbf W_t\). In the forecast window,
+  covariance is regularized by an Inverse Wishart prior
+  \(\operatorname{IW}(\nu_t,\mathbf S_t)\), with \(\nu_t=p_t+1+\epsilon\) and
+  \(\mathbf S_t=(\nu_t-p_t-1)c\,\mathbf W_T\), centering the prior mean on
+  \(c\,\mathbf W_T\) after restricting to active forecast states.\par}
 \end{SoftNote}
 
 \vspace{0.62cm}
