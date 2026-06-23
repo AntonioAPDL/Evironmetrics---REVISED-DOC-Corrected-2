@@ -765,20 +765,12 @@ into one posterior predictive distribution.\par}
   concurrently before forecast quantiles are synthesized.\par}
 
   \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}DQLM baseline versus exDQLM\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}Scalable VB updates\par}
   \vspace{0.04cm}
   {\CaptionFont\color{MutedSlate}
-  The asymmetric-Laplace DQLM is conjugate under its latent representation; the
-  selected exDQLM replaces AL by exAL for source-specific scale and skewness
-  flexibility.\par}
-
-  \vspace{0.22cm}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Scalable VB-LD updates\par}
-  \vspace{0.04cm}
-  {\CaptionFont\color{MutedSlate}
-  Mean-field variational Bayes keeps Kalman filtering and backward smoothing
-  for Gaussian state blocks; VB-LD uses local modes, curvature, and
-  Delta-method moments for non-conjugate exAL terms.\par}
+  Mean-field variational Bayes supports Kalman filtering and backward smoothing
+  for state-distribution updates. Laplace--Delta approximations handle the
+  non-conjugate exAL scale and skewness parameters.\par}
 \end{SoftNote}
 
 \end{minipage}
