@@ -88,6 +88,7 @@
 \definecolor{CovariateColor}{HTML}{667866}
 \definecolor{CovariateSkyColor}{HTML}{748FAA}
 \definecolor{ClimateIndexColor}{HTML}{81717F}
+\definecolor{LimitColor}{HTML}{9A4A4A}
 
 \colorlet{ModelPlum}{SelectedModelColor}
 \colorlet{HydroBlue}{StructureColor}
@@ -251,6 +252,16 @@
   arc=1.0mm,
   left=0.56cm,right=0.56cm,top=0.50cm,bottom=0.50cm,
   borderline north={1.6mm}{0pt}{SelectedModelColor}
+}
+
+\newtcolorbox{LimitBox}{
+  enhanced,
+  colback=LimitColor!6!PosterPaper,
+  colframe=LimitColor!28!PosterPaper,
+  boxrule=0.48pt,
+  arc=1.0mm,
+  left=0.52cm,right=0.52cm,top=0.30cm,bottom=0.30cm,
+  borderline west={1.2mm}{0pt}{LimitColor}
 }
 
 \newcommand{\Pill}[3][white]{%
@@ -951,15 +962,35 @@ show 95\% credible bands and shaded intervals mark dry and wet regimes.}
     \setlength{\parsep}{0pt}
     \item Selected exDQLM has the lowest 1--28-step-ahead CRPS at four of five
     origins; DQLM leads at 2022-12-25.
-    \item The model estimates quantile-level source bias from archived
-    retrospectives, then propagates corrections into newly issued ensembles.
-    \item Seven corrected quantile lanes synthesize one posterior predictive
-    distribution on operational update timescales.
-    \item The state decomposition separates source corrections, trend,
-    seasonality, and exogenous effects; the 80-month panel shows one diagnostic
-    component.
+    \item The model learns quantile-level source bias from retrospective
+    archives and propagates those corrections into newly issued ensemble
+    forecasts.
+    \item Seven corrected quantile lanes are fit in parallel and synthesized
+    into one posterior predictive distribution on operational update
+    timescales.
+    \item The state decomposition separates source corrections from trend,
+    seasonality, and exogenous effects, giving an interpretable analysis of
+    both product bias and river-flow dynamics.
   \end{itemize}\par}
 \end{TakeawayBox}
+
+\vspace{0.20cm}
+\begin{LimitBox}
+  {\SmallBodyFont\bfseries\color{LimitColor}Limitations and next steps\par}
+  \vspace{0.02cm}
+  {\SourceCaptionFont\color{PosterInk}
+  \begin{itemize}
+    \setlength{\itemsep}{0.02cm}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
+    \item Crossing was not material here; joint quantile estimation could
+    improve coherence and possibly forecast skill.
+    \item Linear state dynamics aid interpretation, but may miss nonlinear
+    hydrologic responses.
+    \item Discount factors and transfer rate \(\lambda\) require tuning or
+    model selection before deployment.
+  \end{itemize}\par}
+\end{LimitBox}
 
 \end{minipage}
 \end{minipage}
