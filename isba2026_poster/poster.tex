@@ -186,7 +186,7 @@
 \newcommand{\FooterLabelFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
 \newcommand{\FooterURLFont}{\fontsize{23.5}{28}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
-\newcommand{\ModelEqFont}{\fontsize{21.0}{25.0}\selectfont}
+\newcommand{\ModelEqFont}{\fontsize{22.5}{27.0}\selectfont}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
@@ -366,8 +366,8 @@
       font=\sffamily\bfseries\fontsize{7.1}{7.8}\selectfont
     }
   ]
-    \path[use as bounding box] (-0.34,-0.16) rectangle (13.86,6.36);
-    \draw[fitgroup] (-0.22,-0.06) rectangle (6.48,5.58);
+    \path[use as bounding box] (-0.34,-0.48) rectangle (13.86,6.36);
+    \draw[fitgroup] (-0.22,-0.36) rectangle (6.48,5.58);
 
     \node[title] at (1.46,6.02) {available at\\ the cutoff};
     \node[title] at (4.92,6.02) {exDQLM correction\\ for fixed \(p_0\)};
@@ -391,8 +391,9 @@
       {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}bias/correction states}};
     \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.92,2.22)
       {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}driven by \(\mathbf{x}_t\)}};
-    \node[lanenote] at (3.13,0.26)
-      {repeat over seven quantile lanes: \(p_0\in\{.05,\ldots,.95\}\)};
+    \node[lanenote,text width=5.65cm] at (3.13,0.12)
+      {repeat over seven quantile lanes\\[-0.02cm]
+       \(p_0\in\{.05,.20,\ldots,.95\}\)};
 
     \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite,
       minimum width=3.10cm,minimum height=1.56cm,
@@ -810,7 +811,7 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
 
 \vspace{0.34cm}
 \begin{SoftNote}
-  {\SmallBodyFont\bfseries\color{TitleSlate}Dynamic Quantile Linear Model (exDQLM)\par}
+  {\SmallBodyFont\bfseries\color{TitleSlate}extended Dynamic Quantile Linear Model (exDQLM)\par}
   \vspace{0.08cm}
   {\CaptionFont\color{MutedSlate}
   For each target quantile \(p_0\), let \(T\) denote the forecast
