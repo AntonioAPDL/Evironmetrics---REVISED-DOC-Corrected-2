@@ -565,6 +565,22 @@
   \end{minipage}%
 }
 
+\newcommand{\PosterQRGraphic}[1][4.15cm]{%
+  \IfFileExists{project1_repo_qr.png}{%
+    \includegraphics[height=#1]{project1_repo_qr.png}%
+  }{%
+    \IfFileExists{isba2026_poster/assets/qr/project1_repo_qr.png}{%
+      \includegraphics[height=#1]{isba2026_poster/assets/qr/project1_repo_qr.png}%
+    }{%
+      \IfFileExists{assets/qr/project1_repo_qr.png}{%
+        \includegraphics[height=#1]{assets/qr/project1_repo_qr.png}%
+      }{%
+        \fbox{\parbox[c][#1][c]{#1}{\centering{\FootFont\bfseries QR pending}}}%
+      }%
+    }%
+  }%
+}
+
 % ---------- Header -----------------------------------------------------------
 \newcommand{\PosterHeader}{%
   \begin{tikzpicture}[remember picture,overlay]
@@ -580,6 +596,23 @@
     ] at ([xshift=-1.85cm,yshift=-0.82cm]current page.north east) {%
       {\PosterConferenceFont\color{TitleSlate}ISBA 2026}\\[-0.02cm]
       {\PosterConferenceMetaFont\color{MutedSlate}World Meeting, Nagoya, Japan}%
+    };
+    \node[
+      anchor=north east,
+      align=right,
+      inner sep=0pt
+    ] at ([xshift=-1.15cm,yshift=-2.72cm]current page.north east) {%
+      \begin{minipage}{0.175\textwidth}
+        \RaggedLeft
+        {\DisplayFont\bfseries\fontsize{22}{25}\selectfont\color{TitleSlate}
+          Code and\\[-0.03cm]reproducibility\par}
+        \vspace{0.06cm}
+        {\PosterConferenceMetaFont\color{ModelPlum}
+          \href{\PosterURL}{github.com/AntonioAPDL/}\\[-0.02cm]
+          \href{\PosterURL}{Project1}\par}
+        \vspace{0.13cm}
+        \PosterQRGraphic[5.00cm]%
+      \end{minipage}%
     };
   \end{tikzpicture}
 
@@ -608,53 +641,7 @@
 }
 
 % ---------- Footer -----------------------------------------------------------
-\newcommand{\PosterFooter}{%
-  \begin{tikzpicture}[remember picture,overlay]
-    \fill[PosterPaper]
-      (current page.south west)
-      rectangle ([yshift=\PosterFooterHeight]current page.south east);
-    \draw[RuleStone,line width=0.75pt]
-      ([xshift=1.85cm,yshift=\PosterFooterHeight]current page.south west) --
-      ([xshift=-1.85cm,yshift=\PosterFooterHeight]current page.south east);
-    \node[anchor=south west,inner sep=0pt]
-      at ([xshift=1.85cm,yshift=0.78cm]current page.south west) {%
-        \begin{minipage}[c]{0.48\textwidth}
-          {\FootFont\color{MutedSlate}\RaggedRight
-            Source logos identify data and forecast-product providers; no
-            endorsement is implied.\par
-          }
-        \end{minipage}%
-      };
-    \node[anchor=south east,inner sep=0pt]
-      at ([xshift=-1.85cm,yshift=0.25cm]current page.south east) {%
-        \begin{minipage}[c]{0.47\textwidth}
-          \begin{minipage}[c]{0.23\linewidth}
-            \centering
-            \IfFileExists{project1_repo_qr.png}{%
-              \includegraphics[height=3.65cm]{project1_repo_qr.png}%
-            }{%
-              \IfFileExists{isba2026_poster/assets/qr/project1_repo_qr.png}{%
-                \includegraphics[height=3.65cm]{isba2026_poster/assets/qr/project1_repo_qr.png}%
-              }{%
-                \IfFileExists{assets/qr/project1_repo_qr.png}{%
-                  \includegraphics[height=3.65cm]{assets/qr/project1_repo_qr.png}%
-                }{%
-                  \fbox{\parbox[c][3.65cm][c]{3.65cm}{\centering
-                    {\FootFont\bfseries QR pending}}}%
-                }%
-              }%
-            }%
-          \end{minipage}
-          \hfill
-          \begin{minipage}[c]{0.73\linewidth}
-            {\FooterLabelFont\color{TitleSlate}Code and reproducibility\par}
-            \vspace{0.07cm}
-            {\FooterURLFont\color{MutedSlate}\href{\PosterURL}{\PosterURLShort}\par}
-          \end{minipage}
-        \end{minipage}%
-      };
-  \end{tikzpicture}%
-}
+\newcommand{\PosterFooter}{}
 
 % ============================================================================
 % DOCUMENT
