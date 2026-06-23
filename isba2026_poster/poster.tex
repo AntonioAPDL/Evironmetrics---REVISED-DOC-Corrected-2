@@ -425,8 +425,8 @@
     \draw[arrow] (delta.east) -- (synth.west);
     \draw[arrow] (transfer.east) -- ([yshift=-0.20cm]synth.west);
 
-    \draw[arrow] (synth.east) -- (score.west);
-    \draw[arrow] (verify.south) -- (score.north);
+    \draw[arrow] (synth.east) to[out=0,in=155] ([xshift=-0.12cm]score.north);
+    \draw[arrow] (verify.south) -- ([xshift=0.30cm]score.north);
   \end{tikzpicture}%
   }
   \end{center}
