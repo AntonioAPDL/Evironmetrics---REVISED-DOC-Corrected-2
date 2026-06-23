@@ -644,19 +644,19 @@
 
 \begin{KeyQuestion}
 {\SmallBodyFont\color{TitleSlate}
-\textbf{Can a Bayesian quantile model learn source-specific corrections} from
-paired gauge observations and retrospective product archives, propagate them
-into new ensemble forecasts, and synthesize one posterior predictive
-distribution on operational update timescales?\par}
+\textbf{Can quantile-level bias be learned from diverse climate-product
+archives} and propagated into newly issued ensemble forecasts on operational
+update timescales, while preserving an interpretable dynamic decomposition of
+source corrections, trend, seasonality, and exogenous effects?\par}
 \end{KeyQuestion}
 
 \vspace{0.20cm}
 {\SmallBodyFont
 Case study: daily San Lorenzo River flow at the USGS Big Trees gauge on the
 \(\log(1+x)\) scale. Before each forecast origin, observed flow is paired with
-retrospective ECMWF/GloFAS and NOAA/NWS products to learn dynamic source
+retrospective ECMWF/GloFAS and NOAA/NWS products to estimate source
 corrections. After the origin, issued ensembles and staged exogenous covariates
-carry those corrections into source-adjusted quantile forecasts and one
+are used to carry those corrections into source-adjusted quantile forecasts and one
 posterior predictive distribution.\par}
 
 \vspace{0.24cm}
@@ -908,13 +908,13 @@ origins; the aggregate comparison remains the five-origin CRPS benchmark.}
 
 \vspace{0.64cm}
 
-\SectionHead{Dynamics}{80-month seasonal component}
+\SectionHead{Dynamics}{Interpretable seasonal component}
 \FramedPosterGraphic[14.8cm]{component_80month_poster.pdf}{80-month component diagnostic}
-\FigureCaption[Retrospective diagnostic.]{From the selected exDQLM at the
-2022-12-25 origin. Lines show the isolated 80-month state component, without the
-trend component added, for the 5th, 50th, and 95th target-quantile lanes over
-2008--2022; light ribbons show 95\% credible bands and shaded intervals mark
-dry and wet regimes.}
+\FigureCaption[Retrospective diagnostic.]{One component of the interpretable
+state decomposition. From the selected exDQLM at the 2022-12-25 origin, lines
+show the isolated 80-month seasonal state, without the trend component added,
+for the 5th, 50th, and 95th target-quantile lanes over 2008--2022; light ribbons
+show 95\% credible bands and shaded intervals mark dry and wet regimes.}
 
 \vspace{0.64cm}
 
@@ -922,15 +922,18 @@ dry and wet regimes.}
 \begin{TakeawayBox}
   {\BodyFont\color{PosterInk}
   \begin{itemize}
-    \setlength{\itemsep}{0.18cm}
+    \setlength{\itemsep}{0.12cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
     \item Selected exDQLM has the lowest 1--28-step-ahead CRPS at four of five
     origins; DQLM leads at 2022-12-25.
-    \item Historical product archives learn source-specific corrections that
-    propagate into new forecast ensembles.
+    \item The model estimates quantile-level source bias from archived
+    retrospectives, then propagates corrections into newly issued ensembles.
     \item Seven corrected quantile lanes synthesize one posterior predictive
-    distribution; NWS is compared separately over common leads 1--8.
+    distribution on operational update timescales.
+    \item The state decomposition separates source corrections, trend,
+    seasonality, and exogenous effects; the 80-month panel shows one diagnostic
+    component.
   \end{itemize}\par}
 \end{TakeawayBox}
 
