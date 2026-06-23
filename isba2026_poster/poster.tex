@@ -188,6 +188,9 @@
 \newcommand{\FooterURLFont}{\fontsize{23.5}{28}\selectfont}
 \newcommand{\ChipFont}{\DisplayFont\bfseries\fontsize{19.5}{23}\selectfont}
 \newcommand{\ModelEqFont}{\fontsize{22.5}{27.0}\selectfont}
+\newcommand{\ModelEqLabel}[1]{%
+  \text{\sffamily\bfseries\fontsize{17.5}{20.0}\selectfont\color{TitleSlate}#1:}\quad%
+}
 
 % ---------- Reusable visual components --------------------------------------
 \newcommand{\SectionHead}[2]{%
@@ -846,37 +849,45 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
   staged covariates then propagate corrected quantiles after the origin.\par}
   \vspace{-0.05cm}
   {\ModelEqFont\color{PosterInk}
-  \[
+  \begin{center}
+  \resizebox{0.985\linewidth}{!}{\(\displaystyle
   \begin{aligned}
+  \ModelEqLabel{Observed flow}
   y_t^o &\sim \operatorname{exAL}_{p_0}
     \!\left(\mathbf{F}_t'\boldsymbol{\theta}_t+\zeta_t,\sigma^o,\gamma^o\right),
   && 1\leq t\leq T,\\
+  \ModelEqLabel{Retrospectives}
   z_t^j &\sim \operatorname{exAL}_{p_0}
     \!\left(\mathbf{F}_t'(\boldsymbol{\theta}_t+\boldsymbol{\delta}_t^j)+\zeta_t,
     \sigma^j,\gamma^j\right),
   && j\in\mathcal J,\ 1\leq t\leq T,\\
+  \ModelEqLabel{Forecast ensembles}
   y_T^{j,i}(k) &\sim \operatorname{exAL}_{p_0}
     \!\left(\mathbf{F}_{T+k}'(\boldsymbol{\theta}_{T+k}+\boldsymbol{\delta}_{T+k}^j)
     +\zeta_{T+k},\sigma^j,\gamma^j\right),
   && j\in\mathcal J,\ i\in\mathcal I_j,\ k\in\mathcal K_j .
   \end{aligned}
-  \]
+  \)}
+  \end{center}
   \vspace{-0.38cm}
-  \[
+  \begin{center}
+  \(\displaystyle
+  \begin{aligned}
+  \ModelEqLabel{Trend/seasonal}
   \boldsymbol{\theta}_t\mid\boldsymbol{\theta}_{t-1}
-  \sim \mathcal N(\mathbf G_t\boldsymbol{\theta}_{t-1},\mathbf W_t^\theta),
-  \qquad
+  &\sim \mathcal N(\mathbf G_t\boldsymbol{\theta}_{t-1},\mathbf W_t^\theta),\\
+  \ModelEqLabel{Discrepancies}
   \boldsymbol{\delta}_t^j\mid\boldsymbol{\delta}_{t-1}^j
-  \sim \mathcal N(\mathbf G_t\boldsymbol{\delta}_{t-1}^j,\mathbf W_t^{\delta^j}).
-  \]
-  \vspace{-0.38cm}
-  \[
+  &\sim \mathcal N(\mathbf G_t\boldsymbol{\delta}_{t-1}^j,\mathbf W_t^{\delta^j}),\\
+  \ModelEqLabel{Transfer}
   \zeta_t\mid\zeta_{t-1},\boldsymbol{\psi}_{t-1}
-  \sim \mathcal N(\lambda\zeta_{t-1}+\mathbf x_t'\boldsymbol{\psi}_{t-1},w_t^\zeta),
-  \qquad
+  &\sim \mathcal N(\lambda\zeta_{t-1}+\mathbf x_t'\boldsymbol{\psi}_{t-1},w_t^\zeta),\\
+  \ModelEqLabel{Covariate effects}
   \boldsymbol{\psi}_t\mid\boldsymbol{\psi}_{t-1}
-  \sim \mathcal N(\boldsymbol{\psi}_{t-1},\mathbf W_t^\psi).
-  \]
+  &\sim \mathcal N(\boldsymbol{\psi}_{t-1},\mathbf W_t^\psi).
+  \end{aligned}
+  \)
+  \end{center}
   }
   \vspace{-0.16cm}
   {\FootFont\color{MutedSlate}
