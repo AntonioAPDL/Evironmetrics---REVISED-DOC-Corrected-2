@@ -179,6 +179,7 @@
 \newcommand{\BodyFont}{\fontsize{25}{31}\selectfont}
 \newcommand{\SmallBodyFont}{\fontsize{24}{30}\selectfont}
 \newcommand{\CaptionFont}{\fontsize{23.5}{29}\selectfont}
+\newcommand{\SourceCaptionFont}{\fontsize{20.5}{24.2}\selectfont}
 \newcommand{\FootFont}{\fontsize{18.5}{23}\selectfont}
 \newcommand{\FooterLabelFont}{\DisplayFont\bfseries\fontsize{25}{29}\selectfont}
 \newcommand{\FooterURLFont}{\fontsize{23.5}{28}\selectfont}
@@ -283,7 +284,7 @@
     \RaggedRight
     {\SmallBodyFont\bfseries\color{TitleSlate}#2\par}
     \vspace{0.03cm}
-    {\CaptionFont\color{MutedSlate}#3\par}
+    {\SourceCaptionFont\color{MutedSlate}#3\par}
   \end{minipage}\par
   \vspace{0.20cm}
 }
@@ -660,38 +661,37 @@ are used to carry those corrections into source-adjusted quantile forecasts and 
 posterior predictive distribution.\par}
 
 \vspace{0.24cm}
-\begin{SoftNote}[top=0.48cm,bottom=0.46cm]
-  \begin{minipage}[c]{0.49\linewidth}
+\begin{SoftNote}[top=0.40cm,bottom=0.38cm]
+  \begin{minipage}[c]{0.42\linewidth}
     \centering
     \LogoGraphic[2.15cm]{usgs_logo_green_cropped.png}{\linewidth}{USGS}
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.46\linewidth}
+  \begin{minipage}[c]{0.54\linewidth}
     \RaggedRight
-    \hyphenpenalty=10000\exhyphenpenalty=10000
     {\SmallBodyFont\bfseries\color{TitleSlate}USGS observations\par}
-    {\CaptionFont\color{MutedSlate}15-min public gauge record aggregated to
-    daily log-flow; target for state updating and held-out verification.\par}
+    {\SourceCaptionFont\color{MutedSlate}15-min public gauge record aggregated
+    to daily log-flow; state-updating and held-out verification target.\par}
   \end{minipage}
 
-  \vspace{0.30cm}
-  \begin{minipage}[c]{0.49\linewidth}
+  \vspace{0.24cm}
+  \begin{minipage}[c]{0.42\linewidth}
     \centering
     \LogoGraphic[1.58cm]{ecmwf_logo_2400w_transparent.png}{\linewidth}{ECMWF}\par
     \vspace{0.10cm}
     \LogoGraphic[1.78cm]{glofas_logo.png}{\linewidth}{GloFAS}
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.46\linewidth}
+  \begin{minipage}[c]{0.54\linewidth}
     \RaggedRight
-    \hyphenpenalty=10000\exhyphenpenalty=10000
-    {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF GloFAS\par}
-    {\CaptionFont\color{MutedSlate}retrospective alignment and daily
-    51-member forecast guidance to 28 days.\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}ECMWF / GloFAS\par}
+    {\SourceCaptionFont\color{MutedSlate}European Centre for Medium-Range
+    Weather Forecasts; retrospectives; daily 51-member ensemble forecasts, leads
+    1--28.\par}
   \end{minipage}
 
-  \vspace{0.30cm}
-  \begin{minipage}[c]{0.49\linewidth}
+  \vspace{0.24cm}
+  \begin{minipage}[c]{0.42\linewidth}
     \centering
     \makebox[\linewidth][c]{%
       \LogoGraphic[3.44cm]{noaa_logo_1800px_transparent.png}{0.55\linewidth}{NOAA}\hspace{-0.13cm}%
@@ -699,15 +699,15 @@ posterior predictive distribution.\par}
     }
   \end{minipage}
   \hfill
-  \begin{minipage}[c]{0.46\linewidth}
+  \begin{minipage}[c]{0.54\linewidth}
     \RaggedRight
-    \hyphenpenalty=10000\exhyphenpenalty=10000
-    {\SmallBodyFont\bfseries\color{TitleSlate}NOAA NWS\par}
-    {\CaptionFont\color{MutedSlate}retrospective alignment and hourly
-    forecasts evaluated on common daily leads 1--8.\par}
+    {\SmallBodyFont\bfseries\color{TitleSlate}NOAA / NWS\par}
+    {\SourceCaptionFont\color{MutedSlate}U.S. National Weather Service under
+    NOAA; retrospectives; hourly 7-member ensemble forecasts, daily leads
+    1--8.\par}
   \end{minipage}
 
-  \vspace{0.34cm}
+  \vspace{0.26cm}
   \SourceRow{CovariateSage}{Exogenous information}{Local basin precipitation
   and soil moisture; the first generalized dynamic principal component (GDPC)
   summarizes key Pacific, Atlantic, and global climate indices.}
