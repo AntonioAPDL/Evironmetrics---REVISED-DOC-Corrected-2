@@ -318,9 +318,9 @@
       line width=0.44pt,
       rounded corners=1.1mm,
       align=center,
-      inner xsep=0.11cm,
-      inner ysep=0.08cm,
-      font=\sffamily\bfseries\fontsize{7.9}{8.8}\selectfont,
+      inner xsep=0.13cm,
+      inner ysep=0.09cm,
+      font=\sffamily\bfseries\fontsize{7.8}{8.7}\selectfont,
       text=TitleSlate,
       minimum width=2.28cm,
       minimum height=0.74cm
@@ -366,39 +366,43 @@
       font=\sffamily\bfseries\fontsize{7.1}{7.8}\selectfont
     }
   ]
-    \path[use as bounding box] (-0.12,0.08) rectangle (12.42,5.88);
-    \draw[fitgroup] (-0.06,0.12) rectangle (5.70,5.14);
+    \path[use as bounding box] (-0.34,-0.16) rectangle (13.86,6.36);
+    \draw[fitgroup] (-0.22,-0.06) rectangle (6.48,5.58);
 
-    \node[title] at (1.30,5.60) {available at\\ the cutoff};
-    \node[title] at (4.42,5.60) {exDQLM correction\\ for fixed \(p_0\)};
-    \node[title] at (7.68,5.60) {posterior\\ synthesis};
-    \node[title] at (11.02,5.60) {forecast-window\\ scoring};
+    \node[title] at (1.46,6.02) {available at\\ the cutoff};
+    \node[title] at (4.92,6.02) {exDQLM correction\\ for fixed \(p_0\)};
+    \node[title] at (8.78,6.02) {posterior\\ synthesis};
+    \node[title] at (12.16,6.02) {forecast-window\\ scoring};
 
-    \node[box,fill=PosterWhite,draw=USGSInk] (usgs) at (1.30,4.34)
+    \node[box,fill=PosterWhite,draw=USGSInk] (usgs) at (1.46,4.74)
       {USGS flow\\[-0.02cm]\(\color{USGSInk}y_t^o\)\\[-0.02cm]{\color{MutedSlate}through cutoff}\\[-0.03cm]{\color{MutedSlate}future held out}};
-    \node[box,fill=PosterWhite] (retro) at (1.30,3.18)
+    \node[box,fill=PosterWhite] (retro) at (1.46,3.48)
       {retrospectives\\[-0.02cm]\(\color{PosterInk}z_t^j\)\\[-0.02cm]
        {\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{GloFASColor}GloFAS}\hspace{0.24cm}{\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{NWSColor}NWS}};
-    \node[box,fill=HydroBlue!8] (fcst) at (1.30,2.02)
+    \node[box,fill=HydroBlue!8] (fcst) at (1.46,2.22)
       {issued ensembles\\[-0.02cm]\(\color{PosterInk}y_{\mathrm{cutoff}}^{j,i}(k)\)\\[-0.02cm]
        {\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{GloFASColor}GloFAS}\hspace{0.24cm}{\sffamily\bfseries\fontsize{6.7}{7.3}\selectfont\color{NWSColor}NWS}};
-    \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.30,0.92)
+    \node[box,fill=CovariateSage!10,draw=CovariateSage] (covs) at (1.46,0.98)
       {exogenous covariates\\[-0.02cm]\(\color{PosterInk}\mathbf{x}_t\): precip., soil\\[-0.02cm]GDPC climate};
 
-    \node[modelbox,fill=HydroBlue!10,draw=HydroBlue] (theta) at (4.42,4.23)
+    \node[modelbox,fill=HydroBlue!10,draw=HydroBlue] (theta) at (4.92,4.74)
       {shared USGS quantile\\[-0.02cm]\(\color{HydroBlue}\boldsymbol{\theta}_t\)\\[-0.02cm]{\color{MutedSlate}trend + seasonality}};
-    \node[modelbox,fill=PosterWhite] (delta) at (4.42,3.12)
+    \node[modelbox,fill=PosterWhite] (delta) at (4.92,3.48)
       {source discrepancies\\[-0.02cm]\(\color{ModelPlum}\boldsymbol{\delta}_t^j\)\\[-0.02cm]{\color{MutedSlate}bias/correction states}};
-    \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.42,2.01)
+    \node[modelbox,fill=ALOchre!12,draw=CovariateSage] (transfer) at (4.92,2.22)
       {transfer component\\[-0.02cm]\(\color{CovariateSage}(\zeta_t,\boldsymbol{\psi}_t)\)\\[-0.02cm]{\color{MutedSlate}driven by \(\mathbf{x}_t\)}};
-    \node[lanenote] at (2.86,0.27)
+    \node[lanenote] at (3.13,0.26)
       {repeat over seven quantile lanes: \(p_0\in\{.05,\ldots,.95\}\)};
 
-    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite,minimum height=1.12cm] (synth) at (7.68,3.16)
-      {synthesized posterior\\[-0.02cm]predictive distribution};
-    \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (11.02,3.68)
+    \node[outbox,fill=ModelPlum,draw=ModelPlum,text=PosterWhite,
+      minimum width=3.10cm,minimum height=1.56cm,
+      font=\sffamily\bfseries\fontsize{7.1}{7.8}\selectfont] (synth) at (8.78,3.28)
+      {synthesized posterior\\[-0.02cm]predictive distribution\\[-0.03cm]
+       {\sffamily\bfseries\fontsize{6.3}{6.9}\selectfont\color{PosterWhite!82}isotonic adjustment}\\[-0.04cm]
+       {\sffamily\bfseries\fontsize{6.3}{6.9}\selectfont\color{PosterWhite!82}monotone rearranged draws}};
+    \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (12.16,3.88)
       {held-out USGS\\[-0.02cm]verification flow};
-    \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (11.02,1.95)
+    \node[scorebox,fill=PosterWhite,draw=ModelPlum] (score) at (12.16,1.92)
       {synthesis predictive\\[-0.02cm]performance\\[-0.02cm]
        \(\operatorname{CRPS}(F,y)\)\\[-0.03cm]
        \scalebox{0.90}{\(\displaystyle
@@ -801,8 +805,8 @@ pre-origin USGS observations and retrospective product histories identify a
 latent river-flow quantile and source-specific correction states. After the
 cutoff, issued ensemble forecasts and staged exogenous covariates propagate
 corrected forecast-window quantiles. The seven fitted quantile lanes are then
-synthesized into one posterior predictive distribution and scored only with
-held-out USGS observations.}
+synthesized into one posterior predictive distribution using isotonic adjustment
+and monotone rearranged draws, then scored only with held-out USGS observations.}
 
 \vspace{0.34cm}
 \begin{SoftNote}
