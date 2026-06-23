@@ -977,15 +977,15 @@ contrasts, and the recovered long-cycle state tracks this multi-year behavior.}
     \setlength{\itemsep}{0.12cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
-    \item The model learns quantile-level source bias from retrospective
-    archives and propagates those corrections into newly issued ensemble
-    forecasts.
-    \item Seven corrected quantile lanes are fit in parallel and synthesized
-    into one posterior predictive distribution on operational update
-    timescales.
-    \item The state decomposition separates source corrections from trend,
-    seasonality, and exogenous effects, giving an interpretable analysis of
-    both product bias and river-flow dynamics.
+    \item \textbf{\color{TitleSlate}Source correction.} Quantile-level bias is
+    learned from retrospective archives and propagated into newly issued
+    ensemble forecasts.
+    \item \textbf{\color{TitleSlate}Operational synthesis.} Seven corrected
+    quantile lanes are fit in parallel and synthesized into one posterior
+    predictive distribution on update timescales.
+    \item \textbf{\color{TitleSlate}Interpretable dynamics.} The state
+    decomposition separates source corrections from trend, seasonality, and
+    exogenous effects, linking product bias to river-flow dynamics.
   \end{itemize}\par}
 \end{TakeawayBox}
 
@@ -998,12 +998,14 @@ contrasts, and the recovered long-cycle state tracks this multi-year behavior.}
     \setlength{\itemsep}{0.02cm}
     \setlength{\parskip}{0pt}
     \setlength{\parsep}{0pt}
-    \item Crossing was not material here; joint quantile estimation could
-    improve coherence and possibly forecast skill.
-    \item Linear state dynamics aid interpretation, but may miss nonlinear
-    hydrologic responses.
-    \item Discount factors and transfer rate \(\lambda\) require tuning or
-    model selection before deployment.
+    \item \textbf{\color{LimitColor}Quantile coherence.} Crossing was not
+    material here; joint quantile estimation could improve coherence and
+    possibly forecast skill.
+    \item \textbf{\color{LimitColor}Nonlinear response.} Linear state dynamics
+    aid interpretation, but may miss nonlinear hydrologic behavior.
+    \item \textbf{\color{LimitColor}Deployment tuning.} Discount factors and
+    transfer rate \(\lambda\) require tuning or model selection before
+    operational use.
   \end{itemize}\par}
 \end{LimitBox}
 
