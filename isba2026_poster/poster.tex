@@ -729,9 +729,9 @@ observations are reserved for scoring. Main CRPS uses GloFAS-supported days
 
 {\SmallBodyFont\RaggedRight\hyphenpenalty=10000\exhyphenpenalty=10000
 Seven independent extended Dynamic Quantile Linear Model (exDQLM) lanes target
-seven levels: 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95. The fitted
-quantile forecasts are checked for crossing in the application and combined
-into the posterior predictive distribution scored by CRPS.\par}
+seven levels: 0.05, 0.20, 0.35, 0.50, 0.65, 0.80, and 0.95. Posterior
+predictive samples are generated for each fitted quantile lane and synthesized
+into one posterior predictive distribution.\par}
 
 \vspace{0.20cm}
 \begin{SoftNote}[colback=PanelLavender,colframe=PanelLavender,borderline west={1.0mm}{0pt}{StructureColor},top=0.48cm,bottom=0.46cm]
