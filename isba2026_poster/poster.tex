@@ -4,7 +4,7 @@
 %
 % CLAIM GOVERNANCE -- DO NOT CHANGE WITHOUT PROMOTED/FROZEN RESULTS:
 %   1. Use only frozen article-facing CRPS and synthesis artifacts.
-%   2. NWS is evaluated separately over common valid leads 1--8.
+%   2. Raw NWS is shown only as a 1--8-day horizon reference.
 %   3. Screening/discount/epsilon runs are non-authoritative and must not appear.
 % ============================================================================
 
@@ -920,9 +920,10 @@ and monotone rearranged draws, then scored only with held-out USGS observations.
 \vspace{0.22cm}
 {\CaptionFont\color{MutedSlate}
 CRPS is the continuous ranked probability score; lower values are better.
-DQLM is the conjugate AL-likelihood baseline, while selected exDQLM denotes the
-exAL extension. Raw NWS is evaluated separately over common valid leads 1--8
-because its horizon is shorter than the 1--28-day GloFAS-supported benchmark.\par}
+Colored model markers compare multivariate keep variants under exAL, AL, and
+Normal likelihoods; gray markers collect the univariate variants. The purple
+raw-NWS marker is a 1--8-day horizon reference shown on the same raw-GloFAS
+normalization, not a 28-day competitor.\par}
 
 \vspace{0.24cm}
 

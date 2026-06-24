@@ -147,141 +147,180 @@ crps_8d <- parse_crps_table(nws_path)
 write_csv(crps_28d, file.path(data_dir, "benchmark_crps_28d_long.csv"))
 write_csv(crps_8d, file.path(data_dir, "benchmark_crps_8d_long.csv"))
 
+raw_glofas_28d <- crps_28d |>
+  filter(model == "RAW-GLOFAS") |>
+  select(cutoff, raw_glofas_28d = crps)
+
 crps_28d_plot <- crps_28d |>
-  group_by(cutoff) |>
+  filter(model %in% c(
+    "exAL-M-T1", "AL-M-T1", "N-M-T1",
+    "exAL-U-T1", "AL-U-T1", "N-U-T1",
+    "RAW-GLOFAS"
+  )) |>
+  left_join(raw_glofas_28d, by = "cutoff") |>
   mutate(
-    raw_glofas = crps[model == "RAW-GLOFAS"][1],
-    ratio_raw_glofas = crps / raw_glofas,
-    winner = model[which.min(crps)],
+    ratio_raw_glofas = crps / raw_glofas_28d,
+    horizon_note = "1-28 d",
     display_group = case_when(
-      model %in% c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS") ~ model_label(model),
-      TRUE ~ "Other Bayesian variants"
+      model == "exAL-M-T1" ~ "exDQLM multivar keep",
+      model == "AL-M-T1" ~ "AL DQLM multivar keep",
+      model == "N-M-T1" ~ "Normal multivar keep",
+      model == "RAW-GLOFAS" ~ "Raw GloFAS (1-28 d)",
+      model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1") ~ "Univariate variants"
     )
-  ) |>
-  ungroup() |>
-  mutate(
-    cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
-    display_group = factor(display_group, levels = c("Selected exDQLM", "DQLM", "GloFAS", "Other Bayesian variants"))
   )
 
-winner_28d <- crps_28d_plot |>
-  group_by(cutoff, cutoff_panel) |>
+nws_8d_reference <- crps_8d |>
+  filter(model == "RAW-NWS") |>
+  left_join(raw_glofas_28d, by = "cutoff") |>
+  mutate(
+    ratio_raw_glofas = crps / raw_glofas_28d,
+    raw_glofas_28d = raw_glofas_28d,
+    model = "RAW-NWS-8D",
+    horizon_note = "1-8 d reference",
+    display_group = "Raw NWS (1-8 d ref.)"
+  )
+
+plot_group_levels <- c(
+  "exDQLM multivar keep",
+  "AL DQLM multivar keep",
+  "Normal multivar keep",
+  "Raw GloFAS (1-28 d)",
+  "Raw NWS (1-8 d ref.)",
+  "Univariate variants"
+)
+
+result_offsets <- c(
+  "exAL-M-T1" = 0.18,
+  "AL-M-T1" = 0.09,
+  "N-M-T1" = 0.00,
+  "RAW-GLOFAS" = -0.09,
+  "RAW-NWS-8D" = -0.18,
+  "exAL-U-T1" = -0.29,
+  "AL-U-T1" = -0.29,
+  "N-U-T1" = -0.29
+)
+
+crps_28d_display <- bind_rows(
+  crps_28d_plot,
+  nws_8d_reference |>
+    select(names(crps_28d_plot))
+) |>
+  mutate(
+    cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
+    y_base = as.numeric(cutoff_panel),
+    point_y = y_base + unname(result_offsets[model]),
+    display_group = factor(display_group, levels = plot_group_levels),
+    is_univariate = model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1")
+  )
+
+write_csv(crps_28d_display, file.path(data_dir, "benchmark_crps_results_plot_points.csv"))
+
+winner_28d <- crps_28d_display |>
+  filter(horizon_note == "1-28 d", model != "RAW-GLOFAS") |>
+  group_by(cutoff, cutoff_panel, y_base) |>
   slice_min(crps, n = 1, with_ties = FALSE) |>
   ungroup() |>
   mutate(
     winner_text = paste0(sprintf("%.2f", ratio_raw_glofas), "x"),
-    winner_type = factor(
-      recode(model, "exAL-M-T1" = "Selected exDQLM", "AL-M-T1" = "DQLM"),
-      levels = c("Selected exDQLM", "DQLM")
-    ),
-    label_x = pmin(ratio_raw_glofas * 1.10, 0.70)
-  )
-
-crps_28d_main <- crps_28d_plot |>
-  filter(model %in% c("exAL-M-T1", "AL-M-T1", "RAW-GLOFAS")) |>
-  mutate(
-    result_group = factor(
-      recode(
-        model,
-        "exAL-M-T1" = "Selected exDQLM",
-        "AL-M-T1" = "DQLM",
-        "RAW-GLOFAS" = "Raw GloFAS"
-      ),
-      levels = c("Selected exDQLM", "DQLM", "Raw GloFAS")
-    )
+    label_x = pmin(ratio_raw_glofas * 1.18, 0.82)
   )
 
 p28_palette <- c(
-  "Selected exDQLM" = poster_cols[["plum"]],
-  "DQLM" = poster_cols[["ochre"]],
-  "Raw GloFAS" = poster_cols[["glofas"]]
+  "exDQLM multivar keep" = poster_cols[["plum"]],
+  "AL DQLM multivar keep" = poster_cols[["ochre"]],
+  "Normal multivar keep" = poster_cols[["hydro"]],
+  "Raw GloFAS (1-28 d)" = poster_cols[["glofas"]],
+  "Raw NWS (1-8 d ref.)" = poster_cols[["nws"]],
+  "Univariate variants" = poster_cols[["other"]]
 )
 
 p28_shapes <- c(
-  "Selected exDQLM" = 16,
-  "DQLM" = 18,
-  "Raw GloFAS" = 15
+  "exDQLM multivar keep" = 16,
+  "AL DQLM multivar keep" = 18,
+  "Normal multivar keep" = 17,
+  "Raw GloFAS (1-28 d)" = 15,
+  "Raw NWS (1-8 d ref.)" = 8,
+  "Univariate variants" = 1
 )
 
-p28 <- ggplot(crps_28d_main, aes(y = cutoff_panel)) +
+p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
   geom_segment(
     data = winner_28d,
-    aes(x = ratio_raw_glofas, xend = 1, y = cutoff_panel, yend = cutoff_panel),
+    aes(x = ratio_raw_glofas, xend = 1, y = y_base, yend = y_base),
     inherit.aes = FALSE,
-    linewidth = 1.25, color = poster_cols[["rule"]], alpha = 0.88
-  ) +
-  geom_segment(
-    data = crps_28d_main |>
-      filter(model %in% c("exAL-M-T1", "AL-M-T1")) |>
-      select(cutoff, cutoff_panel, model, ratio_raw_glofas) |>
-      pivot_wider(names_from = model, values_from = ratio_raw_glofas),
-    aes(x = `exAL-M-T1`, xend = `AL-M-T1`, y = cutoff_panel, yend = cutoff_panel),
-    inherit.aes = FALSE, linewidth = 1.35, color = poster_cols[["rule"]]
+    linewidth = 1.0, color = poster_cols[["rule"]], alpha = 0.82
   ) +
   geom_vline(
-    xintercept = 1, linewidth = 0.8, linetype = "dashed",
+    xintercept = 1, linewidth = 0.78, linetype = "dashed",
     color = poster_cols[["muted"]]
   ) +
   geom_point(
-    aes(x = ratio_raw_glofas, color = result_group, shape = result_group),
-    size = 7.0, stroke = 1.1
+    data = crps_28d_display |> filter(!is_univariate),
+    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
+    size = 4.35, stroke = 1.05
+  ) +
+  geom_point(
+    data = crps_28d_display |> filter(is_univariate),
+    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
+    size = 3.15, stroke = 0.9, alpha = 0.74
   ) +
   geom_label(
     data = winner_28d,
-    aes(x = label_x, y = cutoff_panel, label = winner_text, color = winner_type),
+    aes(x = label_x, y = y_base + 0.18, label = winner_text),
     inherit.aes = FALSE,
-    hjust = 0, size = 5.2, fontface = "bold", linewidth = 0,
-    fill = poster_cols[["white"]], label.padding = unit(0.15, "lines"),
+    hjust = 0, size = 4.8, fontface = "bold", linewidth = 0,
+    color = poster_cols[["plum"]],
+    fill = poster_cols[["white"]], label.padding = unit(0.12, "lines"),
     show.legend = FALSE
   ) +
   annotate(
-    "text", x = 0.965, y = 5.46, label = "raw GloFAS",
+    "text", x = 0.94, y = 5.52, label = "raw GloFAS\n1-28 d",
     hjust = 1, vjust = 0.5, color = poster_cols[["glofas"]],
-    size = 5.4, fontface = "bold"
+    size = 4.8, fontface = "bold", lineheight = 0.9
   ) +
   annotate(
-    "text", x = 0.092, y = 5.46, label = "lower CRPS",
+    "text", x = 0.065, y = 5.52, label = "lower CRPS",
     hjust = 0, vjust = 0.5, color = poster_cols[["hydro"]],
-    size = 5.4, fontface = "bold"
+    size = 4.9, fontface = "bold"
   ) +
   scale_x_log10(
-    limits = c(0.08, 1.18),
-    breaks = c(0.1, 0.25, 0.5, 1),
-    labels = c("0.10x", "0.25x", "0.50x", "1.0x")
+    limits = c(0.06, 12.5),
+    breaks = c(0.1, 0.25, 0.5, 1, 2, 4, 8),
+    labels = c("0.10x", "0.25x", "0.50x", "1.0x", "2x", "4x", "8x")
   ) +
-  scale_color_manual(
-    values = p28_palette,
-    breaks = c("Selected exDQLM", "DQLM", "Raw GloFAS")
+  scale_y_continuous(
+    breaks = seq_along(levels(crps_28d_display$cutoff_panel)),
+    labels = levels(crps_28d_display$cutoff_panel)
   ) +
-  scale_shape_manual(
-    values = p28_shapes,
-    breaks = c("Selected exDQLM", "DQLM", "Raw GloFAS")
-  ) +
+  scale_color_manual(values = p28_palette, breaks = plot_group_levels) +
+  scale_shape_manual(values = p28_shapes, breaks = plot_group_levels) +
   labs(
-    x = "Mean CRPS / raw GloFAS CRPS",
+    x = "Mean CRPS relative to raw GloFAS at the same origin",
     y = NULL
   ) +
   guides(
     shape = "none",
     color = guide_legend(
-      nrow = 1,
+      nrow = 2, byrow = TRUE,
       override.aes = list(
-        size = c(5.6, 5.6, 5.6),
-        shape = unname(p28_shapes[c("Selected exDQLM", "DQLM", "Raw GloFAS")])
+        size = c(4.8, 4.8, 4.8, 4.8, 4.8, 3.8),
+        shape = unname(p28_shapes[plot_group_levels])
       )
     )
   ) +
-  theme_poster(26) +
-  coord_cartesian(ylim = c(0.62, 5.55), clip = "off") +
+  theme_poster(25) +
+  coord_cartesian(ylim = c(0.46, 5.64), clip = "off") +
   theme(
     legend.position = "bottom",
     legend.justification = "left",
-    legend.box.margin = margin(t = 2, r = 0, b = 0, l = 0),
+    legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    legend.key.width = unit(0.72, "cm"),
     panel.grid.major.x = element_line(color = "#E3E6E4", linewidth = 0.62),
-    panel.grid.major.y = element_blank(),
-    axis.text.y = element_text(size = 24, color = poster_cols[["ink"]]),
-    axis.text.x = element_text(size = 21, color = poster_cols[["ink"]]),
-    axis.title.x = element_text(size = 25, color = poster_cols[["title"]]),
+    panel.grid.major.y = element_line(color = "#ECEFEE", linewidth = 0.42),
+    axis.text.y = element_text(size = 23, color = poster_cols[["ink"]]),
+    axis.text.x = element_text(size = 19, color = poster_cols[["ink"]]),
+    axis.title.x = element_text(size = 23, color = poster_cols[["title"]]),
     plot.margin = margin(8, 14, 6, 10)
   )
 
