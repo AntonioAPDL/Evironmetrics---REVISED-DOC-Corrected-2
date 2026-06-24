@@ -66,7 +66,9 @@ def copy_file(src: Path, dst: Path) -> dict[str, str | int]:
 
 def _source_output_roots(multivar_runtime_root: Path, univar_runtime_root: Path, spec: dict[str, str]) -> tuple[Path, Path]:
     multivar_root = (
-        multivar_runtime_root
+        Path(spec['runtime_output_root'])
+        if spec.get('runtime_output_root')
+        else multivar_runtime_root
         / 'runs'
         / spec['multivar_run_id']
         / 'post'
@@ -84,7 +86,7 @@ def _source_output_roots(multivar_runtime_root: Path, univar_runtime_root: Path,
     return multivar_root, univar_root
 
 
-def cutoff_specs(article_root: Path, multivar_runtime_root: Path) -> list[dict[str, str]]:
+def cutoff_specs(article_root: Path, multivar_runtime_root: Path | None) -> list[dict[str, str]]:
     specs = []
     for row in load_authoritative_five_run_specs(article_root, multivar_runtime_root):
         cutoff_code = row['cutoff_code']
@@ -97,6 +99,8 @@ def cutoff_specs(article_root: Path, multivar_runtime_root: Path) -> list[dict[s
             'univar_run_id': UNIVAR_RUN_ID_BY_CUTOFF[cutoff_code],
             'source_lineage': row['source_lineage'],
             'authoritative_manifest': row['authoritative_manifest'],
+            'runtime_run_root': row.get('runtime_run_root', ''),
+            'runtime_output_root': row.get('runtime_output_root', ''),
         })
     return specs
 
@@ -215,7 +219,11 @@ def main() -> None:
     multivar_figure_rows: list[dict[str, str | int]] = []
     reference_figure_rows: list[dict[str, str | int]] = []
 
-    for spec in cutoff_specs(article_root, multivar_runtime_root):
+    specs = cutoff_specs(
+        article_root,
+        args.multivar_runtime_root.resolve() if args.multivar_runtime_root is not None else None,
+    )
+    for spec in specs:
         multivar_output_root, univar_output_root = _source_output_roots(multivar_runtime_root, univar_runtime_root, spec)
         if not multivar_output_root.exists():
             raise FileNotFoundError(f'Missing multivariate synthesis output root: {multivar_output_root}')

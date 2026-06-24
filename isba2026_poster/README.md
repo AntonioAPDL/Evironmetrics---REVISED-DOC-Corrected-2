@@ -8,15 +8,13 @@ Poster source:
 
 Current poster title:
 
-- `Bayesian quantile correction and synthesis for climate products`
+- `Bayesian quantile-based correction and synthesis of climate products`
 
 Current evidence narrative:
 
 - correction-before-synthesis framing in the opening question;
-- main 28-day result stated as source-aware exAL having the lowest mean CRPS at
-  four of five origins;
-- explicit exception that AL-M-T1 has the lowest 28-day CRPS at the
-  2022-12-25 origin;
+- main 28-day result stated as selected exDQLM having the lowest mean CRPS at
+  all five rolling origins under the refreshed HE2 publication authority;
 - separate NWS horizon-matched check over common days 1--8.
 
 Recommended Overleaf setting:
@@ -56,7 +54,7 @@ been formally replaced.
 
 Latest local validation:
 
-- 2026-06-21 evidence-narrative polish compiled with pdfLaTeX twice.
+- 2026-06-23 current-authority refresh compiled with pdfLaTeX twice.
 - `poster.pdf` verified as one A0 portrait page.
 - No fatal, undefined-control-sequence, or overfull LaTeX errors were present in
   the final log; remaining underfull boxes are from narrow poster text columns,
@@ -66,7 +64,7 @@ Latest local validation:
 
 Current scientific lock:
 
-- Use frozen article outputs as of 2026-06-19.
-- Do not include active overnight-screen results unless a future replacement is
-  formally promoted through the workflow, revised article repo, and corrections
-  repo.
+- Use refreshed HE2 publication-authority outputs as of 2026-06-23.
+- Do not include active or partial screening results unless a future replacement
+  is formally promoted through the workflow, revised article repo, and
+  corrections repo.

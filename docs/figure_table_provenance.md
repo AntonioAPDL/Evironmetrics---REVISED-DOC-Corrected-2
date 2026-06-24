@@ -76,6 +76,31 @@ Most important results from this audit:
 
 That means the current manuscript figures are strongly linked to the current workflow repo, even though the manuscript repo itself does not carry the full generation scripts.
 
+## 2026-06-23 HE2 authority refresh
+
+The active HE2 publication authority was refreshed on 2026-06-23. The main
+benchmark table, five-cutoff CRPS validation sources, representative
+`2022-12-25` synthesis bundle, posterior table exports, source/covariate
+summaries, and cutoff-specific multivariate synthesis panels now use:
+
+- retained canonical-grid winners for `20210123` and `20211112`;
+- clean replays from
+  `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_partial_authority_refresh_20260623`
+  for `20211221`, `20220511`, and `20221225`.
+
+Under this refreshed authority, `exAL-M-T1` has the lowest 28-day CRPS in all
+five rolling-origin cutoffs: `0.13971`, `0.04724`, `0.26045`, `0.02273`, and
+`0.53806`.
+
+The HE3 structural-ablation matrix remains a fixed sensitivity analysis
+anchored to the June 1, 2026 exAL-M-T1 winner set. It should not be read as a
+replacement for the refreshed HE2 benchmark authority.
+
+The full-history dry/wet and 80-month support diagnostics have not yet been
+regenerated from the clean `20260623` representative replay. They remain
+interpretation diagnostics only, not forecast-validation evidence, until a
+clean full-history support replay is produced.
+
 The clean current generator contract is:
 - `R/unified/stages/stage_post.R`
 - `scripts/run_environmetrics_figures.R`

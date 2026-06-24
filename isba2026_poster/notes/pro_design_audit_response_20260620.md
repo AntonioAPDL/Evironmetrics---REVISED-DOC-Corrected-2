@@ -6,17 +6,18 @@ Pro-style `poster.tex` pulled from `origin/main` at commit `916f320`, followed b
 local integration edits that keep the source compatible with the project figures
 and claim-governance rules.
 
-The current goal is to reduce repetition, quiet the visual system, and align the
-generated figures with the new poster palette without changing the scientific
-lock.
+The current goal was to reduce repetition, quiet the visual system, and align
+the generated figures with the poster palette without changing the scientific
+lock. This note predates the 2026-06-23 HE2 authority refresh; current evidence
+claims are governed by `claim_checklist.md` and `README.md`.
 
 ## Adopted
 
 - Changed the title to sentence case:
   `Dynamic Bayesian quantile synthesis for medium-range river-flow forecasting`.
 - Made the header metadata unboxed and right-aligned.
-- Kept a rapid-reading result band with the exact four-of-five claim and the
-  2022-12-25 exception.
+- Kept a rapid-reading result band. Under the later HE2 authority refresh, this
+  band now states the all-five selected-exDQLM CRPS result.
 - Replaced the earlier source-logo ribbon and card grid with one compact
   source legend in the left column.
 - Removed the full-width takeaway band and retained one quieter footer.

@@ -363,23 +363,23 @@ Table~\ref{tab:benchmark_crps_models} compares the 28-day raw GloFAS forecast pr
 
 \input{tables/generated_tex/benchmark_crps_main_table.tex}
 
-Table~\ref{tab:benchmark_crps_models} yields a stable pattern across the five cutoffs. The \(U\) versus \(M\) comparison isolates whether the external source channels improve forecast skill beyond using the observation channel alone, whereas the \(T0\) versus \(T1\) comparison isolates whether carrying the transfer component into the forecast window is beneficial. Across the Bayesian variants, the two multivariate specifications with an active forecast-window transfer component, AL-M-T1 and exAL-M-T1, provide the strongest corrected forecasts overall. The exAL-M-T1 specification attains the lowest CRPS among all entries in the first four cutoffs, while AL-M-T1 is the best corrected Bayesian row at 12/25/2022. We nevertheless use exAL-M-T1 as the reference specification for the remaining summaries because it is the selected extended-likelihood specification and has the strongest broad corrected-model performance across the rolling-origin evaluation.
+Table~\ref{tab:benchmark_crps_models} yields a stable pattern across the five cutoffs. The \(U\) versus \(M\) comparison isolates whether the external source channels improve forecast skill beyond using the observation channel alone, whereas the \(T0\) versus \(T1\) comparison isolates whether carrying the transfer component into the forecast window is beneficial. Across the Bayesian variants, the two multivariate specifications with an active forecast-window transfer component, AL-M-T1 and exAL-M-T1, provide the strongest corrected forecasts overall. Under the refreshed HE2 publication authority, exAL-M-T1 attains the lowest 28-day CRPS in all five rolling-origin cutoffs. We therefore use exAL-M-T1 as the reference specification for the remaining selected-model summaries.
 
 \input{tables/generated_tex/benchmark_crps_nws_horizon_table.tex}
 
 The short-horizon comparison in Table~\ref{tab:benchmark_crps_models_nws_horizon} is the appropriate direct comparison to the raw NWS product. It preserves the same held-out USGS verification target and transformed scale as the 28-day table, but restricts all rows to the NWS-available forecast horizon.
 
-To complement the CRPS comparison with targeted quantile diagnostics, Table~\ref{tab:he4_quantile_check_loss} reports mean forecast-window quantile check loss for the four principal synthesis competitors: exAL-M-T1, AL-M-T1, exAL-U-T1, and AL-U-T1. These diagnostics use the same held-out USGS forecast-window observations and the same transformed discharge scale as Table~\ref{tab:benchmark_crps_models}, but evaluate the targeted fitted quantile levels directly. The multivariate synthesis models have lower check loss than the univariate references in most cutoff--quantile cells. The exAL-M-T1 row is strongest through most of the first three cutoffs, whereas AL-M-T1 is competitive in selected lower-tail or final-cutoff cells, consistent with the final-origin nuance in the CRPS table.
+To complement the CRPS comparison with targeted quantile diagnostics, Table~\ref{tab:he4_quantile_check_loss} reports mean forecast-window quantile check loss for the four principal synthesis competitors: exAL-M-T1, AL-M-T1, exAL-U-T1, and AL-U-T1. These diagnostics use the same held-out USGS forecast-window observations and the same transformed discharge scale as Table~\ref{tab:benchmark_crps_models}, but evaluate the targeted fitted quantile levels directly. The multivariate synthesis models have lower check loss than the univariate references in most cutoff--quantile cells. Under the refreshed source set, exAL-M-T1 is strongest in most cutoff--quantile cells, while AL-M-T1 remains competitive in selected upper-tail cells.
 
 \input{tables/generated_tex/he4_quantile_check_loss_main_table.tex}
 
 
-Appendix~\ref{app:he3ablation} reports a targeted component ablation of the selected extended-likelihood multivariate specification under the same rolling-origin and horizon contracts.
+Appendix~\ref{app:he3ablation} reports a targeted component ablation of the extended-likelihood multivariate specification under the same rolling-origin and horizon contracts. That ablation matrix is retained as a fixed structural-sensitivity analysis anchored to the June 1, 2026 exAL-M-T1 winner set, whereas Table~\ref{tab:benchmark_crps_models} is the refreshed HE2 publication authority for the main benchmark comparison.
 
 \section{INTERPRETATION OF THE SELECTED SPECIFICATION}
 \label{sec:interpretation}
 
-Because exAL-M-T1 is the selected extended-likelihood multivariate specification and is the strongest corrected model over the first four rolling-origin cutoffs, the remaining discussion focuses on that specification. Detailed source-specific summaries for the exAL shape and scale parameters are reported in Appendix~\ref{app:sourceparams}. In the main text, we focus on the aspects of the selected model that are most informative for interpretation.
+Because exAL-M-T1 is the selected extended-likelihood multivariate specification and is the strongest corrected model across the five rolling-origin cutoffs in Table~\ref{tab:benchmark_crps_models}, the remaining discussion focuses on that specification. Detailed source-specific summaries for the exAL shape and scale parameters are reported in Appendix~\ref{app:sourceparams}. In the main text, we focus on the aspects of the selected model that are most informative for interpretation.
 
 \subsection{Covariate Effects}
 
@@ -391,13 +391,13 @@ The first GDPC factor remains close to zero after conditioning on precipitation 
 
 \subsection{Selected-Model Dynamics Across Representative Regimes}
 
-To illustrate how the selected specification behaves across contrasting hydrological conditions, we show posterior quantile dynamics from the same 2022-12-25 selected exAL-M-T1 output authority used for the synthesis illustration. The displayed windows cover the 2012--2016 drought and the 2017--2019 wet period, but the source is the common selected-model posterior-output bundle rather than a separate historical-support run. These figures are included to diagnose fitted quantile behavior, not as a second forecast-validation exercise and not as additional rolling-origin evidence.
+To illustrate how the selected specification behaves across contrasting hydrological conditions, we show posterior quantile dynamics from the selected-model support bundle for the 2022-12-25 exAL-M-T1 specification. The displayed windows cover the 2012--2016 drought and the 2017--2019 wet period. These figures are included to diagnose fitted quantile behavior, not as a second forecast-validation exercise and not as additional rolling-origin evidence; the refreshed five-cutoff benchmark remains the source for forecast-skill claims.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=450pt]{historical_summary_dry_period.png}
 \caption{
-Selected-model posterior mean and 95\% credible intervals of river-flow quantiles during the dry period (2012--2016), rendered from the same 2022-12-25 exAL-M-T1 selected-output authority as the synthesis figure. Shown are the 5th (red), 50th (green), and 95th (blue) quantile models together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
+Selected-model posterior mean and 95\% credible intervals of river-flow quantiles during the dry period (2012--2016), rendered from the 2022-12-25 exAL-M-T1 selected-model support bundle. Shown are the 5th (red), 50th (green), and 95th (blue) quantile models together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
 }
 \label{fig:dry_quantile}
 \end{figure}
@@ -406,7 +406,7 @@ Selected-model posterior mean and 95\% credible intervals of river-flow quantile
 \centering
 \includegraphics[width=450pt]{historical_summary_wet_period.png}
 \caption{
-Selected-model posterior mean and 95\% credible intervals of river-flow quantiles during the wet period (2017--2019), rendered from the same 2022-12-25 exAL-M-T1 selected-output authority as the synthesis figure. Shown are the 5th (red), 50th (green), and 95th (blue) quantile models together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
+Selected-model posterior mean and 95\% credible intervals of river-flow quantiles during the wet period (2017--2019), rendered from the 2022-12-25 exAL-M-T1 selected-model support bundle. Shown are the 5th (red), 50th (green), and 95th (blue) quantile models together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
 }
 \label{fig:rainy_quantile}
 \end{figure}
@@ -436,7 +436,7 @@ The synthesized predictive distribution combines observed USGS measurements befo
 
 We developed a Bayesian quantile-based correction-and-synthesis framework for river-flow forecasting that links USGS observations, retrospective products, and forecast products through a shared latent quantile process. The framework combines source-specific discrepancy learning over the pre-cutoff observation window with a forecast-window synthesis step that can propagate both retrospective corrections and transfer-component information into the prediction horizon. Variational Bayes based on Laplace--Delta approximations provides a scalable alternative to full MCMC for fitting the extended dynamic quantile linear model.
 
-In the San Lorenzo application, the main empirical result is the five-cutoff rolling-origin forecast comparison based on the latest forecast products available at each cutoff. Relative to simpler Bayesian variants, the multivariate specifications with an active forecast-window transfer component provide the strongest corrected forecasts overall. The exAL-M-T1 specification attains the lowest 28-day forecast-window CRPS in the first four cutoffs, while AL-M-T1 is the best corrected Bayesian row at the December 25, 2022 cutoff. A separate eight-day NWS-horizon table preserves the direct operational comparison to NWS without mixing forecast horizons. Forecast skill is generally highest when USGS observations are combined with retrospective and forecast products rather than treated in isolation, and the split raw-product references underscore the importance of retaining horizon-compatible baselines in forecast validation.
+In the San Lorenzo application, the main empirical result is the five-cutoff rolling-origin forecast comparison based on the latest forecast products available at each cutoff. Relative to simpler Bayesian variants, the multivariate specifications with an active forecast-window transfer component provide the strongest corrected forecasts overall. The selected exAL-M-T1 specification attains the lowest 28-day forecast-window CRPS in all five cutoffs under the refreshed HE2 publication authority. A separate eight-day NWS-horizon table preserves the direct operational comparison to NWS without mixing forecast horizons. Forecast skill is generally highest when USGS observations are combined with retrospective and forecast products rather than treated in isolation, and the split raw-product references underscore the importance of retaining horizon-compatible baselines in forecast validation.
 
 The selected specification remains interpretable. The transfer component is driven primarily by precipitation and antecedent wetness, while the regime illustrations show that predictive spread widens during high-flow winter episodes and contracts during drought conditions.
 
@@ -477,13 +477,13 @@ The revised article repository records the manuscript-facing figures, tables, ge
 \subsection{Targeted Component Ablation}
 \label{app:he3ablation}
 
-To assess the contribution of the main structural blocks in the selected extended-likelihood multivariate specification, we rerun the cutoff-specific \texttt{exAL-M-T1} reference fits after removing one component at a time. Each ablation preserves the same rolling-origin cutoffs, input bundles, preprocessing, likelihood, and selected hyperparameters, so the comparison changes only the named structural component. The labels \texttt{noH1}, \texttt{noH2}, and \texttt{noH3} remove the first, second, and third retained seasonal harmonic pairs, respectively; \texttt{noH3} refers to the retained noninteger frequency \(1/6.8068493\), not to a literal harmonic frequency of 3.
+To assess the contribution of the main structural blocks in the extended-likelihood multivariate specification, we retain a fixed ablation matrix anchored to the June 1, 2026 \texttt{exAL-M-T1} winner set and rerun those cutoff-specific reference fits after removing one component at a time. Each ablation preserves the same rolling-origin cutoffs, input bundles, preprocessing, likelihood, and selected hyperparameters from that fixed matrix, so the comparison changes only the named structural component. The labels \texttt{noH1}, \texttt{noH2}, and \texttt{noH3} remove the first, second, and third retained seasonal harmonic pairs, respectively; \texttt{noH3} refers to the retained noninteger frequency \(1/6.8068493\), not to a literal harmonic frequency of 3.
 
 \input{tables/generated_tex/he3_ablation_crps_main_table.tex}
 
 \input{tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex}
 
-Within this fixed ablation matrix, the full reference row has the lowest CRPS among the ablation rows at all five cutoffs under both horizon contracts. This component-sensitivity check supports retaining the transfer, trend, and multi-frequency seasonal blocks in the selected specification.
+Within this fixed ablation matrix, the full reference row has the lowest CRPS among the ablation rows at all five cutoffs under both horizon contracts. This component-sensitivity check supports retaining the transfer, trend, and multi-frequency seasonal blocks, but it should be read separately from the refreshed HE2 benchmark authority reported in Table~\ref{tab:benchmark_crps_models}.
 
 \subsection{Supplementary Source-Specific Shape and Scale Parameters}
 \label{app:sourceparams}
@@ -501,7 +501,7 @@ Tables~\ref{tab:gamma_sigma_intervals1} and \ref{tab:gamma_sigma_intervals2} pro
 \centering
 \includegraphics[width=450pt]{historical_component_80month.png}
 \caption{
-Selected-model posterior mean and 95\% credible intervals for the 80-month seasonal component, rendered from the same 2022-12-25 exAL-M-T1 selected-output authority as the synthesis figure. Estimates are shown for the 5th (red), 50th (green), and 95th (blue) quantiles, with observed USGS daily flow in black for reference. Shaded regions mark the 2012--2016 dry period and the 2017--2019 wet period.
+Selected-model posterior mean and 95\% credible intervals for the 80-month seasonal component, rendered from the 2022-12-25 exAL-M-T1 selected-model support bundle. Estimates are shown for the 5th (red), 50th (green), and 95th (blue) quantiles, with observed USGS daily flow in black for reference. Shaded regions mark the 2012--2016 dry period and the 2017--2019 wet period. This panel is a retrospective component diagnostic rather than an additional forecast-validation summary.
 }
 \label{fig:80_components}
 \end{figure}

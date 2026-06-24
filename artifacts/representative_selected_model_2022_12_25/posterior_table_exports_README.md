@@ -14,6 +14,6 @@ Optional LaTeX snippets:
 - sigma_summary.tex
 - covariate_effects_summary.tex
 
-CI string precision: 3 decimal places.
+CI string precision: 5 decimal places.
 Table formats: csv
 The numeric columns are the source of truth for downstream table generation.

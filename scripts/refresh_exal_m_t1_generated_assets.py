@@ -64,8 +64,8 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
     sums = []
 
     for spec in five_run_specs:
-        run_root = runtime_root / 'runs' / spec['run_id']
-        output_root = run_root / 'post' / 'outputs' / spec['run_id']
+        run_root = Path(spec.get('runtime_run_root') or runtime_root / 'runs' / spec['run_id'])
+        output_root = Path(spec.get('runtime_output_root') or run_root / 'post' / 'outputs' / spec['run_id'])
         target_dir = bundle_root / spec['slug']
         target_dir.mkdir(parents=True, exist_ok=True)
 
@@ -107,7 +107,7 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
 
     (bundle_root / 'README.md').write_text(
         '# Five-Cutoff CRPS Validation Sources\n\n'
-        'This artifact bundle freezes the five authoritative canonical-grid `exAL-M-T1` run roots used by the revised article benchmark table refresh.\n\n'
+        'This artifact bundle freezes the five current publication-authority `exAL-M-T1` run roots used by the revised article benchmark table refresh.\n\n'
         'Refresh script:\n'
         '- `scripts/refresh_exal_m_t1_generated_assets.py`\n\n'
         'For each cutoff, the local freeze contains:\n'
@@ -115,7 +115,7 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
         '- `compare_report.json`\n'
         '- `crps_forecast_summary.csv`\n\n'
         '- `crps_forecast_per_time.csv`\n\n'
-        'These files are copied from the CRPS-selected canonical-grid `exdqlm_multivar_keep` winner root.\n'
+        'These files are copied from the current HE2 publication freeze. Some cutoffs may remain on the original canonical-grid roots, while promoted cutoffs point to clean replay roots.\n'
     )
 
     with (bundle_root / 'manifest.csv').open('w', newline='') as f:
@@ -131,8 +131,8 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
 
 def refresh_representative_bundle(layout, runtime_root: Path, five_run_specs: list[dict[str, str]]) -> None:
     spec = next(s for s in five_run_specs if s['slug'] == '20221225_exal_m_t1')
-    run_root = runtime_root / 'runs' / spec['run_id']
-    output_root = run_root / 'post' / 'outputs' / spec['run_id']
+    run_root = Path(spec.get('runtime_run_root') or runtime_root / 'runs' / spec['run_id'])
+    output_root = Path(spec.get('runtime_output_root') or run_root / 'post' / 'outputs' / spec['run_id'])
     bundle_root = layout.representative_selected_model_dir
     bundle_root.mkdir(parents=True, exist_ok=True)
 
@@ -169,7 +169,7 @@ def refresh_representative_bundle(layout, runtime_root: Path, five_run_specs: li
 
     (bundle_root / 'README.md').write_text(
         '# Representative Selected Model: 2022-12-25\n\n'
-        'This artifact bundle freezes the authoritative representative `2022-12-25 exAL-M-T1` canonical-grid outputs used by the revised article.\n\n'
+        'This artifact bundle freezes the authoritative representative `2022-12-25 exAL-M-T1` outputs used by the revised article.\n\n'
         'Refresh script:\n'
         '- `scripts/refresh_exal_m_t1_generated_assets.py`\n\n'
         'Included content:\n'
@@ -202,7 +202,10 @@ def main() -> None:
     )
     layout = build_layout(article_root)
     layout.ensure_base_dirs()
-    five_run_specs = load_authoritative_five_run_specs(article_root, runtime_root)
+    five_run_specs = load_authoritative_five_run_specs(
+        article_root,
+        args.runtime_root.resolve() if args.runtime_root is not None else None,
+    )
     refresh_five_run_sources(layout, runtime_root, five_run_specs)
     refresh_representative_bundle(layout, runtime_root, five_run_specs)
     print('Refreshed exAL-M-T1 generated asset bundles successfully.')

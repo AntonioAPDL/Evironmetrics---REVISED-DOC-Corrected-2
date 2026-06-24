@@ -3,12 +3,13 @@
 This note records the poster revision that shifts the surface from internal
 model shorthand toward audience-facing scientific language. It was superseded
 in part by the 2026-06-21 evidence-narrative polish recorded in
-`claim_checklist.md` and `README.md`.
+`claim_checklist.md` and `README.md`, and by the 2026-06-23 HE2 authority
+refresh.
 
 ## Adopted Changes
 
 - Retitled the poster as:
-  `Bayesian quantile correction and synthesis for climate products`.
+  `Bayesian quantile-based correction and synthesis of climate products`.
 - Moved the UCSC seal into the header as the institutional anchor.
 - Moved USGS, ECMWF/GloFAS, and NOAA/NWS logos into the problem/data-source
   panel where the products are introduced.
@@ -26,9 +27,9 @@ in part by the 2026-06-21 evidence-narrative polish recorded in
 - Added the `historical_component_80month.png` diagnostic from the authoritative
   manuscript figure set to show that the selected model supports retrospective
   dynamic component interpretation, not only forecast correction.
-- Replaced the earlier observation-only comparison emphasis with the scoped
-  main evidence statement: source-aware exAL has the lowest mean 28-day CRPS at
-  four of five origins, while AL-M-T1 is lowest at 2022-12-25.
+- Replaced the earlier observation-only comparison emphasis with the refreshed
+  HE2 publication evidence statement: the selected exDQLM has the lowest
+  1--28-step-ahead CRPS at all five rolling forecast origins.
 - Added an expert-facing expanded model-expression panel under the schematic,
   using the revised article's observed-measurement, retrospective-product,
   forecast-product, trend/seasonal, discrepancy, transfer, and covariate-effect
@@ -38,7 +39,8 @@ in part by the 2026-06-21 evidence-narrative polish recorded in
 
 - The poster still uses only article-facing frozen/authoritative results.
 - Active screening results are not included.
-- The 2022-12-25 exception remains explicit.
+- The earlier final-origin caveat is obsolete under the refreshed HE2
+  publication authority and should not be used in current poster claims.
 - NWS remains restricted to the horizon-matched 1--8 day comparison.
 
 ## Build/Asset Notes

@@ -99,24 +99,28 @@ class ArticleRepoLayout:
         return self.root / 'figures'
 
     @property
+    def publication_figures_dir(self) -> Path:
+        return self.root / 'Figures'
+
+    @property
     def manuscript_figures_dir(self) -> Path:
         return self.figures_dir / 'manuscript'
 
     @property
     def appendix_cutoff_panels_dir(self) -> Path:
-        return self.figures_dir / 'appendix_cutoff_panels'
+        return self.publication_figures_dir / 'appendix_cutoff_panels'
 
     @property
     def cutoff_forecast_context_dir(self) -> Path:
-        return self.figures_dir / 'forecast_context_by_cutoff'
+        return self.publication_figures_dir / 'forecast_context_by_cutoff'
 
     @property
     def cutoff_multivariate_synthesis_dir(self) -> Path:
-        return self.figures_dir / 'multivariate_synthesis_by_cutoff'
+        return self.publication_figures_dir / 'multivariate_synthesis_by_cutoff'
 
     @property
     def cutoff_reference_synthesis_dir(self) -> Path:
-        return self.figures_dir / 'reference_synthesis_by_cutoff'
+        return self.publication_figures_dir / 'reference_synthesis_by_cutoff'
 
     @property
     def tables_dir(self) -> Path:

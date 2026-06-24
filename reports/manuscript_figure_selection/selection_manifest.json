@@ -76,7 +76,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
-      "sha256": "89a9ed4d36e9f65d73885e9ca3d1d79cd3523de380284b5110f7bbed3b0a234d",
+      "sha256": "4a5149e87b8325bd7ede753db82a369902c3de66f6cb8e885c07f2e41db245e6",
       "note": "Authoritative representative 2022-12-25 exAL-M-T1 canonical-grid output with adapter-scale retrospective and forecast-product references"
     },
     {

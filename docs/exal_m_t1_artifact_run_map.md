@@ -1,6 +1,6 @@
 # exAL-M-T1 Artifact-to-Run Map
 
-Date: 2026-05-06
+Date: 2026-06-23
 
 ## Purpose
 
@@ -12,8 +12,9 @@ It is the execution companion to:
 - `docs/exal_m_t1_shared_rerun_checklist.md`
 
 Important transition note:
-- the mappings below now point at the completed shared-spec `20260516` rerun where the article-side refresh has already been applied.
-- the only remaining article-side exception is the historical-support bundle, which is still blocked on retained multivariate fit artifacts.
+- the main HE2 benchmark authority now combines the two retained canonical-grid winners for `20210123` and `20211112` with three clean `20260623` replays for `20211221`, `20220511`, and `20221225`;
+- the refreshed clean replays are the source for the promoted CRPS values, representative synthesis panel, cutoff-specific multivariate synthesis panels, posterior table exports, and source/covariate summaries;
+- the historical dry/wet and 80-month support diagnostics remain a full-history support bundle from the prior selected-output support lineage until a clean full-history support replay is run.
 
 ## Cleanup status
 
@@ -51,13 +52,13 @@ These local copies are derived from the verified workflow replay roots and shoul
 
 ## 2. Verified five-run publication lineage
 
-| Cutoff | Local frozen copy | Canonical run root | Canonical CRPS source | Status |
+| Cutoff | Local frozen copy | Authority run root | Authority CRPS source | Status |
 |---|---|---|---|---|
-| `2021-01-23` | `artifacts/five_cutoff_crps_validation_sources/20210123_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_sharedspec_20260516/runs/multimodel_20210123_v8_he2pubgdpc1r1_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | `PASS` |
-| `2021-11-12` | `artifacts/five_cutoff_crps_validation_sources/20211112_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_sharedspec_20260516/runs/multimodel_20211112_v8_he2pubgdpc1r1_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | `PASS` |
-| `2021-12-21` | `artifacts/five_cutoff_crps_validation_sources/20211221_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_sharedspec_20260516/runs/multimodel_20211221_v8_he2pubgdpc1r1_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | `PASS` |
-| `2022-05-11` | `artifacts/five_cutoff_crps_validation_sources/20220511_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_sharedspec_20260516/runs/multimodel_20220511_v8_he2pubgdpc1r1_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | `PASS` |
-| `2022-12-25` | `artifacts/five_cutoff_crps_validation_sources/20221225_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_all_cutoffs_sharedspec_20260516/runs/multimodel_20221225_v8_he2pubgdpc1r1_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | `PASS` |
+| `2021-01-23` | `artifacts/five_cutoff_crps_validation_sources/20210123_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_epsilon_discount_grid_20260524/runs/multimodel_20210123_v8_he2grid_c04_eps365_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | retained authority, `0.13971` |
+| `2021-11-12` | `artifacts/five_cutoff_crps_validation_sources/20211112_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_epsilon_discount_grid_20260524/runs/multimodel_20211112_v8_he2grid_c04_eps365_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | retained authority, `0.04724` |
+| `2021-12-21` | `artifacts/five_cutoff_crps_validation_sources/20211221_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_partial_authority_refresh_20260623/runs/multimodel_20211221_v8_he2partial20260623_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | clean replay, `0.26045` |
+| `2022-05-11` | `artifacts/five_cutoff_crps_validation_sources/20220511_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_partial_authority_refresh_20260623/runs/multimodel_20220511_v8_he2partial20260623_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | clean replay, `0.02273` |
+| `2022-12-25` | `artifacts/five_cutoff_crps_validation_sources/20221225_exal_m_t1/` | `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/multimodel_v8_he2_exdqlm_multivar_keep_partial_authority_refresh_20260623/runs/multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep` | `post/outputs/.../tables/crps_forecast_summary.csv` | clean replay, `0.53806` |
 
 ## 3. Representative selected-model bundle
 
@@ -106,14 +107,14 @@ That bundle now includes:
 
 ### Interpretation and appendix support outside the forecast-validation table
 
-These objects are not additional forecast-validation table entries. The selected-model diagnostics are locked to the same representative `2022-12-25 exAL-M-T1` selected-output authority as `fig:synth1`; the historical-only reference synthesis remains a separate appendix counterfactual.
+These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics remain support diagnostics pending a clean full-history support replay; the historical-only reference synthesis remains a separate appendix counterfactual.
 
 | Manuscript object | Current role | Current source status | Action |
 |---|---|---|---|
 | `fig:synth2` | appendix historical-only reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance |
-| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as support diagnostic, not forecast-validation evidence; pending clean full-history support replay |
+| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as support diagnostic, not forecast-validation evidence; pending clean full-history support replay |
+| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as support diagnostic, not forecast-validation evidence; pending clean full-history support replay |
 
 ### Setup figures outside the selected-model refresh scope
 
@@ -129,7 +130,7 @@ These objects are not additional forecast-validation table entries. The selected
 1. The five verified `exAL-M-T1` keep runs are now the locked reproducible source set for the main selected-model manuscript evidence.
 2. Any further refresh of the central selected-model objects `fig:synth1` and `tab:components_23_31` should use only the files recorded above.
 3. The appendix support tables `tab:gamma_sigma_intervals1` and `tab:gamma_sigma_intervals2` should remain supplementary and should continue to use the representative `2022-12-25` source files recorded above.
-4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are selected-model diagnostics from the same representative selected-output authority as `fig:synth1`.
+4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are selected-model support diagnostics pending clean full-history support replay.
    - They should remain distinguished from the forecast-validation evidence used for the main benchmark table.
    - Their article-side provenance anchor is now `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`.
 5. `fig:synth2` remains a separate historical-only appendix reference sourced from `artifacts/historical_support_from_current_models/`.
