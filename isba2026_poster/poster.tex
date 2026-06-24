@@ -82,6 +82,8 @@
 \definecolor{CovariateSkyColor}{HTML}{748FAA}
 \definecolor{ClimateIndexColor}{HTML}{81717F}
 \definecolor{LimitColor}{HTML}{9A4A4A}
+\definecolor{SynthesisPinkLight}{HTML}{F9E2EA}
+\definecolor{SynthesisPinkDark}{HTML}{A33A67}
 
 \colorlet{ModelPlum}{SelectedModelColor}
 \colorlet{HydroBlue}{StructureColor}
@@ -402,10 +404,11 @@
       {repeat over seven quantile lanes\\[-0.02cm]
        \(p_0\in\{.05,.20,\ldots,.95\}\)};
 
-    \node[outbox,fill=ModelPlum!9,draw=ModelPlum,text=TitleSlate,
+    \node[outbox,fill=SynthesisPinkLight,draw=SynthesisPinkDark,text=TitleSlate,
+      line width=0.74pt,
       minimum width=3.24cm,minimum height=1.66cm,
       font=\sffamily\bfseries\fontsize{7.2}{7.9}\selectfont] (synth) at (8.78,3.28)
-      {posterior synthesis\\[-0.02cm]\(\{Q_{p_0}\}\rightarrow F\)\\[-0.03cm]
+      {\textcolor{SynthesisPinkDark}{posterior synthesis}\\[-0.02cm]\(\{Q_{p_0}\}\rightarrow F\)\\[-0.03cm]
        {\sffamily\bfseries\fontsize{6.35}{6.95}\selectfont\color{MutedSlate}isotonic adjustment}\\[-0.04cm]
        {\sffamily\bfseries\fontsize{6.35}{6.95}\selectfont\color{MutedSlate}monotone posterior draws}};
     \node[outbox,fill=PosterWhite,draw=USGSInk] (verify) at (12.16,3.88)

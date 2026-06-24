@@ -48,6 +48,8 @@ poster_cols <- c(
   sage = env_col("sage", "#667866"),
   sky = env_col("sky", "#748FAA"),
   mauve = env_col("mauve", "#81717F"),
+  synth_pink_light = env_col("synth_pink_light", "#F9E2EA"),
+  synth_pink_dark = env_col("synth_pink_dark", "#A33A67"),
   other = env_col("other", "#8A9399")
 )
 
@@ -389,7 +391,7 @@ box_df <- tibble::tribble(
   "latent", 4.10, 4.70, 3.25, 0.90, "shared USGS quantile\ntheta_t\ntrend + seasonality", "#E8F0F2", poster_cols[["hydro"]], poster_cols[["title"]],
   "disc", 4.10, 3.58, 3.25, 0.90, "source discrepancies\ndelta_t^j\ncorrection states", poster_cols[["panel"]], poster_cols[["rule"]], poster_cols[["title"]],
   "transfer", 4.10, 2.46, 3.25, 0.90, "transfer component\nzeta_t, psi_t\ndriven by x_t", "#F4EAD2", poster_cols[["sage"]], poster_cols[["title"]],
-  "synth", 8.25, 3.50, 2.85, 0.95, "synthesized posterior\npredictive distribution", poster_cols[["plum"]], poster_cols[["plum"]], poster_cols[["white"]],
+  "synth", 8.25, 3.50, 2.85, 0.95, "synthesized posterior\npredictive distribution", poster_cols[["synth_pink_light"]], poster_cols[["synth_pink_dark"]], poster_cols[["synth_pink_dark"]],
   "verify", 11.70, 4.10, 2.55, 0.82, "held-out USGS\nverification flow", poster_cols[["white"]], poster_cols[["usgs"]], poster_cols[["title"]],
   "score", 11.70, 2.52, 2.55, 1.06, "synthesis predictive\nperformance\nCRPS = integrated\nquantile loss", poster_cols[["white"]], poster_cols[["plum"]], poster_cols[["title"]]
 ) |>
