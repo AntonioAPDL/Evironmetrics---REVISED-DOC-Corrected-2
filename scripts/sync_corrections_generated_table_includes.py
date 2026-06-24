@@ -132,7 +132,10 @@ def write_readme(table_dir: Path) -> None:
         "Refresh targets:\n\n"
         f"{bullets}\n\n"
         "The workflow-side cross-repo validator checks these fragments against the same\n"
-        "source artifacts used by the revised article.\n",
+        "source artifacts used by the revised article.\n\n"
+        "For future HE2 publication-authority refreshes, do not hand-edit these\n"
+        "numeric tables. Follow the workflow runbook first:\n\n"
+        "- `/data/muscat_data/jaguir26/project1_ucsc_phd/docs/current_authority_refresh_runbook.md`\n",
         encoding="utf-8",
     )
 

@@ -68,3 +68,7 @@ Current scientific lock:
 - Do not include active or partial screening results unless a future replacement
   is formally promoted through the workflow, revised article repo, and
   corrections repo.
+- Future authority refreshes should follow the workflow runbook:
+  `/data/muscat_data/jaguir26/project1_ucsc_phd/docs/current_authority_refresh_runbook.md`.
+  Rebuild poster figures/PDF only after the article freeze and generated tables
+  have been refreshed from the promoted HE2 manifest.

@@ -17,6 +17,15 @@ This repository is the advisor-facing freeze of the revised manuscript, its manu
 - `docs/software_availability_contract.md`: manuscript-side software reproducibility contract
 - `scripts/validate_manuscript_figure_paths.py`: validates that every `\includegraphics{}` call in the manuscript resolves through the canonical figure search paths
 
+For any future HE2 publication-authority replacement, start from the workflow
+runbook:
+
+- `/data/muscat_data/jaguir26/project1_ucsc_phd/docs/current_authority_refresh_runbook.md`
+
+Authority promotion is workflow-first. This article repo snapshots the promoted
+manifest, generated tables, figures, and poster artifacts after the workflow
+overlay and validators pass.
+
 ## Directory roles
 
 - `figures/`: manuscript-facing figures, appendix cutoff panels, and advisor-facing cutoff-wide forecast/synthesis figure families
@@ -36,6 +45,12 @@ The refresh path now includes a figure-path validation step. The manuscript keep
 the lowercase `figures/` tree as canonical, while `wileyNJD-APA.tex` also
 accepts the legacy uppercase `Figures/` tree as a compile-time fallback for
 Overleaf Git-sync compatibility.
+
+For a benchmark-only authority refresh, prefer the narrower sequence in the
+workflow runbook: refresh the HE2 manifest snapshot, selected-model bundles,
+cutoff synthesis families, generated table includes, poster figures/PDF, and
+corrections response tables. Use the broad refresh only when setup/support or
+full-history diagnostic assets are intentionally being rebuilt too.
 
 ## Overleaf sync recovery
 
