@@ -203,6 +203,9 @@ crps_28d_display <- bind_rows(
 
 write_csv(crps_28d_display, file.path(data_dir, "benchmark_crps_results_plot_points.csv"))
 
+crps_28d_markers <- crps_28d_display |>
+  mutate(marker_glyph = "\u25C0")
+
 winner_28d <- crps_28d_display |>
   filter(horizon_note == "1-28 d", model != "RAW-GLOFAS") |>
   group_by(cutoff, cutoff_panel, y_base) |>
@@ -221,17 +224,10 @@ p28_palette <- c(
   "Alternative Models" = poster_cols[["other"]]
 )
 
-p28_shapes <- c(
-  "exDQLM" = 16,
-  "DQLM" = 16,
-  "Raw GloFAS (1-28 d)" = 15,
-  "Raw NWS (1-8 d ref.)" = 15,
-  "Alternative Models" = 1
-)
 p28_model_groups <- c("exDQLM", "DQLM")
 p28_raw_groups <- c("Raw GloFAS (1-28 d)", "Raw NWS (1-8 d ref.)")
 
-p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
+p28 <- ggplot(crps_28d_markers, aes(y = point_y)) +
   geom_segment(
     data = winner_28d,
     aes(x = ratio_raw_glofas, xend = 1, y = y_base, yend = y_base),
@@ -242,20 +238,20 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
     xintercept = 1, linewidth = 0.78, linetype = "dashed",
     color = poster_cols[["muted"]]
   ) +
-  geom_point(
-    data = crps_28d_display |> filter(is_univariate),
-    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 2.9, stroke = 0.84, alpha = 0.72
+  geom_text(
+    data = crps_28d_markers |> filter(is_univariate),
+    aes(x = ratio_raw_glofas, label = marker_glyph, color = display_group),
+    size = 5.25, alpha = 0.68, family = "sans", fontface = "bold"
   ) +
-  geom_point(
-    data = crps_28d_display |> filter(as.character(display_group) %in% p28_raw_groups),
-    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 3.9, stroke = 0.96, alpha = 0.9
+  geom_text(
+    data = crps_28d_markers |> filter(as.character(display_group) %in% p28_raw_groups),
+    aes(x = ratio_raw_glofas, label = marker_glyph, color = display_group),
+    size = 6.15, alpha = 0.90, family = "sans", fontface = "bold"
   ) +
-  geom_point(
-    data = crps_28d_display |> filter(as.character(display_group) %in% p28_model_groups),
-    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 4.0, stroke = 0.96
+  geom_text(
+    data = crps_28d_markers |> filter(as.character(display_group) %in% p28_model_groups),
+    aes(x = ratio_raw_glofas, label = marker_glyph, color = display_group),
+    size = 6.35, alpha = 1, family = "sans", fontface = "bold"
   ) +
   geom_label(
     data = winner_28d,
@@ -286,18 +282,18 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
     labels = levels(crps_28d_display$cutoff_panel)
   ) +
   scale_color_manual(values = p28_palette, breaks = plot_group_levels) +
-  scale_shape_manual(values = p28_shapes, breaks = plot_group_levels) +
   labs(
     x = "Mean CRPS relative to raw GloFAS at the same origin",
     y = NULL
   ) +
   guides(
-    shape = "none",
     color = guide_legend(
       nrow = 2, byrow = TRUE,
       override.aes = list(
-        size = c(4.35, 4.35, 4.35, 4.35, 3.35),
-        shape = unname(p28_shapes[plot_group_levels])
+        label = "\u25C0",
+        size = c(5.8, 5.8, 5.8, 5.8, 5.2),
+        alpha = 1,
+        fontface = "bold"
       )
     )
   ) +
