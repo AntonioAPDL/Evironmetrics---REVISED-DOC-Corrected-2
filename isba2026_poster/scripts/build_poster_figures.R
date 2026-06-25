@@ -65,7 +65,7 @@ model_label <- function(x) {
 }
 
 palette <- c(
-  "Selected exDQLM" = poster_cols[["plum"]],
+  "Selected exDQLM" = poster_cols[["hydro"]],
   "DQLM" = poster_cols[["ochre"]],
   "GloFAS" = poster_cols[["glofas"]],
   "NWS" = poster_cols[["nws"]],
@@ -214,7 +214,7 @@ winner_28d <- crps_28d_display |>
   )
 
 p28_palette <- c(
-  "exDQLM" = poster_cols[["plum"]],
+  "exDQLM" = poster_cols[["hydro"]],
   "DQLM" = poster_cols[["ochre"]],
   "Raw GloFAS (1-28 d)" = poster_cols[["glofas"]],
   "Raw NWS (1-8 d ref.)" = poster_cols[["nws"]],
@@ -245,24 +245,24 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
   geom_point(
     data = crps_28d_display |> filter(is_univariate),
     aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 3.15, stroke = 0.9, alpha = 0.74
+    size = 2.9, stroke = 0.84, alpha = 0.72
   ) +
   geom_point(
     data = crps_28d_display |> filter(as.character(display_group) %in% p28_raw_groups),
     aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 4.25, stroke = 1.05, alpha = 0.9
+    size = 3.9, stroke = 0.96, alpha = 0.9
   ) +
   geom_point(
     data = crps_28d_display |> filter(as.character(display_group) %in% p28_model_groups),
     aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 4.35, stroke = 1.05
+    size = 4.0, stroke = 0.96
   ) +
   geom_label(
     data = winner_28d,
     aes(x = ratio_raw_glofas, y = label_y, label = winner_text),
     inherit.aes = FALSE,
     hjust = 0.5, size = 4.65, fontface = "bold", linewidth = 0,
-    color = poster_cols[["plum"]],
+    color = poster_cols[["hydro"]],
     fill = poster_cols[["white"]], label.padding = unit(0.12, "lines"),
     show.legend = FALSE
   ) +
@@ -296,7 +296,7 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
     color = guide_legend(
       nrow = 2, byrow = TRUE,
       override.aes = list(
-        size = c(4.8, 4.8, 4.8, 4.8, 3.8),
+        size = c(4.35, 4.35, 4.35, 4.35, 3.35),
         shape = unname(p28_shapes[plot_group_levels])
       )
     )
