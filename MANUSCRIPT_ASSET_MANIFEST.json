@@ -46,9 +46,9 @@
       "category": "Selected Model",
       "role": "Selected-model quantile dynamics, 2012-2016 window",
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
-      "source_class": "selected_model_support_pending_clean_replay_refresh",
-      "current_model_output_wired": false,
-      "note": "Rendered from the 2022-12-25 selected-model support bundle used for historical dry/wet diagnostics. This full-history support bundle has not yet been regenerated from the 2026-06-23 clean HE2 authority; it is retained only as an interpretation diagnostic, not forecast-validation evidence."
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure. This is an interpretation diagnostic, not forecast-validation evidence."
     },
     {
       "label": "fig:rainy_quantile",
@@ -56,9 +56,9 @@
       "category": "Selected Model",
       "role": "Selected-model quantile dynamics, 2017-2019 window",
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
-      "source_class": "selected_model_support_pending_clean_replay_refresh",
-      "current_model_output_wired": false,
-      "note": "Rendered from the 2022-12-25 selected-model support bundle used for historical dry/wet diagnostics. This full-history support bundle has not yet been regenerated from the 2026-06-23 clean HE2 authority; it is retained only as an interpretation diagnostic, not forecast-validation evidence."
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure. This is an interpretation diagnostic, not forecast-validation evidence."
     },
     {
       "label": "fig:synth1",
@@ -76,9 +76,9 @@
       "category": "Selected Model",
       "role": "Selected-model 80-month component summary with dry/wet period overlays",
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
-      "source_class": "selected_model_support_pending_clean_replay_refresh",
-      "current_model_output_wired": false,
-      "note": "Rendered from the 2022-12-25 selected-model support bundle using the audited samplewise component-6-plus-trend contract. This full-history component support has not yet been regenerated from the 2026-06-23 clean HE2 authority; it is retained only as an interpretation diagnostic, not forecast-validation evidence."
+      "source_class": "current_selected_model_representative",
+      "current_model_output_wired": true,
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure using the audited samplewise component-6-plus-trend contract. This is an interpretation diagnostic, not forecast-validation evidence."
     },
     {
       "label": "fig:synth2",

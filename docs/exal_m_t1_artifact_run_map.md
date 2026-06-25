@@ -14,7 +14,7 @@ It is the execution companion to:
 Important transition note:
 - the main HE2 benchmark authority now combines the two retained canonical-grid winners for `20210123` and `20211112` with three clean `20260623` replays for `20211221`, `20220511`, and `20221225`;
 - the refreshed clean replays are the source for the promoted CRPS values, representative synthesis panel, cutoff-specific multivariate synthesis panels, posterior table exports, and source/covariate summaries;
-- the historical dry/wet and 80-month support diagnostics remain a full-history support bundle from the prior selected-output support lineage until a clean full-history support replay is run.
+- the historical dry/wet and 80-month support diagnostics are wired to the same current `2022-12-25` selected `exAL-M-T1` output authority as the representative synthesis figure, while remaining interpretation diagnostics rather than forecast-validation evidence.
 
 ## Cleanup status
 
@@ -107,14 +107,14 @@ That bundle now includes:
 
 ### Interpretation and appendix support outside the forecast-validation table
 
-These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics remain frozen interpretation support pending a clean full-history support replay; the historical-only reference synthesis remains a separate appendix counterfactual.
+These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics are current representative selected-output interpretation support; the historical-only reference synthesis remains a separate appendix counterfactual.
 
 | Manuscript object | Current role | Current source status | Action |
 |---|---|---|---|
 | `fig:synth2` | appendix historical-only reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance |
-| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
-| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
-| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
+| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
+| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
+| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
 
 ### Setup figures outside the selected-model refresh scope
 
@@ -130,7 +130,7 @@ These objects are not additional forecast-validation table entries. The selected
 1. The five verified `exAL-M-T1` keep runs are now the locked reproducible source set for the main selected-model manuscript evidence.
 2. Any further refresh of the central selected-model objects `fig:synth1` and `tab:components_23_31` should use only the files recorded above.
 3. The appendix support tables `tab:gamma_sigma_intervals1` and `tab:gamma_sigma_intervals2` should remain supplementary and should continue to use the representative `2022-12-25` source files recorded above.
-4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are selected-model support diagnostics pending clean full-history support replay.
+4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are current representative selected-output support diagnostics.
    - They should remain distinguished from the forecast-validation evidence used for the main benchmark table.
    - Their article-side provenance anchor is now `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`.
 5. `fig:synth2` remains a separate historical-only appendix reference sourced from `artifacts/historical_support_from_current_models/`.
