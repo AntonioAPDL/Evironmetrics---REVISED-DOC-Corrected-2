@@ -7,9 +7,26 @@ import hashlib
 import shutil
 from pathlib import Path
 
+REQUIRED_CANONICAL_DIRS = [
+    'manuscript',
+    'appendix_cutoff_panels',
+    'forecast_context_by_cutoff',
+    'multivariate_synthesis_by_cutoff',
+    'reference_synthesis_by_cutoff',
+]
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_canonical_tree(src_root: Path) -> None:
+    missing = [rel for rel in REQUIRED_CANONICAL_DIRS if not (src_root / rel).exists()]
+    if missing:
+        joined = ', '.join(missing)
+        raise FileNotFoundError(
+            f'Cannot mirror incomplete canonical figures tree. Missing lowercase directories under {src_root}: {joined}'
+        )
 
 
 def main() -> None:
@@ -22,6 +39,7 @@ def main() -> None:
     dst_root = article_root / 'Figures'
     if not src_root.exists():
         raise FileNotFoundError(f'Missing canonical figures root: {src_root}')
+    validate_canonical_tree(src_root)
 
     if dst_root.exists():
         for child in dst_root.iterdir():

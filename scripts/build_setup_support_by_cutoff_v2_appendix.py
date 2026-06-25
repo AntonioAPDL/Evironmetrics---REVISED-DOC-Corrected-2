@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -111,6 +112,25 @@ def build_panel(cutoff_dir: Path, out_path: Path) -> dict[str, str]:
     }
 
 
+def mirror_to_lowercase(article_root: Path, uppercase_dir: Path, rows: list[dict[str, str]]) -> None:
+    lowercase_dir = article_root / 'figures' / uppercase_dir.name
+    lowercase_dir.mkdir(parents=True, exist_ok=True)
+    for source in sorted(path for path in uppercase_dir.iterdir() if path.is_file() and path.name != 'manifest.csv'):
+        shutil.copy2(source, lowercase_dir / source.name)
+
+    lower_rows = []
+    for row in rows:
+        lower = dict(row)
+        panel_path = Path(lower['panel_path'])
+        lower['panel_path'] = str(lowercase_dir / panel_path.name)
+        lower_rows.append(lower)
+
+    with (lowercase_dir / 'manifest.csv').open('w', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=list(lower_rows[0].keys()), lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(lower_rows)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description='Build support-only composite panels for the five-cutoff setup/support figures.')
     parser.add_argument('--article-root', type=Path, default=Path(__file__).resolve().parents[1])
@@ -150,6 +170,7 @@ def main() -> None:
         '- `manifest.csv`\n',
     ]
     (out_root / 'README.md').write_text(''.join(readme))
+    mirror_to_lowercase(article_root, out_root, rows)
     print(f'Built appendix cutoff panels in {out_root}')
 
 

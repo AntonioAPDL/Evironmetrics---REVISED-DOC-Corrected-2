@@ -50,6 +50,32 @@ def copy_file(src: Path, dst: Path) -> str:
     return sha256(dst)
 
 
+def resolve_output_root(runtime_root: Path, run_id: str, cutoff_code: str) -> Path:
+    output_root = runtime_root / 'runs' / run_id / 'post' / 'outputs' / run_id
+    if output_root.exists():
+        return output_root
+
+    runs_root = runtime_root / 'runs'
+    if not runs_root.exists():
+        return output_root
+
+    matches = []
+    for run_root in sorted(runs_root.glob(f'multimodel_{cutoff_code}_*exdqlm_multivar_keep*')):
+        candidate = run_root / 'post' / 'outputs' / run_root.name
+        if candidate.exists():
+            matches.append(candidate)
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        joined = '\n  '.join(str(path) for path in matches)
+        raise RuntimeError(f'Ambiguous retained output roots for cutoff {cutoff_code} under {runtime_root}:\n  {joined}')
+    return output_root
+
+
+def run_root_from_output_root(output_root: Path) -> Path:
+    return output_root.parents[2]
+
+
 def read_mean_crps(path: Path) -> str:
     with path.open(newline='') as f:
         rows = list(csv.DictReader(f))
@@ -64,8 +90,12 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
     sums = []
 
     for spec in five_run_specs:
-        run_root = Path(spec.get('runtime_run_root') or runtime_root / 'runs' / spec['run_id'])
-        output_root = Path(spec.get('runtime_output_root') or run_root / 'post' / 'outputs' / spec['run_id'])
+        output_root_raw = str(spec.get('runtime_output_root') or '').strip()
+        output_root = Path(output_root_raw) if output_root_raw else Path('__missing_runtime_output_root__')
+        if not output_root_raw or not output_root.exists():
+            output_root = resolve_output_root(runtime_root, spec['run_id'], spec['cutoff'].replace('-', ''))
+        run_root = run_root_from_output_root(output_root)
+        resolved_run_id = output_root.name
         target_dir = bundle_root / spec['slug']
         target_dir.mkdir(parents=True, exist_ok=True)
 
@@ -91,7 +121,7 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
         manifest_rows.append([
             spec['slug'],
             spec['cutoff'],
-            spec['run_id'],
+            resolved_run_id,
             spec['published_crps'],
             read_mean_crps(out_crps),
             str(run_root),
@@ -131,8 +161,12 @@ def refresh_five_run_sources(layout, runtime_root: Path, five_run_specs: list[di
 
 def refresh_representative_bundle(layout, runtime_root: Path, five_run_specs: list[dict[str, str]]) -> None:
     spec = next(s for s in five_run_specs if s['slug'] == '20221225_exal_m_t1')
-    run_root = Path(spec.get('runtime_run_root') or runtime_root / 'runs' / spec['run_id'])
-    output_root = Path(spec.get('runtime_output_root') or run_root / 'post' / 'outputs' / spec['run_id'])
+    output_root_raw = str(spec.get('runtime_output_root') or '').strip()
+    output_root = Path(output_root_raw) if output_root_raw else Path('__missing_runtime_output_root__')
+    if not output_root_raw or not output_root.exists():
+        output_root = resolve_output_root(runtime_root, spec['run_id'], spec['cutoff'].replace('-', ''))
+    run_root = run_root_from_output_root(output_root)
+    resolved_run_id = output_root.name
     bundle_root = layout.representative_selected_model_dir
     bundle_root.mkdir(parents=True, exist_ok=True)
 
@@ -159,7 +193,7 @@ def refresh_representative_bundle(layout, runtime_root: Path, five_run_specs: li
 
     metadata = {
         'cutoff': spec['cutoff'],
-        'run_id': spec['run_id'],
+        'run_id': resolved_run_id,
         'runtime_run_root': str(run_root),
         'runtime_output_root': str(output_root),
         'published_crps': spec['published_crps'],

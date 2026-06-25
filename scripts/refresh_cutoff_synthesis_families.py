@@ -64,6 +64,94 @@ def copy_file(src: Path, dst: Path) -> dict[str, str | int]:
     }
 
 
+def copy_tree_file(src: Path, dst: Path) -> dict[str, str | int]:
+    return copy_file(src, dst)
+
+
+def write_rows(path: Path, rows: list[dict[str, str | int]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('w', encoding='utf-8', newline='') as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()), lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def mirror_figure_family_to_lowercase(
+    *,
+    article_root: Path,
+    uppercase_dir: Path,
+    lowercase_dir: Path,
+    manifest_rows: list[dict[str, str | int]],
+) -> None:
+    if lowercase_dir.exists():
+        for child in lowercase_dir.iterdir():
+            if child.is_file() or child.is_symlink():
+                child.unlink()
+            else:
+                shutil.rmtree(child)
+    lowercase_dir.mkdir(parents=True, exist_ok=True)
+
+    for src in sorted(path for path in uppercase_dir.iterdir() if path.is_file() and path.name != 'manifest.csv'):
+        copy_tree_file(src, lowercase_dir / src.name)
+
+    lower_rows: list[dict[str, str | int]] = []
+    for row in manifest_rows:
+        lower = dict(row)
+        target = str(lower['target_path'])
+        if target.startswith('Figures/'):
+            target = 'figures/' + target[len('Figures/'):]
+        lower['target_path'] = target
+        lower_rows.append(lower)
+    write_rows(lowercase_dir / 'manifest.csv', lower_rows)
+
+
+def refresh_poster_frozen_synthesis(
+    *,
+    article_root: Path,
+    source_overlay_path: Path,
+) -> None:
+    poster_frozen_dir = article_root / 'isba2026_poster' / 'figures' / 'frozen'
+    if not poster_frozen_dir.exists():
+        return
+    target = poster_frozen_dir / source_overlay_path.name
+    meta = copy_file(source_overlay_path, target)
+    rows = [
+        {
+            'poster_file': target.name,
+            'source_path': str(source_overlay_path.relative_to(article_root)),
+            'target_path': str(target.relative_to(article_root)),
+            'sha256': meta['sha256'],
+            'bytes': meta['bytes'],
+        }
+    ]
+    write_rows(poster_frozen_dir / 'manifest.csv', rows)
+
+
+def _resolve_output_root(runtime_root: Path, run_id: str, cutoff_code: str, family_token: str) -> Path:
+    output_root = runtime_root / 'runs' / run_id / 'post' / 'outputs' / run_id
+    if output_root.exists():
+        return output_root
+
+    runs_root = runtime_root / 'runs'
+    if not runs_root.exists():
+        return output_root
+
+    matches = []
+    for run_root in sorted(runs_root.glob(f'multimodel_{cutoff_code}_*{family_token}*')):
+        candidate = run_root / 'post' / 'outputs' / run_root.name
+        if candidate.exists():
+            matches.append(candidate)
+
+    if len(matches) == 1:
+        return matches[0]
+    if len(matches) > 1:
+        joined = '\n  '.join(str(path) for path in matches)
+        raise RuntimeError(
+            f'Ambiguous {family_token} output roots for cutoff {cutoff_code} under {runtime_root}:\n  {joined}'
+        )
+    return output_root
+
+
 def _source_output_roots(multivar_runtime_root: Path, univar_runtime_root: Path, spec: dict[str, str]) -> tuple[Path, Path]:
     multivar_root = (
         Path(spec['runtime_output_root'])
@@ -75,6 +163,13 @@ def _source_output_roots(multivar_runtime_root: Path, univar_runtime_root: Path,
         / 'outputs'
         / spec['multivar_run_id']
     )
+    if not multivar_root.exists():
+        multivar_root = _resolve_output_root(
+            multivar_runtime_root,
+            spec['multivar_run_id'],
+            spec['cutoff_code'],
+            'exdqlm_multivar_keep',
+        )
     univar_root = (
         univar_runtime_root
         / 'runs'
@@ -83,7 +178,35 @@ def _source_output_roots(multivar_runtime_root: Path, univar_runtime_root: Path,
         / 'outputs'
         / spec['univar_run_id']
     )
+    if not univar_root.exists():
+        univar_root = _resolve_output_root(
+            univar_runtime_root,
+            spec['univar_run_id'],
+            spec['cutoff_code'],
+            'exdqlm_univar',
+        )
     return multivar_root, univar_root
+
+
+def _run_root_from_output_root(output_root: Path) -> Path:
+    return output_root.parents[2]
+
+
+def _spec_with_resolved_output_roots(
+    spec: dict[str, str],
+    *,
+    multivar_output_root: Path,
+    univar_output_root: Path,
+) -> dict[str, str]:
+    resolved = dict(spec)
+    resolved['multivar_run_id'] = multivar_output_root.name
+    resolved['run_id'] = multivar_output_root.name
+    resolved['runtime_run_root'] = str(_run_root_from_output_root(multivar_output_root))
+    resolved['runtime_output_root'] = str(multivar_output_root)
+    resolved['univar_run_id'] = univar_output_root.name
+    resolved['univar_runtime_run_root'] = str(_run_root_from_output_root(univar_output_root))
+    resolved['univar_runtime_output_root'] = str(univar_output_root)
+    return resolved
 
 
 def cutoff_specs(article_root: Path, multivar_runtime_root: Path | None) -> list[dict[str, str]]:
@@ -225,6 +348,11 @@ def main() -> None:
     )
     for spec in specs:
         multivar_output_root, univar_output_root = _source_output_roots(multivar_runtime_root, univar_runtime_root, spec)
+        resolved_spec = _spec_with_resolved_output_roots(
+            spec,
+            multivar_output_root=multivar_output_root,
+            univar_output_root=univar_output_root,
+        )
         if not multivar_output_root.exists():
             raise FileNotFoundError(f'Missing multivariate synthesis output root: {multivar_output_root}')
         if not univar_output_root.exists():
@@ -235,19 +363,19 @@ def main() -> None:
         _write_bundle(
             multivar_bundle_dir,
             family_name='multivariate_synthesis',
-            source_run_id=spec['multivar_run_id'],
+            source_run_id=resolved_spec['multivar_run_id'],
             source_output_root=multivar_output_root,
             files=MULTIVAR_FILES,
         )
         _write_bundle(
             reference_bundle_dir,
             family_name='reference_synthesis',
-            source_run_id=spec['univar_run_id'],
+            source_run_id=resolved_spec['univar_run_id'],
             source_output_root=univar_output_root,
             files=UNIVAR_FILES,
         )
-        (multivar_bundle_dir / 'source_metadata.json').write_text(json.dumps(spec, indent=2) + '\n', encoding='utf-8')
-        (reference_bundle_dir / 'source_metadata.json').write_text(json.dumps(spec, indent=2) + '\n', encoding='utf-8')
+        (multivar_bundle_dir / 'source_metadata.json').write_text(json.dumps(resolved_spec, indent=2) + '\n', encoding='utf-8')
+        (reference_bundle_dir / 'source_metadata.json').write_text(json.dumps(resolved_spec, indent=2) + '\n', encoding='utf-8')
 
         primary_multivar = copy_file(
             multivar_output_root / 'exdqlm_multivar_synth_keep_cutoff_window_posterior_samples.png',
@@ -315,14 +443,8 @@ def main() -> None:
             ]
         )
 
-    with (layout.cutoff_multivariate_synthesis_dir / 'manifest.csv').open('w', encoding='utf-8', newline='') as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(multivar_figure_rows[0].keys()), lineterminator='\n')
-        writer.writeheader()
-        writer.writerows(multivar_figure_rows)
-    with (layout.cutoff_reference_synthesis_dir / 'manifest.csv').open('w', encoding='utf-8', newline='') as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(reference_figure_rows[0].keys()), lineterminator='\n')
-        writer.writeheader()
-        writer.writerows(reference_figure_rows)
+    write_rows(layout.cutoff_multivariate_synthesis_dir / 'manifest.csv', multivar_figure_rows)
+    write_rows(layout.cutoff_reference_synthesis_dir / 'manifest.csv', reference_figure_rows)
 
     write_figure_dir_readme(
         layout.cutoff_multivariate_synthesis_dir / 'README.md',
@@ -333,6 +455,22 @@ def main() -> None:
         layout.cutoff_reference_synthesis_dir / 'README.md',
         title='Reference Synthesis By Cutoff',
         family_description='Advisor-facing copies of the Figure A2-style reference synthesis family for all five cutoffs, including overlay companions with raw/reference ensembles.',
+    )
+    mirror_figure_family_to_lowercase(
+        article_root=article_root,
+        uppercase_dir=layout.cutoff_multivariate_synthesis_dir,
+        lowercase_dir=layout.figures_dir / 'multivariate_synthesis_by_cutoff',
+        manifest_rows=multivar_figure_rows,
+    )
+    mirror_figure_family_to_lowercase(
+        article_root=article_root,
+        uppercase_dir=layout.cutoff_reference_synthesis_dir,
+        lowercase_dir=layout.figures_dir / 'reference_synthesis_by_cutoff',
+        manifest_rows=reference_figure_rows,
+    )
+    refresh_poster_frozen_synthesis(
+        article_root=article_root,
+        source_overlay_path=layout.cutoff_multivariate_synthesis_overlay_path('20221225_exal_m_t1'),
     )
 
     _write_family_readme(

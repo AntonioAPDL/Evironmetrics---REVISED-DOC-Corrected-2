@@ -48,6 +48,18 @@ Primary sources:
     (out_dir / 'README.md').write_text(text, encoding='utf-8')
 
 
+def mirror_to_lowercase(article_root: Path, uppercase_dir: Path) -> None:
+    lowercase_dir = article_root / 'figures' / uppercase_dir.name
+    lowercase_dir.mkdir(parents=True, exist_ok=True)
+    for source in sorted(path for path in uppercase_dir.iterdir() if path.is_file()):
+        target = lowercase_dir / source.name
+        if source.name == 'manifest.csv':
+            text = source.read_text(encoding='utf-8').replace('Figures/', 'figures/')
+            target.write_text(text, encoding='utf-8')
+        else:
+            shutil.copy2(source, target)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description='Promote cutoff-specific forecast-context figures into advisor-facing figure paths.')
     parser.add_argument('--article-root', type=Path, default=Path(__file__).resolve().parents[1])
@@ -114,6 +126,7 @@ def main() -> None:
         writer.writerows(rows)
 
     write_readme(out_dir)
+    mirror_to_lowercase(layout.root, out_dir)
     print(f'Promoted {len(rows)} cutoff forecast-context figures into {out_dir}')
 
 
