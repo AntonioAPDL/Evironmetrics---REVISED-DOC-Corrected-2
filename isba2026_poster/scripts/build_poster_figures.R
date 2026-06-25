@@ -153,7 +153,7 @@ raw_glofas_28d <- crps_28d |>
 
 crps_28d_plot <- crps_28d |>
   filter(model %in% c(
-    "exAL-M-T1", "AL-M-T1", "N-M-T1",
+    "exAL-M-T1", "AL-M-T1",
     "exAL-U-T1", "AL-U-T1", "N-U-T1",
     "RAW-GLOFAS"
   )) |>
@@ -162,9 +162,8 @@ crps_28d_plot <- crps_28d |>
     ratio_raw_glofas = crps / raw_glofas_28d,
     horizon_note = "1-28 d",
     display_group = case_when(
-      model == "exAL-M-T1" ~ "exDQLM multivar keep",
-      model == "AL-M-T1" ~ "AL DQLM multivar keep",
-      model == "N-M-T1" ~ "Normal multivar keep",
+      model == "exAL-M-T1" ~ "exDQLM",
+      model == "AL-M-T1" ~ "DQLM",
       model == "RAW-GLOFAS" ~ "Raw GloFAS (1-28 d)",
       model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1") ~ "Univariate variants"
     )
@@ -182,23 +181,11 @@ nws_8d_reference <- crps_8d |>
   )
 
 plot_group_levels <- c(
-  "exDQLM multivar keep",
-  "AL DQLM multivar keep",
-  "Normal multivar keep",
+  "exDQLM",
+  "DQLM",
   "Raw GloFAS (1-28 d)",
   "Raw NWS (1-8 d ref.)",
   "Univariate variants"
-)
-
-result_offsets <- c(
-  "exAL-M-T1" = 0.18,
-  "AL-M-T1" = 0.09,
-  "N-M-T1" = 0.00,
-  "RAW-GLOFAS" = -0.09,
-  "RAW-NWS-8D" = -0.18,
-  "exAL-U-T1" = -0.29,
-  "AL-U-T1" = -0.29,
-  "N-U-T1" = -0.29
 )
 
 crps_28d_display <- bind_rows(
@@ -209,7 +196,7 @@ crps_28d_display <- bind_rows(
   mutate(
     cutoff_panel = factor(cutoff_label, levels = rev(cutoff_map$cutoff_label)),
     y_base = as.numeric(cutoff_panel),
-    point_y = y_base + unname(result_offsets[model]),
+    point_y = y_base,
     display_group = factor(display_group, levels = plot_group_levels),
     is_univariate = model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1")
   )
@@ -223,24 +210,22 @@ winner_28d <- crps_28d_display |>
   ungroup() |>
   mutate(
     winner_text = paste0(sprintf("%.2f", ratio_raw_glofas), "x"),
-    label_x = pmin(ratio_raw_glofas * 1.18, 0.82)
+    label_y = y_base + 0.18
   )
 
 p28_palette <- c(
-  "exDQLM multivar keep" = poster_cols[["plum"]],
-  "AL DQLM multivar keep" = poster_cols[["ochre"]],
-  "Normal multivar keep" = poster_cols[["hydro"]],
+  "exDQLM" = poster_cols[["plum"]],
+  "DQLM" = poster_cols[["ochre"]],
   "Raw GloFAS (1-28 d)" = poster_cols[["glofas"]],
   "Raw NWS (1-8 d ref.)" = poster_cols[["nws"]],
   "Univariate variants" = poster_cols[["other"]]
 )
 
 p28_shapes <- c(
-  "exDQLM multivar keep" = 16,
-  "AL DQLM multivar keep" = 18,
-  "Normal multivar keep" = 17,
+  "exDQLM" = 16,
+  "DQLM" = 16,
   "Raw GloFAS (1-28 d)" = 15,
-  "Raw NWS (1-8 d ref.)" = 8,
+  "Raw NWS (1-8 d ref.)" = 15,
   "Univariate variants" = 1
 )
 
@@ -258,7 +243,7 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
   geom_point(
     data = crps_28d_display |> filter(!is_univariate),
     aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 4.35, stroke = 1.05
+    size = 4.15, stroke = 1.02
   ) +
   geom_point(
     data = crps_28d_display |> filter(is_univariate),
@@ -267,9 +252,9 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
   ) +
   geom_label(
     data = winner_28d,
-    aes(x = label_x, y = y_base + 0.18, label = winner_text),
+    aes(x = ratio_raw_glofas, y = label_y, label = winner_text),
     inherit.aes = FALSE,
-    hjust = 0, size = 4.8, fontface = "bold", linewidth = 0,
+    hjust = 0.5, size = 4.65, fontface = "bold", linewidth = 0,
     color = poster_cols[["plum"]],
     fill = poster_cols[["white"]], label.padding = unit(0.12, "lines"),
     show.legend = FALSE
@@ -304,7 +289,7 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
     color = guide_legend(
       nrow = 2, byrow = TRUE,
       override.aes = list(
-        size = c(4.8, 4.8, 4.8, 4.8, 4.8, 3.8),
+        size = c(4.8, 4.8, 4.8, 4.8, 3.8),
         shape = unname(p28_shapes[plot_group_levels])
       )
     )

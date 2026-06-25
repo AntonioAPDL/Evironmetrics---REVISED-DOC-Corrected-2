@@ -107,14 +107,14 @@ That bundle now includes:
 
 ### Interpretation and appendix support outside the forecast-validation table
 
-These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics are frozen as current representative selected-model support diagnostics; the historical-only reference synthesis remains a separate appendix counterfactual.
+These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics remain frozen interpretation support pending a clean full-history support replay; the historical-only reference synthesis remains a separate appendix counterfactual.
 
 | Manuscript object | Current role | Current source status | Action |
 |---|---|---|---|
 | `fig:synth2` | appendix historical-only reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance |
-| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as current selected-model support diagnostic, not forecast-validation evidence |
-| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as current selected-model support diagnostic, not forecast-validation evidence |
-| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as current selected-model support diagnostic, not forecast-validation evidence |
+| `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
+| `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
+| `fig:80_components` | appendix long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using the audited samplewise component-6-plus-trend contract | keep as selected-model interpretation support pending clean full-history replay; not forecast-validation evidence |
 
 ### Setup figures outside the selected-model refresh scope
 
