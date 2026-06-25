@@ -165,7 +165,7 @@ crps_28d_plot <- crps_28d |>
       model == "exAL-M-T1" ~ "exDQLM",
       model == "AL-M-T1" ~ "DQLM",
       model == "RAW-GLOFAS" ~ "Raw GloFAS (1-28 d)",
-      model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1") ~ "Univariate variants"
+      model %in% c("exAL-U-T1", "AL-U-T1", "N-U-T1") ~ "Alternative Models"
     )
   )
 
@@ -185,7 +185,7 @@ plot_group_levels <- c(
   "DQLM",
   "Raw GloFAS (1-28 d)",
   "Raw NWS (1-8 d ref.)",
-  "Univariate variants"
+  "Alternative Models"
 )
 
 crps_28d_display <- bind_rows(
@@ -218,7 +218,7 @@ p28_palette <- c(
   "DQLM" = poster_cols[["ochre"]],
   "Raw GloFAS (1-28 d)" = poster_cols[["glofas"]],
   "Raw NWS (1-8 d ref.)" = poster_cols[["nws"]],
-  "Univariate variants" = poster_cols[["other"]]
+  "Alternative Models" = poster_cols[["other"]]
 )
 
 p28_shapes <- c(
@@ -226,7 +226,7 @@ p28_shapes <- c(
   "DQLM" = 16,
   "Raw GloFAS (1-28 d)" = 15,
   "Raw NWS (1-8 d ref.)" = 15,
-  "Univariate variants" = 1
+  "Alternative Models" = 1
 )
 p28_model_groups <- c("exDQLM", "DQLM")
 p28_raw_groups <- c("Raw GloFAS (1-28 d)", "Raw NWS (1-8 d ref.)")
