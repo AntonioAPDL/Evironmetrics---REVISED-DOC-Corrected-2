@@ -228,6 +228,8 @@ p28_shapes <- c(
   "Raw NWS (1-8 d ref.)" = 15,
   "Univariate variants" = 1
 )
+p28_model_groups <- c("exDQLM", "DQLM")
+p28_raw_groups <- c("Raw GloFAS (1-28 d)", "Raw NWS (1-8 d ref.)")
 
 p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
   geom_segment(
@@ -241,14 +243,19 @@ p28 <- ggplot(crps_28d_display, aes(y = point_y)) +
     color = poster_cols[["muted"]]
   ) +
   geom_point(
-    data = crps_28d_display |> filter(!is_univariate),
-    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
-    size = 4.15, stroke = 1.02
-  ) +
-  geom_point(
     data = crps_28d_display |> filter(is_univariate),
     aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
     size = 3.15, stroke = 0.9, alpha = 0.74
+  ) +
+  geom_point(
+    data = crps_28d_display |> filter(as.character(display_group) %in% p28_raw_groups),
+    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
+    size = 4.25, stroke = 1.05, alpha = 0.9
+  ) +
+  geom_point(
+    data = crps_28d_display |> filter(as.character(display_group) %in% p28_model_groups),
+    aes(x = ratio_raw_glofas, color = display_group, shape = display_group),
+    size = 4.35, stroke = 1.05
   ) +
   geom_label(
     data = winner_28d,
