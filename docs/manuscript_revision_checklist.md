@@ -792,7 +792,7 @@ If replaced:
 
 - [x] Decide whether the historical-regime figures remain as a compact main-text block or move to supplement.
   - Source: structural blueprint Section 4
-  - Decision: keep the dry/wet regime pair in the main text; move the 80-month seasonal figure to the appendix.
+  - Decision: keep the dry/wet regime pair in the main text; keep the 80-month seasonal figure in the selected-model interpretation section as a component diagnostic.
 
 ### Phase H. Conclusions and final consistency pass
 Goal: only after the body is stable.

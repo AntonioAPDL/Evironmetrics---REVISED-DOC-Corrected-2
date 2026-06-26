@@ -82,15 +82,15 @@
   },
   {
     "item": 8,
-    "request": "Figure A1 should plot the 80-month component after adding the posterior mean trend level and use a compact, high-quality caption.",
+    "request": "Figure A1 should plot the 80-month seasonal component alone and use a compact, high-quality caption.",
     "status": "complete",
     "evidence": [
       "figures/manuscript/historical_component_80month.png",
       "artifacts/historical_support_from_current_models/figures/render_metadata.json",
-      "scripts/render_current_model_output_support_figures.R:589-608, 656-680",
+      "scripts/render_authoritative_selected_model_support_figures.R",
       "wileyNJD-APA.tex:460-466"
     ],
-    "note": "The render metadata records the intended contract explicitly and the renderer computes the trend-shift map before building the 80-month component figure."
+    "note": "The render metadata records the intended raw component-6 contract explicitly; plus/minus-trend variants are retained only as analysis diagnostics."
   },
   {
     "item": 9,

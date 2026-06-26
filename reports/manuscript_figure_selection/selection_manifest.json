@@ -54,7 +54,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
-      "sha256": "466f4f7595e3a37b058066c52ced8096c8ab0403f7d0349eb49c3324d0d8e37e",
+      "sha256": "65808b4b196c16cce3983de4ced68169887d8bb74dcf562971555279982580f4",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
@@ -65,7 +65,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
-      "sha256": "04cb72c4c9fbe1d1cab671272dbd1933b8d15b86faae3152f7bdbbe2d53a7026",
+      "sha256": "be7bbba24c83720d57da51d96a58b8b859f4ce1788dcb2b0729aefb76dfa9b69",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
@@ -87,8 +87,8 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
-      "sha256": "6a73600e4d04ff16a112114c66018ff002ea31a33d175de3f57d4ed20f2533a8",
-      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure using the audited samplewise component-6-plus-trend contract."
+      "sha256": "7692c832dfe25e239afe9b262c90436099340438373ba1b5df80f5156550cf7c",
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority using raw state component 6 only; plus/minus-trend variants are analysis-only diagnostics."
     },
     {
       "label": "fig:synth2",

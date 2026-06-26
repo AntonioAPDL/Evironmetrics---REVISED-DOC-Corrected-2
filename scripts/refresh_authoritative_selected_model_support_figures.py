@@ -42,7 +42,7 @@ FIGURE_UPDATES = {
         "filename": "selected_model_component_80month.png",
         "category": "Selected Model",
         "role": "Selected-model 80-month component summary with dry/wet period overlays",
-        "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure using the audited samplewise component-6-plus-trend contract.",
+        "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority using raw state component 6 only; plus/minus-trend variants are analysis-only diagnostics.",
     },
 }
 
@@ -157,12 +157,16 @@ def write_bundle_docs(bundle_root: Path, support_dir: Path, support_rows: list[d
         "# Authoritative Selected-Model Support\n\n"
         "This bundle contains compact posterior support artifacts and rendered figures for the representative "
         "`2022-12-25 exAL-M-T1` selected model. These figures are sourced from the same selected-output authority "
-        "as the synthesis figure. Figure A1 is article-labeled as the 80-month seasonal component; its internal "
-        "render metadata records the audited samplewise component-6-plus-trend construction and the dry/wet "
-        "period overlays. The `analysis_figures/component_evolution/` subfolder is an analysis-only component "
+        "as the synthesis figure. Figure A1 is article-labeled as the 80-month seasonal component and is rendered "
+        "from raw state component 6 only with dry/wet period overlays. The `analysis_figures/component_evolution/` subfolder is an analysis-only component "
         "gallery rendered from the same support CSVs; it is checksummed here but intentionally not registered as "
-        "a manuscript figure family. It also includes the samplewise component-6-minus-trend diagnostic when "
-        "the support summary provides that contract.\n\n"
+        "a manuscript figure family. It also includes samplewise component-6-plus-trend and component-6-minus-trend diagnostics when "
+        "the support summary provides those contracts.\n\n"
+        "The support bundle is tied to the same current `2022-12-25` selected `exAL-M-T1` output authority "
+        "used by the representative synthesis figure.\n\n"
+        "The current compact support root rebuilds the fitted quantile-dynamics summaries and component summaries "
+        "from retained selected-model `.RData` objects; the previous compact support root is used only to recover "
+        "dates and observed USGS values for plotting.\n\n"
         "Large compact support CSV/RDS files are intentionally not persisted in this Overleaf-facing article "
         "repository. The manifest records their external runtime source paths and hashes; the refresh script "
         "stages those files in a temporary directory only while rendering figures.\n\n"

@@ -48,7 +48,7 @@
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure. This is an interpretation diagnostic, not forecast-validation evidence."
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
       "label": "fig:rainy_quantile",
@@ -58,7 +58,7 @@
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure. This is an interpretation diagnostic, not forecast-validation evidence."
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
       "label": "fig:synth1",
@@ -78,7 +78,7 @@
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure using the audited samplewise component-6-plus-trend contract. This is an interpretation diagnostic, not forecast-validation evidence."
+      "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority using raw state component 6 only; plus/minus-trend variants are analysis-only diagnostics."
     },
     {
       "label": "fig:synth2",

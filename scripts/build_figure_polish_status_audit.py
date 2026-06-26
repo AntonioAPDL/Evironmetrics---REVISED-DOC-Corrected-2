@@ -18,7 +18,7 @@ def read_text(path: Path) -> str:
 
 def build_items(root: Path) -> list[dict[str, object]]:
     tex = read_text(root / 'wileyNJD-APA.tex')
-    render_meta_path = root / 'artifacts' / 'historical_support_from_current_models' / 'figures' / 'render_metadata.json'
+    render_meta_path = root / 'artifacts' / 'representative_selected_model_2022_12_25' / 'authoritative_support' / 'figures' / 'render_metadata.json'
     render_meta = json.loads(render_meta_path.read_text(encoding='utf-8')) if render_meta_path.exists() else {}
 
     no_support_window_phrase = 'support window for the cutoff' not in tex.lower()
@@ -31,7 +31,10 @@ def build_items(root: Path) -> list[dict[str, object]]:
     has_rep_multivar = file_exists(root, 'figures/manuscript/representative_synthesis_multivariate.png')
     has_rep_univar = file_exists(root, 'figures/manuscript/reference_synthesis_univariate.png')
     has_wet_fullrange = file_exists(root, 'artifacts/historical_support_from_current_models/figures/historical_summary_wet_period_fullrange.png')
-    long_cycle_shifted = render_meta.get('component_display_contract') == '80-month component shifted by posterior mean trend level'
+    long_cycle_component_only = (
+        render_meta.get('figure_a1_component') == 6
+        and render_meta.get('figure_a1_component_contract') == 'raw_state_component'
+    )
     appendix_setup_panels_in_article = 'setup_support.png' in tex
 
     items: list[dict[str, object]] = [
@@ -118,15 +121,15 @@ def build_items(root: Path) -> list[dict[str, object]]:
         },
         {
             'item': 8,
-            'request': 'Figure A1 should plot the 80-month component after adding the posterior mean trend level and use a compact, high-quality caption.',
-            'status': 'complete' if long_cycle_shifted else 'partial',
+            'request': 'Figure A1 should plot the 80-month seasonal component alone and use a compact, high-quality caption.',
+            'status': 'complete' if long_cycle_component_only else 'partial',
             'evidence': [
                 'figures/manuscript/historical_component_80month.png',
                 'artifacts/historical_support_from_current_models/figures/render_metadata.json',
-                'scripts/render_current_model_output_support_figures.R:589-608, 656-680',
+                'scripts/render_authoritative_selected_model_support_figures.R',
                 'wileyNJD-APA.tex:460-466',
             ],
-            'note': 'The render metadata records the intended contract explicitly and the renderer computes the trend-shift map before building the 80-month component figure.',
+            'note': 'The render metadata records the intended raw component-6 contract explicitly; plus/minus-trend variants are retained only as analysis diagnostics.',
         },
         {
             'item': 9,

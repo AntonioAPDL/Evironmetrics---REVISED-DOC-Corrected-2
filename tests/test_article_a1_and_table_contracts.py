@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 import json
 import re
 import unittest
@@ -133,11 +134,39 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("deterministic engineered terms", article)
         self.assertIn("the model is fit using USGS observations and retrospective products available through", article)
         self.assertIn("The forecast-window predictive distributions are then synthesized using the latest forecast products", article)
-        self.assertIn("canonical GDPC/PCA climate-index factor", article)
+        self.assertIn("canonical GDPC climate-index factor", article)
         self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
         self.assertIn("not treated as an operational forecast product or verification target", article)
         self.assertNotIn("GDPC forecast product", article)
+        self.assertNotIn("GDPC/PCA climate-index factor", article)
         self.assertNotIn("the model is fit using forecast products issued at or before", article)
+
+    def test_selected_prior_and_discount_text_are_manifest_backed(self) -> None:
+        manifest_path = ROOT / "artifacts" / "he2_publication_freeze" / "he2_bayesian_publication_manifest.csv"
+        self.assertTrue(manifest_path.exists(), f"missing HE2 publication manifest: {manifest_path}")
+        with manifest_path.open(newline="", encoding="utf-8") as handle:
+            rows = [
+                row
+                for row in csv.DictReader(handle)
+                if row["manuscript_label"] == "exAL-M-T1"
+            ]
+        self.assertEqual(len(rows), 5)
+        for row in rows:
+            state = json.loads(row["state_evolution_json"])
+            prior = json.loads(row["prior_json"])
+            self.assertEqual(float(state["lambda"]), 0.97)
+            forecast_cov = prior.get("forecast_cov", {})
+            self.assertIn("epsilon", forecast_cov, row["run_id"])
+            self.assertEqual(float(forecast_cov.get("c_factor")), 1.0)
+
+        article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
+        self.assertIn(r"\lambda=0.97", article)
+        self.assertIn(r"\(c=1\)", article)
+        self.assertIn("cutoff-specific", article)
+        self.assertIn("publication manifests", article)
+        self.assertNotIn("c = 10^2", article)
+        self.assertNotIn("epsilon = T", article)
+        self.assertNotIn(r"\lambda=0.8995", article)
 
     def test_latest_forecast_issue_manifest_and_text_are_wired(self) -> None:
         manifest_path = ROOT / "artifacts" / "latest_forecast_issue" / "latest_forecast_issue_manifest.json"
@@ -283,8 +312,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
     def test_figure_a1_renderer_uses_samplewise_component_contract(self) -> None:
         script = ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R"
         text = script.read_text(encoding="utf-8")
+        self.assertIn("FIGURE_A1_COMPONENT <- 6L", text)
         self.assertIn(
-            'FIGURE_A1_COMPONENT_CONTRACT <- "component_6_plus_trend_component_1_samplewise"',
+            'FIGURE_A1_COMPONENT_CONTRACT <- "raw_state_component"',
+            text,
+        )
+        self.assertIn(
+            'COMPONENT_6_PLUS_TREND_CONTRACT <- "component_6_plus_trend_component_1_samplewise"',
             text,
         )
         self.assertIn(
@@ -315,10 +349,12 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         )
         self.assertTrue(meta_path.exists(), f"missing render metadata: {meta_path}")
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        self.assertEqual(meta.get("figure_a1_component"), 6)
         self.assertEqual(
             meta.get("figure_a1_component_contract"),
-            "component_6_plus_trend_component_1_samplewise",
+            "raw_state_component",
         )
+        self.assertEqual(meta.get("figure_a1_article_display_label"), "80-month seasonal component only")
         periods = meta.get("hydrologic_regime_periods")
         self.assertIsInstance(periods, list)
         self.assertEqual(
@@ -329,6 +365,10 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIsInstance(component_analysis, dict)
         self.assertEqual(component_analysis.get("figure_count"), 9)
         self.assertIn(
+            "component_06_raw_state_component.png",
+            component_analysis.get("files", []),
+        )
+        self.assertIn(
             "component_06_component_6_plus_trend_component_1_samplewise.png",
             component_analysis.get("files", []),
         )
@@ -336,6 +376,29 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "component_06_component_6_minus_trend_component_1_samplewise.png",
             component_analysis.get("files", []),
         )
+
+    def test_selected_support_manifest_records_current_rdata_rebuild(self) -> None:
+        support_dir = (
+            ROOT
+            / "artifacts"
+            / "representative_selected_model_2022_12_25"
+            / "authoritative_support"
+        )
+        with (support_dir / "manifest.csv").open(newline="", encoding="utf-8") as handle:
+            manifest_rows = list(csv.DictReader(handle))
+        manifest_row = next(row for row in manifest_rows if row["filename"] == "authoritative_selected_support_manifest.json")
+        external_manifest = Path(manifest_row["source_absolute_path"])
+        self.assertTrue(external_manifest.exists(), f"missing external support manifest: {external_manifest}")
+        payload = json.loads(external_manifest.read_text(encoding="utf-8"))
+        self.assertIn("authoritative_rdata_retained_current_20260623", payload.get("run_id", ""))
+        self.assertIn("dynamics_rebuild", payload)
+        self.assertIn("component_rebuild", payload)
+        self.assertEqual(
+            payload.get("dynamics_rebuild", {}).get("usgs_location_source"),
+            "row 1 of exps/exps2",
+        )
+        self.assertEqual(payload.get("component_rows"), 389850)
+        self.assertEqual(payload.get("dynamics_rows"), 38985)
 
     def test_component_analysis_gallery_is_analysis_only(self) -> None:
         support_dir = (

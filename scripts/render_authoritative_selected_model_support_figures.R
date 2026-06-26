@@ -73,7 +73,9 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 
-FIGURE_A1_COMPONENT_CONTRACT <- "component_6_plus_trend_component_1_samplewise"
+FIGURE_A1_COMPONENT <- 6L
+FIGURE_A1_COMPONENT_CONTRACT <- "raw_state_component"
+COMPONENT_6_PLUS_TREND_CONTRACT <- "component_6_plus_trend_component_1_samplewise"
 COMPONENT_6_MINUS_TREND_CONTRACT <- "component_6_minus_trend_component_1_samplewise"
 COMPONENT_ANALYSIS_LEGACY_EXCLUDED_CONTRACTS <- c(
   "component_6_shifted_by_posterior_mean_trend_component_1"
@@ -88,7 +90,10 @@ component_analysis_slug <- function(component, contract) {
 component_analysis_label <- function(component, contract) {
   component <- as.integer(component)
   contract <- as.character(contract)
-  if (identical(contract, FIGURE_A1_COMPONENT_CONTRACT)) {
+  if (component == FIGURE_A1_COMPONENT && identical(contract, FIGURE_A1_COMPONENT_CONTRACT)) {
+    return("80-month seasonal component")
+  }
+  if (identical(contract, COMPONENT_6_PLUS_TREND_CONTRACT)) {
     return("Component 6 plus trend component 1 (samplewise)")
   }
   if (identical(contract, COMPONENT_6_MINUS_TREND_CONTRACT)) {
@@ -120,17 +125,17 @@ component_analysis_specs <- function(component_df) {
     )
   }
 
-  has_a1_contract <- any(
+  has_plus_trend_contract <- any(
     component_df$component == 6L &
-      component_df$component_contract == FIGURE_A1_COMPONENT_CONTRACT,
+      component_df$component_contract == COMPONENT_6_PLUS_TREND_CONTRACT,
     na.rm = TRUE
   )
-  if (isTRUE(has_a1_contract)) {
+  if (isTRUE(has_plus_trend_contract)) {
     rows[[length(rows) + 1L]] <- data.frame(
       component = 6L,
-      component_contract = FIGURE_A1_COMPONENT_CONTRACT,
-      display_label = component_analysis_label(6L, FIGURE_A1_COMPONENT_CONTRACT),
-      filename = component_analysis_slug(6L, FIGURE_A1_COMPONENT_CONTRACT),
+      component_contract = COMPONENT_6_PLUS_TREND_CONTRACT,
+      display_label = component_analysis_label(6L, COMPONENT_6_PLUS_TREND_CONTRACT),
+      filename = component_analysis_slug(6L, COMPONENT_6_PLUS_TREND_CONTRACT),
       include_in_manuscript = FALSE,
       stringsAsFactors = FALSE
     )
@@ -270,7 +275,7 @@ render_quantile_window <- function(start_date, end_date, title_text, out_file, y
 render_component_80month <- function(out_file) {
   dd <- components[
     components$quantile %in% c("q05", "q50", "q95") &
-      components$component == 6 &
+    components$component == FIGURE_A1_COMPONENT &
       components$component_contract == FIGURE_A1_COMPONENT_CONTRACT &
       !is.na(components$date),
     ,
@@ -278,16 +283,13 @@ render_component_80month <- function(out_file) {
   ]
   if (nrow(dd) < 1L) {
     stop(
-      sprintf("No component-6 rows found for required contract `%s` in authoritative component summary.", FIGURE_A1_COMPONENT_CONTRACT),
+      sprintf("No component-%d rows found for required contract `%s` in authoritative component summary.", FIGURE_A1_COMPONENT, FIGURE_A1_COMPONENT_CONTRACT),
       call. = FALSE
     )
   }
   min_time <- ceiling(max(dd$time_index, na.rm = TRUE) / 10)
   dd <- dd[dd$time_index >= min_time, , drop = FALSE]
-  obs <- dynamics[dynamics$quantile == "q50", c("date", "observed_usgs"), drop = FALSE]
-  obs <- obs[!is.na(obs$date) & is.finite(obs$observed_usgs), , drop = FALSE]
-  obs <- obs[obs$date >= min(dd$date, na.rm = TRUE) & obs$date <= max(dd$date, na.rm = TRUE), , drop = FALSE]
-  ylim <- range(c(dd$lower_025, dd$upper_975, obs$observed_usgs), na.rm = TRUE)
+  ylim <- range(c(dd$lower_025, dd$upper_975), na.rm = TRUE)
   if (!all(is.finite(ylim)) || diff(ylim) <= 0) ylim <- c(0, 1)
   ylim <- c(min(0, ylim[[1L]]), ylim[[2L]] + diff(ylim) * 0.08)
   shade_periods <- hydrologic_regime_periods()
@@ -313,8 +315,6 @@ render_component_80month <- function(out_file) {
     geom_line(data = dd, aes(x = date, y = median_500, color = quantile), linewidth = 0.45) +
     geom_line(data = dd, aes(x = date, y = lower_025, color = quantile), linewidth = 0.12) +
     geom_line(data = dd, aes(x = date, y = upper_975, color = quantile), linewidth = 0.12) +
-    geom_line(data = obs, aes(x = date, y = observed_usgs), color = "black", linewidth = 0.12) +
-    geom_point(data = obs, aes(x = date, y = observed_usgs), color = "black", size = 0.1, alpha = 0.9) +
     scale_color_manual(values = col, breaks = c("q05", "q50", "q95")) +
     scale_fill_manual(values = c(fill, setNames(shade_periods$fill, shade_periods$period))) +
     annotate(
@@ -329,9 +329,9 @@ render_component_80month <- function(out_file) {
     coord_cartesian(ylim = ylim) +
     scale_x_date(date_breaks = "24 months", date_labels = "%Y-%m") +
     labs(
-      title = "80-month Component Evolution: selected 2022-12-25 model",
+      title = "80-month Seasonal Component: selected 2022-12-25 model",
       x = NULL,
-      y = figure_flow_axis_label(display_flow_scale)
+      y = component_analysis_axis_label(FIGURE_A1_COMPONENT_CONTRACT)
     ) +
     theme_manuscript_standard(
       base_size = 15,
@@ -439,8 +439,8 @@ write_component_analysis_readme <- function(analysis_dir, manifest) {
       "",
       "Included contracts:",
       "",
-      "- `raw_state_component` for each retained state component available in the support CSV.",
-      sprintf("- `%s`, the audited samplewise construction used by Figure A1.", FIGURE_A1_COMPONENT_CONTRACT),
+      sprintf("- `raw_state_component` for each retained state component available in the support CSV; component %d is the audited Figure A1 construction.", FIGURE_A1_COMPONENT),
+      sprintf("- `%s`, the samplewise 80-month component plus trend diagnostic.", COMPONENT_6_PLUS_TREND_CONTRACT),
       sprintf("- `%s`, the samplewise 80-month component minus trend diagnostic.", COMPONENT_6_MINUS_TREND_CONTRACT),
       "",
       "Excluded by default:",
@@ -505,8 +505,9 @@ meta <- list(
   render_staging_support_dir = support_dir,
   output_dir = out_dir,
   display_flow_scale = display_flow_scale,
+  figure_a1_component = FIGURE_A1_COMPONENT,
   figure_a1_component_contract = FIGURE_A1_COMPONENT_CONTRACT,
-  figure_a1_article_display_label = "80-month seasonal component",
+  figure_a1_article_display_label = "80-month seasonal component only",
   hydrologic_regime_periods = lapply(seq_len(nrow(hydrologic_regime_periods())), function(i) {
     row <- hydrologic_regime_periods()[i, , drop = FALSE]
     list(
