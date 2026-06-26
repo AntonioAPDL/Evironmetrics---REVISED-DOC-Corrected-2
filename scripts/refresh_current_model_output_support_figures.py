@@ -203,6 +203,76 @@ def write_bundle(
     (bundle_root / "SHA256SUMS.txt").write_text("\n".join(sorted(sums)) + "\n")
 
 
+def refresh_univar_reference_only(bundle_root: Path, univar_output_root: Path, univar_png: Path) -> None:
+    """Refresh only the appendix/reference univariate synthesis artifact.
+
+    The historical-support bundle intentionally contains both legacy selected
+    historical figures and the appendix univariate reference synthesis. The
+    univariate figure can be regenerated from the current univariate post
+    output without requiring cleaned multivariate state caches to be present.
+    """
+
+    figures_dir = bundle_root / "figures"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    label, filename, role = APPENDIX_FIGURE
+    target = figures_dir / filename
+    shutil.copy2(univar_png, target)
+    digest = sha256(target)
+    source_path = str(univar_png)
+    local_bundle_path = str(target.relative_to(bundle_root.parent.parent))
+
+    manifest_path = bundle_root / "manifest.csv"
+    header = [
+        "label",
+        "filename",
+        "role",
+        "generation_mode",
+        "source_path",
+        "local_bundle_path",
+        "sha256",
+    ]
+    rows: list[dict[str, str]] = []
+    if manifest_path.exists():
+        with manifest_path.open(newline="") as handle:
+            reader = csv.DictReader(handle)
+            rows = [dict(row) for row in reader]
+    rows = [row for row in rows if not (row.get("label") == label and row.get("filename") == filename)]
+    rows.append({
+        "label": label,
+        "filename": filename,
+        "role": role,
+        "generation_mode": "copied_from_current_univar_output",
+        "source_path": source_path,
+        "local_bundle_path": local_bundle_path,
+        "sha256": digest,
+    })
+    with manifest_path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=header, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+    sums_path = bundle_root / "SHA256SUMS.txt"
+    rel_sum = f"figures/{filename}"
+    sums = []
+    if sums_path.exists():
+        sums = [line for line in sums_path.read_text(encoding="utf-8").splitlines() if not line.endswith(f"  {rel_sum}")]
+    sums.append(f"{digest}  {rel_sum}")
+    sums_path.write_text("\n".join(sorted(sums)) + "\n", encoding="utf-8")
+
+    metadata_path = bundle_root / "bundle_metadata.json"
+    metadata = {}
+    if metadata_path.exists():
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    metadata["univar_source"] = {
+        "cutoff": UNIVAR_SPEC["cutoff"],
+        "run_id": UNIVAR_SPEC["run_id"],
+        "output_root": str(univar_output_root),
+        "copied_png": UNIVAR_SPEC["source_png"],
+    }
+    metadata["univar_reference_refresh_mode"] = "univar_reference_only"
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+
+
 def resolve_multivar_spec(article_root: Path, runtime_root: Path) -> dict[str, str]:
     try:
         selected = next(row for row in load_authoritative_five_run_specs(article_root, runtime_root) if row["cutoff_code"] == "20220511")
@@ -231,6 +301,14 @@ def main() -> None:
     parser.add_argument(
         "--univar-runtime-root",
         type=Path,
+    )
+    parser.add_argument(
+        "--univar-only",
+        action="store_true",
+        help=(
+            "Refresh only the appendix/reference univariate synthesis artifact. "
+            "This avoids requiring cleaned multivariate historical-support fit caches."
+        ),
     )
     args = parser.parse_args()
 
@@ -267,10 +345,16 @@ def main() -> None:
     univar_png = univar_output_root / UNIVAR_SPEC["source_png"]
     retained_state_summary = figures_dir / "cache" / "historical_support_state_summaries.rds"
 
-    if not canonical_multivar_run_root.exists():
-        raise FileNotFoundError(f"Missing multivariate source run: {canonical_multivar_run_root}")
     if not univar_png.exists():
         raise FileNotFoundError(f"Missing univariate source PNG: {univar_png}")
+
+    if args.univar_only:
+        refresh_univar_reference_only(bundle_root, univar_output_root, univar_png)
+        print("Refreshed current-model univariate reference synthesis successfully.")
+        return
+
+    if not canonical_multivar_run_root.exists():
+        raise FileNotFoundError(f"Missing multivariate source run: {canonical_multivar_run_root}")
 
     if has_multivar_fit_contract(canonical_multivar_run_root):
         render_multivar_run_root = canonical_multivar_run_root
