@@ -897,7 +897,7 @@ Use this as the working order when actually editing the manuscript.
   - The transition from the unified model to posterior inference should use the same single-model framing.
 - [x] Final style pass for the unified-model subsection.
   - Neutral, factual tone
-  - No AI-sounding scaffolding
+  - No draft-like scaffolding
   - No unnecessary reassurance or meta language
   - Sentences should be short enough to parse on first read, especially after displayed equations
 
