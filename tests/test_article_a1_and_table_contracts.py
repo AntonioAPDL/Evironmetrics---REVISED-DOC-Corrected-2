@@ -355,6 +355,10 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "raw_state_component",
         )
         self.assertEqual(meta.get("figure_a1_article_display_label"), "80-month seasonal component only")
+        self.assertEqual(meta.get("render_contract_version"), "authoritative_selected_model_support_figures_v2")
+        self.assertIn("source_support_generated_at_utc", meta)
+        self.assertNotIn("render_staging_support_dir", meta)
+        self.assertNotIn("generated_at_utc", meta)
         periods = meta.get("hydrologic_regime_periods")
         self.assertIsInstance(periods, list)
         self.assertEqual(
@@ -415,6 +419,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("component_06_component_6_plus_trend_component_1_samplewise.png", text)
         self.assertIn("component_06_component_6_minus_trend_component_1_samplewise.png", text)
         self.assertNotIn("component_6_shifted_by_posterior_mean_trend_component_1", text)
+        self.assertIn("source_support_generated_at_utc", text)
+        self.assertNotIn("rendered_at_utc", text)
         self.assertNotIn("TRUE", text)
 
         manuscript_manifest = json.loads((ROOT / "MANUSCRIPT_ASSET_MANIFEST.json").read_text(encoding="utf-8"))

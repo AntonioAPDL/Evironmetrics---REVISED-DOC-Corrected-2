@@ -73,6 +73,31 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 
+read_support_manifest <- function(path) {
+  manifest_path <- file.path(path, "authoritative_selected_support_manifest.json")
+  if (!file.exists(manifest_path) || !requireNamespace("jsonlite", quietly = TRUE)) {
+    return(list())
+  }
+  jsonlite::read_json(manifest_path, simplifyVector = FALSE)
+}
+
+first_nonempty <- function(...) {
+  values <- list(...)
+  for (value in values) {
+    if (!is.null(value) && length(value) == 1L && !is.na(value) && nzchar(as.character(value))) {
+      return(as.character(value))
+    }
+  }
+  NA_character_
+}
+
+support_manifest <- read_support_manifest(support_dir)
+source_support_generated_at_utc <- first_nonempty(
+  support_manifest[["component_rebuild"]][["rebuilt_at_utc"]],
+  support_manifest[["dynamics_rebuild"]][["rebuilt_at_utc"]],
+  support_manifest[["generated_at_utc"]]
+)
+
 FIGURE_A1_COMPONENT <- 6L
 FIGURE_A1_COMPONENT_CONTRACT <- "raw_state_component"
 COMPONENT_6_PLUS_TREND_CONTRACT <- "component_6_plus_trend_component_1_samplewise"
@@ -472,7 +497,7 @@ render_component_analysis_gallery <- function(analysis_dir) {
       filename = spec$filename[[1L]],
       relative_path = file.path("analysis_figures", "component_evolution", spec$filename[[1L]]),
       include_in_manuscript = FALSE,
-      rendered_at_utc = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC"),
+      source_support_generated_at_utc = source_support_generated_at_utc,
       stringsAsFactors = FALSE
     )
   }
@@ -502,9 +527,10 @@ component_analysis_manifest <- render_component_analysis_gallery(analysis_dir)
 
 meta <- list(
   support_dir = metadata_support_dir,
-  render_staging_support_dir = support_dir,
   output_dir = out_dir,
   display_flow_scale = display_flow_scale,
+  render_contract_version = "authoritative_selected_model_support_figures_v2",
+  source_support_generated_at_utc = source_support_generated_at_utc,
   figure_a1_component = FIGURE_A1_COMPONENT,
   figure_a1_component_contract = FIGURE_A1_COMPONENT_CONTRACT,
   figure_a1_article_display_label = "80-month seasonal component only",
@@ -527,8 +553,7 @@ meta <- list(
     manifest = file.path("analysis_figures", "component_evolution", "component_analysis_manifest.csv"),
     figure_count = as.integer(nrow(component_analysis_manifest)),
     files = as.character(component_analysis_manifest$filename)
-  ),
-  generated_at_utc = format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+  )
 )
 if (requireNamespace("jsonlite", quietly = TRUE)) {
   jsonlite::write_json(meta, file.path(out_dir, "render_metadata.json"), auto_unbox = TRUE, pretty = TRUE)
