@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import re
 import unittest
@@ -8,6 +9,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class ArticleA1AndTableContractTests(unittest.TestCase):
@@ -454,6 +459,25 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "artifacts/historical_support_from_current_models/figures/reference_synthesis_univariate.png",
         )
         self.assertEqual(by_label["fig:synth2"]["source_class"], "current_model_output_support")
+        fig_synth2_source = ROOT / by_label["fig:synth2"]["source_path"]
+        fig_synth2_manuscript = ROOT / by_label["fig:synth2"]["manuscript_path"]
+        fig_synth2_cutoff_family = (
+            ROOT / "figures" / "reference_synthesis_by_cutoff" / "cutoff_2022_12_25_reference_synthesis.png"
+        )
+        fig_synth2_legacy_mirror = (
+            ROOT / "Figures" / "manuscript" / "reference_synthesis_univariate.png"
+        )
+        for path in [
+            fig_synth2_source,
+            fig_synth2_manuscript,
+            fig_synth2_cutoff_family,
+            fig_synth2_legacy_mirror,
+        ]:
+            self.assertTrue(path.exists(), f"missing Figure A2/reference-synthesis asset: {path}")
+        expected_digest = sha256(fig_synth2_cutoff_family)
+        self.assertEqual(sha256(fig_synth2_source), expected_digest)
+        self.assertEqual(sha256(fig_synth2_manuscript), expected_digest)
+        self.assertEqual(sha256(fig_synth2_legacy_mirror), expected_digest)
 
         provenance = (ROOT / "docs" / "figure_table_provenance.md").read_text(encoding="utf-8")
         self.assertIn("selected_model_quantile_dry_period.png", provenance)

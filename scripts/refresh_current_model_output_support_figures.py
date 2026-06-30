@@ -203,7 +203,13 @@ def write_bundle(
     (bundle_root / "SHA256SUMS.txt").write_text("\n".join(sorted(sums)) + "\n")
 
 
-def refresh_univar_reference_only(bundle_root: Path, univar_output_root: Path, univar_png: Path) -> None:
+def refresh_univar_reference_only(
+    bundle_root: Path,
+    univar_output_root: Path,
+    univar_png: Path,
+    *,
+    manuscript_targets: list[Path] | None = None,
+) -> None:
     """Refresh only the appendix/reference univariate synthesis artifact.
 
     The historical-support bundle intentionally contains both legacy selected
@@ -217,6 +223,9 @@ def refresh_univar_reference_only(bundle_root: Path, univar_output_root: Path, u
     label, filename, role = APPENDIX_FIGURE
     target = figures_dir / filename
     shutil.copy2(univar_png, target)
+    for manuscript_target in manuscript_targets or []:
+        manuscript_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(target, manuscript_target)
     digest = sha256(target)
     source_path = str(univar_png)
     local_bundle_path = str(target.relative_to(bundle_root.parent.parent))
@@ -271,6 +280,28 @@ def refresh_univar_reference_only(bundle_root: Path, univar_output_root: Path, u
     }
     metadata["univar_reference_refresh_mode"] = "univar_reference_only"
     metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+
+    multivar_source = metadata.get("multivar_source", {})
+    canonical_multivar = multivar_source.get("canonical_runtime_run_root", "not refreshed in univar-only mode")
+    render_multivar = multivar_source.get("historical_support_render_run_root", "not refreshed in univar-only mode")
+    retained_state_summary = multivar_source.get(
+        "retained_state_summary_path",
+        str(figures_dir / "cache" / "historical_support_state_summaries.rds"),
+    )
+    (bundle_root / "README.md").write_text(
+        "# Historical Support From Current Models\n\n"
+        "This article-side artifact bundle regenerates the historical-support manuscript figures from corrected current model outputs.\n\n"
+        "Sources:\n"
+        f"- Canonical completed multivariate run: `{canonical_multivar}`\n"
+        f"- Historical-support render run: `{render_multivar}`\n"
+        f"- Historical-only univariate reference figure: `{univar_png}`\n\n"
+        "Retained support contract:\n"
+        f"- `{retained_state_summary}` preserves the corrected multivariate state summary needed by the renderer after ephemeral fit caches are cleaned from the canonical workflow root.\n\n"
+        "Refresh entrypoint:\n"
+        "- `scripts/refresh_current_model_output_support_figures.py`\n"
+        "- For the univariate reference alone, run `scripts/refresh_current_model_output_support_figures.py --univar-only`; this refreshes the frozen support artifact and both manuscript-facing figure aliases.\n",
+        encoding="utf-8",
+    )
 
 
 def resolve_multivar_spec(article_root: Path, runtime_root: Path) -> dict[str, str]:
@@ -349,7 +380,16 @@ def main() -> None:
         raise FileNotFoundError(f"Missing univariate source PNG: {univar_png}")
 
     if args.univar_only:
-        refresh_univar_reference_only(bundle_root, univar_output_root, univar_png)
+        label, filename, _ = APPENDIX_FIGURE
+        refresh_univar_reference_only(
+            bundle_root,
+            univar_output_root,
+            univar_png,
+            manuscript_targets=[
+                layout.manuscript_figure_path(label),
+                layout.publication_figures_dir / "manuscript" / filename,
+            ],
+        )
         print("Refreshed current-model univariate reference synthesis successfully.")
         return
 
