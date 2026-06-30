@@ -21,8 +21,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 COLOR_BLOCK_RE = re.compile(
-    r"% ---------- Refined semantic palette.*?(?=\\hypersetup\{)",
-    flags=re.DOTALL,
+    r"^% ---------- [^\n]*semantic palette[^\n]*\n.*?(?=\\hypersetup\{)",
+    flags=re.DOTALL | re.IGNORECASE | re.MULTILINE,
 )
 
 
@@ -288,6 +288,9 @@ def palette_block(palette: Palette) -> str:
         \\definecolor{{CovariateColor}}{{HTML}}{{{c["covariate"]}}}
         \\definecolor{{CovariateSkyColor}}{{HTML}}{{{c["sky"]}}}
         \\definecolor{{ClimateIndexColor}}{{HTML}}{{{c["climate"]}}}
+        \\definecolor{{LimitColor}}{{HTML}}{{{c.get("limit", "9A4A4A")}}}
+        \\definecolor{{SynthesisPinkLight}}{{HTML}}{{{c.get("synth_pink_light", "F9E2EA")}}}
+        \\definecolor{{SynthesisPinkDark}}{{HTML}}{{{c.get("synth_pink_dark", "A33A67")}}}
 
         % Compatibility aliases for the current poster source
         \\colorlet{{ModelPlum}}{{SelectedModelColor}}
@@ -333,6 +336,8 @@ def r_env(palette: Palette, variant_dir: Path) -> dict[str, str]:
         "SAGE": c["covariate"],
         "SKY": c["sky"],
         "MAUVE": c["climate"],
+        "SYNTH_PINK_LIGHT": c.get("synth_pink_light", "F9E2EA"),
+        "SYNTH_PINK_DARK": c.get("synth_pink_dark", "A33A67"),
         "OTHER": c.get("other", BASE_COLORS["other"]),
     }
     env = {f"POSTER_COL_{key}": f"#{value}" for key, value in mapping.items()}
