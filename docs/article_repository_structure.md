@@ -78,7 +78,7 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
 - `artifacts/five_cutoff_reference_synthesis/`
   - cutoff-wide reference synthesis figure family for the univariate reference model
 - `artifacts/historical_support_from_current_models/`
-  - appendix historical-only reference synthesis support
+  - appendix univariate transfer-active reference synthesis support
 - `artifacts/representative_selected_model_2022_12_25/`
   - representative selected-model bundle for the verified 2022-12-25 exAL-M-T1 rerun, including the selected-model quantile-dynamic and 80-month component diagnostics
 - `artifacts/five_cutoff_crps_validation_sources/`

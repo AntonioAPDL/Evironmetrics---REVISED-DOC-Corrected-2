@@ -23,8 +23,5 @@ exAL-M-T0 & 0.75682 & 1.72135 & 0.97762 & 1.02087 & 1.21132 \\
 exAL-M-T1 & \textbf{0.13971} & \textbf{0.04724} & \textbf{0.26045} & \textbf{0.02273} & \textbf{0.53806} \\
 \bottomrule
 \end{tabular*}
-\begin{tablenotes}
-\item \textit{Note:} The model label \(L\)-\(S\)-\(T\) is defined as follows: \(L\in\{\mathrm{N},\mathrm{AL},\mathrm{exAL}\}\) denotes a Gaussian, asymmetric Laplace, or extended asymmetric Laplace observation likelihood; \(S\in\{\mathrm{U},\mathrm{M}\}\) indicates whether the synthesis uses only the USGS channel or all source channels jointly; and \(T\in\{\mathrm{T0},\mathrm{T1}\}\) indicates whether the transfer component is suppressed or retained during the forecast window. The Gaussian \(N\) rows are normal dynamic linear model baselines and are not fitted quantile-lane models. \texttt{RAW-GLOFAS} denotes the uncorrected GloFAS forecast product over the same 28-day window. \texttt{RAW-NWS} is excluded here because the archived NWS forecasts provide only eight valid daily leads for these origins; the NWS-matched comparison is shown in Table~\ref{tab:benchmark_crps_models_nws_horizon}.
-\end{tablenotes}
 \end{threeparttable}
 \end{table*}

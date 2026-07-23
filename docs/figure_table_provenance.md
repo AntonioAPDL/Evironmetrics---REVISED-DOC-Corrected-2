@@ -93,8 +93,9 @@ five rolling-origin cutoffs: `0.13971`, `0.04724`, `0.26045`, `0.02273`, and
 `0.53806`.
 
 The HE3 structural-ablation matrix remains a fixed sensitivity analysis
-anchored to the June 1, 2026 exAL-M-T1 winner set. It should not be read as a
-replacement for the refreshed HE2 benchmark authority.
+anchored to the current exAL-M-T1 authority recorded in the article manifests.
+It should not be read as a replacement for the refreshed HE2 benchmark
+authority.
 
 The full-history dry/wet and 80-month support diagnostics are now wired to the
 same current `2022-12-25` selected `exAL-M-T1` output authority as the
@@ -276,7 +277,7 @@ The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected
 | `fig:rainy_quantile` | `figures/manuscript/historical_summary_wet_period.png` | selected-model fitted quantile-location diagnostic, wet regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
 | `fig:synth1` | `figures/manuscript/representative_synthesis_multivariate.png` | predictive synthesis illustration | verified representative rerun bundle in `artifacts/representative_selected_model_2022_12_25/` plus workflow-side replay validation | yes | reproducible from verified `2022-12-25 exAL-M-T1` rerun bundle and frozen locally | locked to representative `2022-12-25` selected-model run | keep synced to representative selected-model bundle |
 | `fig:80_components` | `figures/manuscript/historical_component_80month.png` | selected-model 80-month seasonal-component diagnostic with dry/wet overlays | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:synth2` | `figures/manuscript/reference_synthesis_univariate.png` | appendix historical-only predictive synthesis | current `2022-12-25 exdqlm_univar` publication-style output bundle copied into `artifacts/historical_support_from_current_models/` | yes | reproducible from current model outputs and frozen locally in the article repo | current-model appendix support figure outside the narrow five-run keep lineage | keep with explicit current-output support provenance |
+| `fig:synth2` | `figures/manuscript/reference_synthesis_univariate.png` | appendix univariate transfer-active predictive synthesis | current `2022-12-25 exdqlm_univar` publication-style output bundle copied into `artifacts/historical_support_from_current_models/` | yes | reproducible from current model outputs and frozen locally in the article repo | current-model appendix support figure outside the narrow five-run keep lineage | keep with explicit current-output support provenance; reference excludes retrospective-product and forecast-product source channels |
 
 ### Notes on figure confidence
 
@@ -407,7 +408,7 @@ The following policy is now adopted for the revised manuscript and should govern
 - The captions and nearby text should continue to say so clearly.
 - For the three selected-model diagnostic figures, the current article-side provenance anchor is now:
   - `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`
-- The older historical-support figure source is no longer the manuscript authority for these three figures; `artifacts/historical_support_from_current_models/` remains only for the appendix historical-only reference synthesis.
+- The older historical-support figure source is no longer the manuscript authority for these three figures; `artifacts/historical_support_from_current_models/` remains only for the appendix univariate transfer-active reference synthesis.
 
 ## Recent selected-model workflow status
 
@@ -434,7 +435,7 @@ Resolved gaps from this audit:
   - `reports/five_cutoff_setup_support_review/`
 - the manuscript-facing `figures/manuscript/` copies for `fig:sanlorenzo`, `fig:covariates`, `fig:retrospectives`, and `fig:ensembles` are now promoted from the representative `20221225_exal_m_t1` `v2` bundle through:
   - `reports/representative_setup_selection/selection_manifest.json`
-- the appendix historical-only reference synthesis and the historical-summary figures now share the current article-side provenance anchor:
+- the appendix univariate transfer-active reference synthesis and the historical-summary figures now share the current article-side provenance anchor:
   - `artifacts/historical_support_from_current_models/`
 - In practice, this means:
   - `fig:synth1`, `tab:components_23_31`, `tab:gamma_sigma_intervals1`, and `tab:gamma_sigma_intervals2` are now locked to verified article-side bundles,

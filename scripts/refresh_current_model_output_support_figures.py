@@ -45,7 +45,7 @@ HISTORICAL_FIGURES = [
     ("fig:80_components", "historical_component_80month.png", "Long-cycle component summary"),
 ]
 
-APPENDIX_FIGURE = ("fig:synth2", "reference_synthesis_univariate.png", "Historical-only reference synthesis")
+APPENDIX_FIGURE = ("fig:synth2", "reference_synthesis_univariate.png", "Univariate transfer-active reference synthesis")
 
 
 def sha256(path: Path) -> str:
@@ -180,7 +180,7 @@ def write_bundle(
         "Sources:\n"
         f"- Canonical completed multivariate run: `{canonical_multivar_run_root}`\n"
         f"- Historical-support render run: `{render_multivar_run_root}`\n"
-        f"- Historical-only univariate reference figure: `{univar_output_root / UNIVAR_SPEC['source_png']}`\n\n"
+        f"- Univariate transfer-active reference figure: `{univar_output_root / UNIVAR_SPEC['source_png']}`\n\n"
         "Retained support contract:\n"
         "- `figures/cache/historical_support_state_summaries.rds` preserves the corrected multivariate state summary needed by the renderer after ephemeral fit caches are cleaned from the canonical workflow root.\n\n"
         "Refresh entrypoint:\n"
@@ -294,7 +294,7 @@ def refresh_univar_reference_only(
         "Sources:\n"
         f"- Canonical completed multivariate run: `{canonical_multivar}`\n"
         f"- Historical-support render run: `{render_multivar}`\n"
-        f"- Historical-only univariate reference figure: `{univar_png}`\n\n"
+        f"- Univariate transfer-active reference figure: `{univar_png}`\n\n"
         "Retained support contract:\n"
         f"- `{retained_state_summary}` preserves the corrected multivariate state summary needed by the renderer after ephemeral fit caches are cleaned from the canonical workflow root.\n\n"
         "Refresh entrypoint:\n"

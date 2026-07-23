@@ -16,6 +16,10 @@ main.pdf
 empty-eps-converted-to.pdf
 isba2026_poster/palette_previews/
 
+# Local planning/audit notes. These are working documents for advisor-facing
+# revision strategy and should not be sent to Overleaf, arXiv, or the journal.
+local_notes/
+
 # Large workflow-side posterior support data should stay out of the
 # Overleaf-facing article repository. Regenerate figures from the workflow
 # runtime source via scripts/refresh_authoritative_selected_model_support_figures.py.

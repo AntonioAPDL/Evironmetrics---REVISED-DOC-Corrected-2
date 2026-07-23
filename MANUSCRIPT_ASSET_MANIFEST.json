@@ -84,11 +84,11 @@
       "label": "fig:synth2",
       "manuscript_path": "figures/manuscript/reference_synthesis_univariate.png",
       "category": "Appendix Support",
-      "role": "Historical-only reference synthesis",
+      "role": "Univariate transfer-active reference synthesis",
       "source_path": "artifacts/historical_support_from_current_models/figures/reference_synthesis_univariate.png",
       "source_class": "current_model_output_support",
       "current_model_output_wired": true,
-      "note": "Copied from the current 2022-12-25 exdqlm_univar publication-style output bundle"
+      "note": "Copied from the current 2022-12-25 exdqlm_univar publication-style output bundle; uses the USGS observation channel and transfer covariates while excluding retrospective-product and forecast-product source channels."
     }
   ],
   "tables": {

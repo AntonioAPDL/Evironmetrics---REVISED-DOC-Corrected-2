@@ -777,7 +777,7 @@ Goal: defer until the main forecasting rewrite is settled.
 
 - [x] Decide whether `fig:synth1` and `fig:synth2` remain in the final paper.
   - Source: `R1-m9[BRUNO-REVIEW]`
-  - Decision: keep `fig:synth1` in the main text as the operational illustration; move `fig:synth2` to the appendix as a historical-only counterfactual.
+  - Decision: keep `fig:synth1` in the main text as the operational illustration; move `fig:synth2` to the appendix as a univariate transfer-active reference comparison.
 
 If retained:
 - [x] rewrite the surrounding discussion so their different roles are explicit
@@ -1044,7 +1044,7 @@ Use this as the working order when actually editing the manuscript.
     - keep this table frozen until NDLM is relaunched on the canonical shared bundle, AL multivariate keep/drop are complete, and the exAL shared-spec rerun benchmark rows are reconciled
   - Local article-side snapshot:
     - `artifacts/he2_publication_freeze/`
-- [x] Distinguish in-scope selected-model refresh objects from workflow-linked but out-of-scope historical/counterfactual objects.
+- [x] Distinguish in-scope selected-model refresh objects from workflow-linked but out-of-scope appendix reference objects.
   - In scope:
     - `tab:benchmark_crps_models`
     - `fig:synth1`

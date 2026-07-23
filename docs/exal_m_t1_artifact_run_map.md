@@ -107,11 +107,11 @@ That bundle now includes:
 
 ### Interpretation and appendix support outside the forecast-validation table
 
-These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics are current representative selected-output interpretation support; the historical-only reference synthesis remains a separate appendix counterfactual.
+These objects are not additional forecast-validation table entries. The selected-model dry/wet and long-cycle diagnostics are current representative selected-output interpretation support; the univariate transfer-active reference synthesis remains a separate appendix comparison.
 
 | Manuscript object | Current role | Current source status | Action |
 |---|---|---|---|
-| `fig:synth2` | appendix historical-only reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance |
+| `fig:synth2` | appendix univariate transfer-active reference | copied from the current `2022-12-25 exdqlm_univar` publication-style output bundle and frozen locally in `artifacts/historical_support_from_current_models/` | keep with explicit current-output support provenance; reference excludes retrospective-product and forecast-product source channels |
 | `fig:dry_quantile` | selected-model fitted quantile-location diagnostic, dry regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
 | `fig:rainy_quantile` | selected-model fitted quantile-location diagnostic, wet regime | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
 | `fig:80_components` | main-text long-cycle component diagnostic | rendered from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | keep as selected-model interpretation support from the current representative selected-output authority; not forecast-validation evidence |
@@ -133,7 +133,7 @@ These objects are not additional forecast-validation table entries. The selected
 4. `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` are current representative selected-output support diagnostics.
    - They should remain distinguished from the forecast-validation evidence used for the main benchmark table.
    - Their article-side provenance anchor is now `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/`.
-5. `fig:synth2` remains a separate historical-only appendix reference sourced from `artifacts/historical_support_from_current_models/`.
+5. `fig:synth2` remains a separate univariate transfer-active appendix reference sourced from `artifacts/historical_support_from_current_models/`.
 
 ## 6. Locked choice for the current manuscript pass
 
