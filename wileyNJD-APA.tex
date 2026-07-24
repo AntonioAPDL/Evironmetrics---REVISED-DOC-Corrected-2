@@ -259,7 +259,7 @@ For an ensemble forecast with members \(x_1,\ldots,x_M\), we use the empirical C
 = \frac{1}{M}\sum_{m=1}^{M}|x_m-y|
 - \frac{1}{2M^2}\sum_{m=1}^{M}\sum_{\ell=1}^{M}|x_m-x_\ell|.
 \]
-A deterministic forecast is the special case \(M=1\), for which the CRPS reduces to \(|y-x|\), the absolute error. In preliminary tuning, the transfer persistence \(\lambda\) was selected by minimizing CRPS for the synthesized predictive distribution; this tuning selected \(\lambda=0.97\), which is then held fixed in the final publication specifications.
+A deterministic forecast is the special case \(M=1\), for which the CRPS reduces to \(|y-x|\), the absolute error. We also use CRPS for the preliminary selection of the transfer-persistence parameter \(\lambda\), as described in Subsection~\ref{subsec:specification}.
 
 
 \section{FORECASTING THE SAN LORENZO RIVER FLOW}
@@ -346,7 +346,9 @@ Here \(\textbf{J}_2(1,\omega) \in \mathbb{R}^{2\times2}\), \(\mathbf{G}^{\text{s
 
 For prior hyperparameters (see Subsection~\ref{subsec:prioranddisc}), we specify \(\phi^j = 10^6\), \(\nu^j = 1\), and \(a_{\sigma^j} = b_{\sigma^j} = 10^{-6}\) for all \(1 \leq j \leq J\), reflecting diffuse prior beliefs. Sensitivity analyses for \(\phi^j \in \{10^1, 10^3, 10^6\}\) and \(b_{\sigma^j} \in \{10^{-1}, 10^{-3}, 10^{-6}\}\) showed no noticeable impact on model fit.
 
-We choose discount factors componentwise to reflect each component's time scale and role. Recall that, in the discount-factor formulation \citep{prado2021time}, a smaller value \(d \in (0,1]\) for a given state parameter implies larger state-evolution variance and therefore greater adaptability of that component. The selected specifications use high, near-one discount factors for the trend, seasonal, discrepancy, transfer, and covariate-effect states. These values preserve persistent long-run behavior while allowing slow adaptation across the multi-decade observation window. The transfer persistence is set to \(\lambda=0.97\), selected in preliminary tuning by CRPS of the synthesized predictive distribution and then held fixed in the final publication fits.
+We choose discount factors componentwise to reflect each component's time scale and role. Recall that, in the discount-factor formulation \citep{prado2021time}, a smaller value \(d \in (0,1]\) for a given state parameter implies larger state-evolution variance and therefore greater adaptability of that component. The selected specifications use high, near-one discount factors for the trend, seasonal, discrepancy, transfer, and covariate-effect states. These values preserve persistent long-run behavior while allowing slow adaptation across the multi-decade observation window.
+
+The transfer-persistence parameter \(\lambda\) was selected in a preliminary one-dimensional tuning step. To avoid confounding transfer persistence with state-evolution adaptability, the component discount factors were held fixed during this step. We considered the grid \(\lambda \in \{0.60,0.61,\ldots,0.99\}\) and evaluated candidate values using forecast-window CRPS for the synthesized predictive distribution at the representative December 25, 2022 cutoff, which has the longest pre-origin archive among the rolling-origin cases. For computational efficiency, this tuning used the median-quantile specification. The selected value was \(\lambda=0.97\), which was then held fixed across all quantile levels, cutoffs, and final publication fits.
 
 \subsection{Rolling-Origin Forecast Evaluation Design}
 
