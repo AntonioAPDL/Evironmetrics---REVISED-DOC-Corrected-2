@@ -98,6 +98,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         )
         self.assertEqual(fair_assessment.get("fold_unit"), "forecast_origin_cutoff")
         self.assertFalse(fair_assessment.get("dense_overlapping_origins_claimed"))
+        self.assertIn("version", fair_assessment.get("dense_origin_policy", ""))
+        self.assertIn("overrepresent", fair_assessment.get("dense_origin_policy", ""))
         self.assertEqual(
             manifest.get("forecast_origin_inputs", {}).get("forecast_products", {}).get("timing"),
             "latest_issued_at_or_before_cutoff",
@@ -254,6 +256,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("scores the resulting predictive distribution against future USGS observations", article)
         self.assertIn("feasible folds are constrained by version-consistent forecast archives", article)
         self.assertIn("heavily overlapping forecast windows would overrepresent the same hydrological episode", article)
+        self.assertIn("Constructing a fold requires more than shifting the cutoff date", article)
+        self.assertIn("a densely overlapping origin grid would require a substantially larger data-ingestion and computational campaign", article)
         self.assertNotIn("random K-fold cross-validation", article)
 
     def test_reviewer1_uncertainty_sources_are_distinguished(self) -> None:
@@ -447,7 +451,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "fig:dry_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
             "fig:rainy_quantile": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
             "fig:80_components": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
-            "fig:synth1": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
+            "fig:synth1": "artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png",
         }
         for label, source_path in expected_selected.items():
             self.assertEqual(by_label[label]["source_path"], source_path)
@@ -462,7 +466,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         fig_synth2_source = ROOT / by_label["fig:synth2"]["source_path"]
         fig_synth2_manuscript = ROOT / by_label["fig:synth2"]["manuscript_path"]
         fig_synth2_cutoff_family = (
-            ROOT / "figures" / "reference_synthesis_by_cutoff" / "cutoff_2022_12_25_reference_synthesis.png"
+            ROOT / "Figures" / "reference_synthesis_by_cutoff" / "cutoff_2022_12_25_reference_synthesis.png"
         )
         fig_synth2_legacy_mirror = (
             ROOT / "Figures" / "manuscript" / "reference_synthesis_univariate.png"
@@ -494,6 +498,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             "cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png",
             "cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png",
             "cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png",
+            "cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png",
         ]:
             self.assertIn(name, article)
         for retired in [
@@ -628,6 +633,14 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         )
         self.assertIn("Its role is illustrative", article_text)
         self.assertIn("risk of quantile crossing", article_text)
+        self.assertIn("Posterior Predictive Synthesis Across Quantiles", article_text)
+        self.assertIn("isotonic regression", article_text)
+        self.assertIn("monotone rearrangement", article_text)
+        self.assertIn(r"u_s=s/(S+1)", article_text)
+        self.assertIn("point mass", article_text)
+        self.assertNotIn("deterministic forecast", article_text)
+        self.assertNotIn(r"{\mathbb E}_G|Y - y|", article_text)
+        self.assertNotIn("empirical CRPS estimator", article_text)
         self.assertEqual(article_text.count("probability integral transform"), 1)
         self.assertEqual(article_text.count("PIT"), 1)
         self.assertEqual(article_text.count("quantile crossing"), 1)
@@ -679,7 +692,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn(r"\textbf{Mean}", covariates)
         self.assertIn("Posterior means and 95\\% credible intervals", covariates)
 
-        self.assertIn("Posterior Medians and 95\\% Credible Intervals for the Source-Specific Weight Coefficients", gamma)
+        self.assertIn("Posterior Medians and 95\\% Credible Intervals for the Source-Specific Skewness Parameters", gamma)
         self.assertIn("Posterior Medians and 95\\% Credible Intervals for the Source-Specific Scale Parameters", sigma)
         self.assertNotIn("Posterior Means and 95\\% Credible Intervals for the Source-Specific", gamma)
         self.assertNotIn("Posterior Means and 95\\% Credible Intervals for the Source-Specific", sigma)

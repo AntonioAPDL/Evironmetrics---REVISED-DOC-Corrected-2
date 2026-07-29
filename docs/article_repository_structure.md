@@ -13,7 +13,7 @@ The repository is organized so that a reader can separate three roles immediatel
 ## Top-level layout
 
 - `wileyNJD-APA.tex`: manuscript source used by Overleaf
-- `figures/`: manuscript-facing figures, supplementary cutoff synthesis panels, and advisor-facing forecast-context copies
+- `Figures/`: current tracked manuscript-facing figures, supplementary cutoff synthesis panels, and advisor-facing forecast-context copies
 - `tables/`: generated TeX tables consumed by `\input{}` in the manuscript
 - `artifacts/`: article-local frozen bundles copied from validated workflow outputs
 - `reports/`: galleries, audits, selection manifests, and review reports
@@ -21,40 +21,40 @@ The repository is organized so that a reader can separate three roles immediatel
 - `scripts/`: refresh, promotion, and audit scripts used to regenerate the article-side state
 
 The manuscript now resolves figures through a validated `\graphicspath` layer.
-The canonical asset tree remains lowercase `figures/`, but the TeX compile path
-also tolerates the legacy uppercase `Figures/` tree so Overleaf Git-sync
-transitions do not break figure rendering.
+The current Overleaf-facing tracked tree is uppercase `Figures/`. The TeX
+compile path also tolerates lowercase `figures/` paths because several older
+local refresh helpers used that spelling before promotion.
 
 ## Manuscript-facing paths
 
 ### Figures used directly by the manuscript
 
-- `figures/manuscript/site_context_usgs.png`
-- `figures/manuscript/covariate_context_precip_soil_gdpc.png`
-- `figures/manuscript/retrospective_products_context.png`
-- `figures/manuscript/forecast_products_context.png`
-- `figures/manuscript/historical_summary_dry_period.png`
-- `figures/manuscript/historical_summary_wet_period.png`
-- `figures/manuscript/representative_synthesis_multivariate.png`
-- `figures/manuscript/historical_component_80month.png`
-- `figures/manuscript/reference_synthesis_univariate.png`
+- `Figures/manuscript/site_context_usgs.png`
+- `Figures/manuscript/covariate_context_precip_soil_gdpc.png`
+- `Figures/manuscript/retrospective_products_context.png`
+- `Figures/manuscript/forecast_products_context.png`
+- `Figures/manuscript/historical_summary_dry_period.png`
+- `Figures/manuscript/historical_summary_wet_period.png`
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png`
+- `Figures/manuscript/historical_component_80month.png`
+- `Figures/manuscript/reference_synthesis_univariate.png`
 
 ### Supplementary cutoff synthesis figures
 
-- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png`
-- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png`
-- `figures/multivariate_synthesis_by_cutoff/cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png`
-- `figures/multivariate_synthesis_by_cutoff/cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png`
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2021_01_23_multivariate_synthesis_with_reference_ensembles.png`
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2021_11_12_multivariate_synthesis_with_reference_ensembles.png`
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2021_12_21_multivariate_synthesis_with_reference_ensembles.png`
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_05_11_multivariate_synthesis_with_reference_ensembles.png`
 
-The former setup/support composites remain available as generated support artifacts under `figures/appendix_cutoff_panels/` and `artifacts/five_cutoff_setup_support/`, but they are no longer included as manuscript appendix figures.
+The former setup/support composites remain available as generated support artifacts under `Figures/appendix_cutoff_panels/` and `artifacts/five_cutoff_setup_support/`, but they are no longer included as manuscript appendix figures.
 
 ### Advisor-facing cutoff forecast-context figures
 
-- `figures/forecast_context_by_cutoff/cutoff_2021_01_23_forecast_context.png`
-- `figures/forecast_context_by_cutoff/cutoff_2021_11_12_forecast_context.png`
-- `figures/forecast_context_by_cutoff/cutoff_2021_12_21_forecast_context.png`
-- `figures/forecast_context_by_cutoff/cutoff_2022_05_11_forecast_context.png`
-- `figures/forecast_context_by_cutoff/cutoff_2022_12_25_forecast_context.png`
+- `Figures/forecast_context_by_cutoff/cutoff_2021_01_23_forecast_context.png`
+- `Figures/forecast_context_by_cutoff/cutoff_2021_11_12_forecast_context.png`
+- `Figures/forecast_context_by_cutoff/cutoff_2021_12_21_forecast_context.png`
+- `Figures/forecast_context_by_cutoff/cutoff_2022_05_11_forecast_context.png`
+- `Figures/forecast_context_by_cutoff/cutoff_2022_12_25_forecast_context.png`
 
 These are advisor-facing copies of the Figure 4 forecast-context view for every cutoff. They are not manuscript-facing paths, but they are refreshed automatically and meant to support cutoff-by-cutoff review before wider synthesis promotion work.
 

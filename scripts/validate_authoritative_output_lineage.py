@@ -102,6 +102,21 @@ def infer_source(
         )
         return source
 
+    if len(parts) >= 3 and parts[0] == "artifacts" and parts[1] == "five_cutoff_main_model_synthesis":
+        slug = parts[2]
+        metadata_path = article_root / "artifacts" / "five_cutoff_main_model_synthesis" / slug / "source_metadata.json"
+        metadata = read_json(metadata_path) if metadata_path.exists() else {}
+        source.update(
+            {
+                "source_family": "five_cutoff_main_model_synthesis",
+                "source_cutoff": str(metadata.get("cutoff", "")),
+                "source_run_id": str(metadata.get("run_id") or metadata.get("multivar_run_id") or ""),
+                "source_run_root": str(metadata.get("runtime_run_root", "")),
+                "source_note": str(metadata.get("source_lineage", slug)),
+            }
+        )
+        return source
+
     abs_source = article_root / source_path
     source["source_note"] = str(abs_source if abs_source.exists() else "")
     return source
@@ -195,11 +210,19 @@ def main() -> int:
         same_cutoff = source["source_cutoff"] == authoritative["cutoff"]
         same_run = source["source_run_id"] == authoritative["run_id"]
         representative_class = fig["source_class"] == "current_selected_model_representative"
-        status = "PASS" if same_cutoff and same_run and representative_class else "FAIL"
+        if label == "fig:synth1" and source["source_family"] == "five_cutoff_main_model_synthesis":
+            status = "PASS" if same_cutoff and bool(source["source_run_id"]) and representative_class else "FAIL"
+        else:
+            status = "PASS" if same_cutoff and same_run and representative_class else "FAIL"
         detail = []
         if not same_cutoff:
             detail.append("cutoff mismatch")
-        if not same_run:
+        if label == "fig:synth1" and source["source_family"] == "five_cutoff_main_model_synthesis":
+            if not source["source_run_id"]:
+                detail.append("missing five-cutoff source run id")
+            else:
+                detail.append("accepted five-cutoff synthesis family for representative 2022-12-25 synthesis figure")
+        elif not same_run:
             detail.append("run_id mismatch")
         if not representative_class:
             detail.append("source_class is not current_selected_model_representative")

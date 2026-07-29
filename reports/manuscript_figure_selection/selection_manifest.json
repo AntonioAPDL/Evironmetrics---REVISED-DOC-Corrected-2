@@ -1,10 +1,10 @@
 {
   "manifest_path": "MANUSCRIPT_ASSET_MANIFEST.json",
-  "manuscript_figures_dir": "figures/manuscript",
+  "manuscript_figures_dir": "Figures/manuscript",
   "figures": [
     {
       "label": "fig:sanlorenzo",
-      "manuscript_path": "figures/manuscript/site_context_usgs.png",
+      "manuscript_path": "Figures/manuscript/site_context_usgs.png",
       "category": "Setup / Inputs",
       "role": "Study-setting figure",
       "source_class": "setup_support_v2_representative",
@@ -15,7 +15,7 @@
     },
     {
       "label": "fig:covariates",
-      "manuscript_path": "figures/manuscript/covariate_context_precip_soil_gdpc.png",
+      "manuscript_path": "Figures/manuscript/covariate_context_precip_soil_gdpc.png",
       "category": "Setup / Inputs",
       "role": "Covariate setup figure",
       "source_class": "setup_support_v2_representative",
@@ -26,7 +26,7 @@
     },
     {
       "label": "fig:retrospectives",
-      "manuscript_path": "figures/manuscript/retrospective_products_context.png",
+      "manuscript_path": "Figures/manuscript/retrospective_products_context.png",
       "category": "Setup / Inputs",
       "role": "Retrospective-product setup figure",
       "source_class": "setup_support_v2_representative",
@@ -37,7 +37,7 @@
     },
     {
       "label": "fig:ensembles",
-      "manuscript_path": "figures/manuscript/forecast_products_context.png",
+      "manuscript_path": "Figures/manuscript/forecast_products_context.png",
       "category": "Setup / Inputs",
       "role": "Forecast-product setup figure",
       "source_class": "setup_support_v2_representative",
@@ -48,7 +48,7 @@
     },
     {
       "label": "fig:dry_quantile",
-      "manuscript_path": "figures/manuscript/historical_summary_dry_period.png",
+      "manuscript_path": "Figures/manuscript/historical_summary_dry_period.png",
       "category": "Selected Model",
       "role": "Selected-model quantile dynamics, 2012-2016 window",
       "source_class": "current_selected_model_representative",
@@ -59,7 +59,7 @@
     },
     {
       "label": "fig:rainy_quantile",
-      "manuscript_path": "figures/manuscript/historical_summary_wet_period.png",
+      "manuscript_path": "Figures/manuscript/historical_summary_wet_period.png",
       "category": "Selected Model",
       "role": "Selected-model quantile dynamics, 2017-2019 window",
       "source_class": "current_selected_model_representative",
@@ -70,18 +70,18 @@
     },
     {
       "label": "fig:synth1",
-      "manuscript_path": "figures/manuscript/representative_synthesis_multivariate.png",
+      "manuscript_path": "Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png",
       "category": "Selected Model",
-      "role": "Representative selected-model synthesis with reference-product overlays",
+      "role": "Representative selected-model synthesis with reference-product overlays for the 2022-12-25 cutoff",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
-      "source_path": "artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png",
-      "sha256": "724d9cfe36ee6b14add53d951a0cf4ce2492fb1eed998a0be8e29ba6ac729bda",
-      "note": "Authoritative representative 2022-12-25 exAL-M-T1 clean HE2 publication replay with adapter-scale retrospective and forecast-product references"
+      "source_path": "artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png",
+      "sha256": "4a5149e87b8325bd7ede753db82a369902c3de66f6cb8e885c07f2e41db245e6",
+      "note": "Authoritative 2022-12-25 exAL-M-T1 clean HE2 publication replay from the five-cutoff main-model synthesis family, with retrospective and forecast-product reference overlays."
     },
     {
       "label": "fig:80_components",
-      "manuscript_path": "figures/manuscript/historical_component_80month.png",
+      "manuscript_path": "Figures/manuscript/historical_component_80month.png",
       "category": "Selected Model",
       "role": "Selected-model 80-month component summary with dry/wet period overlays",
       "source_class": "current_selected_model_representative",
@@ -92,14 +92,14 @@
     },
     {
       "label": "fig:synth2",
-      "manuscript_path": "figures/manuscript/reference_synthesis_univariate.png",
+      "manuscript_path": "Figures/manuscript/reference_synthesis_univariate.png",
       "category": "Appendix Support",
-      "role": "Historical-only reference synthesis",
+      "role": "Univariate transfer-active reference synthesis",
       "source_class": "current_model_output_support",
       "current_model_output_wired": true,
       "source_path": "artifacts/historical_support_from_current_models/figures/reference_synthesis_univariate.png",
-      "sha256": "2ca5a64b13b07eac552ad354c5b62472dd9cdc8f282cae09d4062f9e32f1b3a6",
-      "note": "Copied from the current 2022-12-25 exdqlm_univar publication-style output bundle"
+      "sha256": "daba2360b25c7fe4042ac28b7c0f72852c68b6c77d88ed3d80994cc145d15f6d",
+      "note": "Copied from the current 2022-12-25 exdqlm_univar publication-style output bundle; uses the USGS observation channel and transfer covariates while excluding retrospective-product and forecast-product source channels."
     }
   ]
 }

@@ -13,7 +13,7 @@ MANUSCRIPT_FIGURE_FILENAMES = {
     'fig:ensembles': 'forecast_products_context.png',
     'fig:dry_quantile': 'historical_summary_dry_period.png',
     'fig:rainy_quantile': 'historical_summary_wet_period.png',
-    'fig:synth1': 'representative_synthesis_multivariate.png',
+    'fig:synth1': 'cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png',
     'fig:80_components': 'historical_component_80month.png',
     'fig:synth2': 'reference_synthesis_univariate.png',
 }
@@ -96,7 +96,7 @@ class ArticleRepoLayout:
 
     @property
     def figures_dir(self) -> Path:
-        return self.root / 'figures'
+        return self.root / 'Figures'
 
     @property
     def publication_figures_dir(self) -> Path:
@@ -223,6 +223,8 @@ class ArticleRepoLayout:
         return self.docs_dir / 'article_repository_path_crosswalk.csv'
 
     def manuscript_figure_path(self, label: str) -> Path:
+        if label == 'fig:synth1':
+            return self.cutoff_multivariate_synthesis_overlay_path('20221225_exal_m_t1')
         return self.manuscript_figures_dir / MANUSCRIPT_FIGURE_FILENAMES[label]
 
     def appendix_panel_path(self, slug: str) -> Path:

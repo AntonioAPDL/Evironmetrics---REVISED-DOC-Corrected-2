@@ -53,9 +53,9 @@ Article-side review outputs:
 - `artifacts/README.md`
 - `artifacts/artifact_inventory.csv`
 - `artifacts/he2_historical_support_audit/historical_support_audit.md`
-- `figures/multivariate_synthesis_by_cutoff/README.md`
-- `figures/appendix_cutoff_panels/README.md`
-- `figures/forecast_context_by_cutoff/README.md`
+- `Figures/multivariate_synthesis_by_cutoff/README.md`
+- `Figures/appendix_cutoff_panels/README.md`
+- `Figures/forecast_context_by_cutoff/README.md`
 
 This inventory now distinguishes three reproducibility levels:
 - objects frozen locally in the article repo and tied to verified selected-model reruns,
@@ -71,7 +71,7 @@ Most important results from this audit:
 - every current figure/table asset in the article is now either:
   - tied to a verified selected-model rerun bundle,
   - or frozen locally as a workflow-linked support figure.
-- the manuscript-facing `figures/manuscript/` figures are now promoted from a source-controlled generated-asset manifest rather than by manual selection.
+- the manuscript-facing `Figures/manuscript/` figures are now promoted from a source-controlled generated-asset manifest rather than by manual selection.
 - the model-derived manuscript tables now consume generated `\\input{}` row includes rebuilt from frozen article-side CSV sources.
 
 That means the current manuscript figures are strongly linked to the current workflow repo, even though the manuscript repo itself does not carry the full generation scripts.
@@ -116,10 +116,10 @@ The article-side generated asset freeze point is now indexed under:
 - `artifacts/artifact_inventory.csv`
 
 The supplementary cutoff-specific selected-model synthesis overlays now live under:
-- `figures/multivariate_synthesis_by_cutoff/`
+- `Figures/multivariate_synthesis_by_cutoff/`
 
 The former composite cutoff setup/support panels remain generated support artifacts under:
-- `figures/appendix_cutoff_panels/`
+- `Figures/appendix_cutoff_panels/`
 
 The weaker historical entrypoint is:
 - `scripts/make_environmetrics_figures.R`
@@ -149,8 +149,8 @@ Those copied artifacts include:
 - `sigma_summary.csv/.tex`
 - `posterior_table_exports_manifest.csv`
 
-Current manuscript refreshes already tied to that verified run:
-- `figures/manuscript/representative_synthesis_multivariate.png`, promoted from the reference-overlay source image
+Current manuscript refreshes already tied to verified selected-model outputs:
+- `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png`, promoted from the five-cutoff main-model synthesis family for the representative 2022-12-25 cutoff
 - `tab:components_23_31`
 - `tab:gamma_sigma_intervals1`
 - `tab:gamma_sigma_intervals2`
@@ -189,7 +189,7 @@ That family is produced from the current workflow-side derivation path:
 
 Current article-facing status:
 - the corrected `v2` setup/support family is now implemented, validated, and mirrored locally;
-- the manuscript-facing `figures/manuscript/` copies are promoted from the representative `20221225_exal_m_t1` bundle;
+- the manuscript-facing `Figures/manuscript/` copies are promoted from the representative `20221225_exal_m_t1` bundle;
 - legacy `v1` and ad hoc support families have been removed from the article repo.
 
 The current support families can now be refreshed through:
@@ -265,19 +265,19 @@ The documented post-stage outputs are:
 
 ### High-confidence, workflow-linked figures already matching the recorded gold outputs
 
-The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected-2/figures/manuscript/` were hashed locally and match the workflow repo's `repro/gold_DISC_figures.sha256` exactly.
+The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected-2/Figures/manuscript/` were hashed locally and match the workflow repo's `repro/gold_DISC_figures.sha256` exactly.
 
 | Manuscript label | Current asset | Current manuscript role | Workflow evidence | Hash match | Repro status | Selected-run status | Recommended action |
 |---|---|---|---|---|---|---|---|
-| `fig:sanlorenzo` | `figures/manuscript/site_context_usgs.png` | study-setting figure | corrected cutoff-specific `v2` bundle built from the CRPS-linked `exAL-M-T1` source manifest and authoritative figure-input bundles; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/usgs.png`; current contract uses full `1987-05-29 -> cutoff` USGS history | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
-| `fig:covariates` | `figures/manuscript/covariate_context_precip_soil_gdpc.png` | covariate setup figure | corrected `v2` bundle reads raw cutoff-specific `cov_01_PPT.csv` and `cov_02_SOIL.csv`, together with the canonical `GDPC1` master factor truncated to the cutoff; manuscript-facing copy is promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses the full `1987-05-29 -> cutoff` covariate history | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
-| `fig:retrospectives` | `figures/manuscript/retrospective_products_context.png` | retrospective-product setup figure | corrected `v2` bundle reads authoritative retrospective lineage / bundle-native retrospective sources; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses the retrospective support actually available for the selected cutoff and records whether full history is present | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
-| `fig:ensembles` | `figures/manuscript/forecast_products_context.png` | forecast-product setup figure | corrected `v2` bundle stages bundle-native forecast inputs through `forecats_plot_bundle.R`; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses a strict `cutoff - 28 days` to `cutoff + 28 days` display window | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; advisor-facing cutoff-wide copies also live under `figures/forecast_context_by_cutoff/` | keep as representative setup/support figure with explicit cutoff-specific provenance |
-| `fig:dry_quantile` | `figures/manuscript/historical_summary_dry_period.png` | selected-model fitted quantile-location diagnostic, dry regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:rainy_quantile` | `figures/manuscript/historical_summary_wet_period.png` | selected-model fitted quantile-location diagnostic, wet regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:synth1` | `figures/manuscript/representative_synthesis_multivariate.png` | predictive synthesis illustration | verified representative rerun bundle in `artifacts/representative_selected_model_2022_12_25/` plus workflow-side replay validation | yes | reproducible from verified `2022-12-25 exAL-M-T1` rerun bundle and frozen locally | locked to representative `2022-12-25` selected-model run | keep synced to representative selected-model bundle |
-| `fig:80_components` | `figures/manuscript/historical_component_80month.png` | selected-model 80-month seasonal-component diagnostic with dry/wet overlays | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
-| `fig:synth2` | `figures/manuscript/reference_synthesis_univariate.png` | appendix univariate transfer-active predictive synthesis | current `2022-12-25 exdqlm_univar` publication-style output bundle copied into `artifacts/historical_support_from_current_models/` | yes | reproducible from current model outputs and frozen locally in the article repo | current-model appendix support figure outside the narrow five-run keep lineage | keep with explicit current-output support provenance; reference excludes retrospective-product and forecast-product source channels |
+| `fig:sanlorenzo` | `Figures/manuscript/site_context_usgs.png` | study-setting figure | corrected cutoff-specific `v2` bundle built from the CRPS-linked `exAL-M-T1` source manifest and authoritative figure-input bundles; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/usgs.png`; current contract uses full `1987-05-29 -> cutoff` USGS history | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
+| `fig:covariates` | `Figures/manuscript/covariate_context_precip_soil_gdpc.png` | covariate setup figure | corrected `v2` bundle reads raw cutoff-specific `cov_01_PPT.csv` and `cov_02_SOIL.csv`, together with the canonical `GDPC1` master factor truncated to the cutoff; manuscript-facing copy is promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses the full `1987-05-29 -> cutoff` covariate history | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
+| `fig:retrospectives` | `Figures/manuscript/retrospective_products_context.png` | retrospective-product setup figure | corrected `v2` bundle reads authoritative retrospective lineage / bundle-native retrospective sources; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses the retrospective support actually available for the selected cutoff and records whether full history is present | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; all five cutoff variants preserved | keep as representative setup/support figure with explicit cutoff-specific provenance |
+| `fig:ensembles` | `Figures/manuscript/forecast_products_context.png` | forecast-product setup figure | corrected `v2` bundle stages bundle-native forecast inputs through `forecats_plot_bundle.R`; manuscript-facing copy promoted from `artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/...`; current contract uses a strict `cutoff - 28 days` to `cutoff + 28 days` display window | yes | reproducible through validated `v2` workflow and frozen locally | representative `2022-12-25` support role; advisor-facing cutoff-wide copies also live under `Figures/forecast_context_by_cutoff/` | keep as representative setup/support figure with explicit cutoff-specific provenance |
+| `fig:dry_quantile` | `Figures/manuscript/historical_summary_dry_period.png` | selected-model fitted quantile-location diagnostic, dry regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:rainy_quantile` | `Figures/manuscript/historical_summary_wet_period.png` | selected-model fitted quantile-location diagnostic, wet regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:synth1` | `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png` | predictive synthesis illustration | clean 2022-12-25 member of the five-cutoff main-model synthesis family, with exact source `artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png` | yes | reproducible from the five-cutoff selected `exAL-M-T1` synthesis family and frozen locally | locked to representative `2022-12-25` selected-model synthesis output | keep synced to the five-cutoff synthesis family rather than the older manuscript-only representative copy |
+| `fig:80_components` | `Figures/manuscript/historical_component_80month.png` | selected-model 80-month seasonal-component diagnostic with dry/wet overlays | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:synth2` | `Figures/manuscript/reference_synthesis_univariate.png` | appendix univariate transfer-active predictive synthesis | current `2022-12-25 exdqlm_univar` publication-style output bundle copied into `artifacts/historical_support_from_current_models/` | yes | reproducible from current model outputs and frozen locally in the article repo | current-model appendix support figure outside the narrow five-run keep lineage | keep with explicit current-output support provenance; reference excludes retrospective-product and forecast-product source channels |
 
 ### Notes on figure confidence
 
@@ -323,7 +323,7 @@ The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected
      - `run_environmetrics_figures.R` runs headlessly,
      - `40_figures.R` generates the figures.
 
-5. `fig:synth1` remains the representative selected-model synthesis figure tied to the `2022-12-25` rerun bundle.
+5. `fig:synth1` remains the representative selected-model synthesis figure for the `2022-12-25` cutoff, but the manuscript now uses the cutoff-family overlay in `Figures/multivariate_synthesis_by_cutoff/` so that the main-text panel and appendix cutoff panels share one synthesis-figure convention.
    - `fig:synth2` is now refreshed from a current `exdqlm_univar` output bundle.
    - It remains outside the narrow five-run keep-lineage freeze used for the main benchmark table.
 
@@ -394,7 +394,7 @@ The following policy is now adopted for the revised manuscript and should govern
   - a recent validated workflow run exists for it, and
   - that run already produces publication-facing cutoff-window synthesis artifacts.
 - Therefore, the following Section 5 objects must be regenerated or re-verified from the `2022-12-25` `exdqlm_multivar_keep` run:
-  - `fig:synth1`
+  - `fig:synth1`, through `artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/`
   - `tab:components_23_31`
 
 ### Appendix: selected-model diagnostics and support summaries
@@ -433,12 +433,12 @@ Resolved gaps from this audit:
 - the cutoff-dependent setup/support figures are now mirrored locally in the revised article repo through:
   - `artifacts/five_cutoff_setup_support/`
   - `reports/five_cutoff_setup_support_review/`
-- the manuscript-facing `figures/manuscript/` copies for `fig:sanlorenzo`, `fig:covariates`, `fig:retrospectives`, and `fig:ensembles` are now promoted from the representative `20221225_exal_m_t1` `v2` bundle through:
+- the manuscript-facing `Figures/manuscript/` copies for `fig:sanlorenzo`, `fig:covariates`, `fig:retrospectives`, and `fig:ensembles` are now promoted from the representative `20221225_exal_m_t1` `v2` bundle through:
   - `reports/representative_setup_selection/selection_manifest.json`
 - the appendix univariate transfer-active reference synthesis and the historical-summary figures now share the current article-side provenance anchor:
   - `artifacts/historical_support_from_current_models/`
 - In practice, this means:
-  - `fig:synth1`, `tab:components_23_31`, `tab:gamma_sigma_intervals1`, and `tab:gamma_sigma_intervals2` are now locked to verified article-side bundles,
+  - `fig:synth1` is locked to the 2022-12-25 member of the five-cutoff synthesis family, while `tab:components_23_31`, `tab:gamma_sigma_intervals1`, and `tab:gamma_sigma_intervals2` remain locked to verified article-side representative selected-model bundles,
   - `fig:synth2` is preserved through the canonical `current_model_output_support` family,
   - `fig:dry_quantile`, `fig:rainy_quantile`, and `fig:80_components` remain selected-model interpretation diagnostics from the current representative selected-output authority,
   - and the four setup/support figures are preserved through the validated `v2` cutoff family, while older article-side support families have been removed.
@@ -465,7 +465,7 @@ Use that companion file when:
      manifest/overlay refresh path and the cross-repo validation gates.
 
 2. Section 5 uses outputs from one representative final cutoff of the selected `exAL-M-T1` specification.
-   - `fig:synth1`
+   - `fig:synth1`, sourced from `artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/`
    - `tab:components_23_31`
 
 3. The appendix support tables remain tied to the same representative cutoff, but in a supplementary role.

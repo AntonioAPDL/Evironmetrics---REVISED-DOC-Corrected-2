@@ -6,8 +6,8 @@ This review bundle records the cutoff-wide synthesis families promoted into the 
 
 | Family | Cutoffs | Overlay variants | Review figure directory |
 |---|---:|---:|---|
-| `Figure 7` multivariate family | 5 | 5 | `figures/multivariate_synthesis_by_cutoff/` |
-| `Figure A2` reference family | 5 | 5 | `figures/reference_synthesis_by_cutoff/` |
+| `Figure 7` multivariate family | 5 | 5 | `Figures/multivariate_synthesis_by_cutoff/` |
+| `Figure A2` reference family | 5 | 5 | `Figures/reference_synthesis_by_cutoff/` |
 
 ## Cutoff summary
 

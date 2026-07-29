@@ -156,7 +156,11 @@ def main() -> None:
     layout.ensure_base_dirs()
 
     manifest = load_manifest(article_root)
-    manuscript_sources = {Path(row['manuscript_path']).relative_to('figures').as_posix(): row for row in manifest['figures']}
+    manuscript_sources = {
+        Path(row['manuscript_path']).relative_to(layout.figures_dir.name).as_posix(): row
+        for row in manifest['figures']
+        if Path(row['manuscript_path']).parts[0] == layout.figures_dir.name
+    }
 
     appendix_manifest = load_csv(layout.appendix_cutoff_panels_dir / 'manifest.csv')
     appendix_rows = {Path(r['panel_path']).name: r for r in appendix_manifest}
@@ -197,7 +201,7 @@ def main() -> None:
             completed_keep_root=completed_keep_root,
         )
         rows.append({
-            'figure_path': f'figures/{rel}',
+            'figure_path': f'{layout.figures_dir.name}/{rel}',
             **info,
         })
 
@@ -219,11 +223,14 @@ def main() -> None:
         else 'Current-model support renderer still expects retained multivariate fit artifacts that are not exported by the completed workflow roots.'
     )
 
-    uppercase_root = article_root / 'Figures'
-    lowercase_files = {str(p.relative_to(layout.figures_dir)) for p in layout.figures_dir.rglob('*') if p.is_file()}
-    uppercase_files = {str(p.relative_to(uppercase_root)) for p in uppercase_root.rglob('*') if p.is_file()} if uppercase_root.exists() else set()
-    uppercase_figure_files = {p for p in uppercase_files if p not in {'README.md', 'mirror_manifest.csv'}}
-    mirror_match = lowercase_files == uppercase_figure_files
+    lowercase_root = article_root / 'figures'
+    tracked_files = {str(p.relative_to(layout.figures_dir)) for p in layout.figures_dir.rglob('*') if p.is_file()}
+    lowercase_files = (
+        {str(p.relative_to(lowercase_root)) for p in lowercase_root.rglob('*') if p.is_file()}
+        if lowercase_root.exists()
+        else set()
+    )
+    lowercase_has_only_compatibility_outputs = not lowercase_files
 
     report_root = layout.reports_dir / 'article_figure_lineage_audit_20260516'
     report_root.mkdir(parents=True, exist_ok=True)
@@ -241,9 +248,10 @@ def main() -> None:
         'live_keep_sharedspec_complete': keep_sharedspec_complete(live_keep_root),
         'setup_support_full_history_all_cutoffs': full_history_all_setup,
         'setup_support_gdpc_all_cutoffs': gdpc_all_setup,
-        'uppercase_lowercase_figure_trees_match': mirror_match,
+        'current_tracked_figure_tree': layout.figures_dir.name,
+        'lowercase_compatibility_tree_empty': lowercase_has_only_compatibility_outputs,
         'lowercase_figure_file_count': len(lowercase_files),
-        'uppercase_figure_file_count': len(uppercase_figure_files),
+        'tracked_figure_file_count': len(tracked_files),
         'status_counts': {s: sum(1 for row in rows if row['status'] == s) for s in sorted({row['status'] for row in rows})},
     }
     (report_root / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n', encoding='utf-8')
@@ -255,7 +263,8 @@ def main() -> None:
     md.append(f"- Setup/support full-history contract across all cutoffs: `{'PASS' if full_history_all_setup else 'FAIL'}`.\n")
     md.append(f"- Setup/support GDPC contract across all cutoffs: `{'PASS' if gdpc_all_setup else 'FAIL'}`.\n")
     md.append(f"- Live shared-spec keep outputs complete: `{'YES' if keep_sharedspec_complete(live_keep_root) else 'NO'}`.\n")
-    md.append(f"- Legacy uppercase `Figures/` mirror matches lowercase canonical `figures/`: `{'YES' if mirror_match else 'NO'}`.\n\n")
+    md.append(f"- Current tracked figure tree: `{layout.figures_dir.name}/`.\n")
+    md.append(f"- Lowercase compatibility figure tree empty: `{'YES' if lowercase_has_only_compatibility_outputs else 'NO'}`.\n\n")
     md.append('## Figure family conclusions\n\n')
     md.append('| Family | Current status | Source lineage | Notes |\n')
     md.append('|---|---|---|---|\n')

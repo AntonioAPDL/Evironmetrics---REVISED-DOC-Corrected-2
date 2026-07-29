@@ -77,22 +77,22 @@ Current canonical article-side generated families:
 - `artifacts/five_cutoff_crps_validation_sources/`
 - `artifacts/historical_support_from_current_models/`
 - `artifacts/five_cutoff_setup_support/`
-- `figures/appendix_cutoff_panels/`
-- `figures/forecast_context_by_cutoff/`
+- `Figures/appendix_cutoff_panels/`
+- `Figures/forecast_context_by_cutoff/`
 - `tables/generated_tex/`
 
 Preferred article-side refresh command:
 - `python3 scripts/refresh_all_generated_assets.py`
 
-That command should be treated as the standard way to refresh article-side bundles before any figure/table promotion into `figures/manuscript/`. It now also re-applies the cleanup step that removes stale `figures/manuscript/` files and obsolete article-side figure families.
+That command should be treated as the standard way to refresh article-side bundles before any figure/table promotion into `Figures/manuscript/`. It now also re-applies the cleanup step that removes stale `Figures/manuscript/` files and obsolete article-side figure families.
 
 The revised article appendix can now also draw from:
-- `figures/appendix_cutoff_panels/`
+- `Figures/appendix_cutoff_panels/`
 
 This family contains appendix-ready composite panels for the cutoff-specific setup/support figures and is refreshed automatically through the same top-level command.
 
 Advisor-facing cutoff-wide copies of the Figure 4 forecast-context view are also refreshed automatically under:
-- `figures/forecast_context_by_cutoff/`
+- `Figures/forecast_context_by_cutoff/`
 
 ### 0.3 Current authority and future calibration checkpoint
 
@@ -946,7 +946,7 @@ Use this as the working order when actually editing the manuscript.
 - [x] Normalize the main source/member/lead indices through index sets rather than repeated inequality strings.
 - [x] Rewrite the compact forecast-window equations so the lead index is carried explicitly by \(T+k\), reducing notation drift between expanded and compact forms.
 - [x] Make repeated block-diagonal structure more explicit, including the number and role of the repeated \(\mathbf{G}_t\) blocks.
-- [x] Replace the expectation form of CRPS with the integrated quantile-score representation and state explicitly that deterministic forecasts reduce to MAE.
+- [x] Replace the expectation form of CRPS with the integrated quantile-score representation and state explicitly that a point-mass predictive distribution reduces to absolute error, so averaging over forecast cases gives MAE.
 - [x] Recheck that the revised notation remains standard, mathematically equivalent, and easier for a first-time reader to parse.
 
 ### Targeted appendix-algorithm readability pass
@@ -1019,7 +1019,7 @@ Use this as the working order when actually editing the manuscript.
     - all five publication-aligned `exAL-M-T1` cutoffs now pass end to end under the authoritative replay path
 - [x] Refresh the representative Section 5 Phase A manuscript assets from the verified `12/25/2022` selected-model run.
   - Current refresh:
-    - `fig:synth1` source image in `figures/manuscript/representative_synthesis_multivariate.png`
+    - `fig:synth1` source image in `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png`
     - `tab:components_23_31`
     - copied provenance bundle under `artifacts/representative_selected_model_2022_12_25/`
 - [x] Keep `tab:gamma_sigma_intervals1` and `tab:gamma_sigma_intervals2` as supplementary appendix support.
@@ -1077,7 +1077,7 @@ Use this as the working order when actually editing the manuscript.
     - `artifacts/workflow_linked_support_sources/`
     - `artifacts/setup_support_by_cutoff/`
     - `artifacts/setup_support_by_cutoff_review/`
-    - legacy extra files under `figures/manuscript/`
+    - legacy extra files under `Figures/manuscript/`
     - legacy article-only `Figures/`
 - [x] Freeze the corrected `v2` planning gate for the setup/support figures before further implementation.
   - Canonical planning docs:
@@ -1103,7 +1103,7 @@ Use this as the working order when actually editing the manuscript.
     - `/data/muscat_data/jaguir26/project1_ucsc_phd_runtime/exal_m_t1_setup_support_by_cutoff_v2_20260516/review/figure_manifest.csv`
   - Validation gate:
     - `/data/muscat_data/jaguir26/project1_ucsc_phd/repro/run/EXAL_M_T1_SETUP_SUPPORT_V2_ACCEPTANCE_CHECKLIST.md`
-- [x] Mirror the corrected setup/support `v2` family into the revised article repo and promote the representative `2022-12-25` cutoff figures into `figures/manuscript/`.
+- [x] Mirror the corrected setup/support `v2` family into the revised article repo and promote the representative `2022-12-25` cutoff figures into `Figures/manuscript/`.
   - Article-side mirror:
     - `artifacts/five_cutoff_setup_support/`
     - `reports/five_cutoff_setup_support_review/`

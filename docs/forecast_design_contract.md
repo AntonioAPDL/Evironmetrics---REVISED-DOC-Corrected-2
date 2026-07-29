@@ -13,9 +13,16 @@ together with the forecast-window transfer covariates staged in the
 cutoff-specific support bundle.
 
 The article does not claim a continuous daily post-2022 hindcast or a dense
-grid of heavily overlapping origins. The retained folds are constrained by
-version-consistent forecast archives, and dense overlapping forecast windows
-would overrepresent individual hydrological episodes.
+grid of heavily overlapping origins. Constructing each fold requires a
+version-consistent bundle of observations, retrospective products, forecast
+products, and forecast-window covariates from large evolving gridded archives.
+Because every retained origin requires data ingestion plus seven
+quantile-specific fits followed by posterior predictive synthesis, a dense
+origin grid would require a substantially larger data-ingestion and
+computational campaign. Dense overlapping windows would also overrepresent
+individual hydrological episodes. The retained folds therefore prioritize
+archive-feasible, version-consistent, hydrologically contrasting forecast
+origins.
 
 Post-cutoff USGS observations are reserved strictly for verification and are not
 used to fit or update the predictive distributions. The local precipitation and

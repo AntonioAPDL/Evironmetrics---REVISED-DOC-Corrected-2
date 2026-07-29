@@ -23,13 +23,13 @@ def build_items(root: Path) -> list[dict[str, object]]:
 
     no_support_window_phrase = 'support window for the cutoff' not in tex.lower()
     no_cutoff_centered = 'cutoff-centered' not in tex.lower()
-    has_all_cutoff_forecast_context = len(list((root / 'figures' / 'forecast_context_by_cutoff').glob('cutoff_*_forecast_context.png'))) == 5
-    has_all_cutoff_multivar_synthesis = len(list((root / 'figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis.png'))) == 5
-    has_all_cutoff_multivar_synthesis_overlay = len(list((root / 'figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis_with_reference_ensembles.png'))) == 5
-    has_all_cutoff_reference_synthesis = len(list((root / 'figures' / 'reference_synthesis_by_cutoff').glob('cutoff_*_reference_synthesis.png'))) == 5
-    has_rep_multivar_overlay = file_exists(root, 'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png')
-    has_rep_multivar = file_exists(root, 'figures/manuscript/representative_synthesis_multivariate.png')
-    has_rep_univar = file_exists(root, 'figures/manuscript/reference_synthesis_univariate.png')
+    has_all_cutoff_forecast_context = len(list((root / 'Figures' / 'forecast_context_by_cutoff').glob('cutoff_*_forecast_context.png'))) == 5
+    has_all_cutoff_multivar_synthesis = len(list((root / 'Figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis.png'))) == 5
+    has_all_cutoff_multivar_synthesis_overlay = len(list((root / 'Figures' / 'multivariate_synthesis_by_cutoff').glob('cutoff_*_multivariate_synthesis_with_reference_ensembles.png'))) == 5
+    has_all_cutoff_reference_synthesis = len(list((root / 'Figures' / 'reference_synthesis_by_cutoff').glob('cutoff_*_reference_synthesis.png'))) == 5
+    has_rep_multivar_overlay = file_exists(root, 'artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png')
+    has_rep_multivar = file_exists(root, 'Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png')
+    has_rep_univar = file_exists(root, 'Figures/manuscript/reference_synthesis_univariate.png')
     has_wet_fullrange = file_exists(root, 'artifacts/historical_support_from_current_models/figures/historical_summary_wet_period_fullrange.png')
     long_cycle_component_only = (
         render_meta.get('figure_a1_component') == 6
@@ -43,7 +43,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 1 should remain good and consistent.',
             'status': 'complete',
             'evidence': [
-                'figures/manuscript/site_context_usgs.png',
+                'Figures/manuscript/site_context_usgs.png',
                 'wileyNJD-APA.tex:243',
                 'scripts/setup_support_bundle_v2_helpers.R:330-371',
             ],
@@ -54,7 +54,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 2 should remove support-window subtitle, show units for precipitation and soil moisture, keep the large-scale climate-factor label concise, and keep caption compact/high quality.',
             'status': 'complete' if no_support_window_phrase else 'partial',
             'evidence': [
-                'figures/manuscript/covariate_context_precip_soil_gdpc.png',
+                'Figures/manuscript/covariate_context_precip_soil_gdpc.png',
                 'scripts/figure_style_contract.R:86-92',
                 'scripts/setup_support_bundle_v2_helpers.R:376-401',
                 'wileyNJD-APA.tex:259-264',
@@ -66,7 +66,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 3 should remove the historical-support subtitle, keep clear flow units, and use a compact/high-quality caption.',
             'status': 'complete',
             'evidence': [
-                'figures/manuscript/retrospective_products_context.png',
+                'Figures/manuscript/retrospective_products_context.png',
                 'scripts/setup_support_bundle_v2_helpers.R:403-432',
                 'scripts/figure_style_contract.R:3-14',
                 'wileyNJD-APA.tex:278',
@@ -78,7 +78,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 4 should use the same flow-axis contract, simplified legend labels, aligned flood thresholds, and readable caption wording without “cutoff-centered”.',
             'status': 'complete' if no_cutoff_centered else 'partial',
             'evidence': [
-                'figures/manuscript/forecast_products_context.png',
+                'Figures/manuscript/forecast_products_context.png',
                 'scripts/forecats_plot_bundle.R:390-541',
                 'scripts/figure_style_contract.R:61-121',
                 'wileyNJD-APA.tex:330',
@@ -90,7 +90,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 5 should use a 0 to 7 y-range and inherit the normalized style when possible.',
             'status': 'complete',
             'evidence': [
-                'figures/manuscript/historical_summary_dry_period.png',
+                'Figures/manuscript/historical_summary_dry_period.png',
                 'scripts/render_current_model_output_support_figures.R:617-623',
             ],
             'note': 'The dry-period historical summary is rendered with an explicit `ylim_override = c(0, 7)` under the shared flow display contract.',
@@ -100,7 +100,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 6 should exist in both 0 to 20 and 0 to 7 variants and keep the normalized style.',
             'status': 'complete' if has_wet_fullrange else 'partial',
             'evidence': [
-                'figures/manuscript/historical_summary_wet_period.png',
+                'Figures/manuscript/historical_summary_wet_period.png',
                 'artifacts/historical_support_from_current_models/figures/historical_summary_wet_period_fullrange.png',
                 'scripts/render_current_model_output_support_figures.R:624-634',
             ],
@@ -111,10 +111,10 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure 7 and Figure A2 should align visually with Figure 4, be produced for all cutoffs, and also have extra overlay versions with raw/reference ensembles.',
             'status': 'complete' if (has_all_cutoff_multivar_synthesis and has_all_cutoff_multivar_synthesis_overlay and has_all_cutoff_reference_synthesis and has_rep_multivar_overlay and has_rep_multivar and has_rep_univar) else 'partial',
             'evidence': [
-                'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate.png',
-                'artifacts/representative_selected_model_2022_12_25/representative_synthesis_multivariate_with_reference_ensembles.png',
-                'figures/multivariate_synthesis_by_cutoff/manifest.csv',
-                'figures/reference_synthesis_by_cutoff/manifest.csv',
+                'Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png',
+                'artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png',
+                'Figures/multivariate_synthesis_by_cutoff/manifest.csv',
+                'Figures/reference_synthesis_by_cutoff/manifest.csv',
                 'R/unified/post_publication_figures.R:546-807',
             ],
             'note': 'The representative cutoff uses the polished `publication_focus_v2` style and now the corresponding Figure 7 and Figure A2 families are also preserved article-side for all five cutoffs, including the overlay variants with raw/reference ensembles.',
@@ -124,7 +124,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Figure A1 should plot the 80-month seasonal component alone and use a compact, high-quality caption.',
             'status': 'complete' if long_cycle_component_only else 'partial',
             'evidence': [
-                'figures/manuscript/historical_component_80month.png',
+                'Figures/manuscript/historical_component_80month.png',
                 'artifacts/historical_support_from_current_models/figures/render_metadata.json',
                 'scripts/render_authoritative_selected_model_support_figures.R',
                 'wileyNJD-APA.tex:460-466',
@@ -136,9 +136,9 @@ def build_items(root: Path) -> list[dict[str, object]]:
             'request': 'Keep the forecast-context panel D for all cutoffs, and replace manuscript A3–A6 setup/support composites with cutoff-specific multivariate synthesis overlays.',
             'status': 'complete' if (has_all_cutoff_forecast_context and has_all_cutoff_multivar_synthesis_overlay and not appendix_setup_panels_in_article) else 'partial',
             'evidence': [
-                'figures/forecast_context_by_cutoff/manifest.csv' if has_all_cutoff_forecast_context else 'figures/forecast_context_by_cutoff/',
-                'figures/multivariate_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_multivar_synthesis_overlay else 'figures/multivariate_synthesis_by_cutoff/',
-                'figures/reference_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_reference_synthesis else 'figures/reference_synthesis_by_cutoff/',
+                'Figures/forecast_context_by_cutoff/manifest.csv' if has_all_cutoff_forecast_context else 'Figures/forecast_context_by_cutoff/',
+                'Figures/multivariate_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_multivar_synthesis_overlay else 'Figures/multivariate_synthesis_by_cutoff/',
+                'Figures/reference_synthesis_by_cutoff/manifest.csv' if has_all_cutoff_reference_synthesis else 'Figures/reference_synthesis_by_cutoff/',
                 'artifacts/five_cutoff_setup_support/review/figure_manifest.csv',
                 'wileyNJD-APA.tex:483-520',
             ],

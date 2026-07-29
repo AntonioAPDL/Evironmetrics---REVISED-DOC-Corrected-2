@@ -11,7 +11,7 @@
 
 | Object | Label | Source class | Source cutoff | Source run | Status | Detail |
 |---|---|---|---|---|---|---|
-| figure | `fig:synth1` | `current_selected_model_representative` | `2022-12-25` | `multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep_authoritative_rdata_retained_current_20260623` | `PASS` |  |
+| figure | `fig:synth1` | `current_selected_model_representative` | `2022-12-25` | `multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep` | `PASS` | accepted five-cutoff synthesis family for representative 2022-12-25 synthesis figure |
 | figure | `fig:dry_quantile` | `current_selected_model_representative` | `2022-12-25` | `multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep_authoritative_rdata_retained_current_20260623` | `PASS` |  |
 | figure | `fig:rainy_quantile` | `current_selected_model_representative` | `2022-12-25` | `multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep_authoritative_rdata_retained_current_20260623` | `PASS` |  |
 | figure | `fig:80_components` | `current_selected_model_representative` | `2022-12-25` | `multimodel_20221225_v8_he2partial20260623_exdqlm_multivar_keep_authoritative_rdata_retained_current_20260623` | `PASS` |  |

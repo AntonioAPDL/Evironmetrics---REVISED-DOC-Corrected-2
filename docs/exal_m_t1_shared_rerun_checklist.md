@@ -64,9 +64,9 @@ These are the article-side bundles refreshed from the completed shared rerun out
 | `artifacts/five_cutoff_crps_validation_sources/` | Table 1 CRPS source freeze | refreshed from `20260516` keep root |
 | `artifacts/representative_selected_model_2022_12_25/` | representative Section 5 bundle | refreshed from `20260516` keep root |
 | `artifacts/five_cutoff_setup_support/` | cutoff-specific setup/input/support figures | refreshed |
-| `figures/forecast_context_by_cutoff/` | all-cutoff forecast-window context figures | refreshed |
-| `figures/multivariate_synthesis_by_cutoff/` | all-cutoff main-model synthesis figures | refreshed from `20260516` keep root |
-| `figures/reference_synthesis_by_cutoff/` | all-cutoff reference synthesis figures | refreshed from `20260516` univar root |
+| `Figures/forecast_context_by_cutoff/` | all-cutoff forecast-window context figures | refreshed |
+| `Figures/multivariate_synthesis_by_cutoff/` | all-cutoff main-model synthesis figures | refreshed from `20260516` keep root |
+| `Figures/reference_synthesis_by_cutoff/` | all-cutoff reference synthesis figures | refreshed from `20260516` univar root |
 | `artifacts/historical_support_from_current_models/` | historical support figures | still blocked pending retained-artifact contract |
 
 ## Staged execution schedule

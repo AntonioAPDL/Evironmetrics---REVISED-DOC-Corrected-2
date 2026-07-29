@@ -304,7 +304,7 @@ def main() -> None:
         r'\centering',
         r'\renewcommand{\arraystretch}{1.08}',
         r'\begin{threeparttable}',
-        r'\caption{Mean 28-day forecast-window CRPS by model family and cutoff across the five rolling-origin evaluation folds. Lower values are better; bold indicates the lowest CRPS within each cutoff column.}',
+        r'\caption{Mean 28-day forecast-window CRPS by model family and cutoff across the five rolling-origin evaluation folds, including normal dynamic linear model baselines. Lower values are better; bold indicates the lowest CRPS within each cutoff column.}',
         r'\label{tab:benchmark_crps_models}',
         r'\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} >{\ttfamily}l r r r r r}',
         r'\toprule',

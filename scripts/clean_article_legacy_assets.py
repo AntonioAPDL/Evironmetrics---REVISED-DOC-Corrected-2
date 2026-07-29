@@ -75,7 +75,7 @@ def build_report(layout, removed_paths: list[str]) -> None:
     for fam in retained_reports:
         md.append(f'- `reports/{fam}`\n')
     md.append('\n## Current cleanup contract\n\n')
-    md.append('1. `figures/manuscript/` should contain only the figure files named in `MANUSCRIPT_ASSET_MANIFEST.json`.\n')
+    md.append('1. `Figures/manuscript/` should contain only the figure files named in `MANUSCRIPT_ASSET_MANIFEST.json`.\n')
     md.append('2. The old `DISC/` and `generated/` directory trees should remain absent.\n')
     md.append('3. Refresh through `scripts/refresh_all_generated_assets.py`, which now re-applies this cleanup automatically.\n')
     layout.cleanup_audit_doc.parent.mkdir(parents=True, exist_ok=True)

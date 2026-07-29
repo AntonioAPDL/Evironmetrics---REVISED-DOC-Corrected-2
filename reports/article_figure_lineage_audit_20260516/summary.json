@@ -6,12 +6,13 @@
   "live_keep_sharedspec_complete": false,
   "setup_support_full_history_all_cutoffs": true,
   "setup_support_gdpc_all_cutoffs": true,
-  "uppercase_lowercase_figure_trees_match": true,
-  "lowercase_figure_file_count": 47,
-  "uppercase_figure_file_count": 47,
+  "current_tracked_figure_tree": "Figures",
+  "lowercase_compatibility_tree_empty": true,
+  "lowercase_figure_file_count": 0,
+  "tracked_figure_file_count": 48,
   "status_counts": {
     "blocked_retained_support_artifacts_missing": 1,
-    "unchanged_intentionally": 8,
-    "updated_now": 38
+    "unchanged_intentionally": 10,
+    "updated_now": 37
   }
 }
