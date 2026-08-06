@@ -80,7 +80,7 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
 - `artifacts/historical_support_from_current_models/`
   - appendix univariate transfer-active reference synthesis support
 - `artifacts/representative_selected_model_2022_12_25/`
-  - representative selected-model bundle for the verified 2022-12-25 exAL-M-T1 rerun, including the selected-model quantile-dynamic and 80-month component diagnostics
+  - representative selected-model bundle for the verified 2022-12-25 exAL-M-T1 rerun, including the selected-model quantile-dynamic and long-cycle component diagnostics
 - `artifacts/five_cutoff_crps_validation_sources/`
   - five-cutoff CRPS source freeze used by the benchmark table
 - `artifacts/he2_publication_freeze/`

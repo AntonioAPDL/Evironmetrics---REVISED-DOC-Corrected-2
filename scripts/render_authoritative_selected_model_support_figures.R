@@ -142,7 +142,7 @@ component_analysis_label <- function(component, contract) {
   component <- as.integer(component)
   contract <- as.character(contract)
   if (component == FIGURE_A1_COMPONENT && identical(contract, FIGURE_A1_COMPONENT_CONTRACT)) {
-    return("80-month seasonal component")
+    return("Long-cycle seasonal component (about 82 months)")
   }
   if (identical(contract, COMPONENT_6_PLUS_TREND_CONTRACT)) {
     return("Component 6 plus trend component 1 (samplewise)")
@@ -380,7 +380,7 @@ render_component_80month <- function(out_file) {
     coord_cartesian(ylim = ylim) +
     scale_x_date(date_breaks = "24 months", date_labels = "%Y-%m") +
     labs(
-      title = "80-month Seasonal Component: selected 2022-12-25 model",
+      title = "Long-cycle seasonal component (about 82 months): selected 2022-12-25 model",
       x = NULL,
       y = component_analysis_axis_label(FIGURE_A1_COMPONENT_CONTRACT)
     ) +
@@ -491,8 +491,8 @@ write_component_analysis_readme <- function(analysis_dir, manifest) {
       "Included contracts:",
       "",
       sprintf("- `raw_state_component` for each retained state component available in the support CSV; component %d is the audited Figure A1 construction.", FIGURE_A1_COMPONENT),
-      sprintf("- `%s`, the samplewise 80-month component plus trend diagnostic.", COMPONENT_6_PLUS_TREND_CONTRACT),
-      sprintf("- `%s`, the samplewise 80-month component minus trend diagnostic.", COMPONENT_6_MINUS_TREND_CONTRACT),
+      sprintf("- `%s`, the samplewise long-cycle component plus trend diagnostic.", COMPONENT_6_PLUS_TREND_CONTRACT),
+      sprintf("- `%s`, the samplewise long-cycle component minus trend diagnostic.", COMPONENT_6_MINUS_TREND_CONTRACT),
       "",
       "Excluded by default:",
       "",
@@ -559,7 +559,7 @@ meta <- list(
   source_support_generated_at_utc = source_support_generated_at_utc,
   figure_a1_component = FIGURE_A1_COMPONENT,
   figure_a1_component_contract = FIGURE_A1_COMPONENT_CONTRACT,
-  figure_a1_article_display_label = "80-month seasonal component only",
+  figure_a1_article_display_label = "long-cycle seasonal component only (about 82 months)",
   hydrologic_regime_periods = lapply(seq_len(nrow(hydrologic_regime_periods())), function(i) {
     row <- hydrologic_regime_periods()[i, , drop = FALSE]
     list(

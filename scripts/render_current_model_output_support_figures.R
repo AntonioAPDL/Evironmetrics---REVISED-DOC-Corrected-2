@@ -762,7 +762,7 @@ render_component_quantiles(
   obs_df = obs_df,
   time_cuts = time_cuts,
   ylab = figure_flow_axis_label(DISPLAY_FLOW_SCALE),
-  title_text = "80-month Component Evolution: 1991–2022",
+  title_text = "Long-cycle Component Evolution: 1991–2022",
   ylim = compute_display_ylim(c(comp_df$Lower, comp_df$Upper, obs_df$Value), include_zero = TRUE),
   out_file = file.path(out_dir, "80_component_1991_2022.png")
 )
@@ -780,7 +780,7 @@ meta <- list(
   ),
   display_flow_scale = DISPLAY_FLOW_SCALE,
   internal_flow_scale = STATE_INTERNAL_FLOW_SCALE,
-  component_display_contract = "80-month component shifted by posterior mean trend level",
+  component_display_contract = "long-cycle component shifted by posterior mean trend level",
   component_summary_probs = as.numeric(component_summary_probs),
   time_cuts = as.integer(time_cuts),
   time_cut_dates = as.character(as.Date(timestamps[time_cuts])),

@@ -74,7 +74,7 @@
       "label": "fig:80_components",
       "manuscript_path": "Figures/manuscript/historical_component_80month.png",
       "category": "Selected Model",
-      "role": "Selected-model 80-month component summary with dry/wet period overlays",
+      "role": "Selected-model long-cycle seasonal component summary with dry/wet period overlays",
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png",
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,

@@ -121,7 +121,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
         },
         {
             'item': 8,
-            'request': 'Figure A1 should plot the 80-month seasonal component alone and use a compact, high-quality caption.',
+            'request': 'Figure A1 should plot the long-cycle seasonal component alone and use a compact, high-quality caption.',
             'status': 'complete' if long_cycle_component_only else 'partial',
             'evidence': [
                 'Figures/manuscript/historical_component_80month.png',

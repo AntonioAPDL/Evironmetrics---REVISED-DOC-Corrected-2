@@ -41,7 +41,7 @@ FIGURE_UPDATES = {
     "fig:80_components": {
         "filename": "selected_model_component_80month.png",
         "category": "Selected Model",
-        "role": "Selected-model 80-month component summary with dry/wet period overlays",
+        "role": "Selected-model long-cycle seasonal component summary with dry/wet period overlays",
         "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority using raw state component 6 only; plus/minus-trend variants are analysis-only diagnostics.",
     },
 }
@@ -157,7 +157,8 @@ def write_bundle_docs(bundle_root: Path, support_dir: Path, support_rows: list[d
         "# Authoritative Selected-Model Support\n\n"
         "This bundle contains compact posterior support artifacts and rendered figures for the representative "
         "`2022-12-25 exAL-M-T1` selected model. These figures are sourced from the same selected-output authority "
-        "as the synthesis figure. Figure A1 is article-labeled as the 80-month seasonal component and is rendered "
+        "as the synthesis figure. Figure A1 is article-labeled as the long-cycle seasonal component, with period "
+        "approximately 6.81 years, or about 82 months, and is rendered "
         "from raw state component 6 only with dry/wet period overlays. The `analysis_figures/component_evolution/` subfolder is an analysis-only component "
         "gallery rendered from the same support CSVs; it is checksummed here but intentionally not registered as "
         "a manuscript figure family. It also includes samplewise component-6-plus-trend and component-6-minus-trend diagnostics when "

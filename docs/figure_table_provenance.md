@@ -97,10 +97,10 @@ anchored to the current exAL-M-T1 authority recorded in the article manifests.
 It should not be read as a replacement for the refreshed HE2 benchmark
 authority.
 
-The full-history dry/wet and 80-month support diagnostics are now wired to the
-same current `2022-12-25` selected `exAL-M-T1` output authority as the
-representative synthesis figure. They remain interpretation diagnostics only,
-not forecast-validation evidence.
+The full-history dry/wet and long-cycle seasonal support diagnostics are now
+wired to the same current `2022-12-25` selected `exAL-M-T1` output authority as
+the representative synthesis figure. They remain interpretation diagnostics
+only, not forecast-validation evidence.
 
 The clean current generator contract is:
 - `R/unified/stages/stage_post.R`
@@ -315,7 +315,7 @@ The following manuscript figure assets in `Evironmetrics---REVISED-DOC-Corrected
 | `fig:dry_quantile` | `Figures/manuscript/historical_summary_dry_period.png` | selected-model fitted quantile-location diagnostic, dry regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
 | `fig:rainy_quantile` | `Figures/manuscript/historical_summary_wet_period.png` | selected-model fitted quantile-location diagnostic, wet regime | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png` | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
 | `fig:synth1` | `Figures/multivariate_synthesis_by_cutoff/cutoff_2022_12_25_multivariate_synthesis_with_reference_ensembles.png` | predictive synthesis illustration | clean 2022-12-25 member of the five-cutoff main-model synthesis family, with exact source `artifacts/five_cutoff_main_model_synthesis/20221225_exal_m_t1/exdqlm_multivar_synth_keep_cutoff_window_posterior_samples_with_raw_ensembles.png` | yes | reproducible from the five-cutoff selected `exAL-M-T1` synthesis family and frozen locally | locked to representative `2022-12-25` selected-model synthesis output | keep synced to the five-cutoff synthesis family rather than the older manuscript-only representative copy |
-| `fig:80_components` | `Figures/manuscript/historical_component_80month.png` | selected-model 80-month seasonal-component diagnostic with dry/wet overlays | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
+| `fig:80_components` | `Figures/manuscript/historical_component_80month.png` | selected-model long-cycle seasonal-component diagnostic with dry/wet overlays | `2022-12-25 exAL-M-T1` selected-output support figure copied from `artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_component_80month.png` using raw state component 6 only | yes | current representative selected-output interpretation support | selected-model support diagnostic; not part of the refreshed forecast-validation evidence | keep as selected-model diagnostic, not forecast-validation evidence |
 | `fig:synth2` | `Figures/manuscript/reference_synthesis_univariate.png` | appendix univariate transfer-active predictive synthesis | current `2022-12-25 exdqlm_univar` publication-style output bundle copied into `artifacts/historical_support_from_current_models/` | yes | reproducible from current model outputs and frozen locally in the article repo | current-model appendix support figure outside the narrow five-run keep lineage | keep with explicit current-output support provenance; reference excludes retrospective-product and forecast-product source channels |
 
 ### Notes on figure confidence

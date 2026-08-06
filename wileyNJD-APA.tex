@@ -336,8 +336,8 @@ The operational forecast products are used only after a cutoff date. The NWS ens
 
 For the San Lorenzo application, the latent quantile process combines a local level, three seasonal harmonics, and the transfer component defined in Section~\ref{sec:methodology}. The source-specific discrepancy states use the same trend-and-seasonal backbone. The trend-and-seasonal state has dimension \(p=7\). The matrix \(\mathbf{G}_t\) is composed of a trend component and a seasonal component. For the trend component, we include a constant term to represent the long-term average level of the quantile of interest. This component is defined by the evolution matrix and observational vector:
 \( \mathbf{G}^{\text{trend}}_t = [1] \in \mathbb{R}^{1\times1}, \quad
-\mathbf{F}^{\text{trend}}_t = [1] \in \mathbb{R}^{1}. \) The seasonal component incorporates three harmonics identified through exploratory spectral analysis to capture various seasonal cycles: an annual harmonic (12 months), a semiannual harmonic (6 months), and a long-term harmonic with an approximately 81-month (6.8 years) cycle, that captures cyclical behavior associated with alternating phases of heavy rainfall and prolonged drought. The seasonal component's evolution matrix and observational vector are defined as:
-\( \mathbf{G}^{\text{seas}}_t = \text{BlockDiag}\left(\textbf{J}_2(1,1),\ \textbf{J}_2(1,2),\ \textbf{J}_2\left(1,\frac{1}{6.8}\right)\right),\quad
+\mathbf{F}^{\text{trend}}_t = [1] \in \mathbb{R}^{1}. \) The seasonal component incorporates three harmonics identified through exploratory spectral analysis to capture various seasonal cycles: an annual harmonic (12 months), a semiannual harmonic (6 months), and a long-term harmonic with an approximately 82-month (6.81-year) cycle that captures cyclical behavior associated with alternating phases of heavy rainfall and prolonged drought. The seasonal component's evolution matrix and observational vector are defined as:
+\( \mathbf{G}^{\text{seas}}_t = \text{BlockDiag}\left(\textbf{J}_2(1,1),\ \textbf{J}_2(1,2),\ \textbf{J}_2\left(1,\frac{1}{6.8068493}\right)\right),\quad
 \mathbf{F}^{\text{seas}}_t  =
 \begin{bmatrix}
 \mathbf{E}_2 \\[5pt]
@@ -446,21 +446,20 @@ Posterior mean and 95\% credible intervals of river-flow quantiles during the we
 \label{fig:rainy_quantile}
 \end{figure}
 
-Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantile} show clear differences between posterior dynamics in the drought and wet periods. During 2012--2016, the posterior bands remain comparatively narrow and the upper tail rarely approaches the current-rating NWS discharge-reference levels. During 2017--2019, the upper tail widens substantially during the main winter events, and the 95th quantile reaches levels comparable to the current-rating major-stage discharge reference in 2017 and 2019.
-The contrast between these periods is most visible in the \textcolor{red}{separation between the 5th and 95th quantile curves. This separation is relatively small during dry conditions but increases during wet-season peaks, indicating greater dispersion in the fitted quantile structure during periods of greater hydrological variability. These figures describe fitted historical behavior rather than the full forecast predictive distribution.}
+Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantile} compare the fitted posterior quantile dynamics during the drought and wet periods. During 2012--2016, the posterior bands remain comparatively narrow and the upper fitted quantile rarely approaches the current-rating NWS discharge-reference levels. During 2017--2019, winter peaks produce wider separation between the lower and upper fitted quantile curves, and the 95th quantile reaches levels comparable to the current-rating major-stage discharge reference in 2017 and 2019. This contrast indicates stronger upper-tail and cross-quantile variation during wetter regimes.
 
-A complementary diagnostic is the long-cycle seasonal state. Figure~\ref{fig:80_components} shows the \textcolor{red}{ approximately 81-month} seasonal component alone for the same three representative quantile levels. This panel illustrates an interpretability advantage of the state-space formulation: the selected model is not only a forecast-correction device, but also a structured decomposition whose components can be tracked across hydrological regimes.
-The 80-month seasonal component is broadly aligned across the three representative quantiles and reflects multi-year wet and dry phases in the historical record. Its role is diagnostic: it summarizes the long-cycle behavior recovered by the selected model.
+A complementary diagnostic is the long-cycle seasonal state. Figure~\ref{fig:80_components} shows this component alone for the same three representative quantile levels. The retained noninteger seasonal frequency corresponds to a period of approximately 6.81 years, or about 82 months. The component is broadly aligned across the three quantiles and tracks multi-year dry and wet phases in the historical record, illustrating how the selected state-space model separates long-cycle behavior from trend, transfer effects, and source-specific corrections.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=450pt]{historical_component_80month.png}
 \caption{
-Selected-model posterior mean and 95\% credible intervals for the 80-month seasonal component, estimated from the 2022-12-25 cutoff exAL-M-T1 model. Estimates are shown for the 5th (red), 50th (green), and 95th (blue) quantiles. Shaded regions mark the 2012--2016 dry period and the 2017--2019 wet period. This panel is a retrospective component diagnostic rather than an additional forecast-validation summary.
+Selected-model posterior mean and 95\% credible intervals for the long-cycle seasonal component, with period approximately 6.81 years, or about 82 months, estimated from the 2022-12-25 cutoff exAL-M-T1 model. Estimates are shown for the 5th (red), 50th (green), and 95th (blue) quantiles. Shaded regions mark the 2012--2016 dry period and the 2017--2019 wet period. This panel is a retrospective component diagnostic rather than an additional forecast-validation summary.
 }
 \label{fig:80_components}
 \end{figure}
 
+\clearpage
 
 \subsection{Predictive Synthesis Illustration}
 \label{subsec:synthillustration}

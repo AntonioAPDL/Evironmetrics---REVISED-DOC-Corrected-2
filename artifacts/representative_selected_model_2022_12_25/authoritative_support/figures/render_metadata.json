@@ -6,7 +6,7 @@
   "source_support_generated_at_utc": "2026-06-26T00:18:27Z",
   "figure_a1_component": 6,
   "figure_a1_component_contract": "raw_state_component",
-  "figure_a1_article_display_label": "80-month seasonal component only",
+  "figure_a1_article_display_label": "long-cycle seasonal component only (about 82 months)",
   "hydrologic_regime_periods": [
     {
       "period": "Dry",

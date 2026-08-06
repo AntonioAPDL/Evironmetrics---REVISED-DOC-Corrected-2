@@ -6,8 +6,8 @@ They are analysis-only diagnostics and are intentionally not added to `MANUSCRIP
 Included contracts:
 
 - `raw_state_component` for each retained state component available in the support CSV; component 6 is the audited Figure A1 construction.
-- `component_6_plus_trend_component_1_samplewise`, the samplewise 80-month component plus trend diagnostic.
-- `component_6_minus_trend_component_1_samplewise`, the samplewise 80-month component minus trend diagnostic.
+- `component_6_plus_trend_component_1_samplewise`, the samplewise long-cycle component plus trend diagnostic.
+- `component_6_minus_trend_component_1_samplewise`, the samplewise long-cycle component minus trend diagnostic.
 
 Excluded by default:
 

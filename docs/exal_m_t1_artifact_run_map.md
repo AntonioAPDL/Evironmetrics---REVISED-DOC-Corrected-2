@@ -14,7 +14,7 @@ It is the execution companion to:
 Important transition note:
 - the main HE2 benchmark authority now combines the two retained canonical-grid winners for `20210123` and `20211112` with three clean `20260623` replays for `20211221`, `20220511`, and `20221225`;
 - the refreshed clean replays are the source for the promoted CRPS values, representative synthesis panel, cutoff-specific multivariate synthesis panels, posterior table exports, and source/covariate summaries;
-- the historical dry/wet and 80-month support diagnostics are wired to the same current `2022-12-25` selected `exAL-M-T1` output authority as the representative synthesis figure, while remaining interpretation diagnostics rather than forecast-validation evidence.
+- the historical dry/wet and long-cycle seasonal support diagnostics are wired to the same current `2022-12-25` selected `exAL-M-T1` output authority as the representative synthesis figure, while remaining interpretation diagnostics rather than forecast-validation evidence.
 
 ## Cleanup status
 

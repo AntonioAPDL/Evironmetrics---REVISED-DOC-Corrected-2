@@ -366,7 +366,10 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             meta.get("figure_a1_component_contract"),
             "raw_state_component",
         )
-        self.assertEqual(meta.get("figure_a1_article_display_label"), "80-month seasonal component only")
+        self.assertEqual(
+            meta.get("figure_a1_article_display_label"),
+            "long-cycle seasonal component only (about 82 months)",
+        )
         self.assertEqual(meta.get("render_contract_version"), "authoritative_selected_model_support_figures_v2")
         self.assertIn("source_support_generated_at_utc", meta)
         self.assertNotIn("render_staging_support_dir", meta)
@@ -447,6 +450,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("rather than the full forecast distribution at a single origin", article)
         self.assertIn("full synthesized posterior predictive distribution", article)
         self.assertIn("posterior predictive envelope can vary across the forecast window", article)
+        self.assertIn("approximately 6.81 years, or about 82 months", article)
+        self.assertNotIn("approximately 81-month", article)
 
         manifest = json.loads((ROOT / "MANUSCRIPT_ASSET_MANIFEST.json").read_text(encoding="utf-8"))
         by_label = {row["label"]: row for row in manifest["figures"]}
