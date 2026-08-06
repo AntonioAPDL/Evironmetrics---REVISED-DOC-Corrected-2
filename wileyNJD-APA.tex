@@ -716,8 +716,10 @@ A^j = A(\gamma^j;p_0), \quad B^j = B(\gamma^j;p_0), \quad C^j = C(\gamma^j;p_0),
 \)
 \State  Let \(\mathcal{J}_0=\{0\}\cup\mathcal{J}\). During the pre-cutoff observation window, let \(y_t^0 \equiv y_t^o\) and \(y_t^j \equiv z_t^j\) for \(j\in\mathcal{J}\), with selector \(\mathbf{h}_{t,j}\). This is the same source-indexed notation used in Algorithm~\ref{alg1}.
 \State \textbf{Step 0: Set initial values}
+\State Choose \(k_{\max}\), minimum update counts, and convergence tolerances; set \(k=0\)
 
-\While{$\text{ELBO}_k > \text{tol}$ \textcolor{red}{Should this be $|\text{ELBO}_k -\text{ELBO}_{k=1}|> \text{tol}?$}}
+\While{\(k < k_{\max}\) and convergence criteria are not met}
+    \State \(k \leftarrow k+1\)
     \State \textbf{Step 1: Update $r(\boldsymbol{\eta}_t)=\mathcal{N}(m^{(k)}_t,C^{(k)}_t)$}
     \State Use Algorithm~\ref{alg:Alg4}
 
@@ -740,6 +742,10 @@ A^j = A(\gamma^j;p_0), \quad B^j = B(\gamma^j;p_0), \quad C^j = C(\gamma^j;p_0),
         \State \textbf{Step 4: Update $r(\gamma^j, \sigma^j )$}
         \State Approximate via VB-LD, as described in Subsection~\ref{subsec:postinf}
     \EndFor
+    \State \textbf{Step 5: Check convergence}
+    \State Compute \(\mathcal{L}^{(k)}\), \(\Delta_{\mathcal{L}}^{(k)}=|\mathcal{L}^{(k)}-\mathcal{L}^{(k-1)}|\), and the relative ELBO change
+    \State Declare convergence after required update iterations when ELBO,
+    \Statex \hspace{\algorithmicindent} state, scale, and skewness changes are below their tolerances
 \EndWhile
 
 \end{algorithmic}
