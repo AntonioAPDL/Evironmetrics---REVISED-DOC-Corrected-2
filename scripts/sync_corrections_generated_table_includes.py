@@ -48,8 +48,8 @@ TABLE_SPECS: tuple[ResponseTableSpec, ...] = (
         font_size=r"\scriptsize",
         tabcolsep="4pt",
         tabular_spec=r">{\ttfamily}l c c c c c",
-        header=r"Ablation model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
-        description="current revised-article HE3 authoritative ablation artifact",
+        header=r"Model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
+        description="current revised-article HE3 component-removal sensitivity artifact",
     ),
     ResponseTableSpec(
         article_body="he3_ablation_crps_nws_horizon_body.tex",
@@ -57,8 +57,8 @@ TABLE_SPECS: tuple[ResponseTableSpec, ...] = (
         font_size=r"\scriptsize",
         tabcolsep="4pt",
         tabular_spec=r">{\ttfamily}l c c c c c",
-        header=r"Ablation model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
-        description="current revised-article HE3 ablation artifact restricted to the common eight-day NWS horizon",
+        header=r"Model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\",
+        description="current revised-article HE3 component-removal sensitivity artifact restricted to the common eight-day NWS horizon",
     ),
     ResponseTableSpec(
         article_body="he4_quantile_check_loss_rows.tex",

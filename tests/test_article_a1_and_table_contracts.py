@@ -602,12 +602,12 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
 
         long_text = long_table.read_text(encoding="utf-8")
         short_text = short_table.read_text(encoding="utf-8")
-        self.assertIn("Targeted 28-day ablation", long_text)
+        self.assertIn("Component-removal sensitivity analysis for 28-day forecast-window CRPS", long_text)
         self.assertIn("RAW-GLOFAS", long_text)
         self.assertNotIn("RAW-NWS &", long_text)
         self.assertIn("noH3", long_text)
         self.assertIn("1/6.8068493", long_text)
-        self.assertIn("Targeted ablation CRPS over the common eight-day NWS forecast horizon", short_text)
+        self.assertIn("Component-removal sensitivity analysis over the common eight-day NWS forecast horizon", short_text)
         self.assertIn("RAW-GLOFAS", short_text)
         self.assertIn("RAW-NWS", short_text)
         self.assertIn("forecast leads 1--8", short_text)
@@ -683,7 +683,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
             for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
                 if "&" not in line or line.lstrip().startswith("%"):
                     continue
-                if line.startswith("Model &") or line.startswith("Ablation model &") or line.startswith("RAW-"):
+                if line.startswith("Model &") or line.startswith("RAW-"):
                     pass
                 for match in decimal.finditer(line):
                     if len(match.group(1)) != 5:

@@ -92,8 +92,8 @@ Under this refreshed authority, `exAL-M-T1` has the lowest 28-day CRPS in all
 five rolling-origin cutoffs: `0.13971`, `0.04724`, `0.26045`, `0.02273`, and
 `0.53806`.
 
-The HE3 structural-ablation matrix remains a fixed sensitivity analysis
-anchored to the current exAL-M-T1 authority recorded in the article manifests.
+The HE3 component-removal sensitivity matrix remains a fixed sensitivity
+analysis anchored to the current exAL-M-T1 authority recorded in the article manifests.
 It should not be read as a replacement for the refreshed HE2 benchmark
 authority.
 

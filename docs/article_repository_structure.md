@@ -88,7 +88,7 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
 - `artifacts/he2_historical_support_audit/`
   - local snapshot of the workflow-side HE2 historical-support audit
 - `artifacts/he3_exdqlm_ablation_authoritative/`
-  - local snapshot of the authoritative HE3 ablation matrix and audit files
+  - local snapshot of the authoritative HE3 component-removal sensitivity matrix and audit files
 - `artifacts/he4_quantile_check_loss_current_publication/`
   - local snapshot of the current HE4 quantile check-loss artifact
 

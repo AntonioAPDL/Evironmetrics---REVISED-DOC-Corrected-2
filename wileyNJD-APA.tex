@@ -407,7 +407,7 @@ Table~\ref{tab:he4_quantile_check_loss} complements the CRPS comparisons with ta
 \input{tables/generated_tex/he4_quantile_check_loss_main_table.tex}
 
 
-Appendix~\ref{app:he3ablation} reports a targeted component ablation of the selected extended-likelihood multivariate model. The analysis preserves the same rolling-origin cutoffs, input construction, likelihood, and inference scheme while removing one model component at a time. Its role is illustrative, and the benchmark tables above remain the primary forecast-comparison evidence; comparative forecast evaluation remains the main empirical evidence.
+Appendix~\ref{app:he3ablation} reports a component-removal sensitivity analysis of the selected extended-likelihood multivariate model. The analysis preserves the same rolling-origin cutoffs, input construction, likelihood, and inference scheme while removing one structural component at a time. Its role is illustrative, and the benchmark tables above remain the primary forecast-comparison evidence; comparative forecast evaluation remains the main empirical evidence.
 
 \section{INTERPRETATION OF THE SELECTED SPECIFICATION}
 \label{sec:interpretation}
@@ -520,16 +520,16 @@ Note that applying the method to a new basin still requires constructing a basin
 \section{Supplementary Parameter Summaries and Illustrations}
 \label{app:extras}
 
-\subsection{\textcolor{red}{Component-Removal Sensitivity Analysis}}
+\subsection{Component-Removal Sensitivity Analysis}
 \label{app:he3ablation}
 
-To assess the contribution of the main structural blocks in the selected extended-likelihood multivariate model, we refit \texttt{exAL-M-T1} after removing one component at a time. Each \textcolor{red}{reduced model uses the same rolling-origin cutoffs, input data, preprocessing, likelihood, forecast horizons, and selected hyperparameters, so only the specified structural component changes.} The labels \texttt{noH1}, \texttt{noH2}, and \texttt{noH3} remove the first, second, and third retained seasonal harmonic pairs, respectively; \texttt{noH3} refers to the retained noninteger frequency \(1/6.8068493\), not to a literal harmonic frequency of 3.
+To assess how the selected specification depends on its main structural blocks, we refit \texttt{exAL-M-T1} after removing one component at a time. Each reduced model uses the same rolling-origin cutoffs, input data, preprocessing, likelihood, forecast horizons, and selected hyperparameters, so the comparison isolates the specified component removal within this fixed sensitivity design. The labels \texttt{noH1}, \texttt{noH2}, and \texttt{noH3} remove the first, second, and third retained seasonal harmonic pairs, respectively; \texttt{noH3} refers to the retained noninteger frequency \(1/6.8068493\), not to a literal harmonic frequency of 3.
 
 \input{tables/generated_tex/he3_ablation_crps_main_table.tex}
 
 \input{tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex}
 
-The full model has the lowest CRPS among \textcolor{red}{the reduced models} at all five cutoffs under both the 28-day and eight-day horizon contracts. This component-sensitivity check supports retaining the transfer, trend, and multi-frequency seasonal blocks in the selected specification.
+The full reference model has lower CRPS than each reduced model at all five cutoffs under both the 28-day and eight-day horizon contracts. This component-removal sensitivity analysis supports retaining the transfer, trend, and multi-frequency seasonal blocks in the selected specification.
 
 \subsection{Supplementary Source-Specific Shape and Scale Parameters}
 \label{app:sourceparams}

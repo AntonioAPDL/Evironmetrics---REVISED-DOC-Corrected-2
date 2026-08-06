@@ -2,11 +2,11 @@
 \centering
 \renewcommand{\arraystretch}{1.08}
 \begin{threeparttable}
-\caption{Targeted 28-day ablation of the selected \texttt{exAL-M-T1} specification. Entries are mean forecast-window CRPS; lower values are better, and bold marks the best ablation-row value within each cutoff.}
+\caption{Component-removal sensitivity analysis for 28-day forecast-window CRPS under the selected \texttt{exAL-M-T1} specification. Lower values are better, and bold marks the best value among the full reference and reduced models within each cutoff.}
 \label{tab:he3_ablation_crps}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} >{\ttfamily}l r r r r r}
 \toprule
-Ablation model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\
+Model & 01/23/2021 & 11/12/2021 & 12/21/2021 & 05/11/2022 & 12/25/2022 \\
 \midrule
 exAL-M-T1 (full) & \textbf{0.13971} & \textbf{0.04724} & \textbf{0.26045} & \textbf{0.02273} & \textbf{0.53806} \\
 exAL-M-T1-noTrend & 1.05159 & 0.72343 & 2.51748 & 0.53257 & 4.05881 \\

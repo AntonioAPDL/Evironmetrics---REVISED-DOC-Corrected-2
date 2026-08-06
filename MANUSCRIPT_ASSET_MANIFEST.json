@@ -158,7 +158,7 @@
     },
     "tab:he3_ablation_crps": {
       "label": "tab:he3_ablation_crps",
-      "role": "Selected-model 28-day ablation CRPS table",
+      "role": "Selected-model 28-day component-removal sensitivity CRPS table",
       "table_tex_path": "tables/generated_tex/he3_ablation_crps_main_table.tex",
       "source_class": "he3_authoritative_ablation",
       "sources": {
@@ -168,11 +168,11 @@
         "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources",
         "he3_ablation_horizon_summary_csv": "tables/generated_tex/he3_ablation_crps_horizon_summary.csv"
       },
-      "note": "Generated from the authoritative HE3 exDQLM multivariate ablation matrix anchored to the 20260601 exAL-M-T1 winner manifest. This 28-day table includes RAW-GLOFAS as the horizon-compatible raw reference and omits RAW-NWS because NWS has eight valid daily leads for these origins."
+      "note": "Generated from the authoritative HE3 exDQLM multivariate component-removal sensitivity matrix anchored to the 20260601 exAL-M-T1 winner manifest. This 28-day table includes RAW-GLOFAS as the horizon-compatible raw reference and omits RAW-NWS because NWS has eight valid daily leads for these origins."
     },
     "tab:he3_ablation_crps_nws_horizon": {
       "label": "tab:he3_ablation_crps_nws_horizon",
-      "role": "Selected-model common eight-day NWS-horizon ablation CRPS table",
+      "role": "Selected-model common eight-day NWS-horizon component-removal sensitivity CRPS table",
       "table_tex_path": "tables/generated_tex/he3_ablation_crps_nws_horizon_table.tex",
       "source_class": "he3_authoritative_ablation",
       "sources": {
@@ -182,7 +182,7 @@
         "five_run_source_root": "artifacts/five_cutoff_crps_validation_sources",
         "he3_ablation_horizon_summary_csv": "tables/generated_tex/he3_ablation_crps_horizon_summary.csv"
       },
-      "note": "Generated from the same authoritative HE3 ablation sources as the 28-day table, but every row is restricted to leads 1--8 so RAW-NWS, RAW-GLOFAS, the full model, and the ablation variants are compared on a common horizon."
+      "note": "Generated from the same authoritative HE3 component-removal sensitivity sources as the 28-day table, but every row is restricted to leads 1--8 so RAW-NWS, RAW-GLOFAS, the full model, and the reduced variants are compared on a common horizon."
     }
   },
   "runtime_benchmarks": {
