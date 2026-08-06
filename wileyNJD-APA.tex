@@ -277,7 +277,7 @@ For a predictive distribution \(G\) with quantile function \(Q_G\) and an observ
 \qquad
 \rho_u(v) = v\big(u - \mathbf{1}\{v<0\}\big),
 \]
-where \(\rho_u\) is the quantile score, or check loss. Thus, the CRPS is a natural score in the context of quantile estimation. For a posterior predictive sample \(z_t^{(1)},\ldots,z_t^{(S)}\), we approximate the integral using the empirical quantile grid \(u_s=s/(S+1)\), \(s=1,\ldots,S\). Let \(z_{t,(1)} \leq \cdots \leq z_{t,(S)}\) be the ordered sample values. Then
+where \(\rho_u\) is the quantile score, or check loss. Thus, the CRPS is a natural score in the context of quantile estimation. For a posterior predictive sample \(z_t^{(1)},\ldots,z_t^{(S)}\), \bs{\bf I think you mean samples of the predicted quantiles, not the predictive disttribution. So, you probably want to start by saying that our method produces samples of the quantiles.}we approximate the integral using the empirical quantile grid \(u_s=s/(S+1)\), \(s=1,\ldots,S\). Let \(z_{t,(1)} \leq \cdots \leq z_{t,(S)}\) be the ordered sample values. Then
 \[
 \widehat{\mathrm{CRPS}}(y_t,G_t)
 = \frac{2}{S}\sum_{s=1}^S
