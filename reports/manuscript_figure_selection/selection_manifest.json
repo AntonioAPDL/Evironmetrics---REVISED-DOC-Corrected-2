@@ -10,7 +10,7 @@
       "source_class": "setup_support_v2_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/usgs.png",
-      "sha256": "a35bd0cd8eee55a5478e8533ecb3629ce6b056c024d7b1b5197153f7cff16fd1",
+      "sha256": "eeef68672852e4a5362455147b84212ca5bd28d02f9774bb40bdc2a495dc8d8c",
       "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
     },
     {
@@ -43,7 +43,7 @@
       "source_class": "setup_support_v2_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/five_cutoff_setup_support/20221225_exal_m_t1/figures/forecats.png",
-      "sha256": "561383865a0d85b0f29cc8ffc6e2172eb14ba58cbea4be0ba589d1610a6b87b3",
+      "sha256": "8a3c1326949a6a8580add5db45ee57d7f17aa1b408dddf7e723a185dec4e2a4b",
       "note": "Representative 2022-12-25 setup/support figure from the canonical five-cutoff support bundle"
     },
     {
@@ -54,7 +54,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_dry_period.png",
-      "sha256": "65808b4b196c16cce3983de4ced68169887d8bb74dcf562971555279982580f4",
+      "sha256": "5e89ea1cd49566adfd8b27cef10723d4babf834178ae8e770bef3996e5e57a78",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {
@@ -65,7 +65,7 @@
       "source_class": "current_selected_model_representative",
       "current_model_output_wired": true,
       "source_path": "artifacts/representative_selected_model_2022_12_25/authoritative_support/figures/selected_model_quantile_wet_period.png",
-      "sha256": "be7bbba24c83720d57da51d96a58b8b859f4ce1788dcb2b0729aefb76dfa9b69",
+      "sha256": "c81b3cc77c9a230ac1bfa94430a4820e8046b3eb1bdf730a76de2a624a5f18c4",
       "note": "Rendered from the same 2022-12-25 selected exAL-M-T1 output authority as the synthesis figure."
     },
     {

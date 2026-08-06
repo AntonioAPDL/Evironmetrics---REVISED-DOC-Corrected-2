@@ -47,7 +47,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
                 'wileyNJD-APA.tex:243',
                 'scripts/setup_support_bundle_v2_helpers.R:330-371',
             ],
-            'note': 'USGS figure remains the manuscript anchor and uses the shared flood-threshold styling and flow-axis label contract.',
+                'note': 'USGS figure remains the manuscript anchor and uses the shared current-rating NWS discharge-reference styling and flow-axis label contract.',
         },
         {
             'item': 2,
@@ -75,7 +75,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
         },
         {
             'item': 4,
-            'request': 'Figure 4 should use the same flow-axis contract, simplified legend labels, aligned flood thresholds, and readable caption wording without “cutoff-centered”.',
+                'request': 'Figure 4 should use the same flow-axis contract, simplified legend labels, aligned current-rating discharge references when present, and readable caption wording without “cutoff-centered”.',
             'status': 'complete' if no_cutoff_centered else 'partial',
             'evidence': [
                 'Figures/manuscript/forecast_products_context.png',
@@ -83,7 +83,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
                 'scripts/figure_style_contract.R:61-121',
                 'wileyNJD-APA.tex:330',
             ],
-            'note': 'Legend labels now use product/version names only, the flow axis matches the other flow figures, and the flood lines come from the shared helper used by the USGS plot.',
+                'note': 'Legend labels now use product/version names only, the flow axis matches the other flow figures, and the current-rating discharge-reference lines come from the shared helper used by the USGS plot.',
         },
         {
             'item': 5,

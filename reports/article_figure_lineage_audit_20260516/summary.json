@@ -7,8 +7,8 @@
   "setup_support_full_history_all_cutoffs": true,
   "setup_support_gdpc_all_cutoffs": true,
   "current_tracked_figure_tree": "Figures",
-  "lowercase_compatibility_tree_empty": true,
-  "lowercase_figure_file_count": 0,
+  "lowercase_compatibility_tree_empty": false,
+  "lowercase_figure_file_count": 14,
   "tracked_figure_file_count": 48,
   "status_counts": {
     "blocked_retained_support_artifacts_missing": 1,

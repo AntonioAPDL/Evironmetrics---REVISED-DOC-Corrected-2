@@ -7,7 +7,7 @@
 - Setup/support GDPC contract across all cutoffs: `PASS`.
 - Live shared-spec keep outputs complete: `NO`.
 - Current tracked figure tree: `Figures/`.
-- Lowercase compatibility figure tree empty: `YES`.
+- Lowercase compatibility figure tree empty: `NO`.
 
 ## Figure family conclusions
 

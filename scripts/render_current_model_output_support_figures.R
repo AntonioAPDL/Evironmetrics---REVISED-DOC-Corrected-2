@@ -156,7 +156,7 @@ if (!exists("dates_ts_usgs", inherits = FALSE)) {
   dates_ts_usgs <- timestamps
 }
 if (!exists("flood_stage_labels", inherits = FALSE)) {
-  flood_stage_labels <- c("Major Flooding", "Minor Flooding")
+  flood_stage_labels <- c("Major reference", "Minor reference")
 }
 
 state_cache_path <- file.path(cache_dir, "historical_support_state_summaries.rds")

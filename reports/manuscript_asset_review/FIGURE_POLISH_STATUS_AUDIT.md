@@ -11,7 +11,7 @@ This audit checks the implementation status of the nine-point figure-polish requ
 ### Item 1 [complete]
 Figure 1 should remain good and consistent.
 
-- Note: USGS figure remains the manuscript anchor and uses the shared flood-threshold styling and flow-axis label contract.
+- Note: USGS figure remains the manuscript anchor and uses the shared current-rating NWS discharge-reference styling and flow-axis label contract.
 - Evidence:
   - `Figures/manuscript/site_context_usgs.png`
   - `wileyNJD-APA.tex:243`
@@ -38,9 +38,9 @@ Figure 3 should remove the historical-support subtitle, keep clear flow units, a
   - `wileyNJD-APA.tex:278`
 
 ### Item 4 [complete]
-Figure 4 should use the same flow-axis contract, simplified legend labels, aligned flood thresholds, and readable caption wording without “cutoff-centered”.
+Figure 4 should use the same flow-axis contract, simplified legend labels, aligned current-rating discharge references when present, and readable caption wording without “cutoff-centered”.
 
-- Note: Legend labels now use product/version names only, the flow axis matches the other flow figures, and the flood lines come from the shared helper used by the USGS plot.
+- Note: Legend labels now use product/version names only, the flow axis matches the other flow figures, and the current-rating discharge-reference lines come from the shared helper used by the USGS plot.
 - Evidence:
   - `Figures/manuscript/forecast_products_context.png`
   - `scripts/forecats_plot_bundle.R:390-541`

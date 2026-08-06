@@ -261,6 +261,45 @@ The documented post-stage outputs are:
 - `posterior_table_exports_README.md`
 - `posterior_table_exports_manifest.csv`
 
+## Current-rating flood-reference lines
+
+The horizontal reference lines on discharge-scale manuscript figures are not
+stage values and are not historical flood-stage classifications. They are
+approximate current-rating discharge equivalents of current NWS stage categories
+for BTEC1/USGS 11160500.
+
+Official source identity:
+- NOAA/CNRFC `BTEC1`: San Lorenzo River -- Big Trees.
+- USGS `11160500`: San Lorenzo R a Big Trees CA.
+
+Rating source:
+- USGS expanded shift-adjusted stage-discharge rating table:
+  `https://waterdata.usgs.gov/nwisweb/get_ratings?file_type=exsa&site_no=11160500`
+- Rating id: `40.0`
+- Rating type: `STGQ`, stage-discharge
+- Effective beginning: `2025-11-13 13:15 PST`
+- Retrieved in source file: `2026-07-06 16:50:01`
+- Status: provisional and subject to change
+
+Displayed article levels:
+
+| NWS category | Stage ft | Rating 40.0 discharge cfs | Discharge m^3/s | log(1 + m^3/s) |
+|---|---:|---:|---:|---:|
+| Minor | 16.50 | 7402.38 | 209.612058876 | 5.350017858 |
+| Major | 21.76 | 14895.73 | 421.800101286 | 6.046899494 |
+
+Full verified but not plotted by default:
+- Action/monitor: 14.00 ft, 4864.84 cfs, `log1p_cms = 4.932723683`
+- Moderate: 19.50 ft, 11302.95 cfs, `log1p_cms = 5.771640172`
+
+Interpretation contract:
+- Use the lines as present-day operational magnitude references only.
+- Do not describe them as direct NOAA flood stages on the discharge axis.
+- Do not use them to classify historical daily-mean observations as
+  flood-stage exceedances.
+- If stricter historical flood-stage classification is needed, use
+  contemporaneous stage observations and rating curves for the relevant dates.
+
 ## Figure provenance map
 
 ### High-confidence, workflow-linked figures already matching the recorded gold outputs

@@ -32,7 +32,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % My commands:
 \newcommand*\mymin[1][]{\min_{#1}\,}
-\newcommand{\vect}[1]{\mathbf{#1}}  
+\newcommand{\vect}[1]{\mathbf{#1}}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 \newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
 \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
@@ -62,8 +62,8 @@
 
 \jnlcitation{\cname{%
 \author{De Leon A.},
-\author{Prado R.}, and 
-\author{Sans\'o B.}} (\cyear{2025}), 
+\author{Prado R.}, and
+\author{Sans\'o B.}} (\cyear{2025}),
 \ctitle{Bayesian quantile-based correction and synthesis of hydrologic products}, \cjournal{Environmetrics}, \cvol{XX:1--20}.}
 
 \maketitle
@@ -87,7 +87,7 @@ We study this framework using daily river flow for the San Lorenzo River in Cali
 \centering
 \centerline{\includegraphics[width=450pt]{forecast_products_context.png}}
 \caption{
-Forecast-context display for the December 25, 2022 cutoff, spanning November 27, 2022 through January 22, 2023 on the $\log(1+x)$ scale with $x$ in m$^3$/s. Before the cutoff, the panel shows USGS observations and the NWS and GloFAS retrospective products used for source-discrepancy learning; after the cutoff, it shows held-out USGS verification together with the operational NWS and GloFAS forecast ensembles. Horizontal dashed lines indicate official minor and major flood thresholds for the river.
+Forecast-context display for the December 25, 2022 cutoff, spanning November 27, 2022 through January 22, 2023 on the $\log(1+x)$ scale with $x$ in m$^3$/s. Before the cutoff, the panel shows USGS observations and the NWS and GloFAS retrospective products used for source-discrepancy learning; after the cutoff, it shows held-out USGS verification together with the operational NWS and GloFAS forecast ensembles. Horizontal dashed lines show approximate current-rating discharge equivalents of the current NWS minor and major stage categories at BTEC1/USGS 11160500; they are included as operational magnitude references rather than as historical flood-stage classifications.
 }
 \label{fig:ensembles}
 \end{figure*}
@@ -237,15 +237,15 @@ Algorithm~\ref{alg1} gives the core MCMC updates in a compact source-indexed not
 %\subsubsection{Variational Bayes Implementation} \label{subsec:vb}
 
 Given the computational demands of traditional Markov Chain Monte Carlo (MCMC) methods on large datasets, we also implement a Mean Field Variational Bayes (MFVB) algorithm to approximate posterior inference.
-\citet{barata2021_flex_quantile} proposed a Variational Bayes algorithm that embeds an importance sampling scheme for non-conjugate parameters; however, this scheme risks particle collapse in high dimensions and requires further constraints to avoid degeneracy. In particular, it fixes the scale parameter of the exAL using pre-estimated values from an AL model. 
+\citet{barata2021_flex_quantile} proposed a Variational Bayes algorithm that embeds an importance sampling scheme for non-conjugate parameters; however, this scheme risks particle collapse in high dimensions and requires further constraints to avoid degeneracy. In particular, it fixes the scale parameter of the exAL using pre-estimated values from an AL model.
 Building on \citet{barata2021_flex_quantile}, we address stability issues in their importance sampling approach by adopting the Variational Bayes Laplace-Delta (VB-LD) methodology from \citet{wang2013nonconjugatevb}. This framework replaces the importance sampling strategy to handle non-conjugate parameters with a dual strategy: Laplace approximations for non-conjugate parameters and the use of the Delta method for computing expectations of functionals of the non-conjugate parameters.
 
 To illustrate our VB-LD strategy, consider a generic joint distribution \( p(D,\boldsymbol{\eta}, \boldsymbol{\psi}) \) where $D$ denotes the data, \( \boldsymbol{\psi} \) denotes conjugate parameters and \( \boldsymbol{\eta} \) represents non-conjugate parameters. We employ a Mean Field Variational Bayes (MFVB) approximation, assuming a factorized posterior \( q(\boldsymbol{\eta})q(\boldsymbol{\psi}) \), and optimize these approximations via Coordinate Ascent Variational Inference (CAVI). The CAVI framework in this setting iteratively updates two components: the conjugate parameters \( \boldsymbol{\psi} \) through \( q(\boldsymbol{\psi}) \propto \exp\left(\mathbb{E}_{q(\boldsymbol{\eta})}[\log p(D, \boldsymbol{\eta}, \boldsymbol{\psi})]\right) \), which admits closed-form solutions, and the non-conjugate parameters \( \boldsymbol{\eta} \) via \( q(\boldsymbol{\eta}) \propto \exp(\ell(\boldsymbol{\eta})) \), where \( \ell(\boldsymbol{\eta}) = \mathbb{E}_{q(\boldsymbol{\psi})}[\log p(D, \boldsymbol{\eta}, \boldsymbol{\psi})] \). The latter update is intractable due to its non-analytic normalizing constant, which we address through two steps. First, a Laplace approximation constructs a Gaussian surrogate \( q(\boldsymbol{\eta}) \approx \mathcal{N}(\hat{\boldsymbol{\eta}}, \Sigma) \), where \( \hat{\boldsymbol{\eta}} = \arg\max_{\boldsymbol{\eta}} \ell(\boldsymbol{\eta}) \) and \( \Sigma = -\left[\nabla^2 \ell(\hat{\boldsymbol{\eta}})\right]^{-1} \), matching the mode and curvature of \( \ell(\boldsymbol{\eta}) \). Second, expectations \( \mathbb{E}_{q(\boldsymbol{\eta})}[g(\boldsymbol{\eta})] \) required for updating \( \boldsymbol{\psi} \) are approximated via a second-order Taylor expansion (Delta Method): \( \mathbb{E}[g(\boldsymbol{\eta})] \approx g(\hat{\boldsymbol{\eta}}) + \frac{1}{2}\text{Tr}\left[\nabla^2 g(\hat{\boldsymbol{\eta}}) \Sigma\right] \), propagating uncertainty through \( \Sigma \) without stochastic sampling. The VB-LD algorithm iterates between Laplace mode-finding (e.g., via Newton-Raphson) and conjugate updates using these Delta-approximated moments until the measured Evidence Lower Bound (ELBO) converges.
 For reproducibility, implementation pseudocode for the VB algorithm is provided in Algorithm~\ref{alg:Alg3} and Algorithm~\ref{alg:Alg4}.
 
-Our approach fits a separate state-space model for each target quantile level, which allows the seven quantile-specific models used in the application to be fitted in parallel. In the San Lorenzo application, the full quantile set can be refit on operational time scales once observations, retrospective products, forecast products, and forecast covariates have been staged; representative publication runs take about two hours 
+Our approach fits a separate state-space model for each target quantile level, which allows the seven quantile-specific models used in the application to be fitted in parallel. In the San Lorenzo application, the full quantile set can be refit on operational time scales once observations, retrospective products, forecast products, and forecast covariates have been staged; representative publication runs take about two hours
 \textcolor{red}{on a Linux server with 64 cores and 503 GiB of RAM. This is a combined wall-clock time because fitting and forecasting were not timed separately. The main computational  cost arises from repeated filtering and smoothing operations and increases with the length of the time series and the dimension of the latent state.}
-%end-to-end in our computing environment. 
+%end-to-end in our computing environment.
 %These timings use the practical runtime fields \texttt{runtime\_sec\_total} and \texttt{runtime\_sec}, and are hardware- and implementation-dependent.
 
 \subsection{Posterior Predictive Synthesis Across Quantiles}
@@ -292,19 +292,14 @@ The same calculation is used for synthesized posterior predictive samples and fo
 
 \subsection{Study Setting and Observations}
 
-Our target series is the average daily natural water flow (in cubic feet per second \textcolor{red}{is it cubic feet or cubic meters? in the figure it appears as cubic meters}) of the San Lorenzo River at the Big Trees U.S. Geological Survey (USGS) gauging station in Santa Cruz, California (Figure \ref{fig:sanlorenzo}). The Big Trees location is characterized by minimal human intervention, so the recorded flow closely reflects natural river dynamics. Over the study window used in this article, the daily series covers May 29, 1987, through December 25, 2022, and contains 12,995 observations. 
-The San Lorenzo River is a major water resource for the Santa Cruz area and is relevant to both flood response and longer-term water-supply planning. The record includes major flood episodes as well as prolonged dry conditions. The analysis and forecasting of lower quantiles are therefore relevant for drought conditions, whereas upper quantiles are relevant for flood risk.
+Our target series is the average daily natural water flow of the San Lorenzo River at the Big Trees U.S. Geological Survey (USGS) gauging station in Santa Cruz, California (Figure \ref{fig:sanlorenzo}). The raw USGS discharge record is reported in cubic feet per second; we convert it to m$^3$/s before applying the $\log(1+x)$ transformation used in the figures and model inputs. The Big Trees location is characterized by minimal human intervention, so the recorded flow closely reflects natural river dynamics. Over the study window used in this article, the daily series covers May 29, 1987, through December 25, 2022, and contains 12,995 observations.
+The San Lorenzo River is a major water resource for the Santa Cruz area and is relevant to both flood response and longer-term water-supply planning. The record includes high-flow episodes as well as prolonged dry conditions. The analysis and forecasting of lower quantiles are therefore relevant for drought conditions, whereas upper quantiles are relevant for flood risk.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=450pt]{site_context_usgs.png}
 \caption{
-Observed USGS daily water flow on the $\log(1 + x)$ scale, with $x$ measured in m$^3$/s, May 29, 1987 through December 25, 2022. Horizontal dashed lines indicate NOAA-defined minor (16.5 ft, 503 cm) and major (21.76 ft, 663 cm) flooding thresholds, converted to the plotting scale. \textcolor{red}{Antonio, segun GPT: the reported flood thresholds—16.5 ft and 21.76 ft—are
-  river-stage measurements, whereas the graph is on a discharge scale. A stage
-  threshold cannot be placed on a discharge graph without a stage–discharge
-  conversion. The paper must identify the rating curve or conversion used. If no
-  conversion was performed, those horizontal lines should be removed. Esto es importante y si no estas seguro puedes simplemente eliminar las lineas horizontales y el texto relacionado a major y minor flooding que tengas en el resto del paper.
-}
+Observed USGS daily water flow on the $\log(1 + x)$ scale, with $x$ measured in m$^3$/s, May 29, 1987 through December 25, 2022. Horizontal dashed lines show approximate current-rating discharge equivalents of the current NWS minor and major stage categories at BTEC1/USGS 11160500, computed from USGS stage-discharge rating 40.0 and transformed to the plotting scale \citep{cnrfc_btec1, usgs_11160500_rating40}. They are operational magnitude references for the discharge scale, not historical flood-stage classifications of daily-mean observations.
 }
 \label{fig:sanlorenzo}
 \end{figure}
@@ -346,19 +341,19 @@ For the San Lorenzo application, the latent quantile process combines a local le
 \( \mathbf{G}^{\text{trend}}_t = [1] \in \mathbb{R}^{1\times1}, \quad
 \mathbf{F}^{\text{trend}}_t = [1] \in \mathbb{R}^{1}. \) The seasonal component incorporates three harmonics identified through exploratory spectral analysis to capture various seasonal cycles: an annual harmonic (12 months), a semiannual harmonic (6 months), and a long-term harmonic with an approximately 81-month (6.8 years) cycle, that captures cyclical behavior associated with alternating phases of heavy rainfall and prolonged drought. The seasonal component's evolution matrix and observational vector are defined as:
 \( \mathbf{G}^{\text{seas}}_t = \text{BlockDiag}\left(\textbf{J}_2(1,1),\ \textbf{J}_2(1,2),\ \textbf{J}_2\left(1,\frac{1}{6.8}\right)\right),\quad
-\mathbf{F}^{\text{seas}}_t  = 
+\mathbf{F}^{\text{seas}}_t  =
 \begin{bmatrix}
 \mathbf{E}_2 \\[5pt]
 \mathbf{E}_2 \\[5pt]
 \mathbf{E}_2
 \end{bmatrix}, \)
 where
-\( \textbf{J}_2(1,\omega) = 
+\( \textbf{J}_2(1,\omega) =
 \begin{bmatrix}
 \cos(\omega) & \sin(\omega) \\[5pt]
 -\sin(\omega) & \cos(\omega)
 \end{bmatrix},\quad
-\mathbf{E}_2 = 
+\mathbf{E}_2 =
 \begin{bmatrix}
 1 \\[5pt]
 0
@@ -366,12 +361,12 @@ where
 Here \(\textbf{J}_2(1,\omega) \in \mathbb{R}^{2\times2}\), \(\mathbf{G}^{\text{seas}}_t \in \mathbb{R}^{6\times6}\), \(\mathbf{F}^{\text{seas}}_t \in \mathbb{R}^{6}\), and \(\mathbf{E}_2 \in \mathbb{R}^{2}\). Combining both components, the complete evolution matrix and observational vector for trend and seasonal dynamics become:
 \(
 \mathbf{G}_t = \text{BlockDiag}\left(\mathbf{G}^{\text{trend}}_t,\ \mathbf{G}^{\text{seas}}_t\right),\quad
-\mathbf{F}_t = 
+\mathbf{F}_t =
 \begin{bmatrix}
 \mathbf{F}^{\text{trend}}_t \\[5pt]
 \mathbf{F}^{\text{seas}}_t
 \end{bmatrix}.
-\) Thus, \(\mathbf{G}_t \in \mathbb{R}^{7\times7}\) and \(\mathbf{F}_t \in \mathbb{R}^{7}\). 
+\) Thus, \(\mathbf{G}_t \in \mathbb{R}^{7\times7}\) and \(\mathbf{F}_t \in \mathbb{R}^{7}\).
 
 For prior hyperparameters (see Subsection~\ref{subsec:prioranddisc}), we specify \(\phi^s = 10^6\), \(\nu^s = 1\), and \(a_{\sigma^s} = b_{\sigma^s} = 10^{-6}\) for all \(s\in\mathcal{J}_0\), reflecting diffuse prior beliefs for both the USGS observation channel and the external product channels. Sensitivity analyses for \(\phi^s \in \{10^1, 10^3, 10^6\}\) and \(b_{\sigma^s} \in \{10^{-1}, 10^{-3}, 10^{-6}\}\) showed no noticeable impact on model fit.
 
@@ -389,15 +384,6 @@ Constructing a fold requires more than shifting the cutoff date. The archived pr
 At a cutoff \(c\), the model is fit using USGS observations and retrospective products available through \(c\). The forecast-window predictive distributions are then synthesized using the latest forecast products issued at or before \(c\), the forecast-window precipitation and soil-moisture covariates from the same staged origin bundle, and the canonical GDPC climate-index factor sliced consistently to that bundle. The GDPC factor is not treated as an operational forecast product or verification target. Post-cutoff USGS observations are reserved strictly for verification and are not used to fit or update the predictive distributions.
 
 GloFAS issues forecast products daily, whereas NWS issues them hourly. For GloFAS, the forecast matrix is the daily issue associated with the cutoff. For NWS, we first restrict to issuances available by the cutoff, retain the most recent available issuance for each target time and ensemble member, and then aggregate the retained hourly values to daily resolution. Thus older forecast issuances are not averaged into the publication forecast matrices; any older retained labels are compatibility aliases only. Figure~\ref{fig:ensembles} illustrates the resulting information structure for the representative cutoff on December 25, 2022 in a compact forecast-context display that spans 28 days before and 28 days after the cutoff. The GloFAS forecast window extends from December 26, 2022 to January 22, 2023, whereas the NWS forecast window extends from December 26, 2022 to January 2, 2023.
-%\begin{figure*}[hbt!]
-%\centering
-%\centerline{\includegraphics[width=450pt]{forecast_products_context.png}}
-%\caption{
-%Forecast-context display for the representative December 25, 2022 origin, spanning November 27, 2022 through January 22, 2023 on the $\log(1+x)$ scale with $x$ in m$^3$/s. Before the origin, the panel shows USGS observations together with the selected NWS and GloFAS retrospective products used by fit; after the origin, it shows held-out USGS verification plus the operational NWS and GloFAS forecast ensembles. Horizontal dashed lines indicate official minor and major flood thresholds for the river.
-%}
-%\label{fig:ensembles}
-%\end{figure*}
-
 \section{FORECAST VALIDATION RESULTS}
 \label{sec:forecastvalidation}
 
@@ -430,7 +416,7 @@ Appendix~\ref{app:he3ablation} reports a \textcolor{red}{component-removal sensi
 
 We focus on exAL-M-T1 because it has the lowest 28-day forecast-window CRPS across the five rolling-origin cutoffs in Table~\ref{tab:benchmark_crps_models}.
 
-%Table~\ref{tab:benchmark_crps_models}, 
+%Table~\ref{tab:benchmark_crps_models},
 Detailed source-specific summaries for the exAL shape and scale parameters are reported in Appendix~\ref{app:sourceparams}. In the main text, we focus on the most interpretable features of the selected model.
 
 \subsection{Covariate Effects}
@@ -448,7 +434,7 @@ To illustrate how the model behaves across contrasting hydrological conditions, 
 \centering
 \includegraphics[width=450pt]{historical_summary_dry_period.png}
 \caption{
-Posterior mean and 95\% credible intervals of river-flow quantiles during the dry period (2012--2016), estimated from the 2022-12-25 cutoff exAL-M-T1 model. Shown are the 5th (red), 50th (green), and 95th (blue) quantiles together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
+Posterior mean and 95\% credible intervals of river-flow quantiles during the dry period (2012--2016), estimated from the 2022-12-25 cutoff exAL-M-T1 model. Shown are the 5th (red), 50th (green), and 95th (blue) quantiles together with observed daily USGS flow (black). Horizontal dashed lines show the same current-rating NWS minor and major discharge-reference levels as in Figure~\ref{fig:sanlorenzo}.
 }
 \label{fig:dry_quantile}
 \end{figure}
@@ -457,16 +443,16 @@ Posterior mean and 95\% credible intervals of river-flow quantiles during the dr
 \centering
 \includegraphics[width=450pt]{historical_summary_wet_period.png}
 \caption{
-Posterior mean and 95\% credible intervals of river-flow quantiles during the wet period (2017--2019), estimated from the 2022-12-25 cutoff exAL-M-T1 model. Shown are the 5th (red), 50th (green), and 95th (blue) quantiles together with observed daily USGS flow (black). Horizontal dashed lines mark the official minor and major flood thresholds.
+Posterior mean and 95\% credible intervals of river-flow quantiles during the wet period (2017--2019), estimated from the 2022-12-25 cutoff exAL-M-T1 model. Shown are the 5th (red), 50th (green), and 95th (blue) quantiles together with observed daily USGS flow (black). Horizontal dashed lines show the same current-rating NWS minor and major discharge-reference levels as in Figure~\ref{fig:sanlorenzo}.
 }
 \label{fig:rainy_quantile}
 \end{figure}
 
-Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantile} show clear differences between posterior dynamics in the drought and wet periods. During 2012--2016, the posterior bands remain comparatively narrow and the upper tail rarely approaches the flood thresholds. During 2017--2019, the upper tail widens substantially during the main winter events, and the 95th quantile exceeds the major flood stage in 2017 and 2019.
-The contrast between these periods is most visible in the \textcolor{red}{separation between the 5th and 95th quantile curves. This separation is relatively small during dry conditions but increases during wet-season peaks, indicating greater dispersion in the fitted quantile structure during periods of greater hydrological variability. These figures describe fitted historical behavior rather than the full forecast predictive distribution.} 
+Figures~\ref{fig:dry_quantile} and \ref{fig:rainy_quantile} show clear differences between posterior dynamics in the drought and wet periods. During 2012--2016, the posterior bands remain comparatively narrow and the upper tail rarely approaches the current-rating NWS discharge-reference levels. During 2017--2019, the upper tail widens substantially during the main winter events, and the 95th quantile reaches levels comparable to the current-rating major-stage discharge reference in 2017 and 2019.
+The contrast between these periods is most visible in the \textcolor{red}{separation between the 5th and 95th quantile curves. This separation is relatively small during dry conditions but increases during wet-season peaks, indicating greater dispersion in the fitted quantile structure during periods of greater hydrological variability. These figures describe fitted historical behavior rather than the full forecast predictive distribution.}
 
 A complementary diagnostic is the long-cycle seasonal state. Figure~\ref{fig:80_components} shows the \textcolor{red}{ approximately 81-month} seasonal component alone for the same three representative quantile levels. This panel illustrates an interpretability advantage of the state-space formulation: the selected model is not only a forecast-correction device, but also a structured decomposition whose components can be tracked across hydrological regimes.
-The 80-month seasonal component is broadly aligned across the three representative quantiles and reflects multi-year wet and dry phases in the historical record. Its role is diagnostic: it summarizes the long-cycle behavior recovered by the selected model. 
+The 80-month seasonal component is broadly aligned across the three representative quantiles and reflects multi-year wet and dry phases in the historical record. Its role is diagnostic: it summarizes the long-cycle behavior recovered by the selected model.
 
 \begin{figure}[htbp]
 \centering
@@ -491,7 +477,7 @@ Synthesized posterior predictive distribution for river flow on the $\log(1+x)$ 
 }
 \label{fig:synth1}
 \end{figure}
-Because exAL-M-T1 is the selected extended-likelihood multivariate specification, Figure~\ref{fig:synth1} is the main predictive-synthesis illustration. The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and remain above the major flood threshold for several days, reflecting the high flood risk in this forecast window. Unlike the fitted historical quantile-location summaries, the posterior predictive envelope can vary across the forecast window as the source-specific corrections and forecast-window covariates change. A univariate transfer-active reference is reported in Appendix~\ref{app:historicalsynth} to separate the multivariate operational synthesis from a simpler reference that excludes retrospective-product and forecast-product source channels.
+Because exAL-M-T1 is the selected extended-likelihood multivariate specification, Figure~\ref{fig:synth1} is the main predictive-synthesis illustration. The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and reach levels comparable to the current-rating major-stage discharge reference, reflecting the high-flow risk in this forecast window. Unlike the fitted historical quantile-location summaries, the posterior predictive envelope can vary across the forecast window as the source-specific corrections and forecast-window covariates change. A univariate transfer-active reference is reported in Appendix~\ref{app:historicalsynth} to separate the multivariate operational synthesis from a simpler reference that excludes retrospective-product and forecast-product source channels.
 
 \section{Conclusions}
 \label{sec5}
@@ -515,9 +501,9 @@ Foundation grant MMS2050012.
 
 \section*{Code availability}
 
-The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm} (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}). The end-to-end forecasting workflow used in this study is available at \url{https://github.com/AntonioAPDL/Project1}. 
+The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm} (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}). The end-to-end forecasting workflow used in this study is available at \url{https://github.com/AntonioAPDL/Project1}.
 %A permanent archival release of the workflow repository will be created and cited before final resubmission.
-%The revised article repository records the manuscript-facing figures, tables, generated \TeX{} fragments, and compact provenance manifests used for the publication freeze. 
+%The revised article repository records the manuscript-facing figures, tables, generated \TeX{} fragments, and compact provenance manifests used for the publication freeze.
 Note that applying the method to a new basin still requires constructing a basin-specific, version-consistent archive of observations, retrospective products, forecast products, and forecast covariates.
 
 %\subsection*{Author contributions}
@@ -681,7 +667,7 @@ A^j = A(\gamma^j;p_0), \quad B^j = B(\gamma^j;p_0), \quad C^j = C(\gamma^j;p_0),
 (\mathbf{\sigma}) \sqrt{\mathbf{B} \odot \mathbf{v}_t} \odot \mathbf{\sigma}$
 \State  \(
 \mathbf{A} = \big[ A(\gamma^j;p_0)   \big], \quad \mathbf{B} = \big[  B(\gamma^j;p_0)  \big], \quad \mathbf{C} = \big[ C(\gamma^j;p_0)   \big] \), \text{ as defined in Subsection~\ref{subsec:exal}}
-\State \( \mathbf{v}_t = \big[  v^j_t   \big], \quad  \mathbf{s}_t = \big[ 
+\State \( \mathbf{v}_t = \big[  v^j_t   \big], \quad  \mathbf{s}_t = \big[
 s^j_t  \big] , \quad \mathbf{\sigma} = \big[ \sigma^j  \big]
 \)
 \State \(\odot\) denotes the Hadamard product.
@@ -694,7 +680,7 @@ s^j_t  \big] , \quad \mathbf{\sigma} = \big[ \sigma^j  \big]
     \State One-step-ahead forecast:
     \State $\mathbf{f}_t = \mathbf{H}_t' \mathbf{a}_t + \mathbf{M}_t$
     \State $\mathbf{Q}_t = \mathbf{H}_t' \mathbf{R}_t \mathbf{H}_t + \mathbf{O}_t$
-    
+
     \State Compute Posterior moments:
     \State $\mathbf{m}_t = \mathbf{a}_t + \mathbf{R}_t \mathbf{H}_t \mathbf{Q}_t^{-1}(\mathbf{Y}_t - \mathbf{f}_t)$
     \State $\mathbf{C}_t = \mathbf{R}_t - \mathbf{R}_t \mathbf{H}_t \mathbf{Q}_t^{-1} \mathbf{H}_t' \mathbf{R}_t$
@@ -708,7 +694,7 @@ s^j_t  \big] , \quad \mathbf{\sigma} = \big[ \sigma^j  \big]
         \State Compute Retrospective moments:
         \State $\mathbf{m}_t^s = \mathbf{m}_t + \mathbf{C}_t \mathbf{D}_{t+1}' \mathbf{R}_{t+1}^{-1} (\boldsymbol{\eta}_{t+1} - \mathbf{a}_{t+1})$
         \State $\mathbf{C}_t^s = \mathbf{C}_t - \mathbf{C}_t \mathbf{D}_{t+1}' \mathbf{R}_{t+1}^{-1} \mathbf{D}_{t+1} \mathbf{C}_t$
-        
+
         \State Sample $\boldsymbol{\eta}_t | D_T \sim \mathcal{N}(\mathbf{m}_t^s, \mathbf{C}_t^s)$
     \EndIf
 \EndFor
@@ -788,7 +774,7 @@ s^j_t  \right\rangle \big] , \quad \mathbf{\sigma} = \big[ \left\langle \sigma^j
     \State One-step-ahead forecast:
     \State $\mathbf{f}_t = \mathbf{H}_t'\mathbf{a}_t + \mathbf{M}_t$
     \State $\mathbf{Q}_t = \mathbf{H}_t'\mathbf{R}_t\mathbf{H}_t + \mathbf{O}_t$
-    
+
     \State Compute Posterior moments:
     \State $\mathbf{m}_t = \mathbf{a}_t + \mathbf{R}_t \mathbf{H}_t \mathbf{Q}_t^{-1}(\mathbf{Y}_t - \mathbf{f}_t)$
     \State $\mathbf{C}_t = \mathbf{R}_t - \mathbf{R}_t \mathbf{H}_t \mathbf{Q}_t^{-1} \mathbf{H}_t' \mathbf{R}_t$

@@ -44,16 +44,42 @@ if (!exists("figure_flow_axis_label", mode = "function")) {
   figure_flow_axis_label <- function(scale) scale
 }
 if (!exists("figure_flood_label_df", mode = "function")) {
+  figure_transform_flow_fallback <- function(x_cms, plot_scale) {
+    vals <- suppressWarnings(as.numeric(x_cms))
+    if (identical(plot_scale, "raw_cms")) return(vals)
+    if (identical(plot_scale, "log1p_cms")) return(log1p(vals))
+    stop(sprintf("Unknown plot scale: %s", plot_scale), call. = FALSE)
+  }
+  figure_current_rating_stage_reference_df <- function(
+    plot_scale = "log1p_cms",
+    levels = c("major", "minor")
+  ) {
+    refs <- data.frame(
+      reference_level = c("action_monitor", "minor", "moderate", "major"),
+      label = c("Action reference", "Minor reference", "Moderate reference", "Major reference"),
+      stage_ft = c(14.00, 16.50, 19.50, 21.76),
+      discharge_cfs = c(4864.84, 7402.38, 11302.95, 14895.73),
+      stringsAsFactors = FALSE
+    )
+    refs$discharge_cms <- refs$discharge_cfs * 0.028316846592
+    order_key <- match(tolower(levels), refs$reference_level)
+    order_key <- order_key[is.finite(order_key)]
+    refs <- refs[order_key, , drop = FALSE]
+    refs$y <- figure_transform_flow_fallback(refs$discharge_cms, plot_scale)
+    refs
+  }
   figure_flood_label_df <- function(plot_scale = "log1p_cms", values = numeric()) {
     if (!identical(plot_scale, "log1p_cms")) {
       return(data.frame())
     }
-    data.frame(
-      label = c("Major Flooding", "Minor Flooding"),
-      y = c(6.06378521, 5.20948615),
-      label_y = c(6.15, 5.13),
-      stringsAsFactors = FALSE
-    )
+    out <- figure_current_rating_stage_reference_df(plot_scale = plot_scale)
+    vals <- suppressWarnings(as.numeric(values))
+    vals <- vals[is.finite(vals)]
+    span <- suppressWarnings(diff(range(c(vals, out$y), na.rm = TRUE)))
+    if (!is.finite(span) || span <= 0) span <- 1
+    offset <- max(0.03 * span, 0.04)
+    out$label_y <- out$y + c(offset, -offset)
+    out
   }
 }
 if (!exists("figure_flood_stage_style", mode = "function")) {

@@ -509,11 +509,17 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         ]:
             self.assertNotIn(retired, article)
 
-    def test_selected_model_quantile_figures_include_flood_thresholds(self) -> None:
+    def test_selected_model_quantile_figures_use_current_rating_references(self) -> None:
         renderer = (ROOT / "scripts" / "render_authoritative_selected_model_support_figures.R").read_text(encoding="utf-8")
         self.assertIn("figure_flood_label_df", renderer)
         self.assertIn("figure_flood_stage_style", renderer)
         self.assertIn("geom_hline", renderer)
+        self.assertIn("7402.38", renderer)
+        self.assertIn("14895.73", renderer)
+        self.assertIn("Minor reference", renderer)
+        self.assertIn("Major reference", renderer)
+        self.assertNotIn("5.20948615", renderer)
+        self.assertNotIn("6.06378521", renderer)
 
     def test_overleaf_bundle_excludes_large_compact_support_data(self) -> None:
         support_dir = (
