@@ -25,10 +25,12 @@ archive-feasible, version-consistent, hydrologically contrasting forecast
 origins.
 
 Post-cutoff USGS observations are reserved strictly for verification and are not
-used to fit or update the predictive distributions. The local precipitation and
-soil-moisture transfer covariates have forecast-window support in the staged
-bundle. The workflow-facing `PCA` covariate is the canonical GDPC1 compatibility
-alias; it is a deterministic climate-index covariate and is not treated as an
+used to fit or update the predictive distributions. In the forecast window, the
+local precipitation and shallow soil-water transfer covariates are GEFS
+ensemble-based covariates staged in the cutoff-specific origin bundle and
+reduced to deterministic summaries before entering the model.
+The workflow-facing `PCA` covariate is the canonical GDPC1 compatibility alias;
+it is a deterministic climate-index covariate and is not treated as an
 operational forecast product or verification target.
 
 Precipitation is handled only as an external transfer covariate. The workflow
