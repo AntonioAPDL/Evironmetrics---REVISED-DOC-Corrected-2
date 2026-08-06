@@ -139,7 +139,7 @@ Current canonical GDPC decision snapshot:
 - `R1-M2`: link model formulation to results more directly.
 - `R1-M3`: reduce mathematical detail; remove PIT development from the main text; shorten posterior predictive synthesis exposition.
 - `R1-M4`: expanded forecast evidence beyond one event.
-- `R1-M5`: make the rolling-origin evaluation/cross-validation logic explicit.
+- `R1-M5`: make the cutoff-specific rolling-origin forecast-window evaluation explicit.
 - `R1-m1` to `R1-m9`: wording, organization, data-role clarity, table-caption fixes, and figure-interpretation clarifications.
 
 ### Remaining open rebuttal TODOs that must be respected while revising the manuscript
@@ -745,7 +745,7 @@ Goal: align the manuscript with the revised final forecasting protocol.
 - [ ] Decide where to place the explanation for why only five cutoffs were retained.
   - Source: `HE-2` TODO pending Raquel
 
-- [x] Make the cross-validation logic explicit as rolling-origin cutoff-based folds.
+- [x] Make the cutoff-specific rolling-origin forecast-window evaluation explicit.
   - Source: `R1-M5`
 
 ### Phase F. Forecast validation/results overhaul

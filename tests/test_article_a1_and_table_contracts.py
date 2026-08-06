@@ -169,11 +169,14 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn(r"\lambda=0.97", article)
         self.assertIn(r"\(c=1\)", article)
-        self.assertIn("cutoff-specific", article)
-        self.assertIn("publication manifests", article)
+        self.assertIn("pre-cutoff observational window", article)
+        self.assertIn("fixed calibrated specification", article)
+        self.assertIn(r"\(\epsilon=1\)", article)
+        self.assertIn("controls the prior weight assigned to the covariance structure learned before the cutoff", article)
         self.assertNotIn("c = 10^2", article)
         self.assertNotIn("epsilon = T", article)
         self.assertNotIn(r"\lambda=0.8995", article)
+        self.assertNotIn("forecast-window CRPS for the synthesized predictive distribution", article)
 
     def test_latest_forecast_issue_manifest_and_text_are_wired(self) -> None:
         manifest_path = ROOT / "artifacts" / "latest_forecast_issue" / "latest_forecast_issue_manifest.json"
@@ -238,7 +241,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
 
     def test_reviewer1_expanded_forecast_evidence_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
-        self.assertIn("five rolling-origin cutoff dates that span contrasting hydrological conditions", article)
+        self.assertIn("five cutoff-specific, version-consistent staged datasets that span contrasting hydrological conditions", article)
         self.assertIn("relatively low-flow windows as well as winter high-flow episodes", article)
         self.assertIn("not a continuous daily hindcast over the full post-2022 period", article)
         self.assertIn("Post-cutoff USGS observations are reserved strictly for verification", article)
@@ -250,14 +253,14 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
 
     def test_reviewer1_fair_forecast_assessment_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
-        self.assertIn("time-ordered analogue of cross-validation", article)
-        self.assertIn("each fold fixes a forecast origin", article)
+        self.assertIn("five cutoff-specific, version-consistent staged datasets", article)
+        self.assertIn("uses only information available at that origin to fit seven quantile-specific models", article)
+        self.assertNotIn("time-ordered analogue of cross-validation", article)
         self.assertIn("uses only information available at that origin", article)
-        self.assertIn("scores the resulting predictive distribution against future USGS observations", article)
-        self.assertIn("feasible folds are constrained by version-consistent forecast archives", article)
-        self.assertIn("heavily overlapping forecast windows would overrepresent the same hydrological episode", article)
-        self.assertIn("Constructing a fold requires more than shifting the cutoff date", article)
-        self.assertIn("a densely overlapping origin grid would require a substantially larger data-ingestion and computational campaign", article)
+        self.assertIn("scores that distribution against future USGS observations held out over the forecast window", article)
+        self.assertIn("Constructing one staged dataset requires more than shifting the cutoff date", article)
+        self.assertIn("archive-feasible, version-consistent origins that span contrasting hydrological settings", article)
+        self.assertIn("avoid dense overlaps that would overrepresent the same episode", article)
         self.assertNotIn("random K-fold cross-validation", article)
 
     def test_reviewer1_uncertainty_sources_are_distinguished(self) -> None:
