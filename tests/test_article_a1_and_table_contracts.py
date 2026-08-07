@@ -205,7 +205,7 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("For NWS, we first restrict to issuances available by the cutoff", article)
         self.assertIn("retain the most recent available issuance for each target time and ensemble member", article)
         self.assertIn("older forecast issuances are not averaged into the publication forecast matrices", article)
-        self.assertIn("compatibility aliases only", article)
+        self.assertIn("kept only for workflow file-name compatibility", article)
         self.assertNotIn("weighted combination of prior forecasts", article)
 
     def test_reviewer1_overview_forecasting_emphasis_is_wired(self) -> None:
@@ -218,8 +218,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("five-cutoff rolling-origin forecast comparison", article)
         self.assertIn("supporting interpretation for the selected specification", article)
         self.assertIn("comparative forecast evaluation remains the main empirical evidence", article)
-        self.assertIn("not as a second forecast-validation exercise", article)
-        self.assertIn("not as additional rolling-origin evidence", article)
+        self.assertIn("These figures are interpretation diagnostics", article)
+        self.assertIn("It illustrates how the fitted quantile-specific forecasts combine into one predictive distribution", article)
         self.assertTrue((ROOT / "docs" / "reviewer1_overview_forecasting_emphasis_contract.md").exists())
         self.assertNotIn("General Results", article)
         self.assertNotIn("Model A", article)
@@ -307,13 +307,9 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
     def test_reviewer1_model_formulation_links_to_results(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("single state-space model", article)
-        self.assertIn(
-            r"The benchmark variants reported in Section~\ref{sec:forecastvalidation} are tied to this formulation",
-            article,
-        )
-        self.assertIn(r"the observation likelihood gives the \(N\), AL, and exAL rows", article)
-        self.assertIn(r"the active source set gives the \(U\) and \(M\) rows", article)
-        self.assertIn(r"the forecast-window treatment of the transfer block gives the \(T0\) and \(T1\) rows", article)
+        self.assertIn(r"where \(L\in\{\mathrm{N},\mathrm{AL},\mathrm{exAL}\}\)", article)
+        self.assertIn(r"\(S\in\{\mathrm{U},\mathrm{M}\}\)", article)
+        self.assertIn(r"\(T\in\{\mathrm{T0},\mathrm{T1}\}\)", article)
         self.assertIn("nine Bayesian variants of the common state-space framework", article)
         self.assertIn("Because exAL-M-T1 is the selected extended-likelihood multivariate specification", article)
         self.assertNotIn("Model A", article)
@@ -447,8 +443,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
     def test_reviewer1_figure_variance_explanation_and_lineage_are_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
         self.assertIn("uncertainty around fitted quantile-location curves", article)
-        self.assertIn("rather than the full forecast distribution at a single origin", article)
-        self.assertIn("full synthesized posterior predictive distribution", article)
+        self.assertIn("synthesized posterior predictive distribution", article)
+        self.assertIn("fitted quantile-specific forecasts combine into one predictive distribution", article)
         self.assertIn("posterior predictive envelope can vary across the forecast window", article)
         self.assertIn("approximately 6.81 years, or about 82 months", article)
         self.assertNotIn("approximately 81-month", article)
@@ -637,15 +633,13 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
     def test_reviewer1_math_detail_is_streamlined(self) -> None:
         article_text = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")
 
-        self.assertIn(
-            "probability integral transform (PIT) diagnostics",
-            article_text,
-        )
+        self.assertNotIn("probability integral transform", article_text)
+        self.assertNotIn("PIT", article_text)
         self.assertIn(
             "For reproducibility, implementation pseudocode for the VB algorithm is provided",
             article_text,
         )
-        self.assertIn("Its role is illustrative", article_text)
+        self.assertIn("It illustrates how the fitted quantile-specific forecasts combine into one predictive distribution", article_text)
         self.assertIn("risk of quantile crossing", article_text)
         self.assertIn("Posterior Predictive Synthesis Across Quantiles", article_text)
         self.assertIn("Predictive Scoring by CRPS", article_text)
@@ -661,8 +655,6 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertNotIn("deterministic forecast", article_text)
         self.assertNotIn(r"{\mathbb E}_G|Y - y|", article_text)
         self.assertNotIn("empirical CRPS estimator", article_text)
-        self.assertEqual(article_text.count("probability integral transform"), 1)
-        self.assertEqual(article_text.count("PIT"), 1)
         self.assertEqual(article_text.count("quantile crossing"), 1)
         self.assertLess(
             article_text.index(r"\appendix"),

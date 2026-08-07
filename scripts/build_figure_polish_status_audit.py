@@ -71,7 +71,7 @@ def build_items(root: Path) -> list[dict[str, object]]:
                 'scripts/figure_style_contract.R:3-14',
                 'wileyNJD-APA.tex:278',
             ],
-            'note': 'The retrospective figure uses the shared flow-axis label and no support-window subtitle; the caption now states the corrected full-history support contract and `log(1+x)` units.',
+            'note': 'The retrospective figure uses the shared flow-axis label and no support-window subtitle; the caption now states the available pre-cutoff support window and `log(1+x)` units.',
         },
         {
             'item': 4,
