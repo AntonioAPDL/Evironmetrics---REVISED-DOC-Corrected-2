@@ -248,9 +248,9 @@ Our approach fits a separate state-space model for each target quantile level, w
 \subsection{Posterior Predictive Synthesis Across Quantiles}
 \label{subsec:quantilesynthesis}
 
-The model is fitted separately at a finite set of target quantile levels, but forecast validation and visualization require a single predictive distribution at each time point. We therefore apply a post-fit synthesis step to the posterior predictive output from the fitted quantile-specific models. This step does not change the VB updates or the fitted state-space models; it only maps their posterior predictive draws into a coherent marginal predictive distribution for each time point.
+The model is fitted separately at a finite set of target quantile levels, but forecast validation and visualization require a single predictive distribution at each time point. Because independently fitted quantile models do not automatically define one monotone predictive quantile function, we apply a post-fit synthesis step to the posterior predictive output from the fitted quantile-specific models. This step uses only posterior predictive output from the fitted models: it does not refit the state-space models, alter the VB updates, or use held-out post-cutoff USGS observations.
 
-Let \(0<\tau_1<\cdots<\tau_L<1\) denote the fitted quantile levels and let \(Y_{\ell,t}^{(s)}\) be posterior predictive draws from the model fitted at level \(\tau_\ell\), for \(s=1,\ldots,S\). Let \(q_{\ell,t}\) be the empirical \(\tau_\ell\)-quantile of those draws. Because the \(L\) quantile models are fitted independently, the anchor values \(q_{\ell,t}\) are first adjusted with isotonic regression \citep{barlow1972},
+Let \(0<\tau_1<\cdots<\tau_L<1\) denote the fitted quantile levels and let \(Y_{\ell,t}^{(r)}\) be posterior predictive draws from the model fitted at level \(\tau_\ell\), for \(r=1,\ldots,R\). Let \(q_{\ell,t}\) be the empirical \(\tau_\ell\)-quantile of those draws. Because the \(L\) quantile models are fitted independently, the anchor values \(q_{\ell,t}\) are first adjusted with isotonic regression \citep{barlow1972},
 \[
 \mathbf{m}_t^*
 = \underset{m_1 \leq \cdots \leq m_L}{\arg\min}
@@ -258,10 +258,14 @@ Let \(0<\tau_1<\cdots<\tau_L<1\) denote the fitted quantile levels and let \(Y_{
 \]
 The posterior draws from each quantile lane are then shifted to match the adjusted anchor,
 \[
-Y_{\ell,t}^{(s),\mathrm{adj}}
-= Y_{\ell,t}^{(s)} + (m_{\ell,t}^* - q_{\ell,t}).
+Y_{\ell,t}^{(r),\mathrm{adj}}
+= Y_{\ell,t}^{(r)} + (m_{\ell,t}^* - q_{\ell,t}).
 \]
-The adjusted quantile anchors define an initial synthesized quantile curve by interpolation across adjacent fitted levels. We evaluate this curve on a dense probability grid and apply monotone rearrangement \citep{chernozhukov2010} to obtain a nondecreasing synthesized quantile function. This step reduces the risk of quantile crossing after independently fitting the quantile-specific models. The resulting per-time marginal posterior predictive sample is used for the displayed synthesis bands, posterior predictive quantiles, and CRPS calculations.
+The adjusted quantile anchors define an initial synthesized quantile curve by interpolation across adjacent fitted levels. We evaluate this curve on a dense probability grid and apply monotone rearrangement \citep{chernozhukov2010} to obtain a nondecreasing synthesized quantile function \(\widetilde Q_t\). This step reduces the risk of quantile crossing after independently fitting the quantile-specific models. Evaluating the rearranged quantile function on \(u_r=r/(R+1)\), \(r=1,\ldots,R\), gives the synthesized empirical posterior predictive sample
+\[
+z_t^{(r)}=\widetilde Q_t(u_r).
+\]
+The sample \(\{z_t^{(r)}:r=1,\ldots,R\}\) is the per-time marginal predictive distribution used for the displayed synthesis bands, posterior predictive quantiles, and CRPS calculations.
 
 \subsection{Model Selection by CRPS}
 \label{subsec:modelselection}
