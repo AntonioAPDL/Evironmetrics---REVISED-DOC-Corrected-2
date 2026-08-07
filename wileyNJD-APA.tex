@@ -267,10 +267,10 @@ z_t^{(r)}=\widetilde Q_t(u_r).
 \]
 The sample \(\{z_t^{(r)}:r=1,\ldots,R\}\) is the per-time marginal predictive distribution used for the displayed synthesis bands, posterior predictive quantiles, and CRPS calculations.
 
-\subsection{Model Selection by CRPS}
+\subsection{Predictive Scoring by CRPS}
 \label{subsec:modelselection}
 
-For model selection and forecast evaluation, we use the Continuous Ranked Probability Score (CRPS) \citep{gneiting2007strictly}. The CRPS is negatively oriented, so smaller values are better, and it is a proper score for predictive distributions that rewards both calibration and sharpness.
+For predictive scoring, we use the Continuous Ranked Probability Score (CRPS) \citep{gneiting2007strictly} as the primary score for forecast-window predictive distributions and, separately, as a preliminary calibration criterion for selected specification choices. The CRPS is negatively oriented, so smaller values are better, and it is a proper score for predictive distributions that rewards both calibration and sharpness.
 
 For a predictive distribution \(G\) with quantile function \(Q_G\) and an observation \(y\), the CRPS is defined as
 \[
@@ -278,7 +278,7 @@ For a predictive distribution \(G\) with quantile function \(Q_G\) and an observ
 \qquad
 \rho_u(v) = v\big(u - \mathbf{1}\{v<0\}\big),
 \]
-where \(\rho_u\) is the quantile score, or check loss. Thus, the CRPS is a natural score in the context of quantile estimation. After the quantile-specific fits are synthesized, the predictive distribution at time \(t\) is represented by an empirical sample \(z_t^{(1)},\ldots,z_t^{(S)}\). We approximate the integral by evaluating the empirical quantile function on the grid \(u_s=s/(S+1)\), \(s=1,\ldots,S\). Let \(z_{t,(1)} \leq \cdots \leq z_{t,(S)}\) be the corresponding ordered sample values. Then
+where \(\rho_u\) is the quantile score, or check loss. Thus, the CRPS is a natural score in the context of quantile estimation. For a generic empirical predictive distribution represented by sample values \(z_t^{(1)},\ldots,z_t^{(S)}\), we approximate the integral by evaluating the empirical quantile function on the grid \(u_s=s/(S+1)\), \(s=1,\ldots,S\). Let \(z_{t,(1)} \leq \cdots \leq z_{t,(S)}\) be the corresponding ordered sample values. Then
 \[
 \widehat{\mathrm{CRPS}}(y_t,G_t)
 = \frac{2}{S}\sum_{s=1}^S
