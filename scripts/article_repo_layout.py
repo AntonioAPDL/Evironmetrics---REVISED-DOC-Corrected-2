@@ -83,6 +83,10 @@ TABLE_TEX_FILENAMES = {
     'sigma_block': 'appendix_sigma_summary_table.tex',
     'he4_rows': 'he4_quantile_check_loss_rows.tex',
     'he4_block': 'he4_quantile_check_loss_main_table.tex',
+    'he3_ablation_body': 'he3_ablation_crps_body.tex',
+    'he3_ablation_block': 'he3_ablation_crps_main_table.tex',
+    'he3_ablation_nws_horizon_body': 'he3_ablation_crps_nws_horizon_body.tex',
+    'he3_ablation_nws_horizon_block': 'he3_ablation_crps_nws_horizon_table.tex',
 }
 
 

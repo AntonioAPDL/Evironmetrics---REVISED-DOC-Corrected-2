@@ -381,7 +381,7 @@ def main() -> None:
         r'\bottomrule',
         r'\end{tabular*}',
         r'\begin{tablenotes}',
-        r'\item \textit{Note:} Check loss is computed on forecast-window rows only, using the held-out USGS observation as the verification target on the same $\log(1+Q)$ scale used for CRPS. The four synthesis competitors are resolved directly from the frozen HE-2 publication manifest.',
+        r'\item \textit{Note:} Check loss is computed on forecast-window rows only, using held-out USGS observations as verification targets on the same $\log(1+Q)$ scale used for CRPS. The four synthesis competitors are resolved directly from the frozen HE-2 publication manifest.',
         r'\end{tablenotes}',
         r'\end{threeparttable}',
         r'\end{table*}',
@@ -504,7 +504,12 @@ def main() -> None:
             'tab:gamma_sigma_intervals1': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['gamma_rows']).relative_to(article_root)),
             'tab:gamma_sigma_intervals1_block': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['gamma_block']).relative_to(article_root)),
             'tab:gamma_sigma_intervals2': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['sigma_rows']).relative_to(article_root)),
-            'tab:gamma_sigma_intervals2_block': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['sigma_block']).relative_to(article_root))
+            'tab:gamma_sigma_intervals2_block': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['sigma_block']).relative_to(article_root)),
+            'tab:he3_ablation_crps_body': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['he3_ablation_body']).relative_to(article_root)),
+            'tab:he3_ablation_crps_block': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['he3_ablation_block']).relative_to(article_root)),
+            'tab:he3_ablation_crps_nws_horizon_body': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['he3_ablation_nws_horizon_body']).relative_to(article_root)),
+            'tab:he3_ablation_crps_nws_horizon_block': str((layout.generated_tex_dir / TABLE_TEX_FILENAMES['he3_ablation_nws_horizon_block']).relative_to(article_root)),
+            'tab:he3_ablation_crps_horizon_summary': str((layout.generated_tex_dir / 'he3_ablation_crps_horizon_summary.csv').relative_to(article_root))
         }
     }
     (out_root / 'build_metadata.json').write_text(json.dumps(metadata, indent=2) + '\n')
