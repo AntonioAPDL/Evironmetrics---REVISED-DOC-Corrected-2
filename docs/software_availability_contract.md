@@ -21,10 +21,12 @@ The revised article uses a three-layer reproducibility model:
 
 The article repository is not meant to carry large runtime outputs or all raw
 forecast archives. Applying the workflow to a new basin requires staging the
-corresponding observations, forecast products, and covariates. Reproducing the
-retrospective validation design additionally requires a basin-specific,
-version-consistent archive of observations, retrospective products, issued
-forecast products, and forecast-window covariates.
+corresponding observations, current forecast products, and covariates.
+Reproducing the retrospective validation design additionally requires a
+basin-specific, version-consistent archive that aligns historical observations,
+retrospective products, issued forecast products, forecast-window covariates,
+product versions, spatial extraction rules, and source-specific forecast
+horizons.
 
 ## Current Public Software Status
 

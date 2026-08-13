@@ -19,9 +19,10 @@
       "fold_unit": "forecast_origin_cutoff",
       "dense_overlapping_origins_claimed": false,
       "dense_origin_policy": "not_used_because_archive_version_constraints_and_overlapping_windows_can_overrepresent_the_same_hydrological_episode",
-      "fold_construction_note": "each retained origin requires a version-consistent bundle of observations, retrospective products, forecast products, and forecast-window covariates from evolving gridded archives",
-      "computational_resource_note": "each retained origin requires seven quantile-specific fits followed by posterior predictive synthesis; dense overlapping origins would require a substantially larger data-ingestion and computational campaign",
-      "origin_selection_rationale": "archive-feasible version-consistent origins spanning contrasting hydrological settings without overrepresenting repeated forecast windows"
+      "fold_construction_note": "each retained origin requires reconstructing a version-consistent bundle of observations, retrospective products, issued forecast products, and forecast-window covariates from evolving operational archives",
+      "computational_resource_note": "a denser origin grid would require substantially more data recovery, version matching, spatial extraction, covariate staging, model fitting, and posterior predictive synthesis",
+      "origin_selection_rationale": "archive-feasible version-consistent origins spanning contrasting hydrological settings without repeatedly evaluating similar forecast windows",
+      "source_complexity_note": "forecast-validation inputs differ by release history, product version, update frequency, forecast horizon, ensemble-member structure, spatial support, and access interface"
     }
   },
   "forecast_origin_inputs": {

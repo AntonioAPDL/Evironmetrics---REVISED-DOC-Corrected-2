@@ -13,14 +13,18 @@ products issued at or before the cutoff, together with the forecast-window
 transfer covariates staged in the cutoff-specific support bundle.
 
 The article does not claim a continuous daily post-2022 hindcast or a dense
-grid of heavily overlapping origins. Constructing each fold requires a
-version-consistent bundle of observations, retrospective products, forecast
-products, and forecast-window covariates from large evolving gridded archives.
-Because every retained origin requires data ingestion plus seven
-quantile-specific fits followed by posterior predictive synthesis, a dense
-origin grid would require a substantially larger data-ingestion and
-computational campaign. Dense overlapping windows would also overrepresent
-individual hydrological episodes. The retained folds therefore prioritize
+grid of heavily overlapping origins. Constructing each fold requires more than
+shifting the cutoff date in a fixed table: the forecast-validation inputs come
+from evolving operational systems with different release histories, product
+versions, update frequencies, horizons, ensemble-member structures, spatial
+supports, and access interfaces. For each retained origin the workflow rebuilds
+a version-consistent bundle of observations, retrospective products, issued
+forecast products, and forecast-window covariates. This archive-reconstruction
+step is the main practical constraint on a denser rolling-origin design. A
+dense origin grid would require substantially more data recovery, version
+matching, spatial extraction, covariate staging, model fitting, and posterior
+predictive synthesis, while nearby forecast windows would repeatedly evaluate
+similar hydrological episodes. The retained folds therefore prioritize
 archive-feasible, version-consistent, hydrologically contrasting forecast
 origins.
 
