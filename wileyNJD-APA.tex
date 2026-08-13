@@ -489,7 +489,7 @@ In the San Lorenzo River application, the main empirical result is the five-cuto
 
 The selected specification remains interpretable through its dynamic decomposition into source-specific corrections, trend, seasonal structure, and transfer effects. Its fitted transfer coefficients are quantile-specific rather than uniform: in the representative cutoff, local precipitation and soil moisture have negative coefficients in the lower and median quantile fits and positive coefficients in the 95th quantile fit, while the first GDPC coefficient is comparatively small on the reported scale. The regime diagnostics similarly separate fitted historical behavior into trend, seasonal, and transfer structure, with wider separation between lower and upper fitted quantiles during wetter, high-flow periods than during dry periods.
 
-The framework still depends on the quality and compatibility of the external products and on the availability of forecast covariates at each forecast origin. The five-cutoff evaluation is not a dense continuous hindcast, and broader deployment would require additional version-consistent archives. In the present implementation, forecast-window GEFS precipitation and shallow soil-water ensembles enter through deterministic covariate summaries; future work could propagate the full uncertainty in these exogenous forecasts jointly with the river-flow synthesis. Natural extensions include joint treatment of multiple quantiles, richer dynamic structures for the discrepancy process, and spatial generalizations that couple nearby sites or basins.
+The framework still depends on the quality and compatibility of the external products and on the availability of forecast covariates at each forecast origin. The five-cutoff evaluation is not a dense continuous hindcast, and broader retrospective validation would require additional version-consistent archives. In the present implementation, forecast-window GEFS precipitation and shallow soil-water ensembles enter through deterministic covariate summaries; future work could propagate the full uncertainty in these exogenous forecasts jointly with the river-flow synthesis. Natural extensions include joint treatment of multiple quantiles, richer dynamic structures for the discrepancy process, and spatial generalizations that couple nearby sites or basins.
 
 
 
@@ -501,10 +501,10 @@ Foundation grant MMS2050012.
 
 \section*{Code availability}
 
-The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm} (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}). The end-to-end forecasting workflow used in this study is available at \url{https://github.com/AntonioAPDL/Project1}.
+The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm}, version 1.1.0 (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}), and are described in \citet{deleon2026exdqlm}. The end-to-end forecasting workflow used in this study is available at \url{https://github.com/AntonioAPDL/Project1}.
 %A permanent archival release of the workflow repository will be created and cited before final resubmission.
 %The revised article repository records the manuscript-facing figures, tables, generated \TeX{} fragments, and compact provenance manifests used for the publication freeze.
-Note that applying the method to a new basin still requires constructing a basin-specific, version-consistent archive of observations, retrospective products, forecast products, and forecast covariates.
+Applying the workflow to a new basin requires staging the corresponding observations, forecast products, and covariates. Reproducing the retrospective validation design also requires a basin-specific, version-consistent archive of historical observations, retrospective products, issued forecast products, and forecast-window covariates.
 
 %\subsection*{Author contributions}
 

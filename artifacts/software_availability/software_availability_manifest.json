@@ -1,14 +1,17 @@
 {
   "schema_version": "revision_software_availability_v1",
-  "last_updated": "2026-06-15",
+  "last_updated": "2026-08-12",
   "purpose": "HE-5 software availability and reproducibility contract for the revised article.",
   "public_estimation_package": {
     "name": "exdqlm",
     "description": "Reusable estimation routines for extended dynamic quantile linear models and related asymmetric Laplace paths.",
     "cran_package_url": "https://CRAN.R-project.org/package=exdqlm",
-    "cran_version_verified_for_contract": "1.0.0",
-    "cran_publication_date_verified_for_contract": "2026-06-04",
+    "cran_version_verified_for_contract": "1.1.0",
+    "cran_publication_date_verified_for_contract": "2026-07-09",
     "package_doi": "https://doi.org/10.32614/CRAN.package.exdqlm",
+    "software_paper_arxiv_url": "https://arxiv.org/abs/2607.22760",
+    "software_paper_arxiv_doi": "https://doi.org/10.48550/arXiv.2607.22760",
+    "software_paper_bibtex_key": "deleon2026exdqlm",
     "source_repository": "https://github.com/AntonioAPDL/exdqlm"
   },
   "study_workflow_repository": {
@@ -48,7 +51,10 @@
   "validation_policy": {
     "static_manifest_records": [
       "public package URL",
+      "public package version",
       "package DOI",
+      "software paper URL",
+      "software paper DOI",
       "workflow repository URL",
       "article repository URL",
       "corrections repository URL",

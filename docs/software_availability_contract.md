@@ -1,6 +1,6 @@
 # Software Availability Contract
 
-Date: 2026-06-15
+Date: 2026-08-12
 
 This document records the manuscript-side HE-5 reproducibility contract. The
 companion machine-readable manifest is:
@@ -12,21 +12,28 @@ companion machine-readable manifest is:
 The revised article uses a three-layer reproducibility model:
 
 1. The reusable exDQLM estimation routines are available through the CRAN
-   package `exdqlm`.
+   package `exdqlm`; the accompanying software paper is cited in the
+   manuscript.
 2. The study-specific forecasting workflow is available in the public workflow
    repository `https://github.com/AntonioAPDL/Project1`.
 3. This article repository freezes manuscript-facing figures, tables, generated
    TeX fragments, and compact provenance artifacts.
 
 The article repository is not meant to carry large runtime outputs or all raw
-forecast archives. Applying the workflow to a new basin requires constructing a
-basin-specific, version-consistent archive of observations, retrospective
-products, forecast products, and covariates.
+forecast archives. Applying the workflow to a new basin requires staging the
+corresponding observations, forecast products, and covariates. Reproducing the
+retrospective validation design additionally requires a basin-specific,
+version-consistent archive of observations, retrospective products, issued
+forecast products, and forecast-window covariates.
 
 ## Current Public Software Status
 
 - CRAN package: `https://CRAN.R-project.org/package=exdqlm`
+- Verified CRAN version for this contract: `1.1.0`
+- Verified CRAN publication date for this contract: `2026-07-09`
 - Package DOI: `https://doi.org/10.32614/CRAN.package.exdqlm`
+- Software paper: `https://arxiv.org/abs/2607.22760`
+- Software paper DOI: `https://doi.org/10.48550/arXiv.2607.22760`
 - Workflow repository: `https://github.com/AntonioAPDL/Project1`
 - Workflow archive DOI: pending final revision freeze
 
