@@ -207,24 +207,8 @@ class ArticleRepoLayout:
         return self.docs_dir / 'exal_m_t1_artifact_run_map.md'
 
     @property
-    def relaunch_checklist_doc(self) -> Path:
-        return self.docs_dir / 'exal_m_t1_relaunch_checklist.md'
-
-    @property
-    def manuscript_revision_checklist_doc(self) -> Path:
-        return self.docs_dir / 'manuscript_revision_checklist.md'
-
-    @property
-    def cleanup_audit_doc(self) -> Path:
-        return self.docs_dir / 'article_repo_cleanup_audit.md'
-
-    @property
     def repository_structure_doc(self) -> Path:
         return self.docs_dir / 'article_repository_structure.md'
-
-    @property
-    def repository_crosswalk_csv(self) -> Path:
-        return self.docs_dir / 'article_repository_path_crosswalk.csv'
 
     def manuscript_figure_path(self, label: str) -> Path:
         if label == 'fig:synth1':

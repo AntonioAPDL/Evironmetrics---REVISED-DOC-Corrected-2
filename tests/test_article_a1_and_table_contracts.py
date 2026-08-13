@@ -31,15 +31,15 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         )
         self.assertEqual(
             manifest.get("study_workflow_repository", {}).get("public_url"),
-            "https://github.com/AntonioAPDL/Project1",
+            "https://github.com/AntonioAPDL/san-lorenzo-exdqlm-reproducibility",
         )
         self.assertEqual(
             manifest.get("study_workflow_repository", {}).get("release_readiness_files"),
             {
                 "readme": "README.md",
                 "citation": "CITATION.cff",
-                "pending_release_notes": "RELEASE_NOTES_PENDING_FINAL_ARCHIVE.md",
-                "archive_readiness_checklist": "docs/workflow_archive_readiness_20260615.md",
+                "license_notice": "LICENSE",
+                "validation_script": "scripts/validate_public_repository.py",
             },
         )
         self.assertEqual(
@@ -51,8 +51,8 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn(r"CRAN R package \texttt{exdqlm}", article)
         self.assertIn("https://CRAN.R-project.org/package=exdqlm", article)
         self.assertIn("https://doi.org/10.32614/CRAN.package.exdqlm", article)
-        self.assertIn("https://github.com/AntonioAPDL/Project1", article)
-        self.assertIn("permanent archival release of the workflow repository will be created", article)
+        self.assertIn("https://github.com/AntonioAPDL/san-lorenzo-exdqlm-reproducibility", article)
+        self.assertIn("clean reproducibility repository for this study", article)
         self.assertNotIn("workflow repository has been archived", article)
 
     def test_runtime_benchmark_manifest_and_text_are_wired(self) -> None:
@@ -220,7 +220,6 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("comparative forecast evaluation remains the main empirical evidence", article)
         self.assertIn("These figures are interpretation diagnostics", article)
         self.assertIn("It illustrates how the fitted quantile-specific forecasts combine into one predictive distribution", article)
-        self.assertTrue((ROOT / "docs" / "reviewer1_overview_forecasting_emphasis_contract.md").exists())
         self.assertNotIn("General Results", article)
         self.assertNotIn("Model A", article)
         self.assertNotIn("Model B", article)
@@ -278,13 +277,15 @@ class ArticleA1AndTableContractTests(unittest.TestCase):
         self.assertIn("local hydrometeorological covariates", article)
         self.assertIn("precipitation from the PRISM Climate Group", article)
         self.assertIn("soil moisture from ECMWF ERA5-Land", article)
-        self.assertTrue((ROOT / "docs" / "reviewer1_uncertainty_framing_contract.md").exists())
         self.assertNotIn("local hydrological covariates", article)
         self.assertNotIn("does not currently distinguish meteorological and hydrological uncertainty", article)
         self.assertNotIn("meteorological and hydrological concepts are mixed", article)
 
-    def test_reviewer1_remaining_contract_note_exists(self) -> None:
-        self.assertTrue((ROOT / "docs" / "reviewer1_remaining_contracts.md").exists())
+    def test_submission_repo_points_to_clean_reproducibility_bundle(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        contract = (ROOT / "docs" / "software_availability_contract.md").read_text(encoding="utf-8")
+        self.assertIn("san-lorenzo-exdqlm-reproducibility", readme)
+        self.assertIn("san-lorenzo-exdqlm-reproducibility", contract)
 
     def test_reviewer1_era5_reanalysis_uncertainty_is_wired(self) -> None:
         article = (ROOT / "wileyNJD-APA.tex").read_text(encoding="utf-8")

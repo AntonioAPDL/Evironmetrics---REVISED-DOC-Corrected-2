@@ -10,7 +10,7 @@
     "raw_runtime_tree_in_article_repo": false
   },
   "local_access_note": {
-    "available_in_current_codex_session": false,
+    "available_in_current_local_environment": false,
     "reason": "The runtime worktree is external to the revised article repository and was not mounted under the accessible project paths during the HE-1 writing pass.",
     "validation_implication": "The article stores a compact provenance manifest and validates wording against this manifest; raw CSV re-summarization should be rerun from the source worktree when it is mounted."
   },

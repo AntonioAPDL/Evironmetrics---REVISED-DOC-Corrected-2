@@ -6,10 +6,10 @@ Date: 2026-06-23
 
 This file locks the reproducible `exAL-M-T1` source set used by the revised article and maps each manuscript object to its exact verified run/output source.
 
-It is the execution companion to:
-- `docs/exal_m_t1_relaunch_checklist.md`
+It is the run-level companion to:
 - `docs/figure_table_provenance.md`
-- `docs/exal_m_t1_shared_rerun_checklist.md`
+- `MANUSCRIPT_ASSET_MANIFEST.json`
+- `/data/muscat_data/jaguir26/project1_ucsc_phd/docs/current_authority_refresh_runbook.md`
 
 Important transition note:
 - the main HE2 benchmark authority now combines the two retained canonical-grid winners for `20210123` and `20211112` with three clean `20260623` replays for `20211221`, `20220511`, and `20221225`;
@@ -147,7 +147,7 @@ For the current revised article pass, the chosen approach is:
 6. preserve `fig:synth2` in `artifacts/historical_support_from_current_models/`
 7. preserve the corrected cutoff-dependent setup/support figures through:
    - `artifacts/five_cutoff_setup_support/`
-   - `reports/five_cutoff_setup_support_review/`
+   - optional local audit reports under ignored `reports/`
 8. keep the article repo free of older `v1` / ad hoc support families; the cleanup step removes them automatically.
 9. refresh the current-model support bundle through:
    - `scripts/refresh_current_model_output_support_figures.py`

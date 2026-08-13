@@ -78,8 +78,7 @@ def build_report(layout, removed_paths: list[str]) -> None:
     md.append('1. `Figures/manuscript/` should contain only the figure files named in `MANUSCRIPT_ASSET_MANIFEST.json`.\n')
     md.append('2. The old `DISC/` and `generated/` directory trees should remain absent.\n')
     md.append('3. Refresh through `scripts/refresh_all_generated_assets.py`, which now re-applies this cleanup automatically.\n')
-    layout.cleanup_audit_doc.parent.mkdir(parents=True, exist_ok=True)
-    layout.cleanup_audit_doc.write_text(''.join(md))
+    (report_dir / 'ARTICLE_REPO_CLEANUP_AUDIT.md').write_text(''.join(md), encoding='utf-8')
 
 
 def main() -> None:

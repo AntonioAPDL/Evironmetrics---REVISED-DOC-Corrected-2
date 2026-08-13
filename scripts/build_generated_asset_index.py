@@ -70,7 +70,7 @@ def write_inventory_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description='Build advisor-facing inventory guides for article artifacts and reports.')
+    parser = argparse.ArgumentParser(description='Build article-side inventory guides for artifacts and local reports.')
     parser.add_argument('--article-root', type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
 
@@ -118,43 +118,42 @@ def main() -> None:
 
     (layout.reports_dir / 'README.md').write_text(
         '# Article Reports\n\n'
-        'These folders contain advisor-facing review reports, galleries, and manifest summaries for the current revised article state.\n\n'
+        'These folders contain local review reports, galleries, and manifest summaries for the current revised article state. '
+        'They are generated audit outputs and are intentionally ignored in the submission-facing repository.\n\n'
         '| Report family | Description | Files | PNGs | README | Review entrypoints |\n'
         '|---|---|---:|---:|---|---|\n' + ''.join(
             f"| `{row['name']}` | {row['description']} | {row['file_count']} | {row['png_count']} | {row['has_readme']} | `{row['review_targets']}` |\n"
             for row in report_rows
         ) +
-        '\nPreferred review starting points:\n- `reports/manuscript_asset_review/ARTICLE_ASSET_REVIEW.md`\n- `reports/manuscript_asset_review/FIGURE_POLISH_STATUS_AUDIT.md`\n- `reports/five_cutoff_setup_support_review/FIVE_CUTOFF_SETUP_SUPPORT_REVIEW.md`\n'
+        '\nPreferred local review starting points:\n- `reports/manuscript_asset_review/ARTICLE_ASSET_REVIEW.md`\n- `reports/manuscript_asset_review/FIGURE_POLISH_STATUS_AUDIT.md`\n- `reports/five_cutoff_setup_support_review/FIVE_CUTOFF_SETUP_SUPPORT_REVIEW.md`\n'
     )
 
     (article_root / 'README.md').write_text(
         '# Revised Article Repository\n\n'
-        'This repository is the advisor-facing freeze of the revised manuscript, its manuscript-facing figures and tables, and the article-local artifact bundles used to regenerate them.\n\n'
+        'This repository is the submission-facing freeze of the revised manuscript, its manuscript-facing figures and tables, and the article-local artifact bundles used to verify them.\n\n'
         '## Where to look first\n\n'
         '- `wileyNJD-APA.tex`: manuscript source used by Overleaf\n'
         '- `Figures/manuscript/`: the exact figure files used by the manuscript\n'
-        '- `Figures/forecast_context_by_cutoff/`: advisor-facing copies of the Figure 4 forecast-context view for all five cutoffs\n'
+        '- `Figures/forecast_context_by_cutoff/`: cutoff-wide copies of the Figure 4 forecast-context view for all five cutoffs\n'
         '- `Figures/multivariate_synthesis_by_cutoff/`: cutoff-wide selected-model synthesis family, including the supplementary overlay panels\n'
-        '- `Figures/reference_synthesis_by_cutoff/`: advisor-facing Figure A2-style family for all five cutoffs\n'
+        '- `Figures/reference_synthesis_by_cutoff/`: Figure A2-style reference-synthesis family for all five cutoffs\n'
         '- `tables/generated_tex/`: the exact generated table blocks included by the manuscript\n'
         '- `docs/figure_table_provenance.md`: figure/table provenance summary\n'
-        '- `reports/manuscript_asset_review/ARTICLE_ASSET_REVIEW.md`: review report for the current article assets\n'
-        '- `reports/manuscript_asset_review/FIGURE_POLISH_STATUS_AUDIT.md`: point-by-point status audit for the earlier figure-polish request\n'
         '- `artifacts/software_availability/software_availability_manifest.json`: compact HE-5 software availability and archive-status manifest\n'
         '- `docs/software_availability_contract.md`: manuscript-side software reproducibility contract\n'
-        '- `scripts/validate_manuscript_figure_paths.py`: validates that every `\\includegraphics{}` call in the manuscript resolves through the canonical figure search paths\n\n'
+        '- `scripts/validate_manuscript_figure_paths.py`: validates that every `\\includegraphics{}` call in the manuscript resolves through the canonical figure search paths\n'
+        '- Public clean reproducibility bundle: `https://github.com/AntonioAPDL/san-lorenzo-exdqlm-reproducibility`\n\n'
         'For any future HE2 publication-authority replacement, start from the workflow\n'
         'runbook:\n\n'
         '- `/data/muscat_data/jaguir26/project1_ucsc_phd/docs/current_authority_refresh_runbook.md`\n\n'
         'Authority promotion is workflow-first. This article repo snapshots the promoted\n'
-        'manifest, generated tables, figures, and poster artifacts after the workflow\n'
+        'manifest, generated tables, and figures after the workflow\n'
         'overlay and validators pass.\n\n'
         '## Directory roles\n\n'
-        '- `figures/`: manuscript-facing figures, appendix cutoff panels, and advisor-facing cutoff-wide forecast/synthesis figure families\n'
+        '- `Figures/`: manuscript-facing figures, appendix cutoff panels, and cutoff-wide forecast/synthesis figure families\n'
         '- `tables/`: generated TeX tables used by the manuscript\n'
         '- `artifacts/`: frozen local bundles copied from validated workflow outputs\n'
-        '- `reports/`: review reports, galleries, audits, and selection manifests\n'
-        '- `docs/`: advisor-facing documentation and provenance notes\n'
+        '- `docs/`: submission-facing documentation and provenance notes\n'
         '- `scripts/`: refresh and audit scripts used to rebuild the article-side bundles\n\n'
         '## Standard refresh command\n\n'
         '```bash\npython3 scripts/refresh_all_generated_assets.py\n```\n\n'
@@ -164,9 +163,9 @@ def main() -> None:
         'Overleaf Git-sync compatibility.\n\n'
         'For a benchmark-only authority refresh, prefer the narrower sequence in the\n'
         'workflow runbook: refresh the HE2 manifest snapshot, selected-model bundles,\n'
-        'cutoff synthesis families, generated table includes, poster figures/PDF, and\n'
-        'corrections response tables. Use the broad refresh only when setup/support or\n'
-        'full-history diagnostic assets are intentionally being rebuilt too.\n\n'
+        'cutoff synthesis families, generated table includes, and corrections response\n'
+        'tables. Use the broad refresh only when setup/support, full-history diagnostic\n'
+        'assets, or local audit reports are intentionally being rebuilt too.\n\n'
         '## Overleaf sync recovery\n\n'
         'Overleaf can create `overleaf-*` branches that delete generated publication\n'
         'assets under `figures/`, `Figures/`, `artifacts/`, or `tables/generated_tex/`.\n'

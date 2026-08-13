@@ -16,6 +16,12 @@ main.pdf
 empty-eps-converted-to.pdf
 isba2026_poster/palette_previews/
 
+# Local-only poster and audit workspaces. The article submission repository
+# should stay focused on the manuscript source, figures, tables, artifacts, and
+# provenance needed by Overleaf/journal review.
+isba2026_poster/
+reports/
+
 # Local lower-case figure mirrors created during packaging/export work.
 # The canonical article figure tree in this repository is `Figures/`.
 figures/
@@ -32,4 +38,6 @@ artifacts/representative_selected_model_2022_12_25/authoritative_support/authori
 artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_selected_support_manifest.json
 artifacts/representative_selected_model_2022_12_25/authoritative_support/authoritative_selected_support_lineage.csv
 *.RData
+*.rda
 *.rdata
+*.Rdata

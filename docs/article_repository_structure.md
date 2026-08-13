@@ -1,14 +1,17 @@
 # Article Repository Structure
 
-This document describes the current advisor-facing structure of the revised article repository after the cleanup and rewiring pass on 2026-05-09.
+This document describes the current submission-facing structure of the revised
+article repository after the cleanup and reproducibility rewiring pass on
+2026-08-12.
 
 ## Purpose
 
-The repository is organized so that a reader can separate three roles immediately:
+The repository is organized so that a reader can separate three roles
+immediately:
 
 1. manuscript-facing assets actually used by the paper
 2. frozen artifact bundles copied from validated workflow outputs
-3. review and audit reports that document provenance and wiring
+3. provenance and reproducibility contracts that document the wiring
 
 ## Top-level layout
 
@@ -16,8 +19,7 @@ The repository is organized so that a reader can separate three roles immediatel
 - `Figures/`: current tracked manuscript-facing figures, supplementary cutoff synthesis panels, and advisor-facing forecast-context copies
 - `tables/`: generated TeX tables consumed by `\input{}` in the manuscript
 - `artifacts/`: article-local frozen bundles copied from validated workflow outputs
-- `reports/`: galleries, audits, selection manifests, and review reports
-- `docs/`: advisor-facing documentation and provenance notes
+- `docs/`: submission-facing documentation and provenance notes
 - `scripts/`: refresh, promotion, and audit scripts used to regenerate the article-side state
 
 The manuscript now resolves figures through a validated `\graphicspath` layer.
@@ -48,7 +50,7 @@ local refresh helpers used that spelling before promotion.
 
 The former setup/support composites remain available as generated support artifacts under `Figures/appendix_cutoff_panels/` and `artifacts/five_cutoff_setup_support/`, but they are no longer included as manuscript appendix figures.
 
-### Advisor-facing cutoff forecast-context figures
+### Cutoff forecast-context figures
 
 - `Figures/forecast_context_by_cutoff/cutoff_2021_01_23_forecast_context.png`
 - `Figures/forecast_context_by_cutoff/cutoff_2021_11_12_forecast_context.png`
@@ -56,7 +58,9 @@ The former setup/support composites remain available as generated support artifa
 - `Figures/forecast_context_by_cutoff/cutoff_2022_05_11_forecast_context.png`
 - `Figures/forecast_context_by_cutoff/cutoff_2022_12_25_forecast_context.png`
 
-These are advisor-facing copies of the Figure 4 forecast-context view for every cutoff. They are not manuscript-facing paths, but they are refreshed automatically and meant to support cutoff-by-cutoff review before wider synthesis promotion work.
+These are copies of the Figure 4 forecast-context view for every cutoff. They
+are not all manuscript-facing paths, but they are refreshed automatically and
+support cutoff-by-cutoff review before wider synthesis promotion work.
 
 ### Generated tables used directly by the manuscript
 
@@ -92,18 +96,12 @@ These are advisor-facing copies of the Figure 4 forecast-context view for every 
 - `artifacts/he4_quantile_check_loss_current_publication/`
   - local snapshot of the current HE4 quantile check-loss artifact
 
-## Review bundles
+## Local Review Bundles
 
-- `reports/manuscript_asset_review/`
-  - article-wide gallery, figure/table manifests, and wiring audit
-- `reports/manuscript_figure_selection/`
-  - exact promotion manifest from artifact bundles to manuscript-facing figure files
-- `reports/five_cutoff_setup_support_review/`
-  - review gallery and audits for the five-cutoff setup/support family
-- `reports/five_cutoff_synthesis_review/`
-  - review summary for cutoff-wide multivariate and reference synthesis families
-- `reports/representative_setup_selection/`
-  - records which cutoff bundle feeds Figures 1-4
+Audit galleries and reviewer-workbench reports are not tracked in the
+submission-facing repo. They may be regenerated locally by the refresh scripts
+and are ignored under `reports/`. Preserved local copies from the cleanup pass
+live under ignored `local_notes/`.
 
 ## Canonical manifest
 
@@ -127,16 +125,16 @@ python3 scripts/refresh_all_generated_assets.py
 This refresh path now does all of the following:
 
 1. rebuild article-side artifact bundles
-2. rebuild review reports and audits
+2. rebuild local review reports and audits under ignored `reports/`
 3. promote manuscript-facing figure files from the manifest contract
-4. promote the advisor-facing cutoff forecast-context and cutoff synthesis figure families
+4. promote the cutoff forecast-context and cutoff synthesis figure families
 5. regenerate manuscript table blocks
 6. remove the retired `DISC/` and `generated/` naming layers
-7. rebuild the advisor-facing README and inventory guides
+7. rebuild inventory guides
 8. validate that every manuscript `\includegraphics{}` call resolves to an
    existing figure asset
 
-## Standard compile workflow
+## Standard Compile Workflow
 
 ```bash
 pdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.tex
@@ -145,10 +143,14 @@ pdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.te
 pdflatex -interaction=nonstopmode -halt-on-error -jobname=output wileyNJD-APA.tex
 ```
 
-## Legacy crosswalk
+## Public Reproducibility Bundle
 
-The machine-readable current-to-legacy path crosswalk is stored at:
+The clean public reproducibility repository is:
 
-- `docs/article_repository_path_crosswalk.csv`
+- `https://github.com/AntonioAPDL/san-lorenzo-exdqlm-reproducibility`
 
-That file is meant for maintainers who need to map old notes or emails that still mention the retired `DISC/` or `generated/` paths.
+That repository is generated from the workflow repo with:
+
+```bash
+python3 scripts/export_san_lorenzo_exdqlm_reproducibility.py
+```
