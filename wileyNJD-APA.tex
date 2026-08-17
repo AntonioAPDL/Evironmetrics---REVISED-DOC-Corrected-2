@@ -411,7 +411,7 @@ Table~\ref{tab:he4_quantile_check_loss} complements the CRPS comparisons with ta
 \input{tables/generated_tex/he4_quantile_check_loss_main_table.tex}
 
 
-Appendix~\ref{app:he3ablation} reports a component-removal sensitivity analysis of the selected extended-likelihood multivariate model. The analysis preserves the same rolling-origin cutoffs, input construction, likelihood, and inference scheme while removing one structural component at a time. Its role is illustrative, and the benchmark tables above remain the primary forecast-comparison evidence; comparative forecast evaluation remains the main empirical evidence.
+Appendix~\ref{app:he3ablation} reports a component-removal sensitivity analysis of the selected extended-likelihood multivariate model. The analysis preserves the same rolling-origin cutoffs, input construction, likelihood, and inference scheme while removing one structural component at a time. Appendix Tables~\ref{tab:he3_ablation_crps} and \ref{tab:he3_ablation_crps_nws_horizon} report the corresponding 28-day and eight-day component-removal comparisons. Its role is illustrative, and the benchmark tables above remain the primary forecast-comparison evidence; comparative forecast evaluation remains the main empirical evidence.
 
 \section{INTERPRETATION OF THE SELECTED SPECIFICATION}
 \label{sec:interpretation}
@@ -419,7 +419,7 @@ Appendix~\ref{app:he3ablation} reports a component-removal sensitivity analysis 
 We focus on exAL-M-T1 because it has the lowest 28-day forecast-window CRPS across the five rolling-origin cutoffs in Table~\ref{tab:benchmark_crps_models}.
 
 %Table~\ref{tab:benchmark_crps_models},
-Detailed source-specific summaries for the exAL shape and scale parameters are reported in Appendix~\ref{app:sourceparams}. In the main text, we focus on the most interpretable features of the selected model.
+Detailed source-specific summaries for the exAL shape and scale parameters are reported in Appendix~\ref{app:sourceparams}, with skewness and scale summaries in Appendix Tables~\ref{tab:gamma_sigma_intervals1} and \ref{tab:gamma_sigma_intervals2}. In the main text, we focus on the most interpretable features of the selected model.
 
 \subsection{Covariate Effects}
 
@@ -478,7 +478,7 @@ Synthesized posterior predictive distribution for river flow on the $\log(1+x)$ 
 }
 \label{fig:synth1}
 \end{figure}
-Because exAL-M-T1 is the selected extended-likelihood multivariate specification, Figure~\ref{fig:synth1} is the main predictive-synthesis illustration. The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and reach levels comparable to the current-rating major-stage discharge reference, reflecting the high-flow risk in this forecast window. Unlike the fitted historical quantile-location summaries, the posterior predictive envelope can vary across the forecast window as the source-specific corrections and forecast-window covariates change. A univariate transfer-active reference is reported in Appendix~\ref{app:historicalsynth} to separate the multivariate operational synthesis from a simpler reference that excludes retrospective-product and forecast-product source channels.
+Because exAL-M-T1 is the selected extended-likelihood multivariate specification, Figure~\ref{fig:synth1} is the main predictive-synthesis illustration. The synthesized predictive distribution combines observed USGS measurements before the cutoff with the retrospective and forecast products available at that origin. The upper quantiles rise sharply after December 25, 2022 and reach levels comparable to the current-rating major-stage discharge reference, reflecting the high-flow risk in this forecast window. Unlike the fitted historical quantile-location summaries, the posterior predictive envelope can vary across the forecast window as the source-specific corrections and forecast-window covariates change. Appendix Figure~\ref{fig:synth2} reports a univariate transfer-active reference that excludes retrospective-product and forecast-product source channels, while Appendix Figures~\ref{fig:synthsupport_20210123}, \ref{fig:synthsupport_20211112}, \ref{fig:synthsupport_20211221}, and \ref{fig:synthsupport_20220511} report the remaining cutoff-specific multivariate synthesis panels.
 
 \section{Conclusions}
 \label{sec5}
@@ -496,13 +496,23 @@ The framework still depends on the quality and compatibility of the external pro
 
 \section*{Acknowledgments}
 
-This work is part of the Ph.D. dissertation of Antonio De Leon in the statistical science program at the University of California, Santa Cruz. The work was supported in part by the National Science
-Foundation grant MMS2050012.
+This work is part of the Ph.D. dissertation of Antonio De Leon in the statistical science program at the University of California, Santa Cruz.
+
+\section*{Funding Statement}
+
+This work was supported in part by the National Science Foundation under grant MMS2050012.
+
+\section*{Conflict of Interest Statement}
+
+The authors declare no conflict of interest.
+
+\section*{Data Availability Statement}
+
+The model-ready staged inputs, workflow code, manuscript-facing outputs, and provenance manifests supporting the findings of this study are available in the public reproducibility repository \citep{deleon2026sanlorenzo_reproducibility}. The repository starts from curated staged inputs used by the reported analysis and does not bundle raw climate-center retrievals or intermediate covariate-preprocessing workflows. The underlying source products are public data products from USGS, ECMWF/GloFAS, NOAA/NWS, PRISM, ERA5-Land, GEFS, and NOAA PSL, as described in the manuscript and repository.
 
 \section*{Code availability}
 
-The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm}, version 1.1.0 (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}), and are described in \citet{deleon2026exdqlm}. The clean reproducibility repository for this study, including curated fitting and post-processing workflow code, model-ready staged inputs for the five cutoffs, manuscript-facing outputs, and compact provenance manifests, is available at \url{https://github.com/AntonioAPDL/san-lorenzo-exdqlm-reproducibility}.
-The public repository starts from the staged inputs used by the reported analysis and does not bundle raw climate-center retrievals or intermediate covariate-preprocessing workflows. Applying the workflow to a new basin requires staging the corresponding observations, current forecast products, and covariates. Reproducing the retrospective validation design additionally requires a basin-specific, version-consistent archive that aligns historical observations, retrospective products, issued forecast products, forecast-window covariates, product versions, spatial extraction rules, and source-specific forecast horizons.
+The reusable estimation routines for the extended dynamic quantile linear model are available through the CRAN R package \texttt{exdqlm}, version 1.1.0 (\url{https://CRAN.R-project.org/package=exdqlm}; package DOI \url{https://doi.org/10.32614/CRAN.package.exdqlm}), and are described in \citet{deleon2026exdqlm}. The reproducibility repository cited in the Data Availability Statement contains the curated fitting and post-processing workflow code needed to reproduce the reported fits, validation summaries, tables, and figures from the staged inputs. Applying the workflow to a new basin requires staging the corresponding observations, current forecast products, and covariates. Reproducing the retrospective validation design additionally requires a basin-specific, version-consistent archive that aligns historical observations, retrospective products, issued forecast products, forecast-window covariates, product versions, spatial extraction rules, and source-specific forecast horizons.
 
 %\subsection*{Author contributions}
 
